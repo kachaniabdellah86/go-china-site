@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --radius: 18px;
+  --brand-red: #8b0000;
+  --brand-gold: #edb80b;
+  --brand-black: #000000;
+  --brand-offwhite: #faf8f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--brand-offwhite);
+  color: #18181b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+}
+
+.gradient-bg {
+  background:
+    radial-gradient(900px circle at 0% 0%, rgba(139, 0, 0, 0.10), transparent 42%),
+    radial-gradient(800px circle at 100% 10%, rgba(237, 184, 11, 0.14), transparent 40%),
+    radial-gradient(800px circle at 50% 100%, rgba(139, 0, 0, 0.06), transparent 40%);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.soft-card {
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.soft-button {
+  border-radius: 9999px;
+  background: var(--brand-red);
+  color: white;
+  padding: 12px 20px;
+  transition: 0.2s ease;
+}
+
+.soft-button:hover {
+  background: #740000;
+}
+
+.soft-button-light {
+  border-radius: 9999px;
+  border: 1px solid #e4e4e7;
+  background: white;
+  color: #18181b;
+  padding: 12px 20px;
+  transition: 0.2s ease;
+}
+
+.soft-button-light:hover {
+  background: #fafafa;
+}
+
+.brand-accent {
+  color: var(--brand-red);
+}
+
+.brand-gold {
+  color: var(--brand-gold);
+}
+
+.section-wrap {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  line-height: 2rem;
+  color: #52525b;
+}
