@@ -26,7 +26,7 @@ export default function Navbar({ locale }: { locale: "fr" | "en" | "ar" }) {
           </nav>
 
           <div className="flex items-center gap-3">
-            <LanguageSwitch current={locale} />
+            <LanguageSwitch/>
             <a
               className="rounded-full bg-zinc-900 text-white px-4 py-2 text-sm soft-shadow hover:bg-zinc-800"
               href="https://wa.me/212600000000"
