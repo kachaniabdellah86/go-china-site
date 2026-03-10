@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const adminCookie = process.env.ADMIN_COOKIE || "gochina_admin";
   const isLoggedIn = req.cookies.get(adminCookie)?.value === "1";
 
