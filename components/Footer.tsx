@@ -6,72 +6,100 @@ type Props = {
 
 const content = {
   fr: {
-    title: "YALLA CHINA",
-    desc: "Accompagnement pour les études en Chine : orientation, admission, visa étudiant, et suivi.",
-    cta: "WhatsApp principal",
-    secondary: "Deuxième numéro",
+    desc: "YALLA CHINA accompagne les étudiants et leurs parents pour concrétiser un projet d’études en Chine avec plus de clarté, de confiance et de suivi.",
+    linksTitle: "Contact",
+    servicesTitle: "Accompagnement",
+    services: [
+      "Orientation académique",
+      "Admission universitaire",
+      "Visa étudiant",
+      "Suivi personnalisé",
+    ],
     rights: "Tous droits réservés.",
   },
   en: {
-    title: "YALLA CHINA",
-    desc: "Support for studying in China: orientation, admission, student visa, and follow-up.",
-    cta: "Main WhatsApp",
-    secondary: "Second number",
+    desc: "YALLA CHINA supports students and parents to make their study project in China clearer, safer, and easier to achieve.",
+    linksTitle: "Contact",
+    servicesTitle: "Support",
+    services: [
+      "Academic orientation",
+      "University admission",
+      "Student visa",
+      "Personal follow-up",
+    ],
     rights: "All rights reserved.",
   },
   ar: {
-    title: "YALLA CHINA",
-    desc: "مرافقة للدراسة في الصين: التوجيه، القبول، فيزا الدراسة، والمتابعة.",
-    cta: "واتساب الرئيسي",
-    secondary: "الرقم الثاني",
+    desc: "YALLA CHINA ترافق الطلبة وآباءهم لتحقيق مشروع الدراسة في الصين بشكل أوضح وأكثر ثقة واطمئناناً.",
+    linksTitle: "التواصل",
+    servicesTitle: "المرافقة",
+    services: [
+      "التوجيه الأكاديمي",
+      "القبول الجامعي",
+      "فيزا الدراسة",
+      "المتابعة الشخصية",
+    ],
     rights: "جميع الحقوق محفوظة.",
   },
 };
 
 export default function Footer({ lang = "fr" }: Props) {
   const t = content[lang];
+  const isArabic = lang === "ar";
 
   return (
-    <footer className="border-t border-zinc-100 bg-white/80 py-10">
+    <footer className="border-t border-white/10 bg-black text-white">
       <Container>
-        <div className={`grid gap-6 text-sm text-zinc-600 md:grid-cols-3 ${lang === "ar" ? "text-right" : ""}`}>
-          <div className="space-y-3">
-            <p className="text-base font-extrabold text-zinc-900">
-              YALLA <span className="text-[#8B0000]">CHINA</span>
-              <span className="text-[#EDB80B]">.</span>
+        <div className={`grid gap-10 py-12 md:grid-cols-3 ${isArabic ? "text-right" : ""}`}>
+          <div className="space-y-4">
+            <p className="text-2xl font-black uppercase tracking-tight">
+              YALLA CHINA<span className="text-[#EDB80B]">.</span>
             </p>
-            <p>{t.desc}</p>
+            <p className="max-w-md text-sm leading-7 text-white/70">{t.desc}</p>
           </div>
 
-          <div className="space-y-2">
-            <p className="font-medium text-zinc-800">{t.cta}</p>
-            <a
-              href="https://wa.me/212638335452"
-              target="_blank"
-              rel="noreferrer"
-              className="block hover:text-[#8B0000]"
-            >
-              +212 638-335452
-            </a>
-
-            <p className="pt-2 font-medium text-zinc-800">{t.secondary}</p>
-            <a
-              href="https://wa.me/212707298029"
-              target="_blank"
-              rel="noreferrer"
-              className="block hover:text-[#8B0000]"
-            >
-              +212 707-298029
-            </a>
-          </div>
-
-          <div className="space-y-2">
-            <p className="font-medium text-zinc-800">Email</p>
-            <p>contact@yallachina.com</p>
-            <p className="pt-4 text-zinc-400">
-              © {new Date().getFullYear()} YALLA CHINA. {t.rights}
+          <div className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-wider text-[#EDB80B]">
+              {t.servicesTitle}
             </p>
+            <ul className="space-y-2 text-sm text-white/75">
+              {t.services.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
+
+          <div className="space-y-4">
+            <p className="text-sm font-semibold uppercase tracking-wider text-[#EDB80B]">
+              {t.linksTitle}
+            </p>
+
+            <div className="space-y-2 text-sm text-white/75">
+              <a
+                href="https://wa.me/212638335452"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-white"
+              >
+                +212 638-335452
+              </a>
+
+              <a
+                href="https://wa.me/212707298029"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-white"
+              >
+                +212 707-298029
+              </a>
+
+              <p>contact@yallachina.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div className={`border-t border-white/10 py-5 text-xs text-white/45 ${isArabic ? "text-right" : ""}`}>
+          © {new Date().getFullYear()} YALLA CHINA. {t.rights}
         </div>
       </Container>
     </footer>

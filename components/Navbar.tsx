@@ -38,23 +38,23 @@ export default function Navbar({ lang }: Props) {
   const isArabic = lang === "ar";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-100 bg-white/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/75 backdrop-blur-xl">
       <Container>
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-18 items-center justify-between py-3">
           <Link
             href={`/${lang}`}
-            className="shrink-0 text-lg font-extrabold tracking-tight text-zinc-950 sm:text-xl"
+            className="shrink-0 text-lg font-black uppercase tracking-tight text-white sm:text-2xl"
           >
-            YALLA <span className="text-[#8B0000]">CHINA</span>
+            YALLA <span className="text-white">CHINA</span>
             <span className="text-[#EDB80B]">.</span>
           </Link>
 
-          <nav className="hidden items-center gap-6 text-sm md:flex">
+          <nav className="hidden items-center gap-7 text-sm md:flex">
             {items.map((it) => (
               <Link
                 key={it.href}
                 href={it.href}
-                className="text-zinc-700 transition hover:text-[#8B0000]"
+                className="font-medium text-white/80 transition hover:text-[#EDB80B]"
               >
                 {it.label}
               </Link>
@@ -65,7 +65,7 @@ export default function Navbar({ lang }: Props) {
             <LanguageSwitch />
             <a
               href={waPrimary}
-              className="rounded-full bg-[#8B0000] px-4 py-2 text-sm text-white transition hover:bg-[#740000]"
+              className="rounded-full border border-[#EDB80B] bg-[#EDB80B] px-4 py-2 text-sm font-semibold text-black transition hover:opacity-90"
               target="_blank"
               rel="noreferrer"
             >
@@ -76,7 +76,7 @@ export default function Navbar({ lang }: Props) {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-900 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white md:hidden"
             aria-label="Open menu"
             aria-expanded={open}
           >
@@ -85,7 +85,7 @@ export default function Navbar({ lang }: Props) {
         </div>
 
         {open && (
-          <div className="border-t border-zinc-100 py-4 md:hidden">
+          <div className="border-t border-white/10 py-4 md:hidden">
             <div className={`flex flex-col gap-3 ${isArabic ? "text-right" : "text-left"}`}>
               <div className="pb-2">
                 <LanguageSwitch />
@@ -97,7 +97,7 @@ export default function Navbar({ lang }: Props) {
                     key={it.href}
                     href={it.href}
                     onClick={() => setOpen(false)}
-                    className="rounded-2xl px-3 py-3 text-sm font-medium text-zinc-800 transition hover:bg-zinc-50"
+                    className="rounded-2xl px-3 py-3 text-sm font-medium text-white/90 transition hover:bg-white/5 hover:text-[#EDB80B]"
                   >
                     {it.label}
                   </Link>
@@ -106,7 +106,7 @@ export default function Navbar({ lang }: Props) {
 
               <a
                 href={waPrimary}
-                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#8B0000] px-4 py-3 text-sm text-white transition hover:bg-[#740000]"
+                className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#EDB80B] px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90"
                 target="_blank"
                 rel="noreferrer"
               >
