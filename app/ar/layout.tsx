@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div dir="rtl" className="min-h-screen">
+    <div lang="ar" dir="rtl" className="min-h-screen overflow-x-clip">
       <Navbar lang="ar" />
       <main className="gradient-bg">{children}</main>
       <Footer lang="ar" />

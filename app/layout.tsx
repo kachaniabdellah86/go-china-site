@@ -2,8 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YALLA CHINA — Study in China",
-  description: "YALLA CHINA helps students and families with study opportunities in China.",
+  title: "YALLA CHINA | Study in China",
+  description:
+    "YALLA CHINA helps students and families build a clear, guided study project in China.",
 };
 
 export default function RootLayout({
