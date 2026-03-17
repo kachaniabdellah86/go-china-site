@@ -10,33 +10,29 @@ type Copy = {
     eyebrow: string;
     title: string;
     description: string;
+    note: string;
     primary: string;
     secondary: string;
     stats: { label: string; value: string }[];
     visualTag: string;
     visualTitle: string;
     visualText: string;
-    routeLabel: string;
-    routeItems: string[];
-    contactLabel: string;
-    contactNote: string;
-    ribbonTitle: string;
-    ribbonItems: string[];
+    visualItems: string[];
   };
-  features: {
+  reasons: {
     eyebrow: string;
     title: string;
     description: string;
     items: { title: string; desc: string }[];
   };
-  journey: {
+  process: {
     eyebrow: string;
     title: string;
     description: string;
     steps: { title: string; desc: string }[];
+    highlightTitle: string;
+    highlightText: string;
     tags: string[];
-    visionTitle: string;
-    visionText: string;
   };
   cta: {
     eyebrow: string;
@@ -51,97 +47,95 @@ const copy: Record<Locale, Copy> = {
   fr: {
     hero: {
       badge: "YALLA CHINA • Études en Chine • Étudiants & Parents",
-      eyebrow: "Votre route vers la Chine commence ici",
-      title: "Projetez-vous dans votre future vie étudiante en Chine.",
+      eyebrow: "Étudier en Chine avec un plan clair",
+      title:
+        "Avancez vers vos études en Chine avec un accompagnement simple, sérieux et concret.",
       description:
-        "Choisissez une destination plus ambitieuse, comprenez les étapes à venir et avancez avec un accompagnement qui rassure autant l'étudiant que la famille.",
+        "Nous aidons les étudiants et leurs familles à choisir la bonne direction, préparer une candidature plus forte, comprendre l'admission, et avancer jusqu'au visa avec plus de clarté.",
+      note:
+        "Réponse rapide sur WhatsApp • Pour les étudiants et les familles • Du premier message jusqu'au visa",
       primary: "Postuler maintenant",
       secondary: "Voir nos services",
       stats: [
-        { label: "Réponse rapide", value: "Sous 24-48h" },
-        { label: "Suivi clair", value: "Du premier échange au visa" },
-        { label: "Parents rassurés", value: "Explications simples et humaines" },
+        { label: "Orientation claire", value: "Choix du niveau et du parcours" },
+        { label: "Candidature plus forte", value: "Documents et logique du dossier" },
+        { label: "Visa étudiant", value: "Étapes et vérifications avant la demande" },
       ],
-      visualTag: "Vision concrète",
-      visualTitle: "Le projet doit déjà ressembler à un vrai départ.",
+      visualTag: "Ce que vous cherchez au départ",
+      visualTitle: "Comprendre où commencer et comment avancer.",
       visualText:
-        "Quand l'objectif, les étapes et l'accompagnement deviennent lisibles, le rêve paraît beaucoup plus proche et beaucoup plus sérieux.",
-      routeLabel: "Ce que vous obtenez",
-      routeItems: [
-        "Une orientation adaptée à votre niveau",
-        "Un dossier plus propre et plus convaincant",
-        "Un cap clair jusqu'à l'admission et au départ",
-      ],
-      contactLabel: "WhatsApp direct",
-      contactNote:
-        "Un premier message suffit pour obtenir une direction plus claire sur votre projet d'études en Chine.",
-      ribbonTitle: "Ce que vous devez ressentir ici",
-      ribbonItems: [
-        "Confiance dans la décision",
-        "Clarté sur la suite",
-        "Énergie pour passer à l'action",
+        "Les premières questions sont presque toujours les mêmes: quoi étudier, quelle université viser, quels documents préparer, et comment éviter les erreurs de départ.",
+      visualItems: [
+        "Choisir la bonne voie",
+        "Préparer les bons documents",
+        "Avancer avec des réponses rapides",
+        "Rassurer la famille dès le début",
       ],
     },
-    features: {
-      eyebrow: "Pourquoi cette expérience attire",
-      title: "Une ambiance plus forte, plus claire et plus motivante.",
+    reasons: {
+      eyebrow: "Pourquoi choisir YALLA CHINA",
+      title: "Un accompagnement pensé pour convaincre à la fois l'étudiant et la famille.",
       description:
-        "Quand un étudiant arrive ici, il doit sentir que le projet est réel, accessible et accompagné avec sérieux, pas seulement présenté comme une idée lointaine.",
+        "Vous avez besoin de réponses claires, d'une direction crédible et d'un accompagnement qui rassure autant l'étudiant que la famille.",
       items: [
         {
-          title: "Projection immédiate",
-          desc: "Vous devez pouvoir vous imaginer dans un nouveau rythme de vie, une vraie université et une trajectoire plus grande.",
+          title: "Des explications plus claires",
+          desc: "Chaque étape est présentée avec un langage simple pour que le projet soit plus facile à comprendre.",
         },
         {
-          title: "Décision plus solide",
-          desc: "Plus le chemin paraît lisible, plus il devient facile d'assumer la décision d'avancer.",
+          title: "Un seul cap du début à la fin",
+          desc: "Vous gardez une direction cohérente au lieu de chercher des réponses dispersées à chaque nouvelle étape.",
         },
         {
-          title: "Famille rassurée",
-          desc: "Des explications simples, un contact humain et une logique claire rendent le projet plus crédible pour les parents.",
+          title: "Un contact humain et rapide",
+          desc: "WhatsApp reste visible et simple à utiliser quand vous avez besoin d'une réponse rapide.",
         },
         {
-          title: "Passage à l'action",
-          desc: "Chaque bloc doit rapprocher du dossier, pas repousser la décision avec trop d'incertitude.",
+          title: "Une logique utile pour les parents",
+          desc: "Le projet devient plus rassurant lorsque la famille comprend le chemin et les prochaines décisions.",
         },
       ],
     },
-    journey: {
-      eyebrow: "Un chemin lisible",
-      title: "Du premier message jusqu'au départ, la route devient claire.",
+    process: {
+      eyebrow: "Comment le projet avance",
+      title: "Vous voyez tout de suite les vraies étapes, pas seulement une promesse.",
       description:
-        "Le projet ne reste pas une simple envie. Il prend la forme d'étapes compréhensibles, d'un rythme plus rassurant et d'un futur qui paraît enfin atteignable.",
+        "Le parcours devient plus simple à suivre quand chaque étape est claire: le choix, le dossier, l'admission, le visa, puis le départ.",
       steps: [
         {
-          title: "01. Clarifier l'objectif",
-          desc: "Nous cadrons avec vous le niveau d'étude, la filière et le type d'université qui correspondent vraiment à votre profil.",
+          title: "01. Comprendre votre profil",
+          desc: "Nous commençons par clarifier votre niveau d'étude, votre objectif, et le type d'université qui vous correspond.",
         },
         {
-          title: "02. Préparer un dossier plus fort",
-          desc: "Chaque document, chaque priorité et chaque décision servent à rendre la candidature plus crédible et mieux construite.",
+          title: "02. Construire un dossier solide",
+          desc: "Nous structurons les documents importants pour donner à la candidature plus de cohérence et plus de force.",
         },
         {
-          title: "03. Aller jusqu'au départ",
-          desc: "Admission, visa, préparation au voyage et suivi restent organisés jusqu'au moment où le projet devient concret.",
+          title: "03. Suivre l'admission",
+          desc: "Nous vous aidons à rester organisé pendant les échanges, les décisions et les étapes importantes du dossier.",
+        },
+        {
+          title: "04. Aller jusqu'au visa et au départ",
+          desc: "La préparation ne s'arrête pas à l'acceptation: le visa et le départ demandent aussi une vraie méthode.",
         },
       ],
+      highlightTitle: "Un projet plus lisible donne plus confiance.",
+      highlightText:
+        "Quand un étudiant sait quoi faire ensuite, le rêve devient un plan. Et quand la famille comprend le plan, la décision devient plus facile à assumer.",
       tags: [
-        "Orientation académique",
-        "Admission universitaire",
+        "Choix d'université",
+        "Préparation du dossier",
+        "Admission",
         "Visa étudiant",
-        "Préparation au départ",
-        "Support étudiants & parents",
-        "WhatsApp rapide",
+        "Conseils avant départ",
+        "Support familles",
       ],
-      visionTitle: "Un avenir qui paraît enfin possible.",
-      visionText:
-        "Le bon site ne doit pas seulement informer. Il doit vous aider à croire au projet, à mieux comprendre la route, et à sentir que vous pouvez commencer maintenant.",
     },
     cta: {
-      eyebrow: "Lancer le projet",
-      title: "Si cette destination vous parle, la prochaine étape est déjà prête.",
+      eyebrow: "La prochaine étape",
+      title: "Si vous êtes prêt à avancer, nous pouvons commencer maintenant.",
       description:
-        "Découvrez les services ou envoyez votre demande dès maintenant pour transformer l'envie d'étudier en Chine en plan concret.",
+        "Découvrez les services ou envoyez votre demande dès aujourd'hui pour transformer votre projet d'études en Chine en plan concret.",
       primary: "Postuler maintenant",
       secondary: "WhatsApp : +212 638-335452",
     },
@@ -149,97 +143,95 @@ const copy: Record<Locale, Copy> = {
   en: {
     hero: {
       badge: "YALLA CHINA • Study in China • Students & Parents",
-      eyebrow: "Your route to China starts here",
-      title: "Picture yourself inside your future student life in China.",
+      eyebrow: "Study in China with a clear plan",
+      title:
+        "Move toward your studies in China with guidance that feels simple, serious, and concrete.",
       description:
-        "Choose a more ambitious destination, understand the steps ahead, and move forward with guidance that reassures both students and families.",
+        "We help students and families choose the right direction, build a stronger application, understand admission, and move toward the visa with more clarity.",
+      note:
+        "Fast WhatsApp reply • For students and families • From the first message to the visa",
       primary: "Apply now",
       secondary: "View our services",
       stats: [
-        { label: "Fast response", value: "Within 24-48h" },
-        { label: "Clear follow-up", value: "From first exchange to visa" },
-        { label: "Family confidence", value: "Simple and human explanations" },
+        { label: "Clear orientation", value: "Choosing the right level and path" },
+        { label: "Stronger application", value: "Documents and file strategy" },
+        { label: "Student visa", value: "Checks before you submit" },
       ],
-      visualTag: "A concrete vision",
-      visualTitle: "The project should already feel like a real departure.",
+      visualTag: "What students need first",
+      visualTitle: "Understand where to start and how to move forward.",
       visualText:
-        "When the goal, the steps, and the support become easier to understand, the dream starts to feel much closer and much more serious.",
-      routeLabel: "What you gain",
-      routeItems: [
-        "Guidance matched to your level",
-        "A cleaner and stronger application",
-        "A clear route through admission and departure",
-      ],
-      contactLabel: "Direct WhatsApp",
-      contactNote:
-        "One first message is enough to get a clearer direction for your study project in China.",
-      ribbonTitle: "What you should feel here",
-      ribbonItems: [
-        "Confidence in the decision",
-        "Clarity about the next step",
-        "Real energy to move forward",
+        "The first questions are almost always the same: what to study, which university to target, which documents matter, and how to avoid the wrong start.",
+      visualItems: [
+        "Choose the right path",
+        "Prepare the right documents",
+        "Get fast answers",
+        "Reassure the family from the beginning",
       ],
     },
-    features: {
-      eyebrow: "Why this experience attracts students",
-      title: "Stronger atmosphere, clearer direction, stronger desire to move.",
+    reasons: {
+      eyebrow: "Why choose YALLA CHINA",
+      title: "Guidance that reassures the student and gives confidence to the family.",
       description:
-        "When students arrive here, they should feel that the project is real, reachable, and seriously supported, not just presented as a distant idea.",
+        "You need clear answers, a credible direction, and support that helps both students and parents feel ready to move forward.",
       items: [
         {
-          title: "Immediate projection",
-          desc: "You should be able to picture yourself in a new academic rhythm, a real campus, and a bigger future.",
+          title: "Clearer explanations",
+          desc: "Each stage is explained in simple language so the project feels easier to understand.",
         },
         {
-          title: "Stronger decision",
-          desc: "The clearer the route feels, the easier it becomes to commit to the next step.",
+          title: "One direction from start to finish",
+          desc: "You keep one coherent route instead of searching for different answers at every new step.",
         },
         {
-          title: "Family reassurance",
-          desc: "Simple explanations, human contact, and a clear logic make the project easier to trust.",
+          title: "Fast and human contact",
+          desc: "WhatsApp stays visible and easy to use whenever you need a quick answer.",
         },
         {
-          title: "Natural action",
-          desc: "Each section should move students closer to the application instead of leaving them in hesitation.",
+          title: "A logic that reassures parents",
+          desc: "The project feels safer when the family understands the route and the next decisions.",
         },
       ],
     },
-    journey: {
-      eyebrow: "A route you can follow",
-      title: "From the first message to departure, the path becomes clear.",
+    process: {
+      eyebrow: "How the project moves",
+      title: "You can immediately see the real steps, not just a nice promise.",
       description:
-        "The project does not stay a simple wish. It becomes a sequence of understandable steps, a calmer rhythm, and a future that finally feels reachable.",
+        "The route feels easier when each step is clear: the choice, the file, admission, the visa, and then departure.",
       steps: [
         {
-          title: "01. Clarify the goal",
-          desc: "We help define the study level, the field, and the type of university that genuinely fit your profile.",
+          title: "01. Understand your profile",
+          desc: "We start by clarifying your study level, your objective, and the kind of university that really fits you.",
         },
         {
-          title: "02. Build a stronger application",
-          desc: "Every document, priority, and decision is organized to make the file more credible and more strategic.",
+          title: "02. Build a stronger file",
+          desc: "We structure the important documents so the application feels more coherent and more convincing.",
         },
         {
-          title: "03. Move all the way to departure",
-          desc: "Admission, visa, travel preparation, and follow-up stay organized until the project becomes real.",
+          title: "03. Follow admission clearly",
+          desc: "We help you stay organized through exchanges, decisions, and the key moments of the application.",
+        },
+        {
+          title: "04. Move through visa and departure",
+          desc: "Preparation does not stop at acceptance: the visa and departure also need a clear method.",
         },
       ],
+      highlightTitle: "A clearer project builds more confidence.",
+      highlightText:
+        "When students know what comes next, the dream becomes a plan. And when the family understands the plan, the decision becomes easier to trust.",
       tags: [
-        "Academic orientation",
-        "University admission",
+        "University choice",
+        "Application file",
+        "Admission follow-up",
         "Student visa",
-        "Pre-departure support",
-        "Students & parents guidance",
-        "Fast WhatsApp contact",
+        "Pre-departure advice",
+        "Family support",
       ],
-      visionTitle: "A future that finally feels possible.",
-      visionText:
-        "A strong website should not only inform. It should help students believe in the project, understand the route, and feel ready to begin now.",
     },
     cta: {
-      eyebrow: "Start the project",
-      title: "If this destination feels right, the next step is already waiting.",
+      eyebrow: "The next step",
+      title: "If you are ready to move, we can start now.",
       description:
-        "Explore the services or send your application now and start turning the desire to study in China into a concrete plan.",
+        "Explore the services or send your request today and turn your study project in China into a concrete plan.",
       primary: "Apply now",
       secondary: "WhatsApp: +212 638-335452",
     },
@@ -247,97 +239,95 @@ const copy: Record<Locale, Copy> = {
   ar: {
     hero: {
       badge: "YALLA CHINA • الدراسة في الصين • للطلبة والعائلات",
-      eyebrow: "طريقك إلى الصين يبدأ هنا",
-      title: "تخيّل نفسك في حياتك الجامعية القادمة في الصين.",
+      eyebrow: "ادرس في الصين بخطة واضحة",
+      title:
+        "تقدم نحو الدراسة في الصين بمرافقة بسيطة وجادة وواضحة من البداية.",
       description:
-        "اختر وجهة أكبر، وافهم المراحل التي تنتظرك، وتحرك بثقة مع مرافقة تطمئن الطالب والعائلة معًا.",
+        "نساعد الطلبة والعائلات على اختيار الاتجاه المناسب، وتجهيز ملف أقوى، وفهم القبول، والتقدم نحو التأشيرة بخطوات أوضح وأكثر طمأنينة.",
+      note:
+        "رد سريع على واتساب • للطلبة والعائلات • من أول رسالة حتى التأشيرة",
       primary: "قدّم الآن",
       secondary: "اكتشف خدماتنا",
       stats: [
-        { label: "رد سريع", value: "خلال 24 إلى 48 ساعة" },
-        { label: "متابعة واضحة", value: "من أول تواصل إلى التأشيرة" },
-        { label: "طمأنينة للعائلة", value: "شرح بسيط ومرافقة إنسانية" },
+        { label: "توجيه واضح", value: "اختيار المستوى والمسار المناسب" },
+        { label: "ملف أقوى", value: "ترتيب الوثائق ومنطق التقديم" },
+        { label: "تأشيرة طالب", value: "تحقق واضح قبل إرسال الطلب" },
       ],
-      visualTag: "رؤية ملموسة",
-      visualTitle: "يجب أن يبدو المشروع من الآن كأنه بداية حقيقية.",
+      visualTag: "ما الذي يحتاجه الطالب أولاً",
+      visualTitle: "افهم من أين تبدأ وكيف تتحرك بثقة.",
       visualText:
-        "حين يصبح الهدف والخطوات والمرافقة أوضح، يشعر الطالب أن الحلم أقرب وأكثر واقعية وجدية.",
-      routeLabel: "ما الذي ستحصل عليه",
-      routeItems: [
-        "توجيه يناسب مستواك الدراسي",
-        "ملف أقوى وأكثر ترتيبًا",
-        "طريق واضح حتى القبول والسفر",
-      ],
-      contactLabel: "واتساب مباشر",
-      contactNote:
-        "رسالة أولى تكفي لتحصل على اتجاه أوضح حول مشروع الدراسة في الصين.",
-      ribbonTitle: "ما الذي يجب أن تشعر به هنا",
-      ribbonItems: [
-        "ثقة أكبر في القرار",
-        "وضوح في الخطوة التالية",
-        "حماس حقيقي للبدء",
+        "الأسئلة الأولى غالبًا تكون نفسها: ماذا أدرس؟ أي جامعة تناسبني؟ ما هي الوثائق المهمة؟ وكيف أتجنب البداية الخاطئة؟",
+      visualItems: [
+        "اختيار الطريق المناسب",
+        "تجهيز الوثائق الصحيحة",
+        "الحصول على إجابات سريعة",
+        "طمأنة العائلة من البداية",
       ],
     },
-    features: {
-      eyebrow: "لماذا يجذب هذا الجو الطلبة",
-      title: "أجواء أقوى، طريق أوضح، ورغبة أكبر في البدء.",
+    reasons: {
+      eyebrow: "لماذا تختار YALLA CHINA",
+      title: "مرافقة تقنع الطالب وتطمئن العائلة في الوقت نفسه.",
       description:
-        "من أول لحظة يجب أن يشعر الطالب أن المشروع حقيقي، ممكن، ومصحوب بمرافقة جدية، لا مجرد فكرة بعيدة أو صفحة معلومات فقط.",
+        "أنت تحتاج إلى أجوبة واضحة واتجاه موثوق ومرافقة تجعل الطالب أكثر ثقة وتمنح العائلة راحة أكبر.",
       items: [
         {
-          title: "رؤية نفسك داخل الرحلة",
-          desc: "يجب أن تتخيل نفسك داخل جامعة حقيقية، وإيقاع دراسي جديد، ومستقبل أكبر من وضعك الحالي.",
+          title: "شرح أوضح للمراحل",
+          desc: "كل خطوة تُعرض بلغة بسيطة حتى يصبح المشروع أسهل فهمًا وأقرب إلى الواقع.",
         },
         {
-          title: "قرار أقوى",
-          desc: "كلما كان الطريق أوضح، أصبح اتخاذ القرار أسهل وأكثر ثباتًا.",
+          title: "اتجاه واحد من البداية إلى النهاية",
+          desc: "تبقى لديك رؤية متماسكة بدل البحث عن أجوبة متفرقة في كل مرحلة جديدة.",
         },
         {
-          title: "طمأنينة للعائلة",
-          desc: "حين يكون الشرح واضحًا والتواصل إنسانيًا، تصبح الفكرة أكثر إقناعًا وارتياحًا للوالدين.",
+          title: "تواصل سريع وإنساني",
+          desc: "واتساب يبقى واضحًا وسهل الاستخدام عندما تحتاج إلى جواب سريع.",
         },
         {
-          title: "انتقال طبيعي إلى التقديم",
-          desc: "كل جزء هنا يجب أن يقربك من الملف بدل أن يتركك في الحيرة والتردد.",
+          title: "منطق يطمئن الوالدين",
+          desc: "المشروع يصبح أكثر راحة عندما تفهم العائلة الطريق والقرارات القادمة.",
         },
       ],
     },
-    journey: {
-      eyebrow: "طريق يمكن فهمه",
-      title: "من أول رسالة حتى السفر، تصبح الرحلة أوضح وأسهل.",
+    process: {
+      eyebrow: "كيف يتقدم المشروع",
+      title: "ترى الخطوات الحقيقية مباشرة، لا مجرد كلام جميل.",
       description:
-        "المشروع لا يبقى مجرد رغبة. بل يتحول إلى خطوات مفهومة، وإيقاع أكثر طمأنينة، ومستقبل يبدو ممكنًا فعلًا.",
+        "الطريق يصبح أسهل عندما تكون كل مرحلة واضحة: الاختيار، ثم الملف، ثم القبول، ثم التأشيرة، ثم الاستعداد للسفر.",
       steps: [
         {
-          title: "01. توضيح الهدف",
-          desc: "نحدد معك المستوى الدراسي والتخصص ونوع الجامعة الذي يناسب ملفك فعلًا.",
+          title: "01. فهم ملفك",
+          desc: "نبدأ بتوضيح مستواك الدراسي وهدفك ونوع الجامعة التي تناسبك فعلاً.",
         },
         {
           title: "02. بناء ملف أقوى",
-          desc: "كل وثيقة وكل أولوية وكل قرار يصبح منظمًا ليجعل طلبك أكثر قوة واحترافية.",
+          desc: "نرتب الوثائق المهمة حتى يصبح التقديم أكثر انسجامًا وأكثر قوة.",
         },
         {
-          title: "03. الوصول إلى السفر",
-          desc: "القبول والتأشيرة والتحضير للسفر والمتابعة تبقى كلها مرتبة حتى يصبح المشروع واقعًا.",
+          title: "03. متابعة القبول بوضوح",
+          desc: "نساعدك على البقاء منظمًا أثناء المراسلات والقرارات والمحطات الأساسية في الطلب.",
+        },
+        {
+          title: "04. التقدم نحو التأشيرة والسفر",
+          desc: "التحضير لا يتوقف عند القبول، لأن التأشيرة والاستعداد للسفر يحتاجان أيضًا إلى منهج واضح.",
         },
       ],
+      highlightTitle: "المشروع الواضح يبني ثقة أكبر.",
+      highlightText:
+        "عندما يعرف الطالب ما الذي سيأتي بعد ذلك، يتحول الحلم إلى خطة. وعندما تفهم العائلة الخطة، يصبح القرار أسهل وأكثر راحة.",
       tags: [
-        "توجيه أكاديمي",
-        "قبول جامعي",
+        "اختيار الجامعة",
+        "ملف التقديم",
+        "متابعة القبول",
         "تأشيرة طالب",
-        "تحضير قبل السفر",
-        "مرافقة للطلبة والعائلات",
-        "تواصل سريع عبر واتساب",
+        "نصائح قبل السفر",
+        "دعم للعائلة",
       ],
-      visionTitle: "مستقبل يبدو ممكنًا من الآن.",
-      visionText:
-        "الموقع القوي لا يكتفي بالمعلومات، بل يجعلك تؤمن بالمشروع، تفهم الطريق، وتشعر أنك جاهز لتبدأ من الآن.",
     },
     cta: {
-      eyebrow: "ابدأ المشروع",
-      title: "إذا شعرت أن هذه هي وجهتك، فالخطوة التالية جاهزة.",
+      eyebrow: "الخطوة التالية",
+      title: "إذا كنت جاهزًا للتقدم، يمكننا أن نبدأ الآن.",
       description:
-        "استكشف الخدمات أو أرسل طلبك الآن، وابدأ تحويل الرغبة في الدراسة بالصين إلى خطة حقيقية وواضحة.",
+        "استكشف الخدمات أو أرسل طلبك اليوم لتحويل مشروع الدراسة في الصين إلى خطة واضحة وعملية.",
       primary: "قدّم الآن",
       secondary: "واتساب: +212 638-335452",
     },
@@ -349,7 +339,6 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
   const isArabic = lang === "ar";
   const applyHref = `/${lang}/apply`;
   const servicesHref = `/${lang}/services`;
-  const whatsappLabel = isArabic ? "واتساب" : "WhatsApp";
 
   return (
     <main className="bg-[#050505] text-white" dir={isArabic ? "rtl" : "ltr"}>
@@ -386,6 +375,9 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
 
                 <p className="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
                   {t.hero.description}
+                </p>
+                <p className="max-w-2xl text-sm font-medium leading-7 text-white/64">
+                  {t.hero.note}
                 </p>
 
                 <div
@@ -430,98 +422,35 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
               <div className="relative">
                 <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top,rgba(237,184,11,0.14),transparent_35%),radial-gradient(circle_at_bottom,rgba(255,255,255,0.04),transparent_40%)]" />
 
-                <div className="relative grid gap-4 sm:grid-cols-[1.1fr_0.9fr]">
-                  <article className="drift-slow overflow-hidden rounded-[2.3rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)] sm:row-span-2">
-                    <div className="relative h-[18rem] overflow-hidden sm:h-[24rem]">
-                      <img
-                        src="/fr-services-hero.jpg"
-                        alt="YALLA CHINA hero"
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                      <div
-                        className={`absolute left-5 right-5 top-5 flex ${
-                          isArabic ? "justify-end" : "justify-start"
-                        }`}
-                      >
-                        <span className="section-eyebrow rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
-                          {t.hero.visualTag}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className={`space-y-3 p-6 ${isArabic ? "text-right" : ""}`}>
-                      <h2 className="display-title text-2xl font-black leading-tight text-white">
-                        {t.hero.visualTitle}
-                      </h2>
-                      <p className="text-sm leading-7 text-white/72">
-                        {t.hero.visualText}
-                      </p>
-                    </div>
-                  </article>
-
-                  <article
-                    className={`float-gentle rounded-[2rem] border border-white/12 bg-white/[0.06] p-5 shadow-[0_25px_55px_rgba(0,0,0,0.28)] backdrop-blur-md ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                      {t.hero.routeLabel}
-                    </p>
-                    <div className="mt-4 space-y-3">
-                      {t.hero.routeItems.map((item, index) => (
-                        <div
-                          key={item}
-                          className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3"
-                        >
-                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">
-                            {String(index + 1).padStart(2, "0")}
-                          </p>
-                          <p className="mt-1 text-sm font-medium text-white/88">
-                            {item}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </article>
-
-                  <article
-                    className={`float-gentle-delay rounded-[2rem] border border-white/12 bg-[#090909]/85 p-5 shadow-[0_25px_55px_rgba(0,0,0,0.34)] ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                      {t.hero.contactLabel}
-                    </p>
-                    <p
-                      className="contact-inline mt-3 text-2xl font-black text-white"
-                      dir="ltr"
+                <div className="relative overflow-hidden rounded-[2.4rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)]">
+                  <div className="relative h-[20rem] overflow-hidden sm:h-[27rem]">
+                    <img
+                      src="/fr-services-hero.jpg"
+                      alt="YALLA CHINA hero"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                    <div
+                      className={`absolute left-5 right-5 top-5 flex ${
+                        isArabic ? "justify-end" : "justify-start"
+                      }`}
                     >
-                      +212 638-335452
-                    </p>
-                    <p className="mt-2 text-sm leading-7 text-white/68">
-                      {t.hero.contactNote}
-                    </p>
-                    <a
-                      href="https://wa.me/212638335452"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-4 inline-flex rounded-full border border-white/14 bg-white/8 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/15"
-                    >
-                      {whatsappLabel}
-                    </a>
-                  </article>
+                      <span className="section-eyebrow rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
+                        {t.hero.visualTag}
+                      </span>
+                    </div>
+                  </div>
 
-                  <article
-                    className={`rounded-[2rem] border border-white/12 bg-white/[0.05] p-5 shadow-[0_25px_55px_rgba(0,0,0,0.25)] sm:col-span-2 ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                      {t.hero.ribbonTitle}
+                  <div className={`space-y-4 p-6 ${isArabic ? "text-right" : ""}`}>
+                    <h2 className="display-title text-2xl font-black leading-tight text-white">
+                      {t.hero.visualTitle}
+                    </h2>
+                    <p className="text-sm leading-7 text-white/72">
+                      {t.hero.visualText}
                     </p>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                      {t.hero.ribbonItems.map((item) => (
+
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {t.hero.visualItems.map((item) => (
                         <div
                           key={item}
                           className="rounded-2xl border border-white/8 bg-black/18 px-4 py-3 text-sm font-medium text-white/88"
@@ -530,7 +459,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                         </div>
                       ))}
                     </div>
-                  </article>
+                  </div>
                 </div>
               </div>
             </div>
@@ -538,32 +467,30 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
         </Container>
       </section>
 
-      <FounderStories lang={lang} variant="feature" />
-
-      <section className="bg-[#080808] py-14 sm:py-18">
+      <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
             <div
-              className={`rounded-[2.3rem] border border-white/10 bg-white/[0.04] p-7 shadow-[0_25px_60px_rgba(0,0,0,0.22)] ${
+              className={`rounded-[2.3rem] border border-zinc-200 bg-white p-7 shadow-[0_25px_60px_rgba(15,23,42,0.06)] ${
                 isArabic ? "text-right" : ""
               }`}
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
-                {t.features.eyebrow}
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#8B0000]">
+                {t.reasons.eyebrow}
               </p>
-              <h2 className="display-title mt-4 text-3xl font-black leading-tight text-white sm:text-4xl">
-                {t.features.title}
+              <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
+                {t.reasons.title}
               </h2>
-              <p className="mt-4 text-sm leading-8 text-white/70 sm:text-base">
-                {t.features.description}
+              <p className="mt-4 text-sm leading-8 text-zinc-600 sm:text-base">
+                {t.reasons.description}
               </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {t.features.items.map((item) => (
+              {t.reasons.items.map((item) => (
                 <article
                   key={item.title}
-                  className={`rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.16)] ${
+                  className={`rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.05)] ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
@@ -572,8 +499,8 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                       isArabic ? "ml-auto" : ""
                     }`}
                   />
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-white/68">
+                  <h3 className="text-lg font-bold text-zinc-900">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-zinc-600">
                     {item.desc}
                   </p>
                 </article>
@@ -583,72 +510,75 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
         </Container>
       </section>
 
-      <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
+      <FounderStories lang={lang} />
+
+      <section className="bg-[#080808] py-14 sm:py-18">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
             <div className={`space-y-6 ${isArabic ? "text-right" : ""}`}>
               <div>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#8B0000]">
-                  {t.journey.eyebrow}
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
+                  {t.process.eyebrow}
                 </p>
-                <h2 className="display-title mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-                  {t.journey.title}
+                <h2 className="display-title mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
+                  {t.process.title}
                 </h2>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-zinc-600">
-                  {t.journey.description}
+                <p className="mt-4 max-w-2xl text-base leading-8 text-white/70">
+                  {t.process.description}
                 </p>
               </div>
 
               <div className="space-y-4">
-                {t.journey.steps.map((step) => (
+                {t.process.steps.map((step) => (
                   <article
                     key={step.title}
-                    className={`rounded-[1.8rem] border border-zinc-200 bg-white p-5 shadow-[0_18px_35px_rgba(15,23,42,0.05)] ${
+                    className={`rounded-[1.8rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_18px_35px_rgba(0,0,0,0.16)] ${
                       isArabic ? "text-right" : ""
                     }`}
                   >
-                    <h3 className="text-lg font-bold">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-zinc-600">
+                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-white/68">
                       {step.desc}
                     </p>
                   </article>
                 ))}
               </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                {t.journey.tags.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-3 text-center text-sm font-medium"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[2.5rem] bg-[#180607] p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.25),transparent_34%)]" />
-              <div className="absolute inset-0 opacity-20 shoji-grid" />
-              <div className="relative space-y-5">
-                <div className="overflow-hidden rounded-[2rem] border border-white/10">
-                  <img
-                    src="/fr-contact-hero.jpg"
-                    alt="YALLA CHINA campus vision"
-                    className="h-[18rem] w-full object-cover sm:h-[22rem]"
-                  />
-                </div>
+            <div className="lg:sticky lg:top-24">
+              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#180607] p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.25),transparent_34%)]" />
+                <div className="absolute inset-0 opacity-20 shoji-grid" />
+                <div className="relative space-y-5">
+                  <div className="overflow-hidden rounded-[2rem] border border-white/10">
+                    <img
+                      src="/fr-apply-hero.jpg"
+                      alt="YALLA CHINA process"
+                      className="h-[18rem] w-full object-cover sm:h-[22rem]"
+                    />
+                  </div>
 
-                <div className={`space-y-3 px-2 ${isArabic ? "text-right" : ""}`}>
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                    {t.journey.eyebrow}
-                  </p>
-                  <h3 className="display-title text-2xl font-black leading-tight">
-                    {t.journey.visionTitle}
-                  </h3>
-                  <p className="text-sm leading-7 text-white/72">
-                    {t.journey.visionText}
-                  </p>
+                  <div className={`space-y-3 px-2 ${isArabic ? "text-right" : ""}`}>
+                    <h3 className="display-title text-2xl font-black leading-tight">
+                      {t.process.highlightTitle}
+                    </h3>
+                    <p className="text-sm leading-7 text-white/72">
+                      {t.process.highlightText}
+                    </p>
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {t.process.tags.map((item) => (
+                      <div
+                        key={item}
+                        className={`rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/84 ${
+                          isArabic ? "text-right" : ""
+                        }`}
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

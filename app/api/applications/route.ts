@@ -1,3 +1,4 @@
+import { isDatabaseUnavailable } from "@/lib/database-errors";
 import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
@@ -27,7 +28,20 @@ export async function POST(req: Request) {
     });
 
     return Response.json({ ok: true, id: created.id }, { status: 201 });
-  } catch (e) {
-    return Response.json({ error: "Server error" }, { status: 500 });
+  } catch (error) {
+    if (isDatabaseUnavailable(error)) {
+      return Response.json(
+        {
+          error:
+            "Le formulaire est temporairement indisponible. Merci de nous écrire directement sur WhatsApp au +212 638-335452 pendant que nous rétablissons la connexion.",
+        },
+        { status: 503 }
+      );
+    }
+
+    return Response.json(
+      { error: "Une erreur est survenue. Merci de réessayer." },
+      { status: 500 }
+    );
   }
 }

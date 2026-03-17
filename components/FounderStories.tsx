@@ -2,7 +2,6 @@ import Container from "@/components/Container";
 import Link from "next/link";
 
 type Locale = "fr" | "en" | "ar";
-type Variant = "feature" | "compact";
 
 type Copy = {
   dir: "ltr" | "rtl";
@@ -26,221 +25,143 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
-    eyebrow: "La voix humaine derrière le projet",
-    title: "Un vrai visage rend le projet plus crédible, plus proche et plus rassurant.",
+    eyebrow: "Le fondateur",
+    title: "Une présence réelle rend le projet plus crédible et plus rassurant.",
     description:
-      "Les étudiants avancent plus facilement quand ils sentent qu'il y a une vraie personne derrière l'accompagnement, pas seulement une agence qui parle dans le vide.",
-    chips: ["Échange direct", "Réponses rapides", "Guidance plus humaine"],
+      "Avant de choisir un accompagnement, les étudiants veulent voir qui parle, comprendre l'expérience derrière les conseils, et sentir qu'il y a une vraie personne derrière le suivi.",
+    chips: ["Visage réel", "Contenu éducatif", "Contact direct"],
     metrics: [
-      { value: "24-48h", label: "pour une première réponse utile" },
-      { value: "1 contact", label: "pour garder un cap clair" },
-      { value: "De l'idée au visa", label: "sans perdre le fil" },
+      { value: "24-48h", label: "pour une première réponse claire" },
+      { value: "1 contact", label: "pour garder un cap simple" },
+      { value: "Du projet au visa", label: "avec une même logique" },
     ],
-    quoteTitle: "Vous ne cherchez pas juste des informations.",
+    quoteTitle: "Pourquoi cette section compte",
     quoteText:
-      "Vous cherchez quelqu'un qui comprend vos hésitations, répond sans détour, et vous aide à passer du doute à une vraie décision.",
-    primary: "Commencer mon projet",
+      "Les étudiants et les familles avancent plus facilement quand ils voient une vraie personne, une vraie expérience et des réponses concrètes à leurs questions.",
+    primary: "Commencer ma candidature",
     secondary: "Nous contacter",
     cards: [
       {
         kicker: "Expérience réelle",
         title: "Mon expérience personnelle en Chine",
-        text: "Un récit plus humain aide l'étudiant à se projeter et à croire que le chemin existe vraiment.",
+        text: "Une histoire vécue aide l'étudiant à se projeter et à faire davantage confiance au projet.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
         kicker: "Étapes claires",
         title: "Les étapes des études en Chine",
-        text: "Quand le parcours est expliqué clairement, le projet paraît plus simple, plus concret et plus faisable.",
+        text: "Quand le parcours est bien expliqué, le projet paraît plus simple, plus concret et mieux organisé.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "Bonne décision",
-        title: "Pourquoi étudier en Chine ?",
-        text: "Le bon discours ne vend pas seulement une destination, il aide à comprendre pourquoi elle peut vous correspondre.",
+        kicker: "Choix de destination",
+        title: "Pourquoi choisir la Chine ?",
+        text: "Le bon message aide à comprendre ce que la Chine peut offrir et à quel profil cette destination convient.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "Bon départ",
+        kicker: "Premier pas",
         title: "Comment étudier en Chine ?",
-        text: "Quand la première étape est claire, l'envie de postuler vient beaucoup plus naturellement.",
+        text: "Une explication claire du départ réduit l'hésitation et donne envie de passer à l'action.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
   },
   en: {
     dir: "ltr",
-    eyebrow: "The human voice behind the project",
-    title: "A real face makes the project feel more credible, more personal, and more reassuring.",
+    eyebrow: "The founder",
+    title: "A real presence makes the project feel more credible and more reassuring.",
     description:
-      "Students move faster when they feel there is a real person behind the guidance, not just an agency speaking in generic lines.",
-    chips: ["Direct exchange", "Fast answers", "Human guidance"],
+      "Before choosing guidance, students want to see who is speaking, understand the experience behind the advice, and feel that there is a real person behind the follow-up.",
+    chips: ["Real face", "Educational content", "Direct contact"],
     metrics: [
-      { value: "24-48h", label: "for a useful first reply" },
-      { value: "1 clear contact", label: "to keep the route simple" },
-      { value: "From idea to visa", label: "without losing momentum" },
+      { value: "24-48h", label: "for a first clear reply" },
+      { value: "1 contact", label: "to keep the route simple" },
+      { value: "From plan to visa", label: "with one clear logic" },
     ],
-    quoteTitle: "You are not looking for information only.",
+    quoteTitle: "Why this section matters",
     quoteText:
-      "You are looking for someone who understands your hesitation, answers clearly, and helps turn uncertainty into a real decision.",
-    primary: "Start my project",
+      "Students and families trust the next step more when they can see a real person, real experience, and concrete answers to the questions they actually have.",
+    primary: "Start my application",
     secondary: "Contact us",
     cards: [
       {
         kicker: "Real experience",
         title: "My personal experience in China",
-        text: "A more human story helps students picture themselves inside the journey instead of only reading about it.",
+        text: "A lived story helps students picture themselves inside the journey and trust the project more.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
         kicker: "Clear stages",
-        title: "The study stages in China",
-        text: "When the route is explained well, the project feels simpler, clearer, and much easier to begin.",
+        title: "The study path in China",
+        text: "When the route is explained well, the project feels simpler, more concrete, and easier to organize.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "Better decision",
-        title: "Why study in China?",
-        text: "The best message does not just sell a destination, it helps students understand why it fits them.",
+        kicker: "Destination choice",
+        title: "Why choose China?",
+        text: "The right message explains what China can offer and which kind of student it can really fit.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "Right start",
+        kicker: "First step",
         title: "How do you study in China?",
-        text: "When the first step is obvious, applying starts to feel natural instead of intimidating.",
+        text: "A clear explanation of the beginning reduces hesitation and makes action feel more natural.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
   },
   ar: {
     dir: "rtl",
-    eyebrow: "الوجه الإنساني وراء هذا الطريق",
-    title: "حين يرى الطالب شخصًا حقيقيًا وراء المرافقة، يصبح المشروع أقرب وأكثر إقناعًا.",
+    eyebrow: "المؤسس",
+    title: "وجود شخص حقيقي وراء المشروع يجعل الثقة أكبر والقرار أسهل.",
     description:
-      "الثقة تكبر عندما يشعر الطالب أن هناك من يفهمه فعلًا، يرد عليه بسرعة، ويشرح له الطريق بطريقة واضحة ومباشرة.",
-    chips: ["تواصل مباشر", "إجابات سريعة", "مرافقة إنسانية"],
+      "قبل أن يختار الطالب جهة ترافقه، يريد أن يرى من يتحدث معه، ويفهم الخبرة وراء النصيحة، ويشعر أن هناك شخصًا حقيقيًا سيتابع معه الطريق.",
+    chips: ["وجه حقيقي", "محتوى تعليمي", "تواصل مباشر"],
     metrics: [
-      { value: "24-48 ساعة", label: "لأول رد واضح ومفيد" },
-      { value: "شخص واحد واضح", label: "حتى يبقى المسار مفهومًا" },
-      { value: "من الفكرة إلى التأشيرة", label: "من دون تشتيت" },
+      { value: "24 إلى 48 ساعة", label: "لأول رد واضح ومفيد" },
+      { value: "جهة واحدة واضحة", label: "حتى يبقى المسار بسيطًا" },
+      { value: "من المشروع إلى التأشيرة", label: "بمنطق واضح واحد" },
     ],
-    quoteTitle: "أنت لا تبحث فقط عن معلومات.",
+    quoteTitle: "لماذا هذه الفقرة مهمة",
     quoteText:
-      "أنت تبحث عن شخص يفهم ترددك، يشرح لك بصراحة، ويساعدك على تحويل الحيرة إلى خطوة حقيقية.",
-    primary: "ابدأ مشروعك",
+      "الطالب والعائلة يشعران بثقة أكبر عندما يريان شخصًا حقيقيًا وخبرة واضحة وأجوبة عملية على الأسئلة التي تهمهما فعلاً.",
+    primary: "ابدأ طلبك",
     secondary: "تواصل معنا",
     cards: [
       {
-        kicker: "من الواقع",
-        title: "تجربتي الشخصية فالصين",
-        text: "القصة الإنسانية تجعل الطالب يرى الطريق أقرب، وتشعره أن الحلم يمكن أن يصبح واقعًا.",
+        kicker: "تجربة حقيقية",
+        title: "تجربتي الشخصية في الصين",
+        text: "القصة الواقعية تساعد الطالب على تخيل نفسه داخل الرحلة وتزيد ثقته في المشروع.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
-        kicker: "خطوة بخطوة",
-        title: "مراحل الدراسة فالصين",
-        text: "حين تكون المراحل واضحة، يصبح المشروع أسهل فهمًا وأسهل بداية.",
+        kicker: "مراحل واضحة",
+        title: "مراحل الدراسة في الصين",
+        text: "عندما تكون المراحل واضحة، يصبح المشروع أسهل فهمًا وأكثر تنظيمًا.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "قرار أوضح",
-        title: "علاش تقرا فالصين؟",
-        text: "الرسالة القوية لا تبيع الوجهة فقط، بل تساعدك على فهم لماذا قد تكون مناسبة لك.",
+        kicker: "اختيار الوجهة",
+        title: "لماذا تختار الصين؟",
+        text: "الرسالة الجيدة تشرح ما الذي تقدمه الصين ولأي نوع من الطلبة يمكن أن تكون مناسبة.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "البداية الصح",
-        title: "باش تقرا فالصين؟",
-        text: "حين تكون أول خطوة واضحة، يصبح التقديم طبيعيًا أكثر وأقل ترددًا.",
+        kicker: "أول خطوة",
+        title: "كيف تدرس في الصين؟",
+        text: "عندما تكون البداية مفهومة، يقل التردد ويصبح التقديم أكثر سهولة وطبيعية.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
   },
 };
 
-export default function FounderStories({
-  lang,
-  variant = "feature",
-}: {
-  lang: Locale;
-  variant?: Variant;
-}) {
+export default function FounderStories({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = t.dir === "rtl";
   const applyHref = `/${lang}/apply`;
   const contactHref = `/${lang}/contact`;
-
-  if (variant === "compact") {
-    return (
-      <section className="bg-[#080808] py-12 text-white sm:py-16" dir={t.dir}>
-        <Container>
-          <div className="space-y-6">
-            <div className="grid gap-6 xl:grid-cols-[0.84fr_1.16fr] xl:items-end">
-              <div className={isArabic ? "text-right" : ""}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
-                  {t.eyebrow}
-                </p>
-                <h2 className="display-title mt-4 max-w-4xl text-3xl font-black leading-tight sm:text-4xl">
-                  {t.title}
-                </h2>
-                <p className="mt-4 max-w-2xl text-sm leading-8 text-white/72 sm:text-base">
-                  {t.description}
-                </p>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                {t.metrics.map((item) => (
-                  <div
-                    key={item.label}
-                    className={`rounded-[1.7rem] border border-white/10 bg-white/[0.05] px-5 py-4 ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <p className="text-sm font-semibold text-white">
-                      {item.value}
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-white/58">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {t.cards.map((card, index) => (
-                <StoryCard
-                  key={card.title}
-                  card={card}
-                  index={index}
-                  isArabic={isArabic}
-                />
-              ))}
-            </div>
-
-            <div
-              className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                isArabic ? "sm:justify-end" : ""
-              }`}
-            >
-              <Link
-                href={applyHref}
-                className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
-              >
-                {t.primary}
-              </Link>
-              <Link
-                href={contactHref}
-                className="rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14"
-              >
-                {t.secondary}
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </section>
-    );
-  }
 
   return (
     <section className="bg-[#090909] py-14 text-white sm:py-18" dir={t.dir}>
@@ -353,7 +274,7 @@ function StoryCard({
         alt={card.title}
         className="absolute inset-0 h-full w-full object-cover opacity-72 transition duration-500 group-hover:scale-105 group-hover:opacity-82"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.5)_52%,rgba(0,0,0,0.92)_100%),radial-gradient(circle_at_top,rgba(139,0,0,0.32),transparent_36%),radial-gradient(circle_at_bottom,rgba(237,184,11,0.12),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.12)_0%,rgba(0,0,0,0.5)_52%,rgba(0,0,0,0.92)_100%),radial-gradient(circle_at_top,rgba(139,0,0,0.32),transparent_36%),radial-gradient(circle_at_bottom,rgba(237,184,11,0.12),transparent_40%)]" />
       <div className="absolute inset-0 opacity-20 shoji-grid" />
 
       <div className="relative flex h-full flex-col justify-between p-5">

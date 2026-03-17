@@ -7,100 +7,108 @@ type Props = {
 
 const content = {
   fr: {
-    desc: "YALLA CHINA accompagne les étudiants et leurs familles pour rendre le projet d'études en Chine plus clair, plus rassurant et mieux préparé.",
-    ctaEyebrow: "Parlons de votre projet",
-    ctaTitle: "Un bon accompagnement commence par une conversation claire.",
-    ctaText:
-      "Si vous êtes prêt à avancer, nous vous aidons à passer de l'idée au plan concret avec un contact simple, rapide et humain.",
-    ctaButton: "Postuler maintenant",
+    leadEyebrow: "Contact direct",
+    leadTitle: "Un accompagnement clair pour les étudiants et leurs familles.",
+    leadText:
+      "Nous vous aidons à comprendre les options, préparer le dossier, avancer avec méthode et garder un contact simple jusqu'aux prochaines étapes.",
+    primaryCta: "Commencer ma demande",
     whatsappLabel: "WhatsApp",
-    navTitle: "Navigation",
-    servicesTitle: "Accompagnement",
-    contactTitle: "Contact direct",
-    services: [
-      "Orientation académique",
-      "Admission universitaire",
-      "Visa étudiant",
-      "Suivi personnalisé",
+    stats: [
+      { title: "Réponse rapide", text: "Sous 24 à 48 heures" },
+      { title: "Accompagnement humain", text: "Étudiants et parents" },
+      { title: "Projet structuré", text: "Du choix au visa" },
     ],
-    quickLinks: [
+    brandTitle: "YALLA CHINA",
+    brandText:
+      "Une présence claire pour les étudiants qui veulent étudier en Chine avec plus de méthode, plus de confiance et moins d'incertitude.",
+    navigationTitle: "Navigation",
+    supportTitle: "Ce que nous faisons",
+    contactTitle: "Nous écrire",
+    services: [
+      "Choix d'université",
+      "Préparation du dossier",
+      "Admission et suivi",
+      "Visa étudiant",
+    ],
+    links: [
       { href: "/fr", label: "Accueil" },
       { href: "/fr/services", label: "Services" },
       { href: "/fr/apply", label: "Postuler" },
       { href: "/fr/contact", label: "Contact" },
     ],
-    highlightCards: [
-      { title: "Réponse rapide", text: "Sous 24-48h" },
-      { title: "Étudiants & parents", text: "Un suivi rassurant" },
-      { title: "Projet structuré", text: "Du dossier au visa" },
-    ],
-    contactNote: "Le contact le plus rapide pour démarrer",
+    contactNote: "Le moyen le plus rapide pour démarrer la discussion",
     emailLabel: "Email",
-    closing: "Pensé pour les étudiants et les familles qui veulent avancer avec confiance.",
+    closing:
+      "Pensé pour les étudiants et les familles qui veulent avancer avec clarté.",
     rights: "Tous droits réservés.",
   },
   en: {
-    desc: "YALLA CHINA supports students and families to make the study project in China clearer, more reassuring, and easier to prepare well.",
-    ctaEyebrow: "Let’s talk about your project",
-    ctaTitle: "Strong guidance starts with a clear conversation.",
-    ctaText:
-      "When you are ready to move, we help turn your idea into a concrete plan with fast, simple, and human support.",
-    ctaButton: "Apply now",
+    leadEyebrow: "Direct contact",
+    leadTitle: "Clear guidance for students and their families.",
+    leadText:
+      "We help you understand your options, prepare your file, move with a real plan, and stay in simple contact until the next steps are clear.",
+    primaryCta: "Start my application",
     whatsappLabel: "WhatsApp",
-    navTitle: "Navigation",
-    servicesTitle: "Support",
-    contactTitle: "Direct contact",
-    services: [
-      "Academic orientation",
-      "University admission",
-      "Student visa",
-      "Personal follow-up",
+    stats: [
+      { title: "Fast reply", text: "Within 24 to 48 hours" },
+      { title: "Human support", text: "For students and parents" },
+      { title: "Structured process", text: "From choice to visa" },
     ],
-    quickLinks: [
+    brandTitle: "YALLA CHINA",
+    brandText:
+      "A clearer way for students who want to study in China with better structure, more confidence, and less uncertainty.",
+    navigationTitle: "Navigation",
+    supportTitle: "What we do",
+    contactTitle: "Write to us",
+    services: [
+      "University selection",
+      "Application preparation",
+      "Admission follow-up",
+      "Student visa support",
+    ],
+    links: [
       { href: "/en", label: "Home" },
       { href: "/en/services", label: "Services" },
       { href: "/en/apply", label: "Apply" },
       { href: "/en/contact", label: "Contact" },
     ],
-    highlightCards: [
-      { title: "Fast response", text: "Within 24-48h" },
-      { title: "Students & parents", text: "Reassuring guidance" },
-      { title: "Structured project", text: "From file to visa" },
-    ],
-    contactNote: "The fastest contact to get started",
+    contactNote: "The fastest way to start the conversation",
     emailLabel: "Email",
-    closing: "Designed for students and families who want to move forward with confidence.",
+    closing:
+      "Built for students and families who want to move forward with clarity.",
     rights: "All rights reserved.",
   },
   ar: {
-    desc: "YALLA CHINA ترافق الطلبة وعائلاتهم حتى يصبح مشروع الدراسة في الصين أوضح وأكثر طمأنينة وأسهل في التحضير الجيد.",
-    ctaEyebrow: "لنتحدث عن مشروعك",
-    ctaTitle: "المرافقة القوية تبدأ بحوار واضح ومباشر.",
-    ctaText:
-      "عندما تصبح جاهزاً للتقدم، نساعدك على تحويل فكرتك إلى خطة عملية بدعم سريع وبسيط وإنساني.",
-    ctaButton: "قدّم الآن",
+    leadEyebrow: "تواصل مباشر",
+    leadTitle: "مرافقة واضحة للطلبة وعائلاتهم في مشروع الدراسة بالصين.",
+    leadText:
+      "نساعدك على فهم الخيارات المناسبة، تجهيز الملف بشكل منظم، والتقدم بخطوات واضحة مع تواصل مباشر إلى غاية المراحل القادمة.",
+    primaryCta: "ابدأ طلبك الآن",
     whatsappLabel: "واتساب",
-    navTitle: "التنقل",
-    servicesTitle: "المرافقة",
-    contactTitle: "تواصل مباشر",
-    services: [
-      "التوجيه الأكاديمي",
-      "القبول الجامعي",
-      "تأشيرة الدراسة",
-      "المتابعة الشخصية",
+    stats: [
+      { title: "رد سريع", text: "خلال 24 إلى 48 ساعة" },
+      { title: "مرافقة إنسانية", text: "للطلبة والآباء" },
+      { title: "مسار منظم", text: "من الاختيار إلى التأشيرة" },
     ],
-    quickLinks: [
+    brandTitle: "YALLA CHINA",
+    brandText:
+      "طريقة أوضح للطلبة الذين يريدون الدراسة في الصين بثقة أكبر وتنظيم أفضل وغموض أقل.",
+    navigationTitle: "التنقل",
+    supportTitle: "ما الذي نساعد فيه",
+    contactTitle: "راسلنا",
+    services: [
+      "اختيار الجامعة",
+      "تجهيز ملف التقديم",
+      "متابعة القبول",
+      "مرافقة تأشيرة الدراسة",
+    ],
+    links: [
       { href: "/ar", label: "الرئيسية" },
       { href: "/ar/services", label: "الخدمات" },
       { href: "/ar/apply", label: "التقديم" },
       { href: "/ar/contact", label: "تواصل معنا" },
     ],
-    highlightCards: [
-      { title: "رد سريع", text: "خلال 24-48 ساعة" },
-      { title: "للطلبة والآباء", text: "مرافقة مطمئنة" },
-      { title: "مشروع منظم", text: "من الملف إلى التأشيرة" },
-    ],
-    contactNote: "أسرع وسيلة لبدء الحديث",
+    contactNote: "أسرع وسيلة لبدء الحديث معنا",
     emailLabel: "البريد الإلكتروني",
     closing: "مصمم للطلبة والعائلات الذين يريدون التقدم بثقة ووضوح.",
     rights: "جميع الحقوق محفوظة.",
@@ -119,16 +127,16 @@ export default function Footer({ lang = "fr" }: Props) {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.52),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(237,184,11,0.12),transparent_24%)]" />
             <div className="absolute inset-0 opacity-20 shoji-grid" />
 
-            <div className="relative grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+            <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div className={isArabic ? "text-right" : ""}>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.26em] text-[#EDB80B]">
-                  {t.ctaEyebrow}
+                  {t.leadEyebrow}
                 </p>
                 <h2 className="display-title mt-4 max-w-3xl text-3xl font-black tracking-tight sm:text-4xl">
-                  {t.ctaTitle}
+                  {t.leadTitle}
                 </h2>
                 <p className="mt-4 max-w-2xl text-base leading-8 text-white/78">
-                  {t.ctaText}
+                  {t.leadText}
                 </p>
 
                 <div
@@ -140,7 +148,7 @@ export default function Footer({ lang = "fr" }: Props) {
                     href={`/${lang}/apply`}
                     className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_14px_30px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
                   >
-                    {t.ctaButton}
+                    {t.primaryCta}
                   </Link>
 
                   <a
@@ -164,7 +172,7 @@ export default function Footer({ lang = "fr" }: Props) {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                {t.highlightCards.map((item) => (
+                {t.stats.map((item) => (
                   <article
                     key={item.title}
                     className={`rounded-[1.6rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md ${
@@ -177,45 +185,22 @@ export default function Footer({ lang = "fr" }: Props) {
                     <p className="mt-2 text-sm text-white/65">{item.text}</p>
                   </article>
                 ))}
-
-                <article
-                  className={`rounded-[1.9rem] border border-white/10 bg-white/[0.06] p-5 sm:col-span-3 ${
-                    isArabic ? "text-right" : ""
-                  }`}
-                >
-                  <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                    {t.contactTitle}
-                  </p>
-                  <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <p className="contact-inline text-xl font-black text-white" dir="ltr">
-                        +212 638-335452
-                      </p>
-                      <p className="mt-1 text-sm text-white/65">{t.contactNote}</p>
-                    </div>
-                    <a
-                      href="mailto:contact@yallachina.com"
-                      className="contact-inline text-sm font-medium text-white/88 transition hover:text-white"
-                    >
-                      contact@yallachina.com
-                    </a>
-                  </div>
-                </article>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.75fr_0.95fr_0.95fr]">
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.8fr_0.85fr_0.95fr]">
             <section
               className={`rounded-[2rem] border border-white/8 bg-white/[0.04] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.18)] ${
                 isArabic ? "text-right" : ""
               }`}
             >
               <p className="text-2xl font-black uppercase tracking-tight">
-                YALLA CHINA<span className="text-[#EDB80B]">.</span>
+                {t.brandTitle}
+                <span className="text-[#EDB80B]">.</span>
               </p>
               <p className="mt-4 max-w-xl text-sm leading-7 text-white/72">
-                {t.desc}
+                {t.brandText}
               </p>
             </section>
 
@@ -225,10 +210,10 @@ export default function Footer({ lang = "fr" }: Props) {
               }`}
             >
               <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                {t.navTitle}
+                {t.navigationTitle}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-white/78">
-                {t.quickLinks.map((item) => (
+                {t.links.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
@@ -247,7 +232,7 @@ export default function Footer({ lang = "fr" }: Props) {
               }`}
             >
               <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                {t.servicesTitle}
+                {t.supportTitle}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-white/78">
                 {t.services.map((item) => (
@@ -265,24 +250,20 @@ export default function Footer({ lang = "fr" }: Props) {
                 {t.contactTitle}
               </p>
 
-              <div className="mt-4 space-y-3 text-sm text-white/78">
-                <a
-                  href="https://wa.me/212638335452"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact-inline transition hover:text-white"
-                >
-                  +212 638-335452
-                </a>
-                <a
-                  href="https://wa.me/212707298029"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="contact-inline transition hover:text-white"
-                >
-                  +212 707-298029
-                </a>
-                <div className="pt-2">
+              <div className="mt-4 space-y-4 text-sm text-white/78">
+                <div>
+                  <a
+                    href="https://wa.me/212638335452"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact-inline text-base font-semibold text-white transition hover:text-white/85"
+                  >
+                    +212 638-335452
+                  </a>
+                  <p className="mt-2 text-xs text-white/55">{t.contactNote}</p>
+                </div>
+
+                <div>
                   <p className="mb-2 text-xs font-medium text-white/55">
                     {t.emailLabel}
                   </p>
@@ -302,7 +283,9 @@ export default function Footer({ lang = "fr" }: Props) {
               isArabic ? "text-right" : ""
             }`}
           >
-            <p>© {new Date().getFullYear()} YALLA CHINA. {t.rights}</p>
+            <p>
+              © {new Date().getFullYear()} YALLA CHINA. {t.rights}
+            </p>
             <p>{t.closing}</p>
           </div>
         </div>

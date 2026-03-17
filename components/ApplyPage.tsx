@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Container from "@/components/Container";
-import FounderStories from "@/components/FounderStories";
 
 type Locale = "fr" | "en" | "ar";
 
@@ -18,11 +17,12 @@ type Copy = {
     panelItems: string[];
   };
   side: {
-    summaryEyebrow: string;
-    summaryTitle: string;
-    summaryText: string;
-    summaryItems: string[];
-    stepsEyebrow: string;
+    beforeEyebrow: string;
+    beforeTitle: string;
+    beforeText: string;
+    beforeItems: string[];
+    nextEyebrow: string;
+    nextTitle: string;
     steps: { title: string; desc: string }[];
     supportTitle: string;
     supportText: string;
@@ -35,9 +35,6 @@ type Copy = {
     chips: string[];
     success: string;
     fallbackError: string;
-    contactTitle: string;
-    profileTitle: string;
-    projectTitle: string;
     objectiveLabel: string;
     objectivePlaceholder: string;
     objectives: { value: string; label: string }[];
@@ -51,18 +48,10 @@ type Copy = {
       fullNamePlaceholder: string;
       phone: string;
       phonePlaceholder: string;
-      whatsapp: string;
-      whatsappPlaceholder: string;
-      email: string;
-      emailPlaceholder: string;
       city: string;
       cityPlaceholder: string;
-      address: string;
-      addressPlaceholder: string;
       studyLevel: string;
       studyLevelPlaceholder: string;
-      fieldOfStudy: string;
-      fieldOfStudyPlaceholder: string;
     };
   };
 };
@@ -72,64 +61,62 @@ const copy: Record<Locale, Copy> = {
     dir: "ltr",
     hero: {
       badge: "Candidature • YALLA CHINA",
-      title: "Votre avenir d'étudiant en Chine peut commencer aujourd'hui.",
+      title: "Commencez votre candidature simplement et avancez avec plus de clarté.",
       description:
-        "Dites-nous où vous en êtes, ce que vous visez, et ce que vous rêvez de construire. Nous revenons vers vous rapidement avec une direction claire, rassurante et réaliste.",
+        "Donnez l'essentiel pour recevoir une réponse claire sur la suite: votre niveau, votre objectif et la meilleure direction pour avancer.",
       stats: [
-        { label: "Réponse rapide", value: "Sous 24-48h" },
-        { label: "Suivi personnalisé", value: "WhatsApp ou téléphone" },
-        { label: "Accompagnement complet", value: "Du profil au visa" },
+        { label: "Formulaire rapide", value: "Les champs vraiment utiles" },
+        { label: "Réponse claire", value: "Sous 24-48h" },
+        { label: "Alternative directe", value: "WhatsApp toujours visible" },
       ],
-      panelEyebrow: "Ce que vous ouvrez",
-      panelTitle: "Une vraie porte d'entrée vers votre projet d'études.",
+      panelEyebrow: "Ce que vous lancez ici",
+      panelTitle: "Une première étape sérieuse, sans friction inutile.",
       panelItems: [
-        "Un échange adapté à votre profil",
-        "Une direction claire dès le premier contact",
-        "Une candidature mieux préparée",
+        "Votre niveau et votre objectif",
+        "La ville depuis laquelle vous partez",
+        "Un premier message pour cadrer la suite",
       ],
     },
     side: {
-      summaryEyebrow: "Avant d'envoyer",
-      summaryTitle: "Les informations qui nous aident à bien vous orienter.",
-      summaryText:
-        "En quelques minutes, vous nous donnez juste ce qu'il faut pour comprendre votre niveau, votre ville, votre objectif et le meilleur chemin pour avancer.",
-      summaryItems: [
-        "Vos coordonnées complètes",
-        "Votre ville et votre niveau d'étude",
+      beforeEyebrow: "Avant d'envoyer",
+      beforeTitle: "Ce que nous avons besoin de comprendre tout de suite.",
+      beforeText:
+        "Le but n'est pas de vous faire remplir un long dossier ici. Nous avons surtout besoin des informations qui nous aident à vous orienter rapidement.",
+      beforeItems: [
+        "Votre nom et votre téléphone",
+        "Votre ville",
+        "Votre niveau d'étude",
         "Votre objectif en Chine",
-        "Un message si vous avez des questions",
       ],
-      stepsEyebrow: "Ce qui se passe ensuite",
+      nextEyebrow: "Après l'envoi",
+      nextTitle: "Ce qui se passe ensuite",
       steps: [
         {
-          title: "01. Vous envoyez votre demande",
-          desc: "Nous recevons votre profil avec les informations importantes.",
+          title: "01. Nous lisons votre demande",
+          desc: "Nous regardons les informations essentielles pour comprendre votre projet rapidement.",
         },
         {
           title: "02. Nous revenons vers vous",
-          desc: "Un échange rapide nous aide à comprendre votre projet en profondeur.",
+          desc: "Un échange sur WhatsApp ou par téléphone aide à clarifier les choix les plus importants.",
         },
         {
-          title: "03. Nous clarifions la suite",
-          desc: "Orientation, dossier, admission et visa deviennent plus simples.",
+          title: "03. Nous vous indiquons la suite",
+          desc: "Vous savez plus clairement quelle voie suivre, quoi préparer, et comment avancer correctement.",
         },
       ],
-      supportTitle: "Vous voulez aller plus vite ?",
+      supportTitle: "Vous préférez commencer directement ?",
       supportText:
-        "Si vous préférez commencer immédiatement, ouvrez WhatsApp et parlez-nous directement de votre projet.",
+        "Si vous avez déjà une question précise, ouvrez WhatsApp et parlez-nous directement de votre projet.",
       supportButton: "WhatsApp : +212 638-335452",
     },
     form: {
       eyebrow: "Votre candidature",
-      title: "Postuler maintenant",
+      title: "Envoyer ma demande",
       description:
-        "Plus votre demande est précise, plus notre réponse peut être utile, claire et stratégique.",
-      chips: ["Réponse humaine", "Étudiants & parents", "Projet structuré"],
+        "Remplissez l'essentiel. Nous utiliserons ces informations pour vous répondre de manière plus utile, plus claire et plus stratégique.",
+      chips: ["Rapide à remplir", "Mobile friendly", "Étudiants & parents"],
       success: "Merci, votre demande a bien été envoyée.",
       fallbackError: "Erreur",
-      contactTitle: "Contact",
-      profileTitle: "Profil académique",
-      projectTitle: "Projet",
       objectiveLabel: "Objectif *",
       objectivePlaceholder: "Choisir...",
       objectives: [
@@ -138,7 +125,7 @@ const copy: Record<Locale, Copy> = {
         { value: "Autre", label: "Autre" },
       ],
       messageLabel: "Message",
-      messagePlaceholder: "Décrivez votre projet ou vos questions",
+      messagePlaceholder: "Décrivez brièvement votre projet ou vos questions",
       consent:
         "En envoyant ce formulaire, vous acceptez d'être contacté par WhatsApp ou téléphone.",
       submit: "Envoyer ma demande",
@@ -146,20 +133,12 @@ const copy: Record<Locale, Copy> = {
       fields: {
         fullName: "Nom complet *",
         fullNamePlaceholder: "Votre nom complet",
-        phone: "Téléphone *",
+        phone: "Téléphone / WhatsApp *",
         phonePlaceholder: "+212...",
-        whatsapp: "WhatsApp",
-        whatsappPlaceholder: "+212...",
-        email: "Email",
-        emailPlaceholder: "ex: nom@gmail.com",
         city: "Ville *",
         cityPlaceholder: "Agadir, Casablanca...",
-        address: "Adresse",
-        addressPlaceholder: "Optionnel",
         studyLevel: "Niveau d'étude *",
         studyLevelPlaceholder: "Bac, Licence...",
-        fieldOfStudy: "Filière",
-        fieldOfStudyPlaceholder: "Ex: Informatique",
       },
     },
   },
@@ -167,64 +146,62 @@ const copy: Record<Locale, Copy> = {
     dir: "ltr",
     hero: {
       badge: "Application • YALLA CHINA",
-      title: "Your student future in China can start here today.",
+      title: "Start your application simply and move forward with more clarity.",
       description:
-        "Tell us where you are now, what you want to study, and what kind of future you want to build. We come back with a clear, realistic, and reassuring direction.",
+        "Share the essentials so you can get a clearer answer about what comes next: your level, your goal, and the best direction to move forward.",
       stats: [
-        { label: "Fast response", value: "Within 24-48h" },
-        { label: "Personal follow-up", value: "WhatsApp or phone" },
-        { label: "Full support", value: "From profile to visa" },
+        { label: "Fast form", value: "Only the fields that matter first" },
+        { label: "Clear answer", value: "Within 24-48h" },
+        { label: "Direct alternative", value: "WhatsApp always visible" },
       ],
-      panelEyebrow: "What opens here",
-      panelTitle: "A real gateway into your study project.",
+      panelEyebrow: "What you begin here",
+      panelTitle: "A serious first step, without unnecessary friction.",
       panelItems: [
-        "Guidance matched to your profile",
-        "Clear direction from the first conversation",
-        "A better prepared application",
+        "Your level and your objective",
+        "The city you are applying from",
+        "A first message to frame the next move",
       ],
     },
     side: {
-      summaryEyebrow: "Before you send",
-      summaryTitle: "The details that help us guide you well.",
-      summaryText:
-        "In just a few minutes, you give us the essentials we need to understand your level, city, objective, and the best path to move forward.",
-      summaryItems: [
-        "Your contact details",
-        "Your city and study level",
+      beforeEyebrow: "Before you send",
+      beforeTitle: "What we need to understand immediately.",
+      beforeText:
+        "The goal is not to make you fill in a long file here. We mainly need the details that help us guide you quickly.",
+      beforeItems: [
+        "Your name and phone",
+        "Your city",
+        "Your study level",
         "Your goal in China",
-        "A message if you have questions",
       ],
-      stepsEyebrow: "What happens next",
+      nextEyebrow: "After you submit",
+      nextTitle: "What happens next",
       steps: [
         {
-          title: "01. You send your request",
-          desc: "We receive your profile with the important details we need.",
+          title: "01. We read your request",
+          desc: "We review the essential details to understand your project quickly.",
         },
         {
           title: "02. We contact you back",
-          desc: "A quick exchange helps us understand the project more deeply.",
+          desc: "A WhatsApp or phone exchange helps clarify the most important choices.",
         },
         {
-          title: "03. We clarify the route",
-          desc: "Orientation, file preparation, admission, and visa become easier.",
+          title: "03. We show the next route",
+          desc: "You know more clearly which path to follow, what to prepare, and how to move forward correctly.",
         },
       ],
-      supportTitle: "Want to move faster?",
+      supportTitle: "Would you rather start directly?",
       supportText:
-        "If you would rather start immediately, open WhatsApp and tell us about your project directly.",
+        "If you already have a specific question, open WhatsApp and tell us about your project directly.",
       supportButton: "WhatsApp: +212 638-335452",
     },
     form: {
       eyebrow: "Your application",
-      title: "Apply now",
+      title: "Send my request",
       description:
-        "The more precise your request is, the more useful, clear, and strategic our answer can be.",
-      chips: ["Human reply", "Students & parents", "Structured project"],
+        "Fill in the essentials. We use this information to answer in a clearer, more useful, and more strategic way.",
+      chips: ["Quick to complete", "Mobile friendly", "Students & parents"],
       success: "Thank you, your request has been sent.",
       fallbackError: "Error",
-      contactTitle: "Contact",
-      profileTitle: "Academic profile",
-      projectTitle: "Project",
       objectiveLabel: "Objective *",
       objectivePlaceholder: "Select...",
       objectives: [
@@ -233,7 +210,7 @@ const copy: Record<Locale, Copy> = {
         { value: "Other", label: "Other" },
       ],
       messageLabel: "Message",
-      messagePlaceholder: "Describe your project or your questions",
+      messagePlaceholder: "Briefly describe your project or your questions",
       consent:
         "By sending this form, you agree to be contacted by WhatsApp or phone.",
       submit: "Send my request",
@@ -241,20 +218,12 @@ const copy: Record<Locale, Copy> = {
       fields: {
         fullName: "Full name *",
         fullNamePlaceholder: "Your full name",
-        phone: "Phone *",
+        phone: "Phone / WhatsApp *",
         phonePlaceholder: "+212...",
-        whatsapp: "WhatsApp",
-        whatsappPlaceholder: "+212...",
-        email: "Email",
-        emailPlaceholder: "example@gmail.com",
         city: "City *",
         cityPlaceholder: "Agadir, Casablanca...",
-        address: "Address",
-        addressPlaceholder: "Optional",
         studyLevel: "Study level *",
         studyLevelPlaceholder: "High school, Bachelor...",
-        fieldOfStudy: "Field of study",
-        fieldOfStudyPlaceholder: "Example: Computer Science",
       },
     },
   },
@@ -262,64 +231,62 @@ const copy: Record<Locale, Copy> = {
     dir: "rtl",
     hero: {
       badge: "التقديم • YALLA CHINA",
-      title: "مستقبلك الدراسي في الصين يمكن أن يبدأ من هنا اليوم.",
+      title: "ابدأ طلبك ببساطة وتقدم بخطوات أوضح.",
       description:
-        "أخبرنا أين وصلت الآن، وماذا تريد أن تدرس، وما نوع المستقبل الذي تريد بناءه. سنعود إليك باتجاه واضح وواقعي ومطمئن.",
+        "أعطنا المعلومات الأساسية فقط حتى نعود إليك بجواب أوضح حول الخطوة التالية: مستواك، هدفك، وأفضل طريق للتقدم.",
       stats: [
-        { label: "رد سريع", value: "خلال 24-48 ساعة" },
-        { label: "متابعة شخصية", value: "واتساب أو هاتف" },
-        { label: "مرافقة كاملة", value: "من الملف إلى التأشيرة" },
+        { label: "استمارة سريعة", value: "الحقول المهمة فقط في البداية" },
+        { label: "جواب واضح", value: "خلال 24 إلى 48 ساعة" },
+        { label: "بديل مباشر", value: "واتساب ظاهر دائمًا" },
       ],
-      panelEyebrow: "ما الذي يفتح من هنا",
-      panelTitle: "بوابة حقيقية نحو مشروعك الدراسي.",
+      panelEyebrow: "ما الذي تبدأه هنا",
+      panelTitle: "أول خطوة جادة من دون تعقيد غير ضروري.",
       panelItems: [
-        "توجيه مناسب لملفك",
-        "اتجاه واضح من أول حديث",
-        "طلب أكثر جاهزية وقوة",
+        "مستواك الدراسي وهدفك",
+        "المدينة التي تنطلق منها",
+        "رسالة أولى تساعد على توضيح الطريق",
       ],
     },
     side: {
-      summaryEyebrow: "قبل الإرسال",
-      summaryTitle: "المعطيات التي تساعدنا على توجيهك بالشكل الصحيح.",
-      summaryText:
-        "في بضع دقائق فقط تعطينا المعلومات الأساسية التي تمكّننا من فهم مستواك ومدينتك وهدفك وأفضل طريق مناسب لك.",
-      summaryItems: [
-        "معلومات الاتصال الخاصة بك",
-        "مدينتك ومستواك الدراسي",
+      beforeEyebrow: "قبل الإرسال",
+      beforeTitle: "ما الذي نحتاج إلى فهمه مباشرة.",
+      beforeText:
+        "الهدف ليس أن نطلب منك ملفًا طويلًا هنا. نحن نحتاج فقط إلى المعلومات التي تساعدنا على توجيهك بسرعة.",
+      beforeItems: [
+        "اسمك ورقم هاتفك",
+        "مدينتك",
+        "مستواك الدراسي",
         "هدفك في الصين",
-        "رسالة إذا كانت لديك أسئلة",
       ],
-      stepsEyebrow: "ما الذي يحدث بعد ذلك",
+      nextEyebrow: "بعد الإرسال",
+      nextTitle: "ماذا يحدث بعد ذلك",
       steps: [
         {
-          title: "01. ترسل طلبك",
-          desc: "نستقبل ملفك مع المعلومات الأساسية المهمة.",
+          title: "01. نقرأ طلبك",
+          desc: "نراجع المعطيات الأساسية حتى نفهم مشروعك بسرعة.",
         },
         {
           title: "02. نعود للتواصل معك",
-          desc: "محادثة قصيرة تساعدنا على فهم المشروع بشكل أعمق.",
+          desc: "محادثة على واتساب أو الهاتف تساعد على توضيح أهم الخيارات.",
         },
         {
-          title: "03. نوضح الطريق",
-          desc: "يصبح التوجيه والملف والقبول والتأشيرة أسهل وأوضح.",
+          title: "03. نوضح لك الطريق التالي",
+          desc: "تصبح الصورة أوضح حول المسار المناسب وما الذي يجب تحضيره وكيف تبدأ بشكل صحيح.",
         },
       ],
-      supportTitle: "هل تريد التحرك أسرع؟",
+      supportTitle: "هل تفضل أن تبدأ مباشرة؟",
       supportText:
-        "إذا كنت تفضل البداية مباشرة، افتح واتساب وحدثنا الآن عن مشروعك.",
+        "إذا كان لديك سؤال محدد من الآن، افتح واتساب وحدثنا مباشرة عن مشروعك.",
       supportButton: "واتساب: +212 638-335452",
     },
     form: {
       eyebrow: "طلبك",
-      title: "قدّم الآن",
+      title: "إرسال الطلب",
       description:
-        "كلما كان طلبك أدق، كان ردنا عليك أوضح وأكثر فائدة واستراتيجية.",
-      chips: ["رد إنساني", "للطلبة والآباء", "مشروع منظم"],
+        "املأ المعلومات الأساسية فقط. سنستخدمها لنرد عليك بشكل أوضح وأكثر فائدة وواقعية.",
+      chips: ["سريع في الملء", "مناسب للهاتف", "للطلبة والعائلات"],
       success: "شكرًا لك، تم إرسال طلبك بنجاح.",
       fallbackError: "خطأ",
-      contactTitle: "التواصل",
-      profileTitle: "الملف الأكاديمي",
-      projectTitle: "المشروع",
       objectiveLabel: "الهدف *",
       objectivePlaceholder: "اختر...",
       objectives: [
@@ -328,7 +295,7 @@ const copy: Record<Locale, Copy> = {
         { value: "أخرى", label: "أخرى" },
       ],
       messageLabel: "الرسالة",
-      messagePlaceholder: "اكتب مشروعك أو أسئلتك",
+      messagePlaceholder: "اكتب باختصار مشروعك أو أسئلتك",
       consent:
         "بإرسال هذه الاستمارة فإنك توافق على أن يتم التواصل معك عبر واتساب أو الهاتف.",
       submit: "إرسال الطلب",
@@ -336,20 +303,12 @@ const copy: Record<Locale, Copy> = {
       fields: {
         fullName: "الاسم الكامل *",
         fullNamePlaceholder: "اسمك الكامل",
-        phone: "الهاتف *",
+        phone: "الهاتف / واتساب *",
         phonePlaceholder: "+212...",
-        whatsapp: "واتساب",
-        whatsappPlaceholder: "+212...",
-        email: "البريد الإلكتروني",
-        emailPlaceholder: "example@gmail.com",
         city: "المدينة *",
         cityPlaceholder: "أكادير، الدار البيضاء...",
-        address: "العنوان",
-        addressPlaceholder: "اختياري",
         studyLevel: "المستوى الدراسي *",
         studyLevelPlaceholder: "ثانوي، إجازة...",
-        fieldOfStudy: "التخصص",
-        fieldOfStudyPlaceholder: "مثال: الإعلاميات",
       },
     },
   },
@@ -390,7 +349,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
   }
 
   return (
-    <main className="bg-[#050505] text-white">
+    <main className="bg-[#050505] text-white" dir={t.dir}>
       <section className="relative overflow-hidden bg-[#130405]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.14),transparent_20%),linear-gradient(135deg,#190506_0%,#28080a_38%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
@@ -465,8 +424,6 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
         </Container>
       </section>
 
-      <FounderStories lang={lang} variant="compact" />
-
       <section className="bg-[#f4ede4] py-12 text-zinc-900 sm:py-16">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
@@ -477,17 +434,17 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 }`}
               >
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
-                  {t.side.summaryEyebrow}
+                  {t.side.beforeEyebrow}
                 </p>
                 <h2 className="display-title mt-3 text-2xl font-black tracking-tight">
-                  {t.side.summaryTitle}
+                  {t.side.beforeTitle}
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">
-                  {t.side.summaryText}
+                  {t.side.beforeText}
                 </p>
 
                 <ul className="mt-5 space-y-3 text-sm text-zinc-700">
-                  {t.side.summaryItems.map((item) => (
+                  {t.side.beforeItems.map((item) => (
                     <li key={item} className="rounded-2xl bg-zinc-50 px-4 py-3">
                       {item}
                     </li>
@@ -501,8 +458,11 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 }`}
               >
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
-                  {t.side.stepsEyebrow}
+                  {t.side.nextEyebrow}
                 </p>
+                <h3 className="display-title mt-3 text-2xl font-black tracking-tight">
+                  {t.side.nextTitle}
+                </h3>
 
                 <div className="mt-5 space-y-4">
                   {t.side.steps.map((step) => (
@@ -510,9 +470,9 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       key={step.title}
                       className="rounded-[1.6rem] border border-zinc-200 bg-white p-4"
                     >
-                      <h3 className="text-sm font-bold text-zinc-900 sm:text-base">
+                      <h4 className="text-sm font-bold text-zinc-900 sm:text-base">
                         {step.title}
-                      </h3>
+                      </h4>
                       <p className="mt-2 text-sm leading-7 text-zinc-600">
                         {step.desc}
                       </p>
@@ -538,14 +498,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   rel="noreferrer"
                   className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#EDB80B] px-5 py-3 font-semibold text-black transition hover:opacity-90"
                 >
-                  {isArabic ? (
-                    <>
-                      <span>واتساب</span>
-                      <span className="contact-inline">+212 638-335452</span>
-                    </>
-                  ) : (
-                    t.side.supportButton
-                  )}
+                  {t.side.supportButton}
                 </a>
               </div>
             </div>
@@ -589,119 +542,77 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   </div>
                 )}
 
-                <form onSubmit={onSubmit} className="mt-6 space-y-6">
-                  <div className="space-y-4">
-                    <SectionTitle title={t.form.contactTitle} rtl={isArabic} />
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label={t.form.fields.fullName}
-                        name="fullName"
-                        placeholder={t.form.fields.fullNamePlaceholder}
-                        required
-                        rtl={isArabic}
-                      />
-                      <Field
-                        label={t.form.fields.phone}
-                        name="phone"
-                        placeholder={t.form.fields.phonePlaceholder}
-                        required
-                        rtl={isArabic}
-                        latin
-                      />
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label={t.form.fields.whatsapp}
-                        name="whatsapp"
-                        placeholder={t.form.fields.whatsappPlaceholder}
-                        rtl={isArabic}
-                        latin
-                      />
-                      <Field
-                        label={t.form.fields.email}
-                        name="email"
-                        placeholder={t.form.fields.emailPlaceholder}
-                        type="email"
-                        rtl={isArabic}
-                        latin
-                      />
-                    </div>
-
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label={t.form.fields.city}
-                        name="city"
-                        placeholder={t.form.fields.cityPlaceholder}
-                        required
-                        rtl={isArabic}
-                      />
-                      <Field
-                        label={t.form.fields.address}
-                        name="address"
-                        placeholder={t.form.fields.addressPlaceholder}
-                        rtl={isArabic}
-                      />
-                    </div>
+                <form onSubmit={onSubmit} className="mt-6 space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      label={t.form.fields.fullName}
+                      name="fullName"
+                      placeholder={t.form.fields.fullNamePlaceholder}
+                      required
+                      rtl={isArabic}
+                    />
+                    <Field
+                      label={t.form.fields.phone}
+                      name="phone"
+                      placeholder={t.form.fields.phonePlaceholder}
+                      required
+                      rtl={isArabic}
+                      latin
+                    />
                   </div>
 
-                  <div className="space-y-4">
-                    <SectionTitle title={t.form.profileTitle} rtl={isArabic} />
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label={t.form.fields.studyLevel}
-                        name="studyLevel"
-                        placeholder={t.form.fields.studyLevelPlaceholder}
-                        required
-                        rtl={isArabic}
-                      />
-                      <Field
-                        label={t.form.fields.fieldOfStudy}
-                        name="fieldOfStudy"
-                        placeholder={t.form.fields.fieldOfStudyPlaceholder}
-                        rtl={isArabic}
-                      />
-                    </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      label={t.form.fields.city}
+                      name="city"
+                      placeholder={t.form.fields.cityPlaceholder}
+                      required
+                      rtl={isArabic}
+                    />
+                    <Field
+                      label={t.form.fields.studyLevel}
+                      name="studyLevel"
+                      placeholder={t.form.fields.studyLevelPlaceholder}
+                      required
+                      rtl={isArabic}
+                    />
                   </div>
 
-                  <div className="space-y-4">
-                    <SectionTitle title={t.form.projectTitle} rtl={isArabic} />
-                    <div>
-                      <label className="text-sm font-medium">
-                        {t.form.objectiveLabel}
-                      </label>
-                      <select
-                        name="objective"
-                        required
-                        defaultValue=""
-                        className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] sm:text-base ${
-                          isArabic ? "text-right" : ""
-                        }`}
-                      >
-                        <option value="" disabled>
-                          {t.form.objectivePlaceholder}
+                  <div>
+                    <label className="text-sm font-medium">
+                      {t.form.objectiveLabel}
+                    </label>
+                    <select
+                      name="objective"
+                      required
+                      defaultValue=""
+                      className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] sm:text-base ${
+                        isArabic ? "text-right" : ""
+                      }`}
+                    >
+                      <option value="" disabled>
+                        {t.form.objectivePlaceholder}
+                      </option>
+                      {t.form.objectives.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
                         </option>
-                        {t.form.objectives.map((item) => (
-                          <option key={item.value} value={item.value}>
-                            {item.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      ))}
+                    </select>
+                  </div>
 
-                    <div>
-                      <label className="text-sm font-medium">
-                        {t.form.messageLabel}
-                      </label>
-                      <textarea
-                        name="message"
-                        rows={5}
-                        placeholder={t.form.messagePlaceholder}
-                        className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] sm:text-base ${
-                          isArabic ? "text-right" : ""
-                        }`}
-                      />
-                    </div>
+                  <div>
+                    <label className="text-sm font-medium">
+                      {t.form.messageLabel}
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      placeholder={t.form.messagePlaceholder}
+                      className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] sm:text-base ${
+                        isArabic ? "text-right" : ""
+                      }`}
+                    />
                   </div>
 
                   <button
@@ -724,26 +635,11 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
   );
 }
 
-function SectionTitle({ title, rtl = false }: { title: string; rtl?: boolean }) {
-  return (
-    <div className="border-b border-zinc-200 pb-3">
-      <p
-        className={`section-eyebrow text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500 ${
-          rtl ? "text-right" : ""
-        }`}
-      >
-        {title}
-      </p>
-    </div>
-  );
-}
-
 function Field({
   label,
   name,
   placeholder,
   required,
-  type = "text",
   rtl = false,
   latin = false,
 }: {
@@ -751,7 +647,6 @@ function Field({
   name: string;
   placeholder?: string;
   required?: boolean;
-  type?: string;
   rtl?: boolean;
   latin?: boolean;
 }) {
@@ -761,10 +656,9 @@ function Field({
       <input
         name={name}
         required={required}
-        type={type}
         placeholder={placeholder}
         dir={latin && rtl ? "ltr" : undefined}
-        inputMode={latin ? (type === "email" ? "email" : "tel") : undefined}
+        inputMode={latin ? "tel" : undefined}
         className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] sm:text-base ${
           latin && rtl ? "force-ltr" : rtl ? "text-right" : ""
         }`}
