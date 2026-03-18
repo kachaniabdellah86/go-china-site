@@ -354,23 +354,39 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.14),transparent_20%),linear-gradient(135deg,#190506_0%,#28080a_38%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className="relative grid gap-10 py-14 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
-            <div className={`space-y-7 ${isArabic ? "text-right" : ""}`}>
-              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/90 sm:text-sm">
+          <div className="relative grid gap-8 py-12 lg:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
+            <div
+              className={`space-y-7 ${
+                isArabic ? "text-right" : "text-center lg:text-left"
+              }`}
+            >
+              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em]">
                 {t.hero.badge}
               </p>
 
               <div className="space-y-4">
-                <h1 className="display-title max-w-4xl text-4xl font-black leading-tight tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+                <h1
+                  className={`display-title text-[2.7rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${
+                    isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
+                  }`}
+                >
                   {t.hero.title}
                 </h1>
 
-                <p className="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+                <p
+                  className={`max-w-2xl text-base leading-8 text-white/78 sm:text-lg ${
+                    isArabic ? "" : "mx-auto lg:mx-0"
+                  }`}
+                >
                   {t.hero.description}
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div
+                className={`grid gap-3 sm:grid-cols-3 ${
+                  isArabic ? "" : "mx-auto max-w-xl lg:mx-0 lg:max-w-none"
+                }`}
+              >
                 {t.hero.stats.map((item) => (
                   <div
                     key={item.label}
@@ -392,14 +408,14 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 <img
                   src="/fr-apply-hero.jpg"
                   alt="Apply with YALLA CHINA"
-                  className="h-[22rem] w-full object-cover sm:h-[28rem]"
+                  className="h-[20rem] w-full object-cover sm:h-[28rem]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
               </div>
 
               <div
-                className={`absolute bottom-4 left-4 right-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md ${
-                  isArabic ? "text-right" : ""
+                className={`relative mt-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md sm:absolute sm:bottom-4 sm:left-4 sm:right-4 sm:mt-0 ${
+                  isArabic ? "text-right" : "text-center sm:text-left"
                 }`}
               >
                 <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
@@ -427,7 +443,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
       <section className="bg-[#f4ede4] py-12 text-zinc-900 sm:py-16">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
-            <div className="space-y-5">
+            <div className="order-2 space-y-5 lg:order-1">
               <div
                 className={`rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-[0_20px_45px_rgba(15,23,42,0.06)] sm:p-8 ${
                   isArabic ? "text-right" : ""
@@ -496,14 +512,14 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   href="https://wa.me/212638335452"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#EDB80B] px-5 py-3 font-semibold text-black transition hover:opacity-90"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#EDB80B] px-5 py-3 font-semibold text-black transition hover:opacity-90 sm:w-auto"
                 >
                   {t.side.supportButton}
                 </a>
               </div>
             </div>
 
-            <div className="lg:sticky lg:top-24">
+            <div className="order-1 lg:sticky lg:top-24 lg:order-2">
               <div
                 className={`rounded-[2.2rem] border border-zinc-200 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-8 ${
                   isArabic ? "text-right" : ""

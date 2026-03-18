@@ -169,7 +169,7 @@ export default function FounderStories({ lang }: { lang: Locale }) {
         <div className="grid gap-8 xl:grid-cols-[0.8fr_1.2fr] xl:items-start">
           <div
             className={`rounded-[2.4rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-7 shadow-[0_30px_80px_rgba(0,0,0,0.22)] sm:p-8 ${
-              isArabic ? "text-right" : ""
+              isArabic ? "text-right" : "text-center xl:text-left"
             }`}
           >
             <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
@@ -224,18 +224,18 @@ export default function FounderStories({ lang }: { lang: Locale }) {
 
             <div
               className={`mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                isArabic ? "sm:justify-end" : ""
+                isArabic ? "sm:justify-end" : "mx-auto max-w-sm xl:mx-0 sm:max-w-none"
               }`}
             >
               <Link
                 href={applyHref}
-                className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
+                className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
               >
                 {t.primary}
               </Link>
               <Link
                 href={contactHref}
-                className="rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14"
+                className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
               >
                 {t.secondary}
               </Link>

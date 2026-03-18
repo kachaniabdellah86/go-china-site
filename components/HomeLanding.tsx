@@ -349,10 +349,14 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
         <div className="pointer-events-none absolute right-0 top-0 h-[26rem] w-[26rem] rounded-full bg-[#8B0000]/35 blur-3xl" />
 
         <Container>
-          <div className="relative py-14 sm:py-18 lg:py-24">
-            <div className="grid gap-10 xl:grid-cols-[1.02fr_0.98fr] xl:items-center">
-              <div className={`space-y-8 ${isArabic ? "text-right" : ""}`}>
-                <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/88 sm:text-xs">
+          <div className="relative py-12 sm:py-16 lg:py-24">
+            <div className="grid gap-8 lg:gap-10 xl:grid-cols-[1.02fr_0.98fr] xl:items-center">
+              <div
+                className={`space-y-7 sm:space-y-8 ${
+                  isArabic ? "text-right" : "text-center xl:text-left"
+                }`}
+              >
+                <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/88 sm:text-xs sm:tracking-[0.22em]">
                   {t.hero.badge}
                 </p>
 
@@ -362,7 +366,9 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                   </p>
 
                   <h1
-                    className="display-title max-w-4xl text-5xl font-black leading-[0.96] tracking-[-0.05em] sm:text-6xl lg:text-7xl"
+                    className={`display-title text-[2.7rem] font-black leading-[0.98] tracking-[-0.04em] sm:text-6xl sm:tracking-[-0.05em] lg:text-7xl ${
+                      isArabic ? "max-w-4xl" : "mx-auto max-w-4xl xl:mx-0"
+                    }`}
                     style={
                       isArabic
                         ? undefined
@@ -373,34 +379,48 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                   </h1>
                 </div>
 
-                <p className="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+                <p
+                  className={`max-w-2xl text-base leading-8 text-white/78 sm:text-lg ${
+                    isArabic ? "" : "mx-auto xl:mx-0"
+                  }`}
+                >
                   {t.hero.description}
                 </p>
-                <p className="max-w-2xl text-sm font-medium leading-7 text-white/64">
+                <p
+                  className={`max-w-2xl text-sm font-medium leading-7 text-white/64 ${
+                    isArabic ? "" : "mx-auto xl:mx-0"
+                  }`}
+                >
                   {t.hero.note}
                 </p>
 
                 <div
-                  className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                    isArabic ? "sm:justify-end" : ""
+                  className={`flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap ${
+                    isArabic
+                      ? "sm:justify-end"
+                      : "mx-auto items-stretch xl:mx-0 sm:items-center"
                   }`}
                 >
                   <Link
                     href={applyHref}
-                    className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
+                    className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                   >
                     {t.hero.primary}
                   </Link>
 
                   <Link
                     href={servicesHref}
-                    className="rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14"
+                    className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
                   >
                     {t.hero.secondary}
                   </Link>
                 </div>
 
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div
+                  className={`grid gap-3 sm:grid-cols-3 ${
+                    isArabic ? "" : "mx-auto max-w-xl xl:mx-0 xl:max-w-none"
+                  }`}
+                >
                   {t.hero.stats.map((item) => (
                     <div
                       key={item.label}
@@ -422,7 +442,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
               <div className="relative">
                 <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top,rgba(237,184,11,0.14),transparent_35%),radial-gradient(circle_at_bottom,rgba(255,255,255,0.04),transparent_40%)]" />
 
-                <div className="relative overflow-hidden rounded-[2.4rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)]">
+                <div className="relative overflow-hidden rounded-[2.2rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)] sm:rounded-[2.4rem]">
                   <div className="relative h-[20rem] overflow-hidden sm:h-[27rem]">
                     <img
                       src="/fr-services-hero.jpg"
@@ -441,7 +461,11 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                     </div>
                   </div>
 
-                  <div className={`space-y-4 p-6 ${isArabic ? "text-right" : ""}`}>
+                  <div
+                    className={`space-y-4 p-5 sm:p-6 ${
+                      isArabic ? "text-right" : "text-center sm:text-left"
+                    }`}
+                  >
                     <h2 className="display-title text-2xl font-black leading-tight text-white">
                       {t.hero.visualTitle}
                     </h2>
@@ -515,7 +539,11 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
       <section className="bg-[#080808] py-14 sm:py-18">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
-            <div className={`space-y-6 ${isArabic ? "text-right" : ""}`}>
+            <div
+              className={`space-y-6 ${
+                isArabic ? "text-right" : "text-center lg:text-left"
+              }`}
+            >
               <div>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
                   {t.process.eyebrow}
@@ -523,7 +551,11 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 <h2 className="display-title mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
                   {t.process.title}
                 </h2>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-white/70">
+                <p
+                  className={`mt-4 max-w-2xl text-base leading-8 text-white/70 ${
+                    isArabic ? "" : "mx-auto lg:mx-0"
+                  }`}
+                >
                   {t.process.description}
                 </p>
               </div>
@@ -533,7 +565,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                   <article
                     key={step.title}
                     className={`rounded-[1.8rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_18px_35px_rgba(0,0,0,0.16)] ${
-                      isArabic ? "text-right" : ""
+                      isArabic ? "text-right" : "text-left"
                     }`}
                   >
                     <h3 className="text-lg font-bold text-white">{step.title}</h3>
@@ -590,7 +622,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
         <Container>
           <div className="rounded-[2.5rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-              <div className={isArabic ? "text-right" : ""}>
+              <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
                   {t.cta.eyebrow}
                 </p>
@@ -604,12 +636,12 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
 
               <div
                 className={`flex flex-col gap-3 ${
-                  isArabic ? "sm:items-end" : ""
+                  isArabic ? "sm:items-end" : "mx-auto w-full max-w-sm lg:mx-0"
                 }`}
               >
                 <Link
                   href={applyHref}
-                  className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95"
+                  className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.cta.primary}
                 </Link>
@@ -618,7 +650,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                   href="https://wa.me/212638335452"
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15"
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
                 >
                   {t.cta.secondary}
                 </a>

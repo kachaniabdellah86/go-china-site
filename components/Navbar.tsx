@@ -113,11 +113,27 @@ export default function Navbar({ lang }: Props) {
             <button
               type="button"
               onClick={() => setOpen((value) => !value)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/10"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
             >
-              <span className="text-xl leading-none">{open ? "✕" : "☰"}</span>
+              <span className="relative block h-4 w-5">
+                <span
+                  className={`absolute left-0 top-0 h-0.5 w-full rounded-full bg-current transition duration-200 ${
+                    open ? "translate-y-[7px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 top-[7px] h-0.5 w-full rounded-full bg-current transition duration-200 ${
+                    open ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 top-[14px] h-0.5 w-full rounded-full bg-current transition duration-200 ${
+                    open ? "-translate-y-[7px] -rotate-45" : ""
+                  }`}
+                />
+              </span>
             </button>
           </div>
         </div>

@@ -426,22 +426,38 @@ export default function ContactPage({ lang }: { lang: Locale }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.14),transparent_20%),linear-gradient(135deg,#170405_0%,#28080a_40%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className="relative grid gap-10 py-14 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
-            <div className={`space-y-7 ${isArabic ? "text-right" : ""}`}>
-              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/90 sm:text-sm">
+          <div className="relative grid gap-8 py-12 lg:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
+            <div
+              className={`space-y-7 ${
+                isArabic ? "text-right" : "text-center lg:text-left"
+              }`}
+            >
+              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em]">
                 {t.hero.badge}
               </p>
 
               <div className="space-y-4">
-                <h1 className="display-title max-w-4xl text-4xl font-black leading-tight tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+                <h1
+                  className={`display-title text-[2.7rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${
+                    isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
+                  }`}
+                >
                   {t.hero.title}
                 </h1>
-                <p className="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+                <p
+                  className={`max-w-2xl text-base leading-8 text-white/78 sm:text-lg ${
+                    isArabic ? "" : "mx-auto lg:mx-0"
+                  }`}
+                >
                   {t.hero.description}
                 </p>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div
+                className={`grid gap-3 sm:grid-cols-3 ${
+                  isArabic ? "" : "mx-auto max-w-xl lg:mx-0 lg:max-w-none"
+                }`}
+              >
                 {t.hero.stats.map((item) => (
                   <div
                     key={item.label}
@@ -463,14 +479,14 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                 <img
                   src="/fr-contact-hero.jpg"
                   alt="YALLA CHINA contact"
-                  className="h-[22rem] w-full object-cover sm:h-[28rem]"
+                  className="h-[20rem] w-full object-cover sm:h-[28rem]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
               </div>
 
               <div
-                className={`absolute bottom-4 left-4 right-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md ${
-                  isArabic ? "text-right" : ""
+                className={`relative mt-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md sm:absolute sm:bottom-4 sm:left-4 sm:right-4 sm:mt-0 ${
+                  isArabic ? "text-right" : "text-center sm:text-left"
                 }`}
               >
                 <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
@@ -512,7 +528,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   isArabic ? "text-right" : ""
                 }`}
               >
-                <div className="max-w-3xl">
+                <div className={`max-w-3xl ${isArabic ? "" : "mx-auto text-center lg:mx-0 lg:text-left"}`}>
                   <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
                     {t.faq.eyebrow}
                   </p>
@@ -526,7 +542,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                     <article
                       key={item.question}
                       className={`rounded-[1.7rem] border border-zinc-200 bg-zinc-50 p-5 ${
-                        isArabic ? "text-right" : ""
+                        isArabic ? "text-right" : "text-left"
                       }`}
                     >
                       <h4 className="text-base font-bold text-zinc-900">
@@ -554,10 +570,10 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
                     {t.direct.eyebrow}
                   </p>
-                  <h2 className="display-title mt-3 text-2xl font-black tracking-tight">
+                  <h2 className={`display-title mt-3 text-2xl font-black tracking-tight ${isArabic ? "" : "text-center lg:text-left"}`}>
                     {t.direct.title}
                   </h2>
-                  <p className="mt-3 text-sm leading-7 text-white/72 sm:text-base">
+                  <p className={`mt-3 text-sm leading-7 text-white/72 sm:text-base ${isArabic ? "" : "text-center lg:text-left"}`}>
                     {t.direct.intro}
                   </p>
 
@@ -565,7 +581,9 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                     {t.direct.items.map((item) => (
                       <article
                         key={item.title}
-                        className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm"
+                        className={`rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm ${
+                          isArabic ? "text-right" : "text-left"
+                        }`}
                       >
                         <h3 className="text-lg font-bold text-white">
                           {item.title}
@@ -584,7 +602,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                                 ? "noreferrer"
                                 : undefined
                             }
-                            className={`mt-4 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition ${
+                            className={`mt-4 inline-flex w-full justify-center rounded-full px-5 py-3 text-sm font-semibold transition sm:w-auto ${
                               item.emphasis
                                 ? "bg-[#EDB80B] text-black hover:opacity-90"
                                 : "border border-white/12 bg-white/[0.08] text-white hover:bg-white/[0.14]"
@@ -614,7 +632,9 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                       {t.reasons.items.map((item) => (
                         <div
                           key={item}
-                          className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/84"
+                          className={`rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/84 ${
+                            isArabic ? "text-right" : "text-left"
+                          }`}
                         >
                           {item}
                         </div>
@@ -632,7 +652,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
         <Container>
           <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
-              <div className={isArabic ? "text-right" : ""}>
+              <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
                   {t.cta.eyebrow}
                 </p>
@@ -646,12 +666,12 @@ export default function ContactPage({ lang }: { lang: Locale }) {
 
               <div
                 className={`flex flex-col gap-3 ${
-                  isArabic ? "sm:items-end" : ""
+                  isArabic ? "sm:items-end" : "mx-auto w-full max-w-sm lg:mx-0"
                 }`}
               >
                 <Link
                   href={applyHref}
-                  className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95"
+                  className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.cta.primary}
                 </Link>
@@ -659,7 +679,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   href="https://wa.me/212638335452"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
                 >
                   {t.cta.secondary}
                 </a>
