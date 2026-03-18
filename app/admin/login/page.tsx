@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function AdminLogin() {
   const [password, setPassword] = useState("");
@@ -50,9 +51,7 @@ export default function AdminLogin() {
 
           <div className="relative flex h-full flex-col justify-between">
             <div>
-              <p className="text-2xl font-black uppercase tracking-tight sm:text-3xl">
-                YALLA CHINA<span className="text-[#EDB80B]">.</span>
-              </p>
+              <BrandLogo size="lg" variant="dark" />
               <p className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-[#EDB80B]">
                 Portail administrateur
               </p>

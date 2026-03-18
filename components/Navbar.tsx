@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import BrandLogo from "./BrandLogo";
 import Container from "./Container";
 import LanguageSwitch from "./LanguageSwitch";
 
@@ -65,12 +66,8 @@ export default function Navbar({ lang }: Props) {
       <Container>
         <div className="flex min-h-[76px] items-center justify-between gap-4 py-3">
           <div className="flex min-w-0 items-center gap-4">
-            <Link
-              href={`/${lang}`}
-              className="shrink-0 text-base font-black uppercase tracking-tight text-white sm:text-2xl"
-            >
-              YALLA <span className="text-white">CHINA</span>
-              <span className="text-[#EDB80B]">.</span>
+            <Link href={`/${lang}`} className="shrink-0">
+              <BrandLogo size="md" variant="dark" />
             </Link>
 
             <div className="hidden min-[1180px]:block">

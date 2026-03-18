@@ -1,0 +1,89 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 640 512"
+  fill="none"
+>
+  <path
+    fill="#8B0000"
+    fill-rule="evenodd"
+    d="M122 470V232C122 161 165 102 256 38C347 102 390 161 390 232V470H314V338L284 306C274 296 268 282 268 266C268 221 296 183 331 161C315 118 286 82 256 58C226 82 197 118 181 161C216 183 244 221 244 266C244 282 238 296 228 306L198 338V470H122ZM220 470V325L187 293C174 280 166 262 166 241C166 180 208 127 256 91C304 127 346 180 346 241C346 262 338 280 325 293L292 325V470H220Z"
+  />
+  <path
+    d="M122 470V232C122 161 165 102 256 38C347 102 390 161 390 232V470H314V338L284 306C274 296 268 282 268 266C268 221 296 183 331 161C315 118 286 82 256 58C226 82 197 118 181 161C216 183 244 221 244 266C244 282 238 296 228 306L198 338V470H122Z"
+    stroke="#fff"
+    stroke-linejoin="round"
+    stroke-width="10"
+  />
+  <path
+    d="M220 470V325L187 293C174 280 166 262 166 241C166 180 208 127 256 91C304 127 346 180 346 241C346 262 338 280 325 293L292 325V470"
+    stroke="#fff"
+    stroke-linejoin="round"
+    stroke-width="10"
+  />
+  <path
+    d="M336 450V258L386 228V393C446 365 516 347 592 342V177C531 181 480 168 426 138C413 155 397 168 375 177C393 188 409 206 418 226V465C471 423 530 397 611 389"
+    fill="#C39200"
+  />
+  <path
+    d="M336 450V258L386 228V393C446 365 516 347 592 342V177C531 181 480 168 426 138C413 155 397 168 375 177C393 188 409 206 418 226V465C471 423 530 397 611 389"
+    stroke="#fff"
+    stroke-linejoin="round"
+    stroke-width="10"
+  />
+  <path
+    d="M441 146C464 139 484 125 497 105C529 127 562 138 591 138C577 152 557 162 531 168L496 160L469 176L441 146Z"
+    fill="#C39200"
+    stroke="#fff"
+    stroke-linejoin="round"
+    stroke-width="10"
+  />
+  <path
+    d="M458 174L505 154L591 166"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="10"
+  />
+  <path
+    d="M336 310L386 280"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M336 364L386 334"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M383 228V399"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M420 214V251"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M446 216V247"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M474 219V244"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+  <path
+    d="M383 328C444 311 514 299 592 295"
+    stroke="#fff"
+    stroke-linecap="round"
+    stroke-width="10"
+  />
+</svg>

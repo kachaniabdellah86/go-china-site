@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 import Container from "./Container";
 
 type Props = {
@@ -195,10 +196,9 @@ export default function Footer({ lang = "fr" }: Props) {
                 isArabic ? "text-right" : ""
               }`}
             >
-              <p className="text-2xl font-black uppercase tracking-tight">
-                {t.brandTitle}
-                <span className="text-[#EDB80B]">.</span>
-              </p>
+              <div className={isArabic ? "flex justify-end" : ""}>
+                <BrandLogo size="lg" variant="dark" />
+              </div>
               <p className="mt-4 max-w-xl text-sm leading-7 text-white/72">
                 {t.brandText}
               </p>
