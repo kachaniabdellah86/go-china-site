@@ -139,6 +139,12 @@ const copy: Record<Locale, Copy> = {
           href: "mailto:contact@yallachina.com",
         },
         {
+          title: "Instagram",
+          text: "Voir le contenu et les mises à jour de YALLA CHINA",
+          value: "@yallachina.ma",
+          href: "https://www.instagram.com/yallachina.ma/",
+        },
+        {
           title: "Passer à la candidature",
           text: "Si vous êtes déjà prêt à passer à l'étape suivante",
           value: "Ouvrir la candidature",
@@ -251,6 +257,12 @@ const copy: Record<Locale, Copy> = {
           text: "If you prefer to write a more detailed request",
           value: "contact@yallachina.com",
           href: "mailto:contact@yallachina.com",
+        },
+        {
+          title: "Instagram",
+          text: "See YALLA CHINA content and project updates",
+          value: "@yallachina.ma",
+          href: "https://www.instagram.com/yallachina.ma/",
         },
         {
           title: "Start an application",
@@ -366,6 +378,12 @@ const copy: Record<Locale, Copy> = {
           href: "mailto:contact@yallachina.com",
         },
         {
+          title: "Instagram",
+          text: "شاهد محتوى وتحديثات YALLA CHINA",
+          value: "@yallachina.ma",
+          href: "https://www.instagram.com/yallachina.ma/",
+        },
+        {
           title: "صفحة التقديم",
           text: "إذا كنت جاهزًا بالفعل للخطوة التالية",
           value: "افتح صفحة التقديم",
@@ -419,6 +437,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = t.dir === "rtl";
   const applyHref = `/${lang}/apply`;
+  const whatsappHref = "https://wa.me/212638335452";
 
   return (
     <main className="bg-[#050505] text-white" dir={t.dir}>
@@ -492,12 +511,15 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                 <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
                   {t.hero.panelEyebrow}
                 </p>
-                <h2
-                  className="contact-inline display-title mt-3 text-2xl font-black leading-tight text-white"
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="contact-inline display-title mt-3 inline-block text-2xl font-black leading-tight text-white transition hover:text-[#EDB80B]"
                   dir="ltr"
                 >
                   {t.hero.panelTitle}
-                </h2>
+                </a>
                 <p className="mt-3 text-sm leading-7 text-white/72">
                   {t.hero.panelText}
                 </p>

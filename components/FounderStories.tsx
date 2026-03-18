@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import Link from "next/link";
+import { guideSlugs } from "@/components/GuidePage";
 
 type Locale = "fr" | "en" | "ar";
 
@@ -10,8 +11,12 @@ type Copy = {
   description: string;
   chips: string[];
   metrics: { value: string; label: string }[];
+  authorityTitle: string;
+  authorityItems: string[];
   quoteTitle: string;
   quoteText: string;
+  instagramCta: string;
+  cardAction: string;
   primary: string;
   secondary: string;
   cards: {
@@ -25,21 +30,29 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
-    eyebrow: "Le fondateur",
-    title: "Une présence réelle rend le projet plus crédible et plus rassurant.",
+    eyebrow: "Le contact derrière le projet",
+    title: "Vous parlez à une vraie personne derrière YALLA CHINA, pas à un site qui reste vague.",
     description:
-      "Avant de choisir un accompagnement, les étudiants veulent voir qui parle, comprendre l'expérience derrière les conseils, et sentir qu'il y a une vraie personne derrière le suivi.",
-    chips: ["Visage réel", "Contenu éducatif", "Contact direct"],
+      "Pour beaucoup d'étudiants et de familles, la confiance commence quand ils voient qui répond, comment le projet est expliqué, et s'il y a un vrai interlocuteur qui tient le fil du début à la fin.",
+    chips: ["Contact direct", "Contenu utile", "Étudiants & parents"],
     metrics: [
-      { value: "24-48h", label: "pour une première réponse claire" },
-      { value: "1 contact", label: "pour garder un cap simple" },
-      { value: "Du projet au visa", label: "avec une même logique" },
+      { value: "24-48h", label: "pour une première orientation claire" },
+      { value: "1 interlocuteur", label: "pour éviter les réponses dispersées" },
+      { value: "Du premier message au visa", label: "avec une route plus lisible" },
     ],
-    quoteTitle: "Pourquoi cette section compte",
+    authorityTitle: "Ce que ce contact direct change pour vous",
+    authorityItems: [
+      "Vous savez qui répond et comment poser les bonnes questions",
+      "Les parents voient un projet mieux expliqué et plus crédible",
+      "La prochaine étape devient plus simple à comprendre",
+    ],
+    quoteTitle: "Pourquoi cette présence rassure",
     quoteText:
-      "Les étudiants et les familles avancent plus facilement quand ils voient une vraie personne, une vraie expérience et des réponses concrètes à leurs questions.",
-    primary: "Commencer ma candidature",
-    secondary: "Nous contacter",
+      "Les étudiants et les familles avancent plus facilement quand ils sentent qu'il y a un vrai suivi, une vraie logique et des réponses concrètes derrière le projet.",
+    instagramCta: "Voir Instagram : @yallachina.ma",
+    cardAction: "Ouvrir",
+    primary: "Recevoir une première orientation",
+    secondary: "Voir la candidature",
     cards: [
       {
         kicker: "Expérience réelle",
@@ -69,21 +82,29 @@ const copy: Record<Locale, Copy> = {
   },
   en: {
     dir: "ltr",
-    eyebrow: "The founder",
-    title: "A real presence makes the project feel more credible and more reassuring.",
+    eyebrow: "The contact behind the project",
+    title: "You are speaking to a real person behind YALLA CHINA, not to a website that stays vague.",
     description:
-      "Before choosing guidance, students want to see who is speaking, understand the experience behind the advice, and feel that there is a real person behind the follow-up.",
-    chips: ["Real face", "Educational content", "Direct contact"],
+      "For many students and families, trust starts when they can see who is replying, how the project is explained, and whether one real person is holding the route from start to finish.",
+    chips: ["Direct contact", "Useful content", "Students & parents"],
     metrics: [
-      { value: "24-48h", label: "for a first clear reply" },
-      { value: "1 contact", label: "to keep the route simple" },
-      { value: "From plan to visa", label: "with one clear logic" },
+      { value: "24-48h", label: "for a first clear orientation" },
+      { value: "1 direct contact", label: "to avoid scattered answers" },
+      { value: "From first message to visa", label: "with a route that stays readable" },
     ],
-    quoteTitle: "Why this section matters",
+    authorityTitle: "What this direct contact changes for you",
+    authorityItems: [
+      "You know who is replying and how to ask the right questions",
+      "Parents see a project that feels more explained and more credible",
+      "The next step becomes easier to understand and act on",
+    ],
+    quoteTitle: "Why this kind of presence builds trust",
     quoteText:
-      "Students and families trust the next step more when they can see a real person, real experience, and concrete answers to the questions they actually have.",
-    primary: "Start my application",
-    secondary: "Contact us",
+      "Students and families move more easily when they feel there is real follow-up, one visible logic, and concrete answers behind the project.",
+    instagramCta: "View Instagram: @yallachina.ma",
+    cardAction: "Open",
+    primary: "Get a first orientation",
+    secondary: "View the application",
     cards: [
       {
         kicker: "Real experience",
@@ -113,21 +134,29 @@ const copy: Record<Locale, Copy> = {
   },
   ar: {
     dir: "rtl",
-    eyebrow: "المؤسس",
-    title: "وجود شخص حقيقي وراء المشروع يجعل الثقة أكبر والقرار أسهل.",
+    eyebrow: "الشخص وراء المشروع",
+    title: "أنت لا تتحدث مع موقع غامض، بل مع شخص حقيقي يقف وراء YALLA CHINA.",
     description:
-      "قبل أن يختار الطالب جهة ترافقه، يريد أن يرى من يتحدث معه، ويفهم الخبرة وراء النصيحة، ويشعر أن هناك شخصًا حقيقيًا سيتابع معه الطريق.",
-    chips: ["وجه حقيقي", "محتوى تعليمي", "تواصل مباشر"],
+      "بالنسبة لكثير من الطلبة والعائلات، تبدأ الثقة عندما يرون من يرد عليهم، وكيف يشرح المشروع، وهل هناك شخص واضح يتابع الطريق من البداية إلى النهاية.",
+    chips: ["تواصل مباشر", "محتوى مفيد", "للطلبة والعائلات"],
     metrics: [
-      { value: "24 إلى 48 ساعة", label: "لأول رد واضح ومفيد" },
-      { value: "جهة واحدة واضحة", label: "حتى يبقى المسار بسيطًا" },
-      { value: "من المشروع إلى التأشيرة", label: "بمنطق واضح واحد" },
+      { value: "24 إلى 48 ساعة", label: "لأول توجيه واضح ومفيد" },
+      { value: "جهة تواصل واحدة", label: "حتى لا تصبح الأجوبة متفرقة" },
+      { value: "من أول رسالة حتى التأشيرة", label: "بمسار يبقى أوضح وأسهل" },
     ],
-    quoteTitle: "لماذا هذه الفقرة مهمة",
+    authorityTitle: "ما الذي يغيّره هذا التواصل المباشر",
+    authorityItems: [
+      "تعرف من يرد عليك وكيف تطرح الأسئلة الصحيحة",
+      "ترى العائلة مشروعاً أكثر وضوحاً ومصداقية",
+      "تصبح الخطوة التالية أسهل في الفهم والتنفيذ",
+    ],
+    quoteTitle: "لماذا يمنح هذا الظهور ثقة أكبر",
     quoteText:
-      "الطالب والعائلة يشعران بثقة أكبر عندما يريان شخصًا حقيقيًا وخبرة واضحة وأجوبة عملية على الأسئلة التي تهمهما فعلاً.",
-    primary: "ابدأ طلبك",
-    secondary: "تواصل معنا",
+      "الطالب والعائلة يتقدمان براحة أكبر عندما يشعران أن هناك متابعة حقيقية ومنطقاً واضحاً وأجوبة عملية وراء المشروع.",
+    instagramCta: "شاهد Instagram: @yallachina.ma",
+    cardAction: "افتح",
+    primary: "احصل على توجيه أولي",
+    secondary: "شاهد صفحة التقديم",
     cards: [
       {
         kicker: "تجربة حقيقية",
@@ -160,8 +189,9 @@ const copy: Record<Locale, Copy> = {
 export default function FounderStories({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = t.dir === "rtl";
-  const applyHref = `/${lang}/apply`;
   const contactHref = `/${lang}/contact`;
+  const applyHref = `/${lang}/apply`;
+  const instagramHref = "https://www.instagram.com/yallachina.ma/";
 
   return (
     <section className="bg-[#090909] py-14 text-white sm:py-18" dir={t.dir}>
@@ -210,7 +240,25 @@ export default function FounderStories({ lang }: { lang: Locale }) {
                     {item.label}
                   </p>
                 </div>
-              ))}
+                ))}
+              </div>
+
+            <div className="mt-6 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6">
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                {t.authorityTitle}
+              </p>
+              <div className="mt-4 grid gap-3">
+                {t.authorityItems.map((item) => (
+                  <div
+                    key={item}
+                    className={`rounded-2xl border border-white/10 bg-black/24 px-4 py-3 text-sm text-white/82 ${
+                      isArabic ? "text-right" : ""
+                    }`}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="mt-6 rounded-[2rem] border border-white/10 bg-black/28 p-6">
@@ -220,6 +268,14 @@ export default function FounderStories({ lang }: { lang: Locale }) {
               <p className="mt-3 text-sm leading-8 text-white/76 sm:text-base">
                 {t.quoteText}
               </p>
+              <a
+                href={instagramHref}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/84 transition hover:border-[#EDB80B]/40 hover:text-[#EDB80B]"
+              >
+                {t.instagramCta}
+              </a>
             </div>
 
             <div
@@ -228,13 +284,13 @@ export default function FounderStories({ lang }: { lang: Locale }) {
               }`}
             >
               <Link
-                href={applyHref}
+                href={contactHref}
                 className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
               >
                 {t.primary}
               </Link>
               <Link
-                href={contactHref}
+                href={applyHref}
                 className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
               >
                 {t.secondary}
@@ -249,6 +305,8 @@ export default function FounderStories({ lang }: { lang: Locale }) {
                 card={card}
                 index={index}
                 isArabic={isArabic}
+                actionLabel={t.cardAction}
+                href={`/${lang}/guides/${guideSlugs[index]}`}
               />
             ))}
           </div>
@@ -262,13 +320,21 @@ function StoryCard({
   card,
   index,
   isArabic,
+  actionLabel,
+  href,
 }: {
   card: Copy["cards"][number];
   index: number;
   isArabic: boolean;
+  actionLabel: string;
+  href: string;
 }) {
   return (
-    <article className="group relative min-h-[20rem] overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#140607] shadow-[0_26px_60px_rgba(0,0,0,0.24)]">
+    <Link
+      href={href}
+      className="group relative block min-h-[20rem] overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#140607] shadow-[0_26px_60px_rgba(0,0,0,0.24)]"
+      aria-label={card.title}
+    >
       <img
         src={card.imageSrc}
         alt={card.title}
@@ -295,8 +361,15 @@ function StoryCard({
             {card.title}
           </h3>
           <p className="mt-3 text-sm leading-7 text-white/76">{card.text}</p>
+          <div
+            className={`mt-5 inline-flex rounded-full border border-white/12 bg-black/35 px-3 py-1.5 text-xs font-semibold text-white/84 transition group-hover:border-[#EDB80B]/40 group-hover:text-[#EDB80B] ${
+              isArabic ? "flex-row-reverse" : ""
+            }`}
+          >
+            <span>{actionLabel}</span>
+          </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

@@ -422,6 +422,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = t.dir === "rtl";
   const applyHref = `/${lang}/apply`;
+  const contactHref = `/${lang}/contact`;
 
   return (
     <main className="bg-[#050505] text-white" dir={t.dir}>
@@ -561,8 +562,9 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
 
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {t.services.items.map((item) => (
-                <article
+                <Link
                   key={item.title}
+                  href={contactHref}
                   className={`flex h-full flex-col rounded-[1.8rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_35px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_26px_45px_rgba(15,23,42,0.08)] ${
                     isArabic ? "text-right" : ""
                   }`}
@@ -578,7 +580,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                   <p className="mt-3 text-sm leading-7 text-zinc-600">
                     {item.desc}
                   </p>
-                </article>
+                </Link>
               ))}
             </div>
           </div>

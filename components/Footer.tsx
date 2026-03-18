@@ -12,7 +12,7 @@ const content = {
     leadTitle: "Un accompagnement clair pour les étudiants et leurs familles.",
     leadText:
       "Nous vous aidons à comprendre les options, préparer le dossier, avancer avec méthode et garder un contact simple jusqu'aux prochaines étapes.",
-    primaryCta: "Commencer ma demande",
+    primaryCta: "Recevoir une première orientation",
     whatsappLabel: "WhatsApp",
     stats: [
       { title: "Réponse rapide", text: "Sous 24 à 48 heures" },
@@ -39,6 +39,8 @@ const content = {
     ],
     contactNote: "Le moyen le plus rapide pour démarrer la discussion",
     emailLabel: "Email",
+    instagramLabel: "Instagram",
+    instagramNote: "Suivre les contenus et mises à jour du projet",
     closing:
       "Pensé pour les étudiants et les familles qui veulent avancer avec clarté.",
     rights: "Tous droits réservés.",
@@ -48,7 +50,7 @@ const content = {
     leadTitle: "Clear guidance for students and their families.",
     leadText:
       "We help you understand your options, prepare your file, move with a real plan, and stay in simple contact until the next steps are clear.",
-    primaryCta: "Start my application",
+    primaryCta: "Get a first orientation",
     whatsappLabel: "WhatsApp",
     stats: [
       { title: "Fast reply", text: "Within 24 to 48 hours" },
@@ -75,6 +77,8 @@ const content = {
     ],
     contactNote: "The fastest way to start the conversation",
     emailLabel: "Email",
+    instagramLabel: "Instagram",
+    instagramNote: "Follow project content and updates",
     closing:
       "Built for students and families who want to move forward with clarity.",
     rights: "All rights reserved.",
@@ -84,7 +88,7 @@ const content = {
     leadTitle: "مرافقة واضحة للطلبة وعائلاتهم في مشروع الدراسة بالصين.",
     leadText:
       "نساعدك على فهم الخيارات المناسبة، تجهيز الملف بشكل منظم، والتقدم بخطوات واضحة مع تواصل مباشر إلى غاية المراحل القادمة.",
-    primaryCta: "ابدأ طلبك الآن",
+    primaryCta: "احصل على توجيه أولي",
     whatsappLabel: "واتساب",
     stats: [
       { title: "رد سريع", text: "خلال 24 إلى 48 ساعة" },
@@ -111,6 +115,8 @@ const content = {
     ],
     contactNote: "أسرع وسيلة لبدء الحديث معنا",
     emailLabel: "البريد الإلكتروني",
+    instagramLabel: "Instagram",
+    instagramNote: "تابع المحتوى وتحديثات المشروع",
     closing: "مصمم للطلبة والعائلات الذين يريدون التقدم بثقة ووضوح.",
     rights: "جميع الحقوق محفوظة.",
   },
@@ -119,6 +125,8 @@ const content = {
 export default function Footer({ lang = "fr" }: Props) {
   const t = content[lang];
   const isArabic = lang === "ar";
+  const homeHref = `/${lang}`;
+  const instagramHref = "https://www.instagram.com/yallachina.ma/";
 
   return (
     <footer className="border-t border-white/10 bg-[#030303] text-white">
@@ -146,7 +154,7 @@ export default function Footer({ lang = "fr" }: Props) {
                   }`}
                 >
                   <Link
-                    href={`/${lang}/apply`}
+                    href={`/${lang}/contact`}
                     className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_14px_30px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
                   >
                     {t.primaryCta}
@@ -197,7 +205,9 @@ export default function Footer({ lang = "fr" }: Props) {
               }`}
             >
               <div className={isArabic ? "flex justify-end" : ""}>
-                <BrandLogo size="lg" variant="dark" />
+                <Link href={homeHref} className="inline-flex">
+                  <BrandLogo size="lg" variant="dark" />
+                </Link>
               </div>
               <p className="mt-4 max-w-xl text-sm leading-7 text-white/72">
                 {t.brandText}
@@ -273,6 +283,23 @@ export default function Footer({ lang = "fr" }: Props) {
                   >
                     contact@yallachina.com
                   </a>
+                </div>
+
+                <div>
+                  <p className="mb-2 text-xs font-medium text-white/55">
+                    {t.instagramLabel}
+                  </p>
+                  <a
+                    href={instagramHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="contact-inline transition hover:text-white"
+                  >
+                    @yallachina.ma
+                  </a>
+                  <p className="mt-2 text-xs text-white/55">
+                    {t.instagramNote}
+                  </p>
                 </div>
               </div>
             </section>

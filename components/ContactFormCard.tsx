@@ -70,7 +70,12 @@ export default function ContactFormCard({
       .join("\n");
 
     const waUrl = `https://wa.me/212638335452?text=${encodeURIComponent(text)}`;
-    window.open(waUrl, "_blank", "noopener,noreferrer");
+    const popup = window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    if (!popup) {
+      window.location.href = waUrl;
+    }
+
     setDone(true);
     setLoading(false);
     e.currentTarget.reset();

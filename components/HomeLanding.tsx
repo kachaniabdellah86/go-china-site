@@ -1,5 +1,6 @@
 import Container from "@/components/Container";
 import FounderStories from "@/components/FounderStories";
+import HomeProofSection from "@/components/HomeProofSection";
 import Link from "next/link";
 
 type Locale = "fr" | "en" | "ar";
@@ -47,52 +48,52 @@ const copy: Record<Locale, Copy> = {
   fr: {
     hero: {
       badge: "YALLA CHINA • Études en Chine • Étudiants & Parents",
-      eyebrow: "Étudier en Chine avec un plan clair",
+      eyebrow: "Étudier en Chine sans avancer dans le flou",
       title:
-        "Avancez vers vos études en Chine avec un accompagnement simple, sérieux et concret.",
+        "Recevez une première orientation claire avant de lancer votre projet d'études en Chine.",
       description:
-        "Nous aidons les étudiants et leurs familles à choisir la bonne direction, préparer une candidature plus forte, comprendre l'admission, et avancer jusqu'au visa avec plus de clarté.",
+        "Nous aidons les étudiants et leurs familles à comprendre la bonne voie, les universités à viser, les documents à préparer et les étapes qui mènent jusqu'au visa.",
       note:
-        "Réponse rapide sur WhatsApp • Pour les étudiants et les familles • Du premier message jusqu'au visa",
-      primary: "Postuler maintenant",
-      secondary: "Voir nos services",
+        "Réponse sur WhatsApp sous 24 à 48h • Étudiants et parents • Une direction claire avant la candidature",
+      primary: "Recevoir une première orientation",
+      secondary: "Voir comment nous aidons",
       stats: [
-        { label: "Orientation claire", value: "Choix du niveau et du parcours" },
-        { label: "Candidature plus forte", value: "Documents et logique du dossier" },
-        { label: "Visa étudiant", value: "Étapes et vérifications avant la demande" },
+        { label: "Première réponse", value: "Sous 24 à 48 heures" },
+        { label: "Étudiants & parents", value: "Un projet expliqué pour toute la famille" },
+        { label: "Du choix au visa", value: "Une route claire avant les démarches" },
       ],
-      visualTag: "Ce que vous cherchez au départ",
-      visualTitle: "Comprendre où commencer et comment avancer.",
+      visualTag: "Ce que les familles veulent vérifier d'abord",
+      visualTitle: "Savoir si le projet est réaliste, bien orienté et prêt à avancer.",
       visualText:
-        "Les premières questions sont presque toujours les mêmes: quoi étudier, quelle université viser, quels documents préparer, et comment éviter les erreurs de départ.",
+        "Avant de choisir une agence, les questions sont presque toujours les mêmes: quelle voie viser, quels documents préparer d'abord, comment rassurer les parents, et quand passer à la candidature.",
       visualItems: [
-        "Choisir la bonne voie",
-        "Préparer les bons documents",
-        "Avancer avec des réponses rapides",
-        "Rassurer la famille dès le début",
+        "Quelle voie viser",
+        "Quels documents préparer d'abord",
+        "Comment rassurer la famille",
+        "Quand passer à la candidature",
       ],
     },
     reasons: {
-      eyebrow: "Pourquoi choisir YALLA CHINA",
-      title: "Un accompagnement pensé pour convaincre à la fois l'étudiant et la famille.",
+      eyebrow: "Ce que les familles veulent vérifier avant de choisir",
+      title: "La confiance grandit quand le projet devient plus concret.",
       description:
-        "Vous avez besoin de réponses claires, d'une direction crédible et d'un accompagnement qui rassure autant l'étudiant que la famille.",
+        "Avant d'envoyer un dossier, les étudiants et les parents veulent surtout comprendre si le suivi est sérieux, si les réponses sont utiles et si la logique du projet tient vraiment debout.",
       items: [
         {
-          title: "Des explications plus claires",
-          desc: "Chaque étape est présentée avec un langage simple pour que le projet soit plus facile à comprendre.",
+          title: "Une voie adaptée au profil",
+          desc: "L'objectif n'est pas d'envoyer un dossier au hasard, mais de viser une direction cohérente avec le niveau, l'objectif et la situation réelle de l'étudiant.",
         },
         {
-          title: "Un seul cap du début à la fin",
-          desc: "Vous gardez une direction cohérente au lieu de chercher des réponses dispersées à chaque nouvelle étape.",
+          title: "Un contact direct quand une question bloque",
+          desc: "WhatsApp reste visible dès le départ pour obtenir rapidement la bonne réponse et éviter que le projet ne reste bloqué pour de petites hésitations.",
         },
         {
-          title: "Un contact humain et rapide",
-          desc: "WhatsApp reste visible et simple à utiliser quand vous avez besoin d'une réponse rapide.",
+          title: "Des étapes expliquées pour les parents",
+          desc: "Le projet inspire plus confiance quand la famille comprend mieux le rythme, les points de contrôle et les décisions qui arrivent ensuite.",
         },
         {
-          title: "Une logique utile pour les parents",
-          desc: "Le projet devient plus rassurant lorsque la famille comprend le chemin et les prochaines décisions.",
+          title: "Une logique claire du dossier au visa",
+          desc: "Le choix, le dossier, l'admission et le visa doivent former une seule route lisible, pas des réponses séparées à chaque nouvelle étape.",
         },
       ],
     },
@@ -132,63 +133,63 @@ const copy: Record<Locale, Copy> = {
       ],
     },
     cta: {
-      eyebrow: "La prochaine étape",
-      title: "Si vous êtes prêt à avancer, nous pouvons commencer maintenant.",
+      eyebrow: "Commencer sans pression",
+      title: "Demandez d'abord une première orientation, puis passez à la candidature quand le projet est clair.",
       description:
-        "Découvrez les services ou envoyez votre demande dès aujourd'hui pour transformer votre projet d'études en Chine en plan concret.",
-      primary: "Postuler maintenant",
-      secondary: "WhatsApp : +212 638-335452",
+        "Le premier objectif n'est pas de remplir un dossier compliqué. Le premier objectif est de comprendre la bonne voie, les prochaines étapes et ce qu'il faut préparer pour avancer sérieusement.",
+      primary: "Recevoir une première orientation",
+      secondary: "Postuler maintenant",
     },
   },
   en: {
     hero: {
       badge: "YALLA CHINA • Study in China • Students & Parents",
-      eyebrow: "Study in China with a clear plan",
+      eyebrow: "Study in China without moving through confusion",
       title:
-        "Move toward your studies in China with guidance that feels simple, serious, and concrete.",
+        "Get a clear first orientation before you commit to your study project in China.",
       description:
-        "We help students and families choose the right direction, build a stronger application, understand admission, and move toward the visa with more clarity.",
+        "We help students and families understand the right path, the universities to target, the documents to prepare, and the steps that lead all the way to the visa.",
       note:
-        "Fast WhatsApp reply • For students and families • From the first message to the visa",
-      primary: "Apply now",
-      secondary: "View our services",
+        "WhatsApp reply within 24 to 48h • For students and parents • A clearer direction before the application starts",
+      primary: "Get a first orientation",
+      secondary: "See how we help",
       stats: [
-        { label: "Clear orientation", value: "Choosing the right level and path" },
-        { label: "Stronger application", value: "Documents and file strategy" },
-        { label: "Student visa", value: "Checks before you submit" },
+        { label: "First reply", value: "Within 24 to 48 hours" },
+        { label: "Students & parents", value: "One project explained for the whole family" },
+        { label: "From choice to visa", value: "A clearer route before the paperwork" },
       ],
-      visualTag: "What students need first",
-      visualTitle: "Understand where to start and how to move forward.",
+      visualTag: "What families want to verify first",
+      visualTitle: "Know whether the project is realistic, well directed, and ready to move.",
       visualText:
-        "The first questions are almost always the same: what to study, which university to target, which documents matter, and how to avoid the wrong start.",
+        "Before choosing an agency, the first questions are almost always the same: which path makes sense, which documents matter first, how to reassure the family, and when it is the right time to apply.",
       visualItems: [
-        "Choose the right path",
-        "Prepare the right documents",
-        "Get fast answers",
-        "Reassure the family from the beginning",
+        "Which path fits best",
+        "Which documents matter first",
+        "How to reassure the family",
+        "When to move to the application",
       ],
     },
     reasons: {
-      eyebrow: "Why choose YALLA CHINA",
-      title: "Guidance that reassures the student and gives confidence to the family.",
+      eyebrow: "What families want to verify before they choose",
+      title: "Trust grows when the project starts to feel concrete.",
       description:
-        "You need clear answers, a credible direction, and support that helps both students and parents feel ready to move forward.",
+        "Before sending an application, students and parents mainly want to know whether the support is serious, whether the answers are useful, and whether the project has a real logic behind it.",
       items: [
         {
-          title: "Clearer explanations",
-          desc: "Each stage is explained in simple language so the project feels easier to understand.",
+          title: "A path that fits the student profile",
+          desc: "The goal is not to send a random file, but to target a direction that makes sense for the level, the objective, and the student's real situation.",
         },
         {
-          title: "One direction from start to finish",
-          desc: "You keep one coherent route instead of searching for different answers at every new step.",
+          title: "Direct contact when a question blocks progress",
+          desc: "WhatsApp stays visible from the start so the right answer can come quickly and the project does not remain blocked for small doubts.",
         },
         {
-          title: "Fast and human contact",
-          desc: "WhatsApp stays visible and easy to use whenever you need a quick answer.",
+          title: "Stages explained clearly for parents",
+          desc: "The project feels safer when the family can understand the rhythm, the checkpoints, and the decisions that come next.",
         },
         {
-          title: "A logic that reassures parents",
-          desc: "The project feels safer when the family understands the route and the next decisions.",
+          title: "One visible logic from file to visa",
+          desc: "The choice, the file, the admission, and the visa should feel like one readable route, not separate answers at each stage.",
         },
       ],
     },
@@ -228,63 +229,63 @@ const copy: Record<Locale, Copy> = {
       ],
     },
     cta: {
-      eyebrow: "The next step",
-      title: "If you are ready to move, we can start now.",
+      eyebrow: "Start without pressure",
+      title: "Get a first orientation first, then move to the application when the project is clear.",
       description:
-        "Explore the services or send your request today and turn your study project in China into a concrete plan.",
-      primary: "Apply now",
-      secondary: "WhatsApp: +212 638-335452",
+        "The first goal is not to fill in a heavy form. The first goal is to understand the right route, the next stages, and what needs to be prepared to move forward seriously.",
+      primary: "Get a first orientation",
+      secondary: "Apply now",
     },
   },
   ar: {
     hero: {
       badge: "YALLA CHINA • الدراسة في الصين • للطلبة والعائلات",
-      eyebrow: "ادرس في الصين بخطة واضحة",
+      eyebrow: "ادرس في الصين من دون أن تبدأ وسط الغموض",
       title:
-        "تقدم نحو الدراسة في الصين بمرافقة بسيطة وجادة وواضحة من البداية.",
+        "احصل أولاً على توجيه واضح قبل أن تلتزم بمشروع الدراسة في الصين.",
       description:
-        "نساعد الطلبة والعائلات على اختيار الاتجاه المناسب، وتجهيز ملف أقوى، وفهم القبول، والتقدم نحو التأشيرة بخطوات أوضح وأكثر طمأنينة.",
+        "نساعد الطلبة والعائلات على فهم المسار المناسب، والجامعات التي تستحق الاستهداف، والوثائق التي يجب تجهيزها، والخطوات التي تصل بالمشروع حتى التأشيرة.",
       note:
-        "رد سريع على واتساب • للطلبة والعائلات • من أول رسالة حتى التأشيرة",
-      primary: "قدّم الآن",
-      secondary: "اكتشف خدماتنا",
+        "رد عبر واتساب خلال 24 إلى 48 ساعة • للطلبة والعائلات • رؤية أوضح قبل بدء التقديم",
+      primary: "احصل على توجيه أولي",
+      secondary: "اكتشف كيف نساعد",
       stats: [
-        { label: "توجيه واضح", value: "اختيار المستوى والمسار المناسب" },
-        { label: "ملف أقوى", value: "ترتيب الوثائق ومنطق التقديم" },
-        { label: "تأشيرة طالب", value: "تحقق واضح قبل إرسال الطلب" },
+        { label: "أول رد", value: "خلال 24 إلى 48 ساعة" },
+        { label: "للطلبة والعائلات", value: "مشروع مفهوم لكل أفراد الأسرة" },
+        { label: "من الاختيار إلى التأشيرة", value: "مسار أوضح قبل الإجراءات" },
       ],
-      visualTag: "ما الذي يحتاجه الطالب أولاً",
-      visualTitle: "افهم من أين تبدأ وكيف تتحرك بثقة.",
+      visualTag: "ما الذي تريد العائلة التأكد منه أولاً",
+      visualTitle: "معرفة هل المشروع واقعي، وموجّه جيداً، وجاهز للتقدم.",
       visualText:
-        "الأسئلة الأولى غالبًا تكون نفسها: ماذا أدرس؟ أي جامعة تناسبني؟ ما هي الوثائق المهمة؟ وكيف أتجنب البداية الخاطئة؟",
+        "قبل اختيار جهة ترافقك، تكون الأسئلة الأولى غالباً نفسها: ما المسار الأنسب، ما الوثائق التي يجب البدء بها، كيف نطمئن العائلة، ومتى يصبح التقديم هو الخطوة الصحيحة.",
       visualItems: [
-        "اختيار الطريق المناسب",
-        "تجهيز الوثائق الصحيحة",
-        "الحصول على إجابات سريعة",
-        "طمأنة العائلة من البداية",
+        "ما المسار الأنسب",
+        "ما الوثائق التي تبدأ بها",
+        "كيف تطمئن العائلة",
+        "متى تنتقل إلى التقديم",
       ],
     },
     reasons: {
-      eyebrow: "لماذا تختار YALLA CHINA",
-      title: "مرافقة تقنع الطالب وتطمئن العائلة في الوقت نفسه.",
+      eyebrow: "ما الذي تريد العائلات التأكد منه قبل الاختيار",
+      title: "الثقة تبدأ عندما يصبح المشروع واضحاً وملموساً.",
       description:
-        "أنت تحتاج إلى أجوبة واضحة واتجاه موثوق ومرافقة تجعل الطالب أكثر ثقة وتمنح العائلة راحة أكبر.",
+        "قبل إرسال أي طلب، يريد الطالب والعائلة أن يعرفا هل المتابعة جدية، وهل الأجوبة مفيدة، وهل هناك منطق حقيقي يقود المشروع من البداية إلى النهاية.",
       items: [
         {
-          title: "شرح أوضح للمراحل",
-          desc: "كل خطوة تُعرض بلغة بسيطة حتى يصبح المشروع أسهل فهمًا وأقرب إلى الواقع.",
+          title: "مسار يناسب ملف الطالب فعلاً",
+          desc: "الهدف ليس إرسال ملف عشوائي، بل اختيار طريق منطقي يناسب المستوى والهدف والوضع الحقيقي للطالب.",
         },
         {
-          title: "اتجاه واحد من البداية إلى النهاية",
-          desc: "تبقى لديك رؤية متماسكة بدل البحث عن أجوبة متفرقة في كل مرحلة جديدة.",
+          title: "تواصل مباشر عندما يتوقف التقدم",
+          desc: "يبقى واتساب واضحاً من البداية حتى يصل الجواب الصحيح بسرعة ولا يبقى المشروع متوقفاً بسبب ترددات صغيرة.",
         },
         {
-          title: "تواصل سريع وإنساني",
-          desc: "واتساب يبقى واضحًا وسهل الاستخدام عندما تحتاج إلى جواب سريع.",
+          title: "شرح واضح للوالدين",
+          desc: "المشروع يبدو أكثر راحة عندما تفهم العائلة الإيقاع ونقاط التحقق والقرارات التي ستأتي بعد ذلك.",
         },
         {
-          title: "منطق يطمئن الوالدين",
-          desc: "المشروع يصبح أكثر راحة عندما تفهم العائلة الطريق والقرارات القادمة.",
+          title: "منطق واضح من الملف إلى التأشيرة",
+          desc: "الاختيار والملف والقبول والتأشيرة يجب أن تظهر كطريق واحد واضح، لا كأجوبة منفصلة في كل محطة.",
         },
       ],
     },
@@ -324,12 +325,12 @@ const copy: Record<Locale, Copy> = {
       ],
     },
     cta: {
-      eyebrow: "الخطوة التالية",
-      title: "إذا كنت جاهزًا للتقدم، يمكننا أن نبدأ الآن.",
+      eyebrow: "ابدأ من دون ضغط",
+      title: "احصل أولاً على توجيه أولي، ثم انتقل إلى التقديم عندما تصبح الصورة واضحة.",
       description:
-        "استكشف الخدمات أو أرسل طلبك اليوم لتحويل مشروع الدراسة في الصين إلى خطة واضحة وعملية.",
-      primary: "قدّم الآن",
-      secondary: "واتساب: +212 638-335452",
+        "الهدف الأول ليس ملء استمارة طويلة، بل فهم المسار المناسب، والخطوات التالية، وما الذي يجب تحضيره حتى تتقدم بشكل جاد وواضح.",
+      primary: "احصل على توجيه أولي",
+      secondary: "قدّم الآن",
     },
   },
 };
@@ -337,6 +338,7 @@ const copy: Record<Locale, Copy> = {
 export default function HomeLanding({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = lang === "ar";
+  const contactHref = `/${lang}/contact`;
   const applyHref = `/${lang}/apply`;
   const servicesHref = `/${lang}/services`;
 
@@ -402,7 +404,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                   }`}
                 >
                   <Link
-                    href={applyHref}
+                    href={contactHref}
                     className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                   >
                     {t.hero.primary}
@@ -536,6 +538,8 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
 
       <FounderStories lang={lang} />
 
+      <HomeProofSection lang={lang} />
+
       <section className="bg-[#080808] py-14 sm:py-18">
         <Container>
           <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
@@ -640,20 +644,18 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 }`}
               >
                 <Link
-                  href={applyHref}
+                  href={contactHref}
                   className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.cta.primary}
                 </Link>
 
-                <a
-                  href="https://wa.me/212638335452"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href={applyHref}
                   className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
                 >
                   {t.cta.secondary}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
