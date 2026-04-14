@@ -30,7 +30,7 @@ export default function LanguageSwitch({
   const active =
     variant === "dark"
       ? "border-[#EDB80B] bg-[#EDB80B] text-black shadow-[0_8px_24px_rgba(237,184,11,0.25)]"
-      : "border-[#8B0000] bg-[#8B0000] text-white shadow-[0_8px_20px_rgba(139,0,0,0.16)]";
+      : "border-[#770304] bg-[#770304] text-white shadow-[0_8px_20px_rgba(119,3,4,0.16)]";
   const idle =
     variant === "dark"
       ? "border-white/15 bg-white/[0.06] text-white/80 hover:border-white/30 hover:bg-white/[0.12] hover:text-white"

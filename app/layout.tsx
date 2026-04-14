@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "YALLA CHINA | Study in China",
   description:
-    "YALLA CHINA helps students and families build a clear, guided study project in China.",
+    "YALLA CHINA helps students and families study in China with clear guidance, structured packages, visa support, and safer follow-up from first consultation to arrival.",
   icons: {
     icon: "/yalla-china-mark.svg",
     shortcut: "/yalla-china-mark.svg",

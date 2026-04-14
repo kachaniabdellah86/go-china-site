@@ -81,7 +81,7 @@ export default function ContactFormCard({
     e.currentTarget.reset();
   }
 
-  const fieldClass = `mt-2 w-full rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3 text-sm outline-none transition focus:border-[#8B0000] focus:bg-white sm:text-base ${
+  const fieldClass = `mt-2 w-full rounded-2xl border border-zinc-200 bg-white/95 px-4 py-3 text-sm outline-none transition focus:border-[#770304] focus:bg-white sm:text-base ${
     isRtl ? "text-right" : ""
   }`;
 
@@ -161,7 +161,7 @@ export default function ContactFormCard({
       >
         <button
           disabled={loading}
-          className="w-full rounded-full bg-[#8B0000] px-5 py-3 font-semibold text-white shadow-[0_16px_30px_rgba(139,0,0,0.14)] transition hover:bg-[#740000] disabled:opacity-60 sm:w-auto"
+          className="w-full rounded-full bg-[#770304] px-5 py-3 font-semibold text-white shadow-[0_16px_30px_rgba(119,3,4,0.14)] transition hover:bg-[#5a0203] disabled:opacity-60 sm:w-auto"
         >
           {loading ? copy.labels.secondary : copy.labels.submit}
         </button>

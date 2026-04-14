@@ -138,7 +138,7 @@ export default function Footer({ lang = "fr" }: Props) {
 
             <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div className={isArabic ? "text-right" : ""}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.26em] text-[#EDB80B]">
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.26em] text-[#B17F02]">
                   {t.leadEyebrow}
                 </p>
                 <h2 className="display-title mt-4 max-w-3xl text-3xl font-black tracking-tight sm:text-4xl">
@@ -155,7 +155,7 @@ export default function Footer({ lang = "fr" }: Props) {
                 >
                   <Link
                     href={`/${lang}/contact`}
-                    className="rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_14px_30px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
+                    className="rounded-full bg-[#B17F02] px-6 py-3 text-center font-semibold text-black shadow-[0_14px_30px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
                   >
                     {t.primaryCta}
                   </Link>
@@ -219,7 +219,7 @@ export default function Footer({ lang = "fr" }: Props) {
                 isArabic ? "text-right" : ""
               }`}
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                 {t.navigationTitle}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-white/78">
@@ -241,7 +241,7 @@ export default function Footer({ lang = "fr" }: Props) {
                 isArabic ? "text-right" : ""
               }`}
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                 {t.supportTitle}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-white/78">
@@ -256,7 +256,7 @@ export default function Footer({ lang = "fr" }: Props) {
                 isArabic ? "text-right" : ""
               }`}
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                 {t.contactTitle}
               </p>
 

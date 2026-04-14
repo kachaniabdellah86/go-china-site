@@ -841,7 +841,8 @@ export default function GuidePage({
   return (
     <main className="bg-[#050505] text-white" dir={t.dir}>
       <section className="relative overflow-hidden bg-[#120405]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_22%),linear-gradient(135deg,#170405_0%,#28080a_42%,#070707_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#170405_0%,#28080a_42%,#070707_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_22%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
 
         <Container>
@@ -914,7 +915,7 @@ export default function GuidePage({
               isArabic ? "text-right" : ""
             }`}
           >
-            <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
+            <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
               {t.highlightsEyebrow}
             </p>
             <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
@@ -973,7 +974,7 @@ export default function GuidePage({
               isArabic ? "text-right" : ""
             }`}
           >
-            <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
+            <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
               {t.faqEyebrow}
             </p>
             <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">

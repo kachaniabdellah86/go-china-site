@@ -1,5 +1,29 @@
 import Container from "@/components/Container";
+import HomeProofSection from "@/components/HomeProofSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import Link from "next/link";
+import { ArabicText, ArabicStepNumber } from "@/lib/ArabicText";
+
+// Helper to extract and render step titles with proper number handling for Arabic
+function StepTitle({ title, isArabic }: { title: string; isArabic: boolean }) {
+  if (!isArabic) {
+    return <span>{title}</span>;
+  }
+  
+  const match = title.match(/^(\d+)\.\s*(.+)$/);
+  if (match) {
+    const [, number, text] = match;
+    return (
+      <>
+        <ArabicStepNumber number={`${number}.`} />
+        {text}
+      </>
+    );
+  }
+  
+  return <span>{title}</span>;
+}
+
 
 type Locale = "fr" | "en" | "ar";
 
@@ -17,7 +41,7 @@ type Copy = {
     panelText: string;
     panelItems: string[];
   };
-  services: {
+  clarity: {
     eyebrow: string;
     title: string;
     description: string;
@@ -28,6 +52,7 @@ type Copy = {
     title: string;
     description: string;
     steps: { title: string; desc: string }[];
+    supportEyebrow: string;
     supportTitle: string;
     supportText: string;
     supportItems: string[];
@@ -50,370 +75,352 @@ const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
     hero: {
-      badge: "Services • YALLA CHINA",
-      title: "Des services clairs pour passer du projet aux vraies démarches.",
+      badge: "Services • Packs • Consultation gratuite",
+      title:
+        "Des services clairs pour aider l'etudiant a avancer et permettre aux parents de decider avec confiance.",
       description:
-        "Vous recevez ici l'essentiel pour avancer avec méthode: orientation, choix d'université, préparation du dossier, admission, visa étudiant et préparation au départ.",
-      primary: "Commencer ma candidature",
-      secondary: "Parler sur WhatsApp",
+        "Ici, tout est organise pour repondre aux vraies questions: quel pack choisir, ce qui est inclus, comment se passe le visa et jusqu'ou va l'accompagnement.",
+      primary: "Demander une consultation gratuite",
+      secondary: "Commencer ma candidature",
       stats: [
-        { label: "Choix plus clair", value: "Selon votre profil et votre objectif" },
-        { label: "Dossier mieux préparé", value: "Documents et priorités" },
-        { label: "Suivi plus simple", value: "Jusqu'à l'admission et au visa" },
+        { label: "Deux packs lisibles", value: "Essentiel ou Premium" },
+        { label: "Visa et admission", value: "Accompagnement visible" },
+        { label: "Jusqu'a l'arrivee", value: "Suivi plus complet en Premium" },
       ],
-      panelEyebrow: "Ce que vous obtenez",
-      panelTitle: "Un accompagnement utile à chaque étape importante.",
+      panelEyebrow: "Ce que les familles veulent savoir tout de suite",
+      panelTitle:
+        "Quel pack choisir, ce qui est inclus et comment le projet avance ensuite.",
       panelText:
-        "Le but n'est pas seulement de répondre à une question, mais de vous aider à garder une vraie logique du début à la fin.",
+        "Le choix devient simple et rassurant quand tout est clair des le debut.",
       panelItems: [
-        "Des choix mieux cadrés",
-        "Un dossier plus propre",
-        "Des explications plus rassurantes",
+        "Consultation gratuite avant engagement",
+        "Comparaison simple des packs",
+        "Reponse rapide sur WhatsApp",
       ],
     },
-    services: {
-      eyebrow: "Ce que nous faisons",
-      title: "Chaque service répond à un besoin concret du projet.",
+    clarity: {
+      eyebrow: "Pourquoi cette page est plus claire",
+      title:
+        "Une offre premium doit etre facile a comprendre avant meme le premier appel.",
       description:
-        "Nous avons organisé l'accompagnement autour des vraies décisions que les étudiants et les familles doivent prendre.",
+        "Quand les familles voient rapidement la logique de l'accompagnement, elles se projettent plus facilement et avancent avec moins d'hesitation.",
       items: [
         {
-          title: "Orientation académique",
-          desc: "Nous clarifions le niveau, la filière et le type de parcours qui ont le plus de sens pour votre profil.",
+          title: "Pour les parents",
+          desc: "Les garanties, le niveau de suivi et les etapes importantes sont visibles des le debut.",
         },
         {
-          title: "Choix d'université",
-          desc: "Nous vous aidons à viser des établissements cohérents avec votre projet et vos priorités.",
+          title: "Pour l'etudiant",
+          desc: "Le chemin a suivre devient plus concret: dossier, admission, visa, depart et arrivee.",
         },
         {
-          title: "Préparation du dossier",
-          desc: "Nous structurons les documents essentiels pour rendre la candidature plus crédible et plus claire.",
-        },
-        {
-          title: "Suivi d'admission",
-          desc: "Nous restons présents pendant les étapes importantes pour garder le dossier bien orienté.",
-        },
-        {
-          title: "Visa étudiant",
-          desc: "Nous expliquons la logique du visa, les vérifications à faire et les documents à préparer.",
-        },
-        {
-          title: "Préparation au départ",
-          desc: "Avant de voyager, nous vous aidons à mieux comprendre l'arrivée, l'installation et la suite du projet.",
+          title: "Pour la decision",
+          desc: "Le choix entre les deux packs devient simple, logique et beaucoup plus rassurant.",
         },
       ],
     },
     process: {
-      eyebrow: "Comment cela se passe",
-      title: "Un service professionnel se voit aussi dans la méthode.",
+      eyebrow: "Comment se passe l'accompagnement",
+      title: "Une methode claire du premier echange jusqu'aux premiers jours en Chine.",
       description:
-        "Au lieu d'avancer dans le flou, vous comprenez qui fait quoi, dans quel ordre, et à quoi sert chaque étape.",
+        "Le vrai luxe ici, c'est de savoir qui fait quoi, quand, et jusqu'ou va l'accompagnement selon la formule choisie.",
       steps: [
         {
-          title: "01. Échange sur votre projet",
-          desc: "Nous partons de votre niveau, de vos questions et de votre objectif pour cadrer la bonne direction.",
+          title: "01. Consultation et orientation",
+          desc: "Nous comprenons le profil, les attentes de la famille et la formule la plus adaptee.",
         },
         {
-          title: "02. Sélection et stratégie",
-          desc: "Nous organisons les choix d'université et la logique du dossier avant de passer à la suite.",
+          title: "02. Choix des universites et dossier",
+          desc: "Nous cadrons les choix, les documents, la traduction et la logique du dossier.",
         },
         {
-          title: "03. Candidature et admission",
-          desc: "Nous suivons les étapes importantes du dossier pour garder une progression plus propre et plus rassurante.",
+          title: "03. Admission et visa",
+          desc: "Nous restons presents sur les etapes sensibles pour reduire les erreurs et les blocages.",
         },
         {
-          title: "04. Visa et départ",
-          desc: "Nous vous aidons à préparer la phase finale pour que le projet reste clair jusqu'au voyage.",
+          title: "04. Depart et arrivee",
+          desc: "Selon la formule choisie, le suivi continue jusqu'au voyage, au transfert et aux premiers reperes.",
         },
       ],
-      supportTitle: "Ce que les familles apprécient le plus",
+      supportEyebrow: "Ce qui rassure vraiment",
+      supportTitle: "Les familles ne cherchent pas seulement un service, elles cherchent un cadre fiable.",
       supportText:
-        "Une bonne méthode réduit les erreurs, évite les malentendus et donne plus de confiance à toutes les personnes impliquées dans le projet.",
+        "C'est pour cela que nous avons clarifie l'offre autour de la visibilite, du suivi humain et d'une vraie logique jusqu'a l'arrivee.",
       supportItems: [
-        "Réponses rapides quand une question bloque",
-        "Explications simples pour les parents",
-        "Une progression plus facile à suivre",
+        "Orientation adaptee au profil",
+        "Dossier et traduction encadres",
+        "Visa accompagne avec methode",
+        "WhatsApp direct pour les questions importantes",
       ],
     },
     faq: {
-      eyebrow: "Questions fréquentes",
-      title: "Les réponses utiles avant de commencer.",
+      eyebrow: "Questions frequentes",
+      title: "Les reponses les plus utiles avant de choisir une formule.",
       items: [
         {
-          question: "Est-ce que vous accompagnez aussi les parents ?",
+          question: "Comment choisir entre le Pack Essentiel et le Pack Premium ?",
           answer:
-            "Oui. Nous expliquons le projet, les étapes et les décisions de manière plus claire pour l'étudiant comme pour la famille.",
+            "Le plus simple est de commencer par la consultation gratuite. Nous vous orientons ensuite vers la formule qui correspond au niveau de suivi souhaite.",
         },
         {
-          question: "Est-ce que vous aidez pour le visa étudiant ?",
+          question: "Le visa est-il inclus dans les deux packs ?",
           answer:
-            "Oui. Nous vous aidons à comprendre la logique du visa, les documents attendus et les vérifications importantes avant la demande.",
+            "Oui. Le visa etudiant fait partie des etapes importantes accompagnees dans les deux formules.",
         },
         {
-          question: "Puis-je commencer directement sur WhatsApp ?",
+          question: "Qu'est-ce qui rend le Pack Premium plus rassurant ?",
           answer:
-            "Oui. C'est souvent la manière la plus simple pour poser vos premières questions et voir si le projet est prêt à avancer.",
+            "Il ajoute un niveau de confort supplementaire autour du billet, du suivi jusqu'a l'universite et de l'arrivee.",
         },
         {
-          question: "Est-ce que tout se fait d'un coup ?",
+          question: "Est-ce que les parents peuvent poser leurs questions avant toute decision ?",
           answer:
-            "Non. Le projet avance étape par étape: orientation, dossier, admission, visa puis préparation au départ.",
+            "Oui. La consultation gratuite est justement faite pour clarifier le projet et rassurer toute la famille.",
         },
       ],
     },
     cta: {
-      eyebrow: "Passer à l'action",
-      title: "Si vous savez déjà que vous voulez avancer, la suite est simple.",
+      eyebrow: "Passer a l'etape suivante",
+      title:
+        "Commencez par une consultation gratuite, puis avancez avec la formule qui correspond vraiment a votre situation.",
       description:
-        "Postulez maintenant ou écrivez-nous sur WhatsApp pour commencer avec une première orientation claire.",
-      primary: "Postuler maintenant",
-      secondary: "WhatsApp : +212 638-335452",
+        "Le bon premier pas n'est pas de vous precipiter. Le bon premier pas est de clarifier le projet, rassurer les parents et choisir la meilleure voie.",
+      primary: "Recevoir une consultation gratuite",
+      secondary: "Postuler maintenant",
     },
   },
   en: {
     dir: "ltr",
     hero: {
-      badge: "Services • YALLA CHINA",
-      title: "Clear services that move your project from idea to real steps.",
+      badge: "Services • Packages • Free consultation",
+      title:
+        "Clear services that help the student move forward and help parents decide with confidence.",
       description:
-        "You get the support needed to move with method: orientation, university choice, application preparation, admission follow-up, student visa support, and departure preparation.",
-      primary: "Start my application",
-      secondary: "Talk on WhatsApp",
+        "Everything here is organized around the real questions families ask: which package to choose, what is included, how the visa works, and how far the support goes.",
+      primary: "Request a free consultation",
+      secondary: "Start my application",
       stats: [
-        { label: "Clearer choices", value: "Based on your profile and goal" },
-        { label: "Better file", value: "Documents and priorities organized" },
-        { label: "Simpler follow-up", value: "Through admission and visa" },
+        { label: "Two readable packages", value: "Essential or Premium" },
+        { label: "Visa and admission", value: "Visible support" },
+        { label: "Until arrival", value: "Stronger follow-up in Premium" },
       ],
-      panelEyebrow: "What you get",
-      panelTitle: "Useful support at each important stage.",
+      panelEyebrow: "What families want to know immediately",
+      panelTitle:
+        "Which package to choose, what is included, and how the project moves forward next.",
       panelText:
-        "The goal is not only to answer one question, but to help you keep one clear logic from the beginning to the end.",
+        "The choice becomes simple and reassuring when everything is clear from the start.",
       panelItems: [
-        "Better framed choices",
-        "A cleaner application file",
-        "More reassuring explanations",
+        "Free consultation before commitment",
+        "Simple package comparison",
+        "Fast WhatsApp reply",
       ],
     },
-    services: {
-      eyebrow: "What we do",
-      title: "Each service answers a real need inside the project.",
+    clarity: {
+      eyebrow: "Why this page feels clearer",
+      title:
+        "A premium offer should be easy to understand even before the first call.",
       description:
-        "We organized the support around the actual decisions that students and families need to make.",
+        "When families quickly see the logic of the support, they can project themselves into the journey with much more confidence.",
       items: [
         {
-          title: "Academic orientation",
-          desc: "We clarify the level, field, and type of program that make the most sense for your profile.",
+          title: "For parents",
+          desc: "The guarantees, level of follow-up, and key stages are visible from the start.",
         },
         {
-          title: "University choice",
-          desc: "We help you target universities that are coherent with your project and priorities.",
+          title: "For the student",
+          desc: "The route becomes concrete: file, admission, visa, departure, and arrival.",
         },
         {
-          title: "Application preparation",
-          desc: "We organize the essential documents to make the application more credible and easier to understand.",
-        },
-        {
-          title: "Admission follow-up",
-          desc: "We stay present through the key stages so the file keeps moving in the right direction.",
-        },
-        {
-          title: "Student visa",
-          desc: "We explain the visa logic, the checks to make, and the documents to prepare.",
-        },
-        {
-          title: "Departure preparation",
-          desc: "Before you travel, we help you understand arrival, settling in, and the next phase of the project.",
+          title: "For the decision",
+          desc: "The choice between both packages becomes simple, logical, and far more reassuring.",
         },
       ],
     },
     process: {
-      eyebrow: "How it works",
-      title: "Professional support also shows in the method.",
+      eyebrow: "How the support works",
+      title: "A clear method from the first conversation to the first days in China.",
       description:
-        "Instead of moving through uncertainty, you understand who does what, in which order, and why each stage matters.",
+        "The real premium value here is knowing who does what, when, and how far the support goes depending on the formula you choose.",
       steps: [
         {
-          title: "01. Project discussion",
-          desc: "We start from your level, your questions, and your goal to define the right direction.",
+          title: "01. Consultation and orientation",
+          desc: "We understand the profile, the family expectations, and the formula that fits best.",
         },
         {
-          title: "02. Selection and strategy",
-          desc: "We organize university choices and the file logic before moving to the next step.",
+          title: "02. Universities and file",
+          desc: "We frame the choices, the documents, the translation work, and the logic of the file.",
         },
         {
-          title: "03. Application and admission",
-          desc: "We follow the key stages of the file to keep the process cleaner and more reassuring.",
+          title: "03. Admission and visa",
+          desc: "We stay present during the sensitive stages to reduce mistakes and delays.",
         },
         {
-          title: "04. Visa and departure",
-          desc: "We help prepare the final phase so the project stays clear until the trip.",
+          title: "04. Departure and arrival",
+          desc: "Depending on the chosen formula, support continues through travel, transfer, and first steps.",
         },
       ],
-      supportTitle: "What families usually appreciate most",
+      supportEyebrow: "What truly reassures families",
+      supportTitle: "Families are not only looking for a service. They are looking for a reliable framework.",
       supportText:
-        "A clear method reduces mistakes, avoids confusion, and gives more confidence to everyone involved in the project.",
+        "That is why the offer is structured around clarity, human follow-up, and visible support all the way to arrival.",
       supportItems: [
-        "Fast answers when a question blocks progress",
-        "Simple explanations for parents",
-        "A route that is easier to follow",
+        "Profile-based orientation",
+        "Guided file and translation",
+        "Visa support with method",
+        "Direct WhatsApp for important questions",
       ],
     },
     faq: {
       eyebrow: "Frequently asked questions",
-      title: "Helpful answers before you begin.",
+      title: "The most useful answers before choosing a formula.",
       items: [
         {
-          question: "Do you support parents too?",
+          question: "How do I choose between the Essential and Premium packages?",
           answer:
-            "Yes. We explain the project, the stages, and the decisions more clearly for both students and families.",
+            "The easiest way is to begin with the free consultation. We then guide you toward the level of support that fits your project.",
         },
         {
-          question: "Do you help with the student visa?",
+          question: "Is the visa included in both packages?",
           answer:
-            "Yes. We help you understand the visa logic, the expected documents, and the important checks before submitting.",
+            "Yes. The student visa is one of the important guided stages in both formulas.",
         },
         {
-          question: "Can I start directly on WhatsApp?",
+          question: "What makes the Premium package more reassuring?",
           answer:
-            "Yes. That is often the easiest way to ask your first questions and see whether the project is ready to move forward.",
+            "It adds extra comfort around the ticket, the follow-up up to the university, and the arrival stage.",
         },
         {
-          question: "Does everything happen at once?",
+          question: "Can parents ask their questions before making any decision?",
           answer:
-            "No. The project moves step by step: orientation, file, admission, visa, then departure preparation.",
+            "Yes. The free consultation is designed precisely to clarify the project and reassure the whole family.",
         },
       ],
     },
     cta: {
       eyebrow: "Take the next step",
-      title: "If you already know you want to move, the next step is simple.",
+      title:
+        "Start with a free consultation, then move forward with the formula that truly fits your situation.",
       description:
-        "Apply now or write to us on WhatsApp to begin with a clear first direction.",
-      primary: "Apply now",
-      secondary: "WhatsApp: +212 638-335452",
+        "The right first step is not to rush. The right first step is to clarify the project, reassure the family, and choose the best route.",
+      primary: "Get a free consultation",
+      secondary: "Apply now",
     },
   },
   ar: {
     dir: "rtl",
     hero: {
-      badge: "الخدمات • YALLA CHINA",
-      title: "خدمات واضحة تنقل مشروعك من الفكرة إلى الخطوات الحقيقية.",
+      badge: "الخدمات • الباقات • استشارة مجانية",
+      title:
+        "خدمات واضحة تساعد الطالب على التقدم وتسمح للوالدين باتخاذ القرار بثقة.",
       description:
-        "هنا تجد المرافقة التي تحتاجها لتتقدم بخطوات منظمة: التوجيه، اختيار الجامعة، تجهيز الملف، متابعة القبول، دعم التأشيرة، والتحضير للسفر.",
-      primary: "ابدأ طلبك",
-      secondary: "تحدث معنا على واتساب",
+        "كل شيء هنا منظم حول الاسئلة الحقيقية: اي باقة تختارون، ماذا تتضمن، كيف تتم التاشيرة، وحتى اين تصل المرافقة.",
+      primary: "اطلب استشارة مجانية",
+      secondary: "ابدأ التقديم",
       stats: [
-        { label: "اختيارات أوضح", value: "حسب ملفك وهدفك" },
-        { label: "ملف أفضل", value: "ترتيب الوثائق والأولويات" },
-        { label: "متابعة أسهل", value: "حتى القبول والتأشيرة" },
+        { label: "باقتان واضحتان", value: "اساسية او مميزة" },
+        { label: "القبول والتاشيرة", value: "مرافقة ظاهرة" },
+        { label: "حتى الوصول", value: "متابعة اقوى في الباقة المميزة" },
       ],
-      panelEyebrow: "ما الذي ستحصل عليه",
-      panelTitle: "مرافقة مفيدة في كل مرحلة مهمة.",
+      panelEyebrow: "ما الذي تريد العائلة معرفته مباشرة",
+      panelTitle:
+        "اي باقة تختارون، ماذا تتضمن، وكيف يتقدم المشروع بعد ذلك.",
       panelText:
-        "الهدف ليس فقط الإجابة عن سؤال واحد، بل مساعدتك على الحفاظ على منطق واضح من البداية إلى النهاية.",
+        "هذه الصفحة موجودة لتجعل القرار بسيطا ومريحا، لا لتغرق العائلة في تفاصيل غير ضرورية.",
       panelItems: [
-        "اختيارات أدق",
-        "ملف أكثر ترتيبًا",
-        "شرح يبعث على الطمأنينة",
+        "استشارة مجانية قبل الالتزام",
+        "مقارنة بسيطة بين الباقات",
+        "رد سريع على WhatsApp",
       ],
     },
-    services: {
-      eyebrow: "ماذا نفعل",
-      title: "كل خدمة هنا تجيب عن حاجة حقيقية داخل المشروع.",
+    clarity: {
+      eyebrow: "لماذا تبدو هذه الصفحة اوضح",
+      title:
+        "العرض الفاخر يجب ان يكون سهلا في الفهم حتى قبل اول مكالمة.",
       description:
-        "رتبنا المرافقة حول القرارات الفعلية التي يحتاج الطلبة والعائلات إلى اتخاذها.",
+        "عندما ترى العائلة منطق المرافقة بسرعة، يصبح من الاسهل عليها ان تثق وتتقدم من دون تردد كبير.",
       items: [
         {
-          title: "التوجيه الأكاديمي",
-          desc: "نوضح المستوى والتخصص ونوع البرنامج الذي يناسب ملفك بشكل أفضل.",
+          title: "للوالدين",
+          desc: "الضمانات ومستوى المتابعة والمراحل المهمة ظاهرة من البداية.",
         },
         {
-          title: "اختيار الجامعة",
-          desc: "نساعدك على استهداف جامعات منسجمة مع مشروعك وأولوياتك.",
+          title: "للطالب",
+          desc: "المسار يصبح عمليا: ملف، قبول، تاشيرة، سفر، ثم وصول.",
         },
         {
-          title: "تجهيز ملف التقديم",
-          desc: "ننظم الوثائق الأساسية حتى يصبح الطلب أكثر قوة وأسهل في الفهم.",
-        },
-        {
-          title: "متابعة القبول",
-          desc: "نبقى معك في المراحل المهمة حتى يظل الملف متجهًا في الطريق الصحيح.",
-        },
-        {
-          title: "تأشيرة الطالب",
-          desc: "نشرح منطق التأشيرة، وما الذي يجب التحقق منه، وما هي الوثائق المطلوبة.",
-        },
-        {
-          title: "التحضير للسفر",
-          desc: "قبل السفر نساعدك على فهم الوصول والاستقرار وبداية المرحلة الجديدة.",
+          title: "للقرار",
+          desc: "الاختيار بين الباقتين يصبح ابسط واكثر منطقية واطمئنانا.",
         },
       ],
     },
     process: {
-      eyebrow: "كيف يتم العمل",
-      title: "الاحترافية تظهر أيضًا في الطريقة.",
+      eyebrow: "كيف تتم المرافقة",
+      title: "منهج واضح من اول تواصل حتى الايام الاولى في الصين.",
       description:
-        "بدل أن تتحرك وسط الغموض، تفهم من يقوم بماذا، وبأي ترتيب، ولماذا كل مرحلة مهمة.",
+        "القيمة الحقيقية هنا هي معرفة من يفعل ماذا ومتى وحتى اين تصل المرافقة حسب الصيغة المختارة.",
       steps: [
         {
-          title: "01. مناقشة المشروع",
-          desc: "نبدأ من مستواك وأسئلتك وهدفك حتى نحدد الاتجاه المناسب.",
+          title: "01. الاستشارة والتوجيه",
+          desc: "نفهم الملف وتوقعات العائلة ونحدد الصيغة الانسب للبداية.",
         },
         {
-          title: "02. الاختيار والاستراتيجية",
-          desc: "ننظم اختيار الجامعات ومنطق الملف قبل الانتقال إلى المرحلة التالية.",
+          title: "02. الجامعات والملف",
+          desc: "نرتب الاختيارات والوثائق والترجمة ومنطق الملف كاملا.",
         },
         {
-          title: "03. التقديم والقبول",
-          desc: "نتابع المراحل الأساسية للملف حتى يبقى المسار أكثر وضوحًا واطمئنانًا.",
+          title: "03. القبول والتاشيرة",
+          desc: "نبقى حاضرين في المراحل الحساسة لتقليل الاخطاء والتاخير.",
         },
         {
-          title: "04. التأشيرة والسفر",
-          desc: "نساعدك على تجهيز المرحلة الأخيرة حتى يبقى المشروع واضحًا إلى وقت السفر.",
+          title: "04. السفر والوصول",
+          desc: "حسب الصيغة المختارة تستمر المرافقة حتى السفر والنقل واول الخطوات.",
         },
       ],
-      supportTitle: "ما الذي تقدره العائلات أكثر",
+      supportEyebrow: "ما الذي يطمئن العائلة فعلا",
+      supportTitle: "العائلات لا تبحث فقط عن خدمة، بل عن اطار موثوق.",
       supportText:
-        "الطريقة الواضحة تقلل الأخطاء وتمنع الالتباس وتمنح ثقة أكبر لكل من يشارك في المشروع.",
+        "لهذا تم تنظيم العرض حول الوضوح والمتابعة الانسانية ومرافقة ظاهرة حتى الوصول.",
       supportItems: [
-        "إجابات سريعة عندما يتوقف التقدم",
-        "شرح بسيط للوالدين",
-        "مسار أسهل في المتابعة",
+        "توجيه حسب الملف",
+        "ملف وترجمة داخل اطار واضح",
+        "مرافقة التاشيرة بمنهج",
+        "WhatsApp مباشر للاسئلة المهمة",
       ],
     },
     faq: {
-      eyebrow: "أسئلة متكررة",
-      title: "إجابات مفيدة قبل أن تبدأ.",
+      eyebrow: "اسئلة متكررة",
+      title: "اكثر الاجوبة فائدة قبل اختيار الصيغة المناسبة.",
       items: [
         {
-          question: "هل ترافقون الوالدين أيضًا؟",
+          question: "كيف نختار بين الباقة الاساسية والباقية المميزة؟",
           answer:
-            "نعم. نشرح المشروع والمراحل والقرارات بشكل أوضح للطلبة وللعائلات معًا.",
+            "افضل بداية هي الاستشارة المجانية. بعدها نوجهكم نحو مستوى المتابعة المناسب للمشروع.",
         },
         {
-          question: "هل تساعدون في تأشيرة الطالب؟",
+          question: "هل التاشيرة مشمولة في الباقتين؟",
           answer:
-            "نعم. نساعدك على فهم منطق التأشيرة والوثائق المطلوبة والنقاط المهمة قبل التقديم.",
+            "نعم. تاشيرة الطالب من المراحل المهمة التي تتم مرافقتها في كلتا الصيغتين.",
         },
         {
-          question: "هل أستطيع أن أبدأ مباشرة على واتساب؟",
+          question: "ما الذي يجعل الباقة المميزة اكثر طمانينة؟",
           answer:
-            "نعم. هذه غالبًا أسهل طريقة لطرح الأسئلة الأولى ومعرفة ما إذا كان المشروع جاهزًا للتقدم.",
+            "لانها تضيف راحة اكبر في التذكرة والمتابعة حتى الجامعة والوصول.",
         },
         {
-          question: "هل تتم كل المراحل دفعة واحدة؟",
+          question: "هل يمكن للوالدين طرح اسئلتهما قبل اي قرار؟",
           answer:
-            "لا. المشروع يتحرك خطوة بخطوة: توجيه، ملف، قبول، تأشيرة، ثم تحضير للسفر.",
+            "نعم. الاستشارة المجانية موجودة بالضبط لتوضيح المشروع وطمأنة العائلة كلها.",
         },
       ],
     },
     cta: {
-      eyebrow: "انتقل إلى الخطوة التالية",
-      title: "إذا كنت تعرف أنك تريد التقدم، فالخطوة التالية بسيطة.",
+      eyebrow: "الخطوة التالية",
+      title:
+        "ابدؤوا باستشارة مجانية، ثم تقدموا مع الصيغة التي تناسب وضعكم فعلا.",
       description:
-        "قدّم الآن أو اكتب لنا على واتساب لتبدأ باتجاه أول واضح ومفيد.",
-      primary: "قدّم الآن",
-      secondary: "واتساب: +212 638-335452",
+        "الخطوة الصحيحة ليست الاستعجال. الخطوة الصحيحة هي توضيح المشروع وطمأنة العائلة واختيار الطريق الافضل.",
+      primary: "احصل على استشارة مجانية",
+      secondary: "قدم الان",
     },
   },
 };
@@ -427,10 +434,10 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
   return (
     <main className="bg-[#050505] text-white" dir={t.dir}>
       <section className="relative overflow-hidden bg-[#130405]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.74),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_20%),linear-gradient(135deg,#180405_0%,#29080b_40%,#060606_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.74),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.16),transparent_20%),linear-gradient(135deg,#180405_0%,#29080b_40%,#060606_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className="relative grid gap-8 py-12 lg:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
+          <div className="relative grid gap-8 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-20">
             <div
               className={`space-y-7 ${
                 isArabic ? "text-right" : "text-center lg:text-left"
@@ -465,19 +472,17 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                 }`}
               >
                 <Link
-                  href={applyHref}
-                  className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
+                  href={contactHref}
+                  className="w-full rounded-full bg-[#B17F02] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(177,127,2,0.18)] transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.hero.primary}
                 </Link>
-                <a
-                  href="https://wa.me/212638335452"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href={applyHref}
                   className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
                 >
                   {t.hero.secondary}
-                </a>
+                </Link>
               </div>
 
               <div
@@ -516,7 +521,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                   isArabic ? "text-right" : "text-center sm:text-left"
                 }`}
               >
-                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.hero.panelEyebrow}
                 </p>
                 <h2 className="display-title mt-3 text-2xl font-black leading-tight text-white">
@@ -549,28 +554,27 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                 isArabic ? "lg:ml-auto text-right" : "text-center lg:text-left"
               } lg:max-w-3xl`}
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
-                {t.services.eyebrow}
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
+                {t.clarity.eyebrow}
               </p>
               <h2 className="display-title mt-3 text-2xl font-black tracking-tight sm:text-3xl">
-                {t.services.title}
+                {t.clarity.title}
               </h2>
               <p className="mt-4 text-sm leading-7 text-zinc-600 sm:text-base">
-                {t.services.description}
+                {t.clarity.description}
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {t.services.items.map((item) => (
-                <Link
+            <div className="grid gap-4 md:grid-cols-3">
+              {t.clarity.items.map((item) => (
+                <article
                   key={item.title}
-                  href={contactHref}
-                  className={`flex h-full flex-col rounded-[1.8rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_35px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_26px_45px_rgba(15,23,42,0.08)] ${
+                  className={`rounded-[1.8rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_35px_rgba(15,23,42,0.05)] ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
                   <div
-                    className={`h-1.5 w-16 rounded-full bg-[#EDB80B] ${
+                    className={`h-1.5 w-16 rounded-full bg-[#B17F02] ${
                       isArabic ? "ml-auto" : ""
                     }`}
                   />
@@ -580,12 +584,16 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                   <p className="mt-3 text-sm leading-7 text-zinc-600">
                     {item.desc}
                   </p>
-                </Link>
+                </article>
               ))}
             </div>
           </div>
         </Container>
       </section>
+
+      <HomeProofSection lang={lang} mode="page" />
+
+      <TestimonialsSection lang={lang} />
 
       <section className="bg-[#080808] py-12 sm:py-16">
         <Container>
@@ -596,7 +604,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
               }`}
             >
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_55px_rgba(0,0,0,0.18)] sm:p-8">
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.process.eyebrow}
                 </p>
                 <h2 className="display-title mt-3 text-3xl font-black tracking-tight text-white">
@@ -616,7 +624,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                     }`}
                   >
                     <h3 className="text-lg font-bold text-white">
-                      {step.title}
+                      <StepTitle title={step.title} isArabic={isArabic} />
                     </h3>
                     <p className="mt-2 text-sm leading-7 text-white/68">
                       {step.desc}
@@ -628,7 +636,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
 
             <div className="lg:sticky lg:top-24">
               <div className="relative overflow-hidden rounded-[2.4rem] border border-white/10 bg-[#170607] p-5 shadow-[0_30px_80px_rgba(0,0,0,0.24)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.25),transparent_34%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(177,127,2,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.25),transparent_34%)]" />
                 <div className="absolute inset-0 opacity-20 shoji-grid" />
                 <div className="relative space-y-5">
                   <div className="overflow-hidden rounded-[2rem] border border-white/10">
@@ -640,7 +648,10 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                   </div>
 
                   <div className={isArabic ? "text-right" : ""}>
-                    <h3 className="display-title text-2xl font-black leading-tight text-white">
+                    <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
+                      {t.process.supportEyebrow}
+                    </p>
+                    <h3 className="display-title mt-3 text-2xl font-black leading-tight text-white">
                       {t.process.supportTitle}
                     </h3>
                     <p className="mt-3 text-sm leading-7 text-white/72">
@@ -671,7 +682,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
         <Container>
           <div className="space-y-6">
             <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
                 {t.faq.eyebrow}
               </p>
               <h2 className="display-title mt-3 text-3xl font-black tracking-tight sm:text-4xl">
@@ -705,7 +716,7 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
           <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
               <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.cta.eyebrow}
                 </p>
                 <h2 className="display-title mt-4 text-3xl font-black tracking-tight sm:text-4xl">
@@ -722,19 +733,17 @@ export default function ServicesPage({ lang }: { lang: Locale }) {
                 }`}
               >
                 <Link
-                  href={applyHref}
-                  className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
+                  href={contactHref}
+                  className="w-full rounded-full bg-[#B17F02] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.cta.primary}
                 </Link>
-                <a
-                  href="https://wa.me/212638335452"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
+                <Link
+                  href={applyHref}
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
                 >
                   {t.cta.secondary}
-                </a>
+                </Link>
               </div>
             </div>
           </div>

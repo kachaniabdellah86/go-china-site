@@ -21,9 +21,7 @@ type Copy = {
     description: string;
     note: string;
     success: string;
-    errors: {
-      required: string;
-    };
+    errors: { required: string };
     placeholders: {
       name: string;
       phone: string;
@@ -74,45 +72,45 @@ const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
     hero: {
-      badge: "Contact • YALLA CHINA",
-      title: "Posez votre question et obtenez une réponse plus claire.",
+      badge: "Contact • Consultation gratuite",
+      title:
+        "Parlez-nous du projet et obtenez une premiere reponse claire pour l'etudiant et sa famille.",
       description:
-        "Que vous vouliez parler des études en Chine, de l'admission, du visa ou simplement de la meilleure manière de commencer, vous pouvez nous écrire rapidement et obtenir une direction plus claire.",
+        "Vous pouvez poser vos questions sur les packs, l'admission, le visa ou le depart. Nous vous repondons simplement, sans pression, avec une vraie direction pour la suite.",
       stats: [
-        { label: "Réponse rapide", value: "Sous 24-48h" },
-        { label: "Contact principal", value: "WhatsApp direct" },
-        { label: "Projet plus clair", value: "Étudiants & parents" },
+        { label: "Reponse rapide", value: "Sous 24 a 48h" },
+        { label: "Canal principal", value: "WhatsApp direct" },
+        { label: "Approche", value: "Parents & etudiants" },
       ],
-      panelEyebrow: "Contact principal",
+      panelEyebrow: "Canal principal",
       panelTitle: "+212 638-335452",
       panelText:
-        "Le moyen le plus rapide pour ouvrir la conversation et recevoir une première orientation utile.",
+        "Le moyen le plus rapide pour poser vos premieres questions, demander la consultation gratuite et comprendre quelle formule correspond au projet.",
       panelItems: [
-        "Questions sur les études",
-        "Admission et visa",
-        "Première direction claire",
+        "Consultation gratuite",
+        "Questions sur visa et admission",
+        "Direction claire des le premier echange",
       ],
     },
     form: {
       title: "Envoyer un message",
       description:
-        "Écrivez l'essentiel et nous ouvrirons WhatsApp avec un message déjà prêt pour vous faire gagner du temps.",
-      note: "Un premier message clair nous aide à vous répondre plus vite et de manière plus utile.",
-      success: "Votre message est prêt dans WhatsApp.",
+        "Ecrivez l'essentiel. Nous preparons automatiquement un message WhatsApp clair pour accelerer le premier echange.",
+      note:
+        "Un premier message precis nous aide a repondre plus vite et a vous orienter vers la bonne formule.",
+      success: "Votre message est pret dans WhatsApp.",
       errors: {
-        required:
-          "Merci de remplir votre nom, votre téléphone et votre message.",
+        required: "Merci de remplir votre nom, votre telephone et votre message.",
       },
       placeholders: {
         name: "Nom complet",
-        phone: "Téléphone (WhatsApp)",
+        phone: "Telephone / WhatsApp",
         email: "Email (optionnel)",
-        message:
-          "Expliquez votre projet, votre niveau d'étude ou votre question...",
+        message: "Expliquez votre projet, votre niveau ou vos questions...",
       },
       labels: {
         name: "Nom complet",
-        phone: "Téléphone",
+        phone: "Telephone",
         email: "Email",
         message: "Message",
         submit: "Ouvrir le message WhatsApp",
@@ -121,73 +119,74 @@ const copy: Record<Locale, Copy> = {
     },
     direct: {
       eyebrow: "Contact direct",
-      title: "Choisissez la voie la plus simple pour commencer.",
+      title: "Choisissez la facon la plus simple de commencer.",
       intro:
-        "Choisissez simplement la manière la plus confortable pour parler de votre situation et recevoir une première réponse utile.",
+        "WhatsApp reste le canal le plus rapide et le plus humain. Vous pouvez aussi nous ecrire par email ou voir notre univers sur Instagram.",
       items: [
         {
           title: "WhatsApp principal",
-          text: "Le contact le plus rapide pour démarrer",
+          text: "Le contact le plus rapide pour la consultation gratuite",
           value: "+212 638-335452",
           href: "https://wa.me/212638335452",
           emphasis: true,
         },
         {
+          title: "WhatsApp secondaire",
+          text: "Un deuxieme numero pour un contact rapide si besoin",
+          value: "+212 707-298029",
+          href: "https://wa.me/212707298029",
+        },
+        {
           title: "Email",
-          text: "Si vous préférez écrire un message plus détaillé",
+          text: "Pour une demande plus detaillee ou plus formelle",
           value: "contact@yallachina.com",
           href: "mailto:contact@yallachina.com",
         },
         {
           title: "Instagram",
-          text: "Voir le contenu et les mises à jour de YALLA CHINA",
+          text: "Pour decouvrir la marque et son univers",
           value: "@yallachina.ma",
           href: "https://www.instagram.com/yallachina.ma/",
-        },
-        {
-          title: "Passer à la candidature",
-          text: "Si vous êtes déjà prêt à passer à l'étape suivante",
-          value: "Ouvrir la candidature",
-          href: "/fr/apply",
         },
       ],
     },
     reasons: {
-      eyebrow: "Vous pouvez nous écrire pour",
-      title: "Les sujets les plus fréquents avant de commencer",
+      eyebrow: "Pourquoi les familles nous ecrivent",
+      title: "Les sujets les plus frequents avant de choisir une formule",
       items: [
-        "Comprendre quelle voie d'étude viser",
-        "Savoir si votre profil est déjà prêt",
-        "Clarifier la logique de la candidature",
-        "Mieux comprendre la phase du visa étudiant",
+        "Comprendre le bon pack selon le profil",
+        "Verifier si le projet est deja realiste",
+        "Clarifier admission, visa et arrivee",
+        "Rassurer les parents avant la candidature",
       ],
     },
     faq: {
-      eyebrow: "Questions fréquentes",
-      title: "Les réponses utiles avant le premier contact.",
+      eyebrow: "Questions frequentes",
+      title: "Les reponses utiles avant le premier echange.",
       items: [
+        {
+          question: "La consultation est-elle gratuite ?",
+          answer:
+            "Oui. Elle sert a comprendre la situation, repondre aux premieres questions et recommander la bonne suite.",
+        },
+        {
+          question: "Combien de temps faut-il pour avoir un retour ?",
+          answer:
+            "En general, la premiere reponse arrive sous 24 a 48 heures selon la disponibilite.",
+        },
         {
           question: "Est-ce que vous accompagnez aussi les parents ?",
           answer:
-            "Oui. Nous expliquons le projet, les étapes et le suivi de manière plus claire pour l'étudiant et la famille.",
-        },
-        {
-          question: "Combien de temps faut-il pour avoir une réponse ?",
-          answer:
-            "En général, nous revenons vers vous sous 24 à 48 heures selon la disponibilité.",
-        },
-        {
-          question: "Puis-je vous écrire directement sur WhatsApp ?",
-          answer:
-            "Oui. C'est souvent la manière la plus simple pour démarrer et poser vos premières questions.",
+            "Oui. Le parcours et les decisions sont expliques de maniere plus rassurante pour toute la famille.",
         },
       ],
     },
     cta: {
       eyebrow: "Aller plus loin",
-      title: "Si vous êtes déjà prêt, vous pouvez passer directement à la candidature.",
+      title:
+        "Si le projet est deja clair, vous pouvez aussi passer directement a la candidature.",
       description:
-        "Le contact est parfait pour les questions. La candidature est idéale si vous voulez déjà lancer le projet.",
+        "Le contact est parfait pour poser les premieres questions. La candidature est ideale si vous etes pret a avancer maintenant.",
       primary: "Postuler maintenant",
       secondary: "WhatsApp : +212 638-335452",
     },
@@ -195,40 +194,41 @@ const copy: Record<Locale, Copy> = {
   en: {
     dir: "ltr",
     hero: {
-      badge: "Contact • YALLA CHINA",
-      title: "Ask your question and get a clearer answer.",
+      badge: "Contact • Free consultation",
+      title:
+        "Tell us about the project and get a clear first answer for both the student and the family.",
       description:
-        "Whether you want to talk about studying in China, admission, the visa, or simply the best way to begin, you can write to us quickly and get a clearer direction.",
+        "You can ask about packages, admission, the visa, or departure. We reply simply, without pressure, and with a real direction for the next step.",
       stats: [
-        { label: "Fast reply", value: "Within 24-48h" },
-        { label: "Main contact", value: "Direct WhatsApp" },
-        { label: "Clearer project", value: "Students & parents" },
+        { label: "Fast reply", value: "Within 24 to 48h" },
+        { label: "Main channel", value: "Direct WhatsApp" },
+        { label: "Approach", value: "Parents & students" },
       ],
-      panelEyebrow: "Main contact",
+      panelEyebrow: "Main channel",
       panelTitle: "+212 638-335452",
       panelText:
-        "The fastest way to open the conversation and receive a useful first direction.",
+        "The fastest way to ask your first questions, request the free consultation, and understand which formula fits the project.",
       panelItems: [
-        "Questions about studies",
-        "Admission and visa",
-        "A clear first direction",
+        "Free consultation",
+        "Admission and visa questions",
+        "Clear direction from the first exchange",
       ],
     },
     form: {
       title: "Send a message",
       description:
-        "Write the essentials and we will open WhatsApp with a ready-to-send message so your first contact feels faster.",
-      note: "A clear first message helps us answer you faster and in a more useful way.",
+        "Write the essentials. We automatically prepare a clear WhatsApp message to speed up the first exchange.",
+      note:
+        "A precise first message helps us answer faster and guide you toward the right formula.",
       success: "Your message is ready in WhatsApp.",
       errors: {
         required: "Please fill in your name, phone number, and message.",
       },
       placeholders: {
         name: "Full name",
-        phone: "Phone (WhatsApp)",
+        phone: "Phone / WhatsApp",
         email: "Email (optional)",
-        message:
-          "Explain your project, your study level, or your question...",
+        message: "Explain your project, your level, or your questions...",
       },
       labels: {
         name: "Full name",
@@ -241,73 +241,74 @@ const copy: Record<Locale, Copy> = {
     },
     direct: {
       eyebrow: "Direct contact",
-      title: "Choose the easiest way to start.",
+      title: "Choose the easiest way to begin.",
       intro:
-        "Choose the contact method that feels simplest and most comfortable so you can explain your situation and get a useful first reply.",
+        "WhatsApp remains the fastest and most human channel. You can also write by email or discover the brand on Instagram.",
       items: [
         {
           title: "Main WhatsApp",
-          text: "The fastest contact to get started",
+          text: "The fastest contact for the free consultation",
           value: "+212 638-335452",
           href: "https://wa.me/212638335452",
           emphasis: true,
         },
         {
+          title: "Secondary WhatsApp",
+          text: "A second number for a quick contact if needed",
+          value: "+212 707-298029",
+          href: "https://wa.me/212707298029",
+        },
+        {
           title: "Email",
-          text: "If you prefer to write a more detailed request",
+          text: "For a more detailed or more formal request",
           value: "contact@yallachina.com",
           href: "mailto:contact@yallachina.com",
         },
         {
           title: "Instagram",
-          text: "See YALLA CHINA content and project updates",
+          text: "To discover the brand and its universe",
           value: "@yallachina.ma",
           href: "https://www.instagram.com/yallachina.ma/",
-        },
-        {
-          title: "Start an application",
-          text: "If you are already ready for the next step",
-          value: "Open application",
-          href: "/en/apply",
         },
       ],
     },
     reasons: {
-      eyebrow: "You can contact us for",
-      title: "The most common subjects before students begin",
+      eyebrow: "Why families contact us",
+      title: "The most common topics before choosing a formula",
       items: [
-        "Understanding which study route to target",
-        "Seeing whether your profile is already ready",
-        "Clarifying the application logic",
-        "Understanding the student visa stage better",
+        "Understand the right package for the profile",
+        "Check whether the project already feels realistic",
+        "Clarify admission, visa, and arrival",
+        "Reassure parents before the application",
       ],
     },
     faq: {
       eyebrow: "Frequently asked questions",
-      title: "Useful answers before the first contact.",
+      title: "Useful answers before the first exchange.",
       items: [
         {
-          question: "Do you support parents too?",
+          question: "Is the consultation free?",
           answer:
-            "Yes. We explain the project, the steps, and the follow-up more clearly for both the student and the family.",
+            "Yes. It helps us understand the situation, answer the first questions, and recommend the right next move.",
         },
         {
           question: "How long does it take to get a reply?",
           answer:
-            "In general, we reply within 24 to 48 hours depending on availability.",
+            "In most cases, the first reply comes within 24 to 48 hours depending on availability.",
         },
         {
-          question: "Can I write to you directly on WhatsApp?",
+          question: "Do you support parents too?",
           answer:
-            "Yes. That is often the simplest way to start and ask your first questions.",
+            "Yes. The route and decisions are explained in a more reassuring way for the whole family.",
         },
       ],
     },
     cta: {
       eyebrow: "Go further",
-      title: "If you are already ready, you can move straight to the application.",
+      title:
+        "If the project is already clear, you can also move directly to the application.",
       description:
-        "Contact is perfect for questions. The application is ideal when you want to start the project now.",
+        "Contact is perfect for the first questions. The application is ideal when you are ready to move now.",
       primary: "Apply now",
       secondary: "WhatsApp: +212 638-335452",
     },
@@ -315,120 +316,123 @@ const copy: Record<Locale, Copy> = {
   ar: {
     dir: "rtl",
     hero: {
-      badge: "تواصل • YALLA CHINA",
-      title: "اطرح سؤالك واحصل على جواب أوضح.",
+      badge: "تواصل • استشارة مجانية",
+      title:
+        "حدثونا عن المشروع واحصلوا على اول جواب واضح يطمئن الطالب والعائلة.",
       description:
-        "سواء كنت تريد أن تسأل عن الدراسة في الصين أو القبول أو التأشيرة أو فقط عن أفضل طريقة للبداية، يمكنك أن تراسلنا بسرعة وتحصل على توجيه أوضح.",
+        "يمكنكم طرح الاسئلة حول الباقات او القبول او التاشيرة او السفر، وسنجيبكم ببساطة ومن دون ضغط مع توجيه واضح للخطوة التالية.",
       stats: [
-        { label: "رد سريع", value: "خلال 24 إلى 48 ساعة" },
-        { label: "جهة التواصل الأساسية", value: "واتساب مباشر" },
-        { label: "مشروع أوضح", value: "للطلبة والعائلات" },
+        { label: "رد سريع", value: "خلال 24 الى 48 ساعة" },
+        { label: "القناة الرئيسية", value: "WhatsApp مباشر" },
+        { label: "الاسلوب", value: "للوالدين والطلبة" },
       ],
-      panelEyebrow: "جهة التواصل الأساسية",
+      panelEyebrow: "القناة الرئيسية",
       panelTitle: "+212 638-335452",
       panelText:
-        "أسرع طريقة لبدء الحديث والحصول على أول توجيه مفيد وواضح.",
+        "اسرع طريقة لطرح الاسئلة الاولى وطلب الاستشارة المجانية وفهم الصيغة المناسبة للمشروع.",
       panelItems: [
-        "أسئلة حول الدراسة",
-        "القبول والتأشيرة",
-        "توجيه أول واضح",
+        "استشارة مجانية",
+        "اسئلة حول القبول والتاشيرة",
+        "توجيه واضح من اول تواصل",
       ],
     },
     form: {
-      title: "أرسل رسالة",
+      title: "ارسل رسالة",
       description:
-        "اكتب المعلومات الأساسية وسنفتح واتساب مع رسالة جاهزة حتى تبدأ الحديث بسرعة أكبر.",
-      note: "الرسالة الأولى الواضحة تساعدنا على الرد عليك بسرعة وبشكل أكثر فائدة.",
-      success: "رسالتك أصبحت جاهزة داخل واتساب.",
+        "اكتبوا الاساسيات فقط. سنجهز رسالة WhatsApp واضحة بشكل تلقائي لتسهيل اول تواصل.",
+      note:
+        "الرسالة الاولى الواضحة تساعدنا على الرد بسرعة وتوجيهكم نحو الصيغة المناسبة.",
+      success: "رسالتكم جاهزة في WhatsApp.",
       errors: {
-        required: "يرجى إدخال الاسم ورقم الهاتف والرسالة قبل المتابعة.",
+        required: "يرجى ادخال الاسم ورقم الهاتف والرسالة قبل المتابعة.",
       },
       placeholders: {
         name: "الاسم الكامل",
-        phone: "الهاتف (واتساب)",
-        email: "البريد الإلكتروني (اختياري)",
-        message: "اشرح مشروعك أو مستواك الدراسي أو سؤالك...",
+        phone: "الهاتف / WhatsApp",
+        email: "البريد الالكتروني (اختياري)",
+        message: "اشرحوا مشروعكم او مستواكم او اسئلتكم...",
       },
       labels: {
         name: "الاسم الكامل",
         phone: "الهاتف",
-        email: "البريد الإلكتروني",
+        email: "البريد الالكتروني",
         message: "الرسالة",
-        submit: "افتح رسالة واتساب",
-        secondary: "جارٍ الفتح...",
+        submit: "افتح رسالة WhatsApp",
+        secondary: "جار الفتح...",
       },
     },
     direct: {
       eyebrow: "تواصل مباشر",
-      title: "اختر الطريقة الأسهل لتبدأ.",
+      title: "اختاروا الطريقة الاسهل للبداية.",
       intro:
-        "اختر فقط الطريقة الأسهل والأريح لك حتى تشرح وضعك وتحصل على أول جواب مفيد.",
+        "يبقى WhatsApp هو القناة الاسرع والاقرب، ويمكنكم ايضا مراسلتنا عبر البريد الالكتروني او مشاهدة حضور العلامة على Instagram.",
       items: [
         {
-          title: "واتساب الرئيسي",
-          text: "أسرع وسيلة لبدء الحديث",
+          title: "WhatsApp الرئيسي",
+          text: "اسرع تواصل من اجل الاستشارة المجانية",
           value: "+212 638-335452",
           href: "https://wa.me/212638335452",
           emphasis: true,
         },
         {
-          title: "البريد الإلكتروني",
-          text: "إذا كنت تفضل كتابة طلب أكثر تفصيلاً",
+          title: "WhatsApp الثانوي",
+          text: "رقم ثان لتواصل سريع عند الحاجة",
+          value: "+212 707-298029",
+          href: "https://wa.me/212707298029",
+        },
+        {
+          title: "البريد الالكتروني",
+          text: "لطلب اكثر تفصيلا او اكثر رسمية",
           value: "contact@yallachina.com",
           href: "mailto:contact@yallachina.com",
         },
         {
           title: "Instagram",
-          text: "شاهد محتوى وتحديثات YALLA CHINA",
+          text: "لاكتشاف العلامة وحضورها",
           value: "@yallachina.ma",
           href: "https://www.instagram.com/yallachina.ma/",
-        },
-        {
-          title: "صفحة التقديم",
-          text: "إذا كنت جاهزًا بالفعل للخطوة التالية",
-          value: "افتح صفحة التقديم",
-          href: "/ar/apply",
         },
       ],
     },
     reasons: {
-      eyebrow: "يمكنك أن تراسلنا من أجل",
-      title: "أكثر المواضيع التي يسأل عنها الطلبة قبل البداية",
+      eyebrow: "لماذا تتواصل معنا العائلات",
+      title: "اكثر المواضيع حضورا قبل اختيار الصيغة",
       items: [
-        "فهم أي مسار دراسي يناسبك",
-        "معرفة ما إذا كان ملفك جاهزًا",
-        "توضيح منطق التقديم",
-        "فهم مرحلة تأشيرة الطالب بشكل أفضل",
+        "فهم الباقة المناسبة حسب الملف",
+        "معرفة هل المشروع واقعي بالفعل",
+        "توضيح القبول والتاشيرة والوصول",
+        "طمأنة الوالدين قبل التقديم",
       ],
     },
     faq: {
-      eyebrow: "أسئلة متكررة",
-      title: "إجابات مفيدة قبل أول تواصل.",
+      eyebrow: "اسئلة متكررة",
+      title: "اجوبة مفيدة قبل اول تواصل.",
       items: [
         {
-          question: "هل ترافقون الوالدين أيضًا؟",
+          question: "هل الاستشارة مجانية؟",
           answer:
-            "نعم. نشرح المشروع والمراحل والمتابعة بشكل أوضح للطالب وللعائلة معًا.",
+            "نعم. هدفها فهم الوضع والاجابة عن الاسئلة الاولى وتوجيه الخطوة المناسبة.",
         },
         {
           question: "كم يستغرق الحصول على رد؟",
           answer:
-            "في الغالب نرد خلال 24 إلى 48 ساعة حسب التوفر.",
+            "في الغالب يصل اول رد خلال 24 الى 48 ساعة حسب التوفر.",
         },
         {
-          question: "هل يمكنني مراسلتكم مباشرة على واتساب؟",
+          question: "هل ترافقون الوالدين ايضا؟",
           answer:
-            "نعم. غالبًا تكون هذه أسهل طريقة للبداية وطرح الأسئلة الأولى.",
+            "نعم. يتم شرح المسار والقرارات بشكل اوضح واكثر طمانينة للعائلة كلها.",
         },
       ],
     },
     cta: {
-      eyebrow: "اذهب إلى الخطوة التالية",
-      title: "إذا كنت جاهزًا بالفعل، يمكنك الانتقال مباشرة إلى التقديم.",
+      eyebrow: "الخطوة التالية",
+      title:
+        "اذا كانت الصورة واضحة بالفعل، يمكنكم ايضا الانتقال مباشرة الى التقديم.",
       description:
-        "صفحة التواصل مناسبة للأسئلة. أما التقديم فهو الأفضل عندما تريد أن تبدأ المشروع الآن.",
-      primary: "قدّم الآن",
-      secondary: "واتساب: +212 638-335452",
+        "التواصل مناسب للاسئلة الاولى. اما التقديم فهو الافضل عندما تكونون مستعدين للتحرك الان.",
+      primary: "قدم الان",
+      secondary: "WhatsApp: +212 638-335452",
     },
   },
 };
@@ -442,7 +446,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
   return (
     <main className="bg-[#050505] text-white" dir={t.dir}>
       <section className="relative overflow-hidden bg-[#130405]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.14),transparent_20%),linear-gradient(135deg,#170405_0%,#28080a_40%,#070707_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.14),transparent_20%),linear-gradient(135deg,#170405_0%,#28080a_40%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
           <div className="relative grid gap-8 py-12 lg:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
@@ -508,14 +512,14 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   isArabic ? "text-right" : "text-center sm:text-left"
                 }`}
               >
-                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.hero.panelEyebrow}
                 </p>
                 <a
                   href={whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="contact-inline display-title mt-3 inline-block text-2xl font-black leading-tight text-white transition hover:text-[#EDB80B]"
+                  className="contact-inline display-title mt-3 inline-block text-2xl font-black leading-tight text-white transition hover:text-[#B17F02]"
                   dir="ltr"
                 >
                   {t.hero.panelTitle}
@@ -550,8 +554,12 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   isArabic ? "text-right" : ""
                 }`}
               >
-                <div className={`max-w-3xl ${isArabic ? "" : "mx-auto text-center lg:mx-0 lg:text-left"}`}>
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#8B0000]">
+                <div
+                  className={`max-w-3xl ${
+                    isArabic ? "" : "mx-auto text-center lg:mx-0 lg:text-left"
+                  }`}
+                >
+                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
                     {t.faq.eyebrow}
                   </p>
                   <h3 className="display-title mt-3 text-2xl font-black tracking-tight">
@@ -585,17 +593,25 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                   isArabic ? "text-right" : ""
                 }`}
               >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(237,184,11,0.12),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.24),transparent_34%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(177,127,2,0.12),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.24),transparent_34%)]" />
                 <div className="absolute inset-0 opacity-15 shoji-grid" />
 
                 <div className="relative">
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                     {t.direct.eyebrow}
                   </p>
-                  <h2 className={`display-title mt-3 text-2xl font-black tracking-tight ${isArabic ? "" : "text-center lg:text-left"}`}>
+                  <h2
+                    className={`display-title mt-3 text-2xl font-black tracking-tight ${
+                      isArabic ? "" : "text-center lg:text-left"
+                    }`}
+                  >
                     {t.direct.title}
                   </h2>
-                  <p className={`mt-3 text-sm leading-7 text-white/72 sm:text-base ${isArabic ? "" : "text-center lg:text-left"}`}>
+                  <p
+                    className={`mt-3 text-sm leading-7 text-white/72 sm:text-base ${
+                      isArabic ? "" : "text-center lg:text-left"
+                    }`}
+                  >
                     {t.direct.intro}
                   </p>
 
@@ -626,11 +642,15 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                             }
                             className={`mt-4 inline-flex w-full justify-center rounded-full px-5 py-3 text-sm font-semibold transition sm:w-auto ${
                               item.emphasis
-                                ? "bg-[#EDB80B] text-black hover:opacity-90"
+                                ? "bg-[#B17F02] text-black hover:opacity-90"
                                 : "border border-white/12 bg-white/[0.08] text-white hover:bg-white/[0.14]"
                             }`}
                           >
-                            <span className={item.value.startsWith("+") ? "contact-inline" : ""}>
+                            <span
+                              className={
+                                item.value.startsWith("+") ? "contact-inline" : ""
+                              }
+                            >
                               {item.value}
                             </span>
                           </a>
@@ -644,7 +664,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                       isArabic ? "text-right" : ""
                     }`}
                   >
-                    <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                    <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                       {t.reasons.eyebrow}
                     </p>
                     <h3 className="display-title mt-3 text-2xl font-black leading-tight">
@@ -675,7 +695,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
           <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
               <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.cta.eyebrow}
                 </p>
                 <h2 className="display-title mt-4 text-3xl font-black tracking-tight sm:text-4xl">
@@ -693,7 +713,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
               >
                 <Link
                   href={applyHref}
-                  className="w-full rounded-full bg-[#EDB80B] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
+                  className="w-full rounded-full bg-[#B17F02] px-6 py-3 text-center font-semibold text-black transition hover:-translate-y-0.5 hover:opacity-95 sm:w-auto"
                 >
                   {t.cta.primary}
                 </Link>
