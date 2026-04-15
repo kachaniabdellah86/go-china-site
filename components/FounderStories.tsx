@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Container from "@/components/Container";
 import Link from "next/link";
-import { guideSlugs } from "@/components/GuidePage";
-
-type Locale = "fr" | "en" | "ar";
+import { founderName, Locale } from "@/lib/yalla";
+import { guideSlugs } from "@/lib/guides";
 
 type Copy = {
   dir: "ltr" | "rtl";
@@ -15,7 +15,6 @@ type Copy = {
   authorityItems: string[];
   quoteTitle: string;
   quoteText: string;
-  instagramCta: string;
   cardAction: string;
   primary: string;
   secondary: string;
@@ -30,159 +29,156 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
-    eyebrow: "Qui vous accompagne vraiment ?",
+    eyebrow: `Le regard de ${founderName}`,
     title:
-      "Avant de confier un projet aussi important, les parents et les etudiants veulent savoir qui les guide.",
+      "Le fondateur n'explique pas seulement les démarches. Il explique aussi ce que la vie en Chine change réellement pour un étudiant.",
     description:
-      "YALLA CHINA s'appuie sur une experience reelle de la Chine, une vision claire des erreurs a eviter et une presence humaine qui rassure la famille du premier echange jusqu'au depart.",
-    chips: ["Experience reelle", "Suivi humain", "Parents & etudiants"],
+      "C'est ce vécu qui donne de la gravité à la marque. Les parents voient qu'ils parlent à quelqu'un qui connaît le terrain, et l'étudiant comprend qu'il sera orienté avec plus qu'un simple argument commercial.",
+    chips: ["Expérience vécue", "Conseils de terrain", "Parents & étudiants"],
     metrics: [
-      { value: "24-48h", label: "pour une premiere reponse claire" },
-      { value: "1 interlocuteur direct", label: "pour eviter les reponses floues" },
-      { value: "Du debut a l'arrivee", label: "avec une seule logique d'accompagnement" },
+      { value: "1", label: "histoire fondatrice claire" },
+      { value: "7", label: "destinations mises en avant" },
+      { value: "2", label: "packs pour cadrer la décision" },
     ],
-    authorityTitle: "Pourquoi cette presence fait la difference",
+    authorityTitle: "Pourquoi cette histoire rassure",
     authorityItems: [
-      "Vous savez avec qui vous parlez des le premier echange",
-      "Les parents comprennent que le projet n'est pas gere par une structure floue",
-      "L'etudiant avance avec des conseils concrets, pas avec des promesses vagues",
+      "Le projet est porté par une expérience réelle, pas par un discours théorique.",
+      "Les parents comprennent qu'il y a quelqu'un derrière la marque qui connaît les étapes sensibles.",
+      "L'étudiant reçoit une vision plus honnête de la vie, du départ et de l'arrivée en Chine.",
     ],
-    quoteTitle: "Notre engagement",
+    quoteTitle: "Positionnement",
     quoteText:
-      "Notre role est de rendre le projet plus clair, plus serieux et plus rassurant avant toute decision importante.",
-    instagramCta: "Voir Instagram : @yallachina.ma",
+      "Yalla China ne promet pas seulement un dossier traité. Yalla China promet un projet mieux compris, mieux préparé et mieux accompagné.",
     cardAction: "Lire le guide",
-    primary: "Recevoir une consultation gratuite",
-    secondary: "Voir la candidature",
+    primary: "Parler avec l'équipe",
+    secondary: "Commencer ma candidature",
     cards: [
       {
-        kicker: "Experience vecue",
-        title: "Une experience reelle de la Chine",
-        text: "Comprendre la vie sur place, l'adaptation et les conseils qui viennent vraiment du terrain.",
+        kicker: "Expérience",
+        title: "Ce que l'expérience en Chine change dans le conseil",
+        text: "Une lecture plus réaliste de l'adaptation, des erreurs à éviter et des attentes des familles.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
-        kicker: "Etapes claires",
-        title: "Les etapes a connaitre avant de partir",
-        text: "Voir le projet dans le bon ordre pour rassurer la famille et eviter les erreurs de parcours.",
+        kicker: "Méthode",
+        title: "Les étapes à comprendre avant de payer ou de partir",
+        text: "Une progression structurée qui rassure les parents et donne un vrai cap à l'étudiant.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "Bon choix",
-        title: "Pourquoi la Chine peut etre une vraie opportunite",
-        text: "Aider l'etudiant et ses parents a comprendre si cette destination correspond vraiment au profil.",
+        kicker: "Choix",
+        title: "Pourquoi la Chine peut être le bon projet",
+        text: "Quand le choix de la destination est relié à une vraie logique universitaire et personnelle.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "Premier pas",
-        title: "Comment commencer sans se perdre",
-        text: "Savoir par ou debuter, quelles questions poser et comment avancer avec methode.",
+        kicker: "Départ",
+        title: "Comment démarrer sans se perdre",
+        text: "Par où commencer, quoi demander, et comment avancer sans confusion dès le premier échange.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
   },
   en: {
     dir: "ltr",
-    eyebrow: "Who is really guiding you?",
+    eyebrow: `${founderName}'s perspective`,
     title:
-      "Before trusting such an important project, parents and students want to know who is guiding them.",
+      "The founder does not only explain the steps. He also explains what life in China really changes for a student.",
     description:
-      "YALLA CHINA is built on real China experience, a clear understanding of the mistakes to avoid, and a human presence that reassures the family from the first conversation to departure.",
-    chips: ["Real experience", "Human follow-up", "Parents & students"],
+      "That lived experience gives the brand weight. Parents see they are speaking with someone who knows the ground, and the student understands they are being guided with more than a sales script.",
+    chips: ["Lived experience", "Grounded advice", "Parents & students"],
     metrics: [
-      { value: "24-48h", label: "for a first clear reply" },
-      { value: "1 direct contact", label: "to avoid vague answers" },
-      { value: "From start to arrival", label: "with one consistent support logic" },
+      { value: "1", label: "clear founder story" },
+      { value: "7", label: "destinations highlighted" },
+      { value: "2", label: "packages framing the decision" },
     ],
-    authorityTitle: "Why this presence makes a difference",
+    authorityTitle: "Why this story reassures families",
     authorityItems: [
-      "You know who you are speaking with from the very first exchange",
-      "Parents understand that the project is not handled by a vague structure",
-      "The student moves forward with practical guidance, not vague promises",
+      "The project is led by real experience, not by generic theory.",
+      "Parents understand there is someone behind the brand who knows the sensitive stages.",
+      "The student receives a more honest view of life, departure, and arrival in China.",
     ],
-    quoteTitle: "Our commitment",
+    quoteTitle: "Positioning",
     quoteText:
-      "Our role is to make the project clearer, more serious, and more reassuring before any major decision is made.",
-    instagramCta: "View Instagram: @yallachina.ma",
+      "Yalla China does not only promise a processed file. It promises a project that is better understood, better prepared, and better accompanied.",
     cardAction: "Read the guide",
-    primary: "Get a free consultation",
-    secondary: "View application",
+    primary: "Talk with the team",
+    secondary: "Start my application",
     cards: [
       {
-        kicker: "Lived experience",
-        title: "A real experience of China",
-        text: "Understand life on the ground, adaptation, and advice that comes from real experience.",
+        kicker: "Experience",
+        title: "How China experience changes the advice",
+        text: "A more realistic read on adaptation, common mistakes, and what families really need to hear.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
-        kicker: "Clear stages",
-        title: "The stages to know before departure",
-        text: "See the project in the right order to reassure the family and avoid costly mistakes.",
+        kicker: "Method",
+        title: "The stages to understand before paying or leaving",
+        text: "A structured progression that reassures parents and gives the student a real route.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "Right choice",
-        title: "Why China can be a real opportunity",
-        text: "Help the student and parents understand whether this destination truly fits the profile.",
+        kicker: "Choice",
+        title: "Why China can be the right project",
+        text: "When the destination is connected to a real academic and personal logic.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "First step",
+        kicker: "Start",
         title: "How to begin without getting lost",
-        text: "Know where to start, what to ask, and how to move forward with structure.",
+        text: "Where to start, what to ask, and how to move with clarity from the first conversation.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
   },
   ar: {
     dir: "rtl",
-    eyebrow: "من يرافقكم فعلا؟",
+    eyebrow: `رؤية ${founderName}`,
     title:
-      "قبل وضع مشروع مهم بهذا الحجم بين يد اي جهة، يريد الوالدان والطالب معرفة من سيرافقهم فعلا.",
+      "المؤسس لا يشرح الإجراءات فقط، بل يشرح أيضاً كيف تغيّر الحياة في الصين تجربة الطالب فعلياً.",
     description:
-      "تعتمد YALLA CHINA على تجربة حقيقية في الصين، وفهم واضح للاخطاء التي يجب تجنبها، وحضور انساني يطمئن العائلة من اول تواصل حتى موعد السفر.",
-    chips: ["تجربة حقيقية", "متابعة انسانية", "للوالدين والطلبة"],
+      "هذه التجربة الحقيقية هي التي تعطي العلامة وزنها. الوالدان يريان أنهما يتحدثان مع شخص يعرف الواقع على الأرض، والطالب يفهم أنه سيتلقى توجيهاً يتجاوز الكلام التسويقي العام.",
+    chips: ["تجربة حقيقية", "نصيحة ميدانية", "للوالدين والطلبة"],
     metrics: [
-      { value: "24-48 ساعة", label: "لاول جواب واضح" },
-      { value: "جهة تواصل مباشرة", label: "لتجنب الاجوبة الغامضة" },
-      { value: "من البداية الى الوصول", label: "ضمن منطق واحد في المرافقة" },
+      { value: "1", label: "قصة مؤسسة واضحة" },
+      { value: "7", label: "وجهات رئيسية ظاهرة" },
+      { value: "2", label: "باقات تنظّم القرار" },
     ],
-    authorityTitle: "لماذا يصنع هذا الحضور الفرق",
+    authorityTitle: "لماذا تطمئن هذه القصة العائلات",
     authorityItems: [
-      "تعرفون مع من تتحدثون من اول تواصل",
-      "تشعر العائلة ان المشروع لا يدار من جهة غامضة",
-      "يتقدم الطالب بنصائح عملية لا بوعود عامة",
+      "المشروع تقوده تجربة حقيقية وليست مجرد نظرية عامة.",
+      "الوالدان يفهمان أن هناك شخصاً وراء العلامة يعرف المراحل الحساسة.",
+      "الطالب يحصل على رؤية أكثر صدقاً للحياة والسفر والوصول في الصين.",
     ],
-    quoteTitle: "التزامنا",
+    quoteTitle: "التموضع",
     quoteText:
-      "دورنا هو جعل المشروع اوضح واكثر جدية واكثر طمانينة قبل اي قرار مهم.",
-    instagramCta: "شاهد Instagram: @yallachina.ma",
+      "يلا تشاينا لا تعد فقط بمعالجة الملف، بل تعد بمشروع مفهوم أكثر ومجهز أكثر ومصاحب بشكل أفضل.",
     cardAction: "اقرأ الدليل",
-    primary: "احصل على استشارة مجانية",
-    secondary: "شاهد صفحة التقديم",
+    primary: "تحدث مع الفريق",
+    secondary: "ابدأ التقديم",
     cards: [
       {
-        kicker: "تجربة معيشة",
-        title: "تجربة حقيقية للحياة في الصين",
-        text: "فهم الحياة على ارض الواقع والتكيف والنصائح التي تأتي من التجربة المباشرة.",
+        kicker: "التجربة",
+        title: "كيف تغيّر تجربة الصين شكل النصيحة",
+        text: "قراءة أكثر واقعية للتأقلم والأخطاء التي يجب تجنبها وما تحتاجه العائلات فعلاً.",
         imageSrc: "/founder-story-1.jpg",
       },
       {
-        kicker: "مراحل واضحة",
-        title: "المراحل التي يجب معرفتها قبل السفر",
-        text: "رؤية المشروع بالترتيب الصحيح لطمأنة العائلة وتجنب اخطاء المسار.",
+        kicker: "المنهج",
+        title: "المراحل التي يجب فهمها قبل الدفع أو السفر",
+        text: "تدرج منظم يطمئن الوالدين ويعطي الطالب طريقاً واضحاً.",
         imageSrc: "/founder-story-2.jpg",
       },
       {
-        kicker: "اختيار مناسب",
-        title: "لماذا قد تكون الصين فرصة حقيقية",
-        text: "مساعدة الطالب ووالديه على فهم ما اذا كانت هذه الوجهة مناسبة فعلا للملف.",
+        kicker: "الاختيار",
+        title: "لماذا قد تكون الصين المشروع المناسب",
+        text: "عندما ترتبط الوجهة بمنطق جامعي وشخصي حقيقي.",
         imageSrc: "/founder-story-3.jpg",
       },
       {
-        kicker: "الخطوة الاولى",
+        kicker: "البداية",
         title: "كيف تبدأ من دون تشتت",
-        text: "معرفة من اين تبدأ وما هي الاسئلة المهمة وكيف تتقدم بمنهج واضح.",
+        text: "من أين تبدأ، وماذا تسأل، وكيف تتقدم بوضوح منذ أول تواصل.",
         imageSrc: "/founder-story-4.jpg",
       },
     ],
@@ -194,7 +190,6 @@ export default function FounderStories({ lang }: { lang: Locale }) {
   const isArabic = t.dir === "rtl";
   const contactHref = `/${lang}/contact`;
   const applyHref = `/${lang}/apply`;
-  const instagramHref = "https://www.instagram.com/yallachina.ma/";
 
   return (
     <section className="bg-[#090909] py-14 text-white sm:py-18" dir={t.dir}>
@@ -211,14 +206,10 @@ export default function FounderStories({ lang }: { lang: Locale }) {
             <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
               {t.title}
             </h2>
-            <p className="mt-4 text-sm leading-8 text-white/72 sm:text-base">
-              {t.description}
-            </p>
+            <p className="mt-4 text-sm leading-8 text-white/72 sm:text-base">{t.description}</p>
 
             <div
-              className={`mt-5 flex flex-wrap gap-2 ${
-                isArabic ? "sm:justify-end" : ""
-              }`}
+              className={`mt-5 flex flex-wrap gap-2 ${isArabic ? "sm:justify-end" : ""}`}
             >
               {t.chips.map((chip) => (
                 <div
@@ -230,7 +221,7 @@ export default function FounderStories({ lang }: { lang: Locale }) {
               ))}
             </div>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {t.metrics.map((item) => (
                 <div
                   key={item.label}
@@ -239,9 +230,7 @@ export default function FounderStories({ lang }: { lang: Locale }) {
                   }`}
                 >
                   <p className="text-sm font-semibold text-white">{item.value}</p>
-                  <p className="mt-1 text-sm leading-6 text-white/58">
-                    {item.label}
-                  </p>
+                  <p className="mt-1 text-sm leading-6 text-white/58">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -268,24 +257,12 @@ export default function FounderStories({ lang }: { lang: Locale }) {
               <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                 {t.quoteTitle}
               </p>
-              <p className="mt-3 text-sm leading-8 text-white/76 sm:text-base">
-                {t.quoteText}
-              </p>
-              <a
-                href={instagramHref}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 inline-flex rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/84 transition hover:border-[#B17F02]/40 hover:text-[#B17F02]"
-              >
-                {t.instagramCta}
-              </a>
+              <p className="mt-3 text-sm leading-8 text-white/76 sm:text-base">{t.quoteText}</p>
             </div>
 
             <div
               className={`mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                isArabic
-                  ? "sm:justify-end"
-                  : "mx-auto max-w-sm xl:mx-0 sm:max-w-none"
+                isArabic ? "sm:justify-end" : "mx-auto max-w-sm xl:mx-0 sm:max-w-none"
               }`}
             >
               <Link
@@ -337,13 +314,15 @@ function StoryCard({
   return (
     <Link
       href={href}
-      className="group relative block min-h-[20rem] overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#140607] shadow-[0_26px_60px_rgba(0,0,0,0.24)]"
+      className="group relative block min-h-[18rem] overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#140607] shadow-[0_26px_60px_rgba(0,0,0,0.24)] sm:min-h-[20rem]"
       aria-label={card.title}
     >
-      <img
+      <Image
         src={card.imageSrc}
         alt={card.title}
-        className="absolute inset-0 h-full w-full object-cover opacity-72 transition duration-500 group-hover:scale-105 group-hover:opacity-82"
+        fill
+        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 28vw"
+        className="object-cover opacity-72 transition duration-500 group-hover:scale-105 group-hover:opacity-82"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.12)_0%,rgba(0,0,0,0.5)_52%,rgba(0,0,0,0.92)_100%),radial-gradient(circle_at_top,rgba(139,0,0,0.32),transparent_36%),radial-gradient(circle_at_bottom,rgba(237,184,11,0.12),transparent_40%)]" />
       <div className="absolute inset-0 opacity-20 shoji-grid" />

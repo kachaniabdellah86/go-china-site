@@ -1,35 +1,11 @@
+import Image from "next/image";
 import Container from "@/components/Container";
 import FounderStories from "@/components/FounderStories";
 import HomeProofSection from "@/components/HomeProofSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import TrustIndicators from "@/components/TrustIndicators";
 import Link from "next/link";
-import { ArabicText, ArabicStepNumber } from "@/lib/ArabicText";
-
-// Helper to extract and render step titles with proper number handling for Arabic
-function StepTitle({ title, isArabic }: { title: string; isArabic: boolean }) {
-  if (!isArabic) {
-    return <span>{title}</span>;
-  }
-  
-  // For Arabic, extract number and render separately to avoid RTL issues
-  const match = title.match(/^(\d+)\.\s*(.+)$/);
-  if (match) {
-    const [, number, text] = match;
-    return (
-      <>
-        <ArabicStepNumber number={`${number}.`} />
-        {text}
-      </>
-    );
-  }
-  
-  return <span>{title}</span>;
-}
-
-
-
-type Locale = "fr" | "en" | "ar";
+import { founderName, Locale, supportedCities } from "@/lib/yalla";
 
 type Copy = {
   dir: "ltr" | "rtl";
@@ -41,11 +17,11 @@ type Copy = {
     note: string;
     primary: string;
     secondary: string;
-    stats: { label: string; value: string }[];
-    panelEyebrow: string;
-    panelTitle: string;
-    panelText: string;
-    panelItems: string[];
+    cards: { label: string; value: string }[];
+    sideEyebrow: string;
+    sideTitle: string;
+    sideText: string;
+    sideItems: string[];
   };
   reasons: {
     eyebrow: string;
@@ -53,14 +29,22 @@ type Copy = {
     description: string;
     items: { title: string; desc: string }[];
   };
-  process: {
+  path: {
     eyebrow: string;
     title: string;
     description: string;
     steps: { title: string; desc: string }[];
-    highlightTitle: string;
-    highlightText: string;
-    tags: string[];
+    coverageEyebrow: string;
+    coverageTitle: string;
+    coverageText: string;
+  };
+  faq: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: { question: string; answer: string }[];
+    primary: string;
+    secondary: string;
   };
   cta: {
     eyebrow: string;
@@ -75,331 +59,388 @@ const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
     hero: {
-      badge: "YALLA CHINA • Études en Chine • Parents & Étudiants",
-      eyebrow: "Un accompagnement sérieux du premier échange jusqu'à l'arrivée",
+      badge: "YALLA CHINA • Orientation • Admission • Visa • Arrivée",
+      eyebrow: "Agence sérieuse pour études en Chine",
       title:
-        "Étudier en Chine avec plus de clarté, plus de sécurité et une vraie présence humaine à chaque étape.",
+        "Un accompagnement premium pour choisir la bonne université, sécuriser le visa et arriver en Chine avec une vraie présence humaine.",
       description:
-        "YALLA CHINA accompagne les étudiants et leurs familles dans le choix de l'université, la préparation du dossier, le visa, le départ et les premières étapes en Chine avec une méthode lisible et rassurante.",
-      note:
-        "Consultation gratuite • Réponse sur WhatsApp sous 24 à 48h • Deux packs clairs • Suivi jusqu'à l'arrivée",
-      primary: "Demander une consultation gratuite",
-      secondary: "Voir les services",
-      stats: [
+        "Yalla China aide les étudiants marocains à étudier en Chine avec une méthode claire: orientation, admission, visa, billet, départ et accompagnement jusqu'à l'université selon la formule choisie.",
+      note: `${founderName} a étudié en Chine. Cette expérience vécue devient aujourd'hui un cadre rassurant pour les familles qui veulent une bourse, une bonne université et un accompagnement fiable.`,
+      primary: "Réserver une consultation gratuite",
+      secondary: "Comparer les packs",
+      cards: [
         {
-          label: "Pour les familles",
-          value: "Le projet est expliqué simplement avant toute décision.",
+          label: "Priorité des familles",
+          value: "Bourse, université sérieuse, accompagnement fiable",
         },
         {
-          label: "Pour les étudiants",
-          value: "Chaque étape est cadrée pour éviter les erreurs et les retards.",
+          label: "Différenciateur",
+          value: "Expérience personnelle réelle en Chine",
         },
         {
-          label: "Jusqu'à l'arrivée",
-          value: "Le suivi continue après l'admission et le visa.",
+          label: "Promesse",
+          value: "Du premier échange jusqu'à l'arrivée",
         },
       ],
-      panelEyebrow: "Ce qui fait la différence",
-      panelTitle:
-        "Une orientation claire, des offres premium et un interlocuteur direct quand vous en avez besoin.",
-      panelText:
-        "Tout est pensé pour rassurer les parents, aider l'étudiant à avancer avec méthode et rendre le projet beaucoup plus concret dès le premier échange.",
-      panelItems: [
-        "Consultation gratuite avant engagement",
-        "Packs faciles à comparer",
-        "Garantie d'admission, visa et service",
-        "Suivi du Maroc jusqu'à l'université",
+      sideEyebrow: "Pourquoi la marque inspire confiance",
+      sideTitle: "Un seul projet, trois points décisifs pour la famille.",
+      sideText:
+        "Le site doit répondre immédiatement à ce que les parents et l'étudiant veulent savoir avant d'avancer: qui vous guide, ce qui est inclus, et ce qui se passe après l'admission.",
+      sideItems: [
+        "Consultation gratuite avant tout engagement",
+        "Admission, visa et service portés comme trois engagements visibles",
+        "Pack 1 pour le dossier et le visa, Pack 2 jusqu'au départ et au transfert",
+        "Communication directe sur WhatsApp et accompagnement jusqu'à l'université",
       ],
     },
     reasons: {
-      eyebrow: "Pourquoi des familles nous choisissent",
+      eyebrow: "Pourquoi les familles nous choisissent",
       title:
-        "Vous n'avez pas besoin d'un simple intermédiaire. Vous avez besoin d'un cadre sérieux pour prendre une bonne décision.",
+        "La confiance vient quand l'offre répond aux vraies objections, pas quand elle enrobe le projet.",
       description:
-        "Cette première impression doit inspirer confiance rapidement: qui vous accompagne, comment le projet avance, ce qui est inclus et ce qui protège la famille jusqu'au départ.",
+        "Les questions reviennent toujours: qualité du service, qualité de l'université, communication, visa, voyage, hôtel, transport, arrivée. La réponse doit être claire avant la vente.",
       items: [
         {
-          title: "Une expérience réelle de la Chine",
-          desc: "Vous échangez avec une équipe qui connaît le terrain, les étapes réelles et les erreurs à éviter.",
+          title: "Une personne qui connaît la Chine de l'intérieur",
+          desc: "Le projet n'est pas porté par un simple intermédiaire. Il est guidé par une expérience vécue sur place.",
         },
         {
-          title: "Deux formules très lisibles",
-          desc: "Vous comprenez immédiatement la différence entre l'essentiel et le premium sans vous perdre dans des détails inutiles.",
+          title: "Des offres faciles à lire",
+          desc: "Les familles voient vite la différence entre le cadre dossier/visa et la formule qui accompagne aussi le départ et l'arrivée.",
         },
         {
-          title: "Des garanties visibles",
-          desc: "Admission, visa et qualité de service apparaissent clairement pour réduire l'incertitude.",
+          title: "Un vrai travail sur la qualité des choix",
+          desc: "L'étudiant ne cherche pas seulement à partir. Il cherche la bonne université, la bonne ville et un accompagnement sérieux.",
         },
         {
-          title: "Une logique pensée pour la famille",
-          desc: "Le discours rassure les parents pendant que l'étudiant voit exactement comment avancer.",
+          title: "Une arrivée préparée, pas laissée au hasard",
+          desc: "Transport aéroport-université, aide voyage et repères d'arrivée sont traités comme des éléments de confiance, pas comme des détails.",
         },
       ],
     },
-    process: {
-      eyebrow: "Comment nous avançons avec vous",
-      title: "Chaque étape est annoncée clairement avant de commencer.",
+    path: {
+      eyebrow: "Le parcours Yalla China",
+      title: "Un parcours lisible avant paiement, avant dossier, avant départ.",
       description:
-        "Le projet devient plus crédible quand le parcours est simple à suivre, du premier appel jusqu'à l'installation.",
+        "Le rôle du site est de rendre visible la séquence complète pour l'étudiant et pour ses parents. Quand le chemin est clair, la décision devient plus simple.",
       steps: [
         {
           title: "01. Consultation et diagnostic",
-          desc: "Nous clarifions le profil, les attentes de la famille et la meilleure formule pour démarrer.",
+          desc: "Nous clarifions le profil, les attentes de la famille, la logique bourse/université et le niveau d'accompagnement utile.",
         },
         {
-          title: "02. Universités et dossier",
-          desc: "Nous préparons les universités ciblées, les documents, la traduction et la logique du dossier.",
+          title: "02. Orientation et universités",
+          desc: "Nous ciblons les villes et les universités adaptées au projet avant de lancer le dossier.",
         },
         {
-          title: "03. Admission et visa",
-          desc: "Le suivi reste présent pendant les étapes sensibles pour sécuriser la candidature et le visa.",
+          title: "03. Dossier, traduction et admission",
+          desc: "Le Pack 1 structure le dossier, les traductions, l'inscription universitaire et le suivi d'admission.",
         },
         {
-          title: "04. Départ, arrivée et installation",
-          desc: "Le voyage, le transfert et les premiers repères en Chine font partie d'une vraie promesse premium.",
+          title: "04. Visa et départ",
+          desc: "Le visa, la préparation du voyage et les étapes sensibles sont accompagnés avec méthode.",
+        },
+        {
+          title: "05. Arrivée et accompagnement",
+          desc: "Le Pack 2 prolonge la prise en charge jusqu'au transfert aéroport-université et aux premiers repères sur place.",
         },
       ],
-      highlightTitle:
-        "Vous savez où vous allez avant de payer, avant de signer, et avant d'envoyer le dossier.",
-      highlightText:
-        "Quand le parcours est clair, les parents se sentent plus en confiance et l'étudiant avance plus vite. C'est cette sensation de sérieux qui donne à la marque une vraie valeur premium.",
-      tags: [
-        "Consultation gratuite",
-        "Dossier encadré",
-        "Visa sécurisé",
-        "Départ organisé",
-        "Suivi humain",
-        "Arrivée préparée",
+      coverageEyebrow: "Villes suivies",
+      coverageTitle: "Une présence pensée autour des destinations demandées par les familles.",
+      coverageText:
+        "Chongqing, Nanchang, Ningbo, Harbin, Xi'an, Chengdu et Zhejiang font partie des principaux points d'accompagnement présentés sur le site.",
+    },
+    faq: {
+      eyebrow: "Questions fréquentes",
+      title: "Les réponses qu'une famille veut lire avant de décider.",
+      description:
+        "Le premier niveau de confiance se construit quand le site répond clairement aux questions sur la bourse, le coût, le visa et l'arrivée.",
+      items: [
+        {
+          question: "Comment savoir si une bourse est réaliste pour mon profil ?",
+          answer:
+            "La consultation gratuite sert précisément à évaluer le profil, la logique de bourse et le niveau d'opportunité avant d'engager le dossier.",
+        },
+        {
+          question: "Que comprend réellement chaque pack ?",
+          answer:
+            "Le Pack 1 couvre le dossier, la traduction, l'inscription et le visa. Le Pack 2 prolonge l'accompagnement jusqu'au voyage et à l'arrivée.",
+        },
+        {
+          question: "Que se passe-t-il après l'arrivée en Chine ?",
+          answer:
+            "La logique du site est de montrer que l'arrivée n'est pas laissée au hasard, surtout avec l'accompagnement transport et repères du Pack 2.",
+        },
       ],
+      primary: "Voir la FAQ complète",
+      secondary: "Parler à l'équipe",
     },
     cta: {
-      eyebrow: "Prêts à commencer ?",
+      eyebrow: "Commencer sérieusement",
       title:
-        "Commencez par une consultation gratuite, puis avancez avec la formule qui correspond vraiment à votre situation.",
+        "Commencez par la consultation gratuite, puis avancez avec le pack qui correspond réellement à votre situation.",
       description:
-        "Le premier objectif n'est pas de remplir un dossier trop long. Le premier objectif est de comprendre la bonne voie, rassurer la famille et savoir exactement quoi faire ensuite.",
-      primary: "Recevoir ma consultation gratuite",
-      secondary: "Postuler maintenant",
+        "L'objectif du premier échange est simple: comprendre le dossier, rassurer la famille, vérifier le niveau d'opportunité, puis recommander la bonne formule.",
+      primary: "Demander ma consultation gratuite",
+      secondary: "Lancer ma candidature",
     },
   },
   en: {
     dir: "ltr",
     hero: {
-      badge: "YALLA CHINA • Study in China • Parents & Students",
-      eyebrow: "Serious guidance from the first conversation to arrival",
+      badge: "YALLA CHINA • Orientation • Admission • Visa • Arrival",
+      eyebrow: "Serious study guidance for China",
       title:
-        "Study in China with more clarity, more safety, and real human support at every stage.",
+        "A premium support journey to choose the right university, secure the visa, and arrive in China with real human guidance.",
       description:
-        "YALLA CHINA supports students and families through university choice, file preparation, visa support, departure, and the first steps in China with a method that feels clear and reassuring.",
-      note:
-        "Free consultation • WhatsApp reply within 24 to 48h • Two clear packages • Follow-up until arrival",
-      primary: "Request a free consultation",
-      secondary: "View services",
-      stats: [
+        "Yalla China helps Moroccan students study in China through a clear method: orientation, admission, visa, ticket support, departure, and university arrival support depending on the chosen package.",
+      note: `${founderName} studied in China. That lived experience now becomes a reassuring framework for families looking for scholarship options, a strong university, and support they can trust.`,
+      primary: "Book a free consultation",
+      secondary: "Compare the packages",
+      cards: [
         {
-          label: "For families",
-          value: "The project is explained clearly before any decision is made.",
+          label: "What families want",
+          value: "Scholarship options, a strong university, and trusted support",
         },
         {
-          label: "For students",
-          value: "Each stage is framed to avoid mistakes and delays.",
+          label: "What makes us different",
+          value: "Real personal experience of studying in China",
         },
         {
-          label: "Until arrival",
-          value: "Support continues after admission and the visa stage.",
+          label: "What we promise",
+          value: "Guidance from first contact to arrival",
         },
       ],
-      panelEyebrow: "What makes the difference",
-      panelTitle:
-        "A clear orientation, premium offers, and a direct point of contact when you need it.",
-      panelText:
-        "Everything is designed to reassure parents, help the student move with structure, and make the project feel real from the very first exchange.",
-      panelItems: [
-        "Free consultation before commitment",
-        "Packages that are easy to compare",
-        "Admission, visa, and service guarantees",
-        "Follow-up from Morocco to the university",
+      sideEyebrow: "Why the brand feels trustworthy",
+      sideTitle: "One project, three decisive questions for the family.",
+      sideText:
+        "The website should answer what parents and students need immediately before they move: who guides you, what is included, and what happens after admission.",
+      sideItems: [
+        "Free consultation before any commitment",
+        "Admission, visa, and service carried as three visible commitments",
+        "Package 1 for the file and visa, Package 2 through departure and transfer",
+        "Direct WhatsApp communication and support until the university",
       ],
     },
     reasons: {
       eyebrow: "Why families choose us",
       title:
-        "You do not need a generic middleman. You need a serious structure for an important decision.",
+        "Trust grows when the offer answers real objections instead of decorating the project.",
       description:
-        "Trust grows faster when the guidance is visible: who is helping you, how the project moves, what is included, and what protects the family until departure.",
+        "The same concerns come back every time: service quality, university quality, communication, visa, travel, hotel, transport, arrival. The answer should be visible before the sale.",
       items: [
         {
-          title: "Real experience in China",
-          desc: "You speak with a team that understands the real journey, the key stages, and the mistakes to avoid.",
+          title: "A founder who knows China from the inside",
+          desc: "The project is not led by a generic middleman. It is guided by lived experience on the ground.",
         },
         {
-          title: "Two very readable formulas",
-          desc: "You immediately understand the difference between the essential and premium levels of support.",
+          title: "Packages that are easy to read",
+          desc: "Families quickly see the difference between the file/visa framework and the formula that also covers departure and arrival.",
         },
         {
-          title: "Visible guarantees",
-          desc: "Admission, visa, and service guarantees appear clearly to reduce uncertainty.",
+          title: "A serious focus on quality choices",
+          desc: "The student is not only trying to leave. They are trying to reach the right university, the right city, and a trustworthy support system.",
         },
         {
-          title: "A message built for the family",
-          desc: "Parents feel reassured while the student understands exactly how to move forward.",
+          title: "Arrival support that is not left to chance",
+          desc: "Airport-to-university transport, travel help, and arrival landmarks are treated as trust elements, not as extras.",
         },
       ],
     },
-    process: {
-      eyebrow: "How we move forward with you",
-      title: "Each stage is explained clearly before it begins.",
+    path: {
+      eyebrow: "The Yalla China path",
+      title: "A readable route before payment, before the file, and before departure.",
       description:
-        "The project feels more credible when the route is simple to follow, from the first call to arrival.",
+        "The role of the site is to make the full sequence visible for the student and for the parents. When the route is clear, the decision becomes easier.",
       steps: [
         {
           title: "01. Consultation and diagnosis",
-          desc: "We clarify the profile, the family concerns, and the best formula to begin.",
+          desc: "We clarify the profile, the family concerns, the scholarship/university logic, and the useful support level.",
         },
         {
-          title: "02. Universities and file",
-          desc: "We prepare the right university targets, documents, translations, and the logic of the file.",
+          title: "02. Orientation and university targeting",
+          desc: "We target the right cities and universities before the file begins.",
         },
         {
-          title: "03. Admission and visa",
-          desc: "Support stays present through the sensitive stages to secure the application and the visa.",
+          title: "03. File, translation, and admission",
+          desc: "Package 1 structures the file, translations, university registration, and admission follow-up.",
         },
         {
-          title: "04. Departure, arrival, and settling in",
-          desc: "Travel, transfer, and first steps in China are part of a truly premium promise.",
+          title: "04. Visa and departure",
+          desc: "The visa, travel preparation, and the sensitive stages are handled with method.",
+        },
+        {
+          title: "05. Arrival and accompaniment",
+          desc: "Package 2 extends support through airport-to-university transfer and the first landmarks on the ground.",
         },
       ],
-      highlightTitle:
-        "You know where you are going before paying, before signing, and before sending the file.",
-      highlightText:
-        "When the route is clear, parents feel more confident and the student moves faster. That feeling of seriousness is what gives the brand real premium value.",
-      tags: [
-        "Free consultation",
-        "Guided file",
-        "Visa support",
-        "Organized departure",
-        "Human follow-up",
-        "Prepared arrival",
+      coverageEyebrow: "Cities covered",
+      coverageTitle: "A presence built around the destinations families ask for most.",
+      coverageText:
+        "Chongqing, Nanchang, Ningbo, Harbin, Xi'an, Chengdu, and Zhejiang are among the main destinations highlighted across the site.",
+    },
+    faq: {
+      eyebrow: "Frequently asked questions",
+      title: "The answers a family wants to read before making a decision.",
+      description:
+        "The first layer of trust is built when the site answers scholarship, cost, visa, and arrival questions clearly.",
+      items: [
+        {
+          question: "How do I know whether a scholarship is realistic for my profile?",
+          answer:
+            "The free consultation exists precisely to assess the profile, the scholarship logic, and the real level of opportunity before the file starts.",
+        },
+        {
+          question: "What is actually included in each package?",
+          answer:
+            "Package 1 covers the file, translation, registration, and visa. Package 2 extends the support through travel and arrival.",
+        },
+        {
+          question: "What happens after arrival in China?",
+          answer:
+            "The site is structured to show that arrival is not left to chance, especially with the transfer and on-ground support logic of Package 2.",
+        },
       ],
+      primary: "View the full FAQ",
+      secondary: "Talk with the team",
     },
     cta: {
-      eyebrow: "Ready to begin?",
+      eyebrow: "Start seriously",
       title:
-        "Start with a free consultation, then move forward with the formula that really fits your situation.",
+        "Begin with the free consultation, then move forward with the package that truly fits your situation.",
       description:
-        "The first goal is not to fill a long form. The first goal is to understand the right route, reassure the family, and know exactly what to do next.",
-      primary: "Get my free consultation",
-      secondary: "Apply now",
+        "The first exchange has one goal: understand the file, reassure the family, evaluate the opportunity, and recommend the right formula.",
+      primary: "Request my free consultation",
+      secondary: "Start my application",
     },
   },
   ar: {
     dir: "rtl",
     hero: {
-      badge: "YALLA CHINA • الدراسة في الصين • للوالدين والطلبة",
-      eyebrow: "مرافقة جدية من اول تواصل حتى الوصول",
+      badge: "YALLA CHINA • توجيه • قبول • تأشيرة • وصول",
+      eyebrow: "وكالة جادة للدراسة في الصين",
       title:
-        "الدراسة في الصين تصبح اوضح وامن عندما يكون المسار معروفا والمرافقة حاضرة في كل مرحلة.",
+        "مرافقة مميزة لاختيار الجامعة المناسبة وتأمين التأشيرة والوصول إلى الصين مع حضور إنساني حقيقي في كل مرحلة.",
       description:
-        "ترافق YALLA CHINA الطلبة وعائلاتهم في اختيار الجامعة، تجهيز الملف، التاشيرة، السفر والوصول الى الصين ضمن منهج منظم ومطمئن.",
-      note:
-        "استشارة مجانية • رد عبر واتساب خلال 24-48 ساعة • باقتان واضحتان • متابعة حتى الوصول",
-      primary: "اطلب استشارة مجانية",
-      secondary: "شاهد الخدمات",
-      stats: [
+        "يلا تشاينا تساعد الطلبة المغاربة على الدراسة في الصين عبر مسار واضح: توجيه، قبول، تأشيرة، مساعدة في التذكرة، سفر، ومرافقة حتى الجامعة حسب الباقة المختارة.",
+      note: `${founderName} درس في الصين، وهذه التجربة الحقيقية أصبحت اليوم إطاراً مطمئناً للعائلات التي تبحث عن منحة وجامعة جيدة ومرافقة يمكن الوثوق بها.`,
+      primary: "احجز استشارة مجانية",
+      secondary: "قارن بين الباقات",
+      cards: [
         {
-          label: "للعائلة",
-          value: "المشروع يشرح بوضوح قبل اتخاذ القرار.",
+          label: "ما الذي تبحث عنه العائلة",
+          value: "منحة أو جامعة قوية أو مرافقة موثوقة",
         },
         {
-          label: "للطالب",
-          value: "كل مرحلة مؤطرة لتقليل الاخطاء والتأخير.",
+          label: "ما الذي يميزنا",
+          value: "تجربة شخصية حقيقية في الدراسة داخل الصين",
         },
         {
-          label: "حتى الوصول",
-          value: "المرافقة تستمر بعد القبول والتأشيرة.",
+          label: "وعدنا",
+          value: "مرافقة من أول تواصل إلى الوصول",
         },
       ],
-      panelEyebrow: "ما الذي يصنع الفرق",
-      panelTitle:
-        "توجيه واضح وعروض مميزة وشخص مباشر للرجوع اليه عندما تحتاجون.",
-      panelText:
-        "كل شيء هنا مصمم لطمأنة الوالدين، مساعدة الطالب على التقدم بمنهجية، وجعل المشروع ملموسا من اول تواصل.",
-      panelItems: [
-        "استشارة مجانية قبل الالتزام",
-        "باقات سهلة المقارنة",
-        "ضمانات للقبول والتاشيرة والخدمة",
-        "متابعة من المغرب حتى الجامعة",
+      sideEyebrow: "لماذا تبدو العلامة موثوقة",
+      sideTitle: "مشروع واحد وثلاثة أسئلة حاسمة عند العائلة.",
+      sideText:
+        "الموقع يجب أن يجيب بسرعة عما يريد الوالدان والطالب معرفته قبل أي خطوة: من يرافقكم، ماذا يشمل العرض، وما الذي يحدث بعد القبول.",
+      sideItems: [
+        "استشارة مجانية قبل أي التزام",
+        "القبول والتأشيرة والخدمة تظهر كثلاثة التزامات واضحة",
+        "الباقة 1 للملف والتأشيرة، والباقـة 2 حتى السفر والنقل إلى الجامعة",
+        "تواصل مباشر على واتساب ومرافقة حتى الجامعة",
       ],
     },
     reasons: {
       eyebrow: "لماذا تختارنا العائلات",
       title:
-        "انتم لا تحتاجون مجرد وسيط. انتم تحتاجون اطارا جديا لقرار مهم.",
+        "الثقة تظهر عندما يجيب العرض عن الاعتراضات الحقيقية بدل الاكتفاء بالكلام العام.",
       description:
-        "تزداد الثقة عندما تكون الرؤية واضحة: من يرافقكم، كيف يتقدم المشروع، ماذا يشمل العرض، وما الذي يطمئن العائلة حتى السفر.",
+        "نفس الأسئلة تتكرر دائماً: جودة الخدمة، جودة الجامعة، التواصل، التأشيرة، السفر، الفندق، النقل، والوصول. لذلك يجب أن تكون الإجابة واضحة قبل البيع.",
       items: [
         {
-          title: "خبرة حقيقية في الصين",
-          desc: "تتحدثون مع فريق يفهم الواقع الفعلي للمسار والاخطاء التي يجب تجنبها.",
+          title: "مؤسس يعرف الصين من الداخل",
+          desc: "المشروع لا يقوده وسيط عام، بل خبرة شخصية حقيقية على الأرض.",
         },
         {
-          title: "باقتان واضحتان جدا",
-          desc: "تفهمون بسرعة الفرق بين الصيغة الاساسية والصيغة المميزة.",
+          title: "باقات سهلة الفهم",
+          desc: "العائلة تفهم بسرعة الفرق بين إطار الملف والتأشيرة وبين الصيغة التي تواكب أيضاً السفر والوصول.",
         },
         {
-          title: "ضمانات ظاهرة",
-          desc: "القبول والتاشيرة وجودة الخدمة تظهر بوضوح لتقليل التردد.",
+          title: "تركيز جدي على جودة الاختيار",
+          desc: "الطالب لا يريد فقط أن يسافر، بل يريد الجامعة الصحيحة والمدينة المناسبة ومرافقة موثوقة.",
         },
         {
-          title: "خطاب موجه للعائلة والطالب",
-          desc: "يشعر الوالدان بالاطمئنان بينما يعرف الطالب كيف يتقدم بشكل عملي.",
+          title: "الوصول ليس تفصيلاً ثانوياً",
+          desc: "النقل من المطار إلى الجامعة ومساعدة السفر وأول الخطوات في الصين تُعامل كجزء من الثقة، لا كإضافة هامشية.",
         },
       ],
     },
-    process: {
-      eyebrow: "كيف نتقدم معكم",
-      title: "كل مرحلة واضحة قبل ان تبدأ.",
+    path: {
+      eyebrow: "مسار يلا تشاينا",
+      title: "طريق واضح قبل الدفع وقبل الملف وقبل السفر.",
       description:
-        "يصبح المشروع اكثر مصداقية عندما يكون الطريق سهلا في الفهم من اول مكالمة حتى الوصول.",
+        "دور الموقع هو أن يجعل المسار الكامل مفهوماً للطالب ولأسرته. عندما يصبح الطريق واضحاً، يصبح القرار أسهل.",
       steps: [
         {
           title: "01. الاستشارة والتشخيص",
-          desc: "نوضح الملف، اسئلة العائلة، والصيغة الانسب للبداية.",
+          desc: "نوضح الملف وتوقعات العائلة ومنطق المنحة أو الجامعة ومستوى المرافقة المناسب.",
         },
         {
-          title: "02. الجامعات والملف",
-          desc: "نجهز الجامعات المناسبة والوثائق والترجمة ومنطق الملف كله.",
+          title: "02. التوجيه واختيار الجامعات",
+          desc: "نحدد المدن والجامعات المناسبة قبل إطلاق الملف.",
         },
         {
-          title: "03. القبول والتاشيرة",
-          desc: "تبقى المتابعة حاضرة في المراحل الحساسة لتامين القبول والتأشيرة.",
+          title: "03. الملف والترجمة والقبول",
+          desc: "الباقة 1 تنظّم الملف والترجمة والتسجيل الجامعي ومتابعة القبول.",
         },
         {
-          title: "04. السفر والوصول والاستقرار",
-          desc: "السفر والنقل واول الخطوات في الصين جزء من وعد مميز فعلا.",
+          title: "04. التأشيرة والسفر",
+          desc: "التأشيرة والتحضير للسفر والمراحل الحساسة تتم متابعتها بمنهج واضح.",
+        },
+        {
+          title: "05. الوصول والمرافقة",
+          desc: "الباقة 2 تواصل المتابعة حتى النقل من المطار إلى الجامعة وأول الخطوات على الأرض.",
         },
       ],
-      highlightTitle:
-        "تعرفون الى اين تتجهون قبل الدفع وقبل التوقيع وقبل ارسال الملف.",
-      highlightText:
-        "عندما يكون المسار واضحا يشعر الوالدان بثقة اكبر ويتقدم الطالب بشكل اسرع. هذا الاحساس بالجدية هو ما يعطي العلامة قيمة فاخرة حقيقية.",
-      tags: [
-        "استشارة مجانية",
-        "ملف مؤطر",
-        "تاشيرة مؤمنة",
-        "سفر منظم",
-        "متابعة انسانية",
-        "وصول مهيأ",
+      coverageEyebrow: "المدن التي نتابعها",
+      coverageTitle: "حضور مبني حول الوجهات التي تطلبها العائلات أكثر.",
+      coverageText:
+        "تشونغتشينغ ونانتشانغ ونينغبو وهاربين وشيآن وتشنغدو وتشجيانغ من أبرز المدن التي تظهر داخل الموقع كوجهات خدمة أساسية.",
+    },
+    faq: {
+      eyebrow: "الأسئلة الشائعة",
+      title: "الأجوبة التي تريد العائلة قراءتها قبل اتخاذ القرار.",
+      description:
+        "الطبقة الأولى من الثقة تبدأ عندما يجيب الموقع بوضوح عن أسئلة المنحة والتكلفة والتأشيرة والوصول.",
+      items: [
+        {
+          question: "كيف أعرف إن كانت المنحة واقعية بالنسبة إلى ملفي؟",
+          answer:
+            "الاستشارة المجانية موجودة أساسا لتقييم الملف ومنطق المنحة ومستوى الفرصة قبل بدء الملف الكامل.",
+        },
+        {
+          question: "ماذا تتضمن كل باقة فعلا؟",
+          answer:
+            "الباقة 1 تشمل الملف والترجمة والتسجيل والتأشيرة، أما الباقة 2 فتمدّد المرافقة حتى السفر والوصول.",
+        },
+        {
+          question: "ماذا يحدث بعد الوصول إلى الصين؟",
+          answer:
+            "هيكلة الموقع تبيّن أن الوصول ليس مرحلة مجهولة، خصوصا مع منطق النقل والمرافقة على الأرض داخل الباقة 2.",
+        },
       ],
+      primary: "شاهد الأسئلة كاملة",
+      secondary: "تحدث مع الفريق",
     },
     cta: {
-      eyebrow: "هل انتم مستعدون للبداية؟",
+      eyebrow: "ابدأ بشكل جدي",
       title:
-        "ابدؤوا باستشارة مجانية، ثم اختاروا الصيغة التي تناسب وضعكم فعلا.",
+        "ابدأ بالاستشارة المجانية ثم تقدّم مع الباقة التي تناسب وضعك فعلاً.",
       description:
-        "الهدف الاول ليس ملء ملف طويل. الهدف الاول هو فهم الطريق الصحيح وطمأنة العائلة ومعرفة الخطوة التالية بوضوح.",
-      primary: "احصل على استشارتي المجانية",
-      secondary: "قدم الآن",
+        "هدف أول تواصل واضح: فهم الملف، طمأنة العائلة، تقييم الفرصة، ثم اقتراح الصيغة المناسبة.",
+      primary: "اطلب استشارتي المجانية",
+      secondary: "ابدأ التقديم",
     },
   },
 };
@@ -410,41 +451,48 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
   const contactHref = `/${lang}/contact`;
   const applyHref = `/${lang}/apply`;
   const servicesHref = `/${lang}/services`;
+  const faqHref = `/${lang}/faq`;
+  const heroImageAlt =
+    lang === "fr"
+      ? "Accompagnement Yalla China pour étudier en Chine"
+      : lang === "en"
+        ? "Yalla China guidance for studying in China"
+        : "مرافقة يلا تشاينا للدراسة في الصين";
+  const pathImageAlt =
+    lang === "fr"
+      ? "Parcours Yalla China jusqu'à l'arrivée"
+      : lang === "en"
+        ? "Yalla China journey through arrival"
+        : "مسار يلا تشاينا حتى الوصول";
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir}>
-      <section className="relative overflow-hidden bg-[#150506]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(119,3,4,0.78),transparent_28%),radial-gradient(circle_at_86%_12%,rgba(177,127,2,0.18),transparent_24%),linear-gradient(135deg,#100203_0%,#25080b_35%,#070707_100%)]" />
+    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
+      <section className="relative overflow-hidden bg-[#120405]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_16%,rgba(119,3,4,0.8),transparent_28%),radial-gradient(circle_at_88%_12%,rgba(177,127,2,0.18),transparent_24%),linear-gradient(135deg,#100203_0%,#25080b_38%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
-        <div className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#B17F02]/12 blur-3xl drift-slow" />
+        <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-[#B17F02]/12 blur-3xl drift-slow" />
         <div className="pointer-events-none absolute right-0 top-0 h-[26rem] w-[26rem] rounded-full bg-[#770304]/35 blur-3xl" />
 
         <Container>
           <div className="relative py-12 sm:py-16 lg:py-24">
-            <div className="grid gap-8 lg:gap-10 xl:grid-cols-[1.02fr_0.98fr] xl:items-center">
+            <div className="grid gap-8 lg:gap-10 xl:grid-cols-[1.06fr_0.94fr] xl:items-center">
               <div
-                className={`space-y-7 sm:space-y-8 animate-fade-in-up ${
+                className={`space-y-7 animate-fade-in-up ${
                   isArabic ? "text-right" : "text-center xl:text-left"
                 }`}
               >
-                <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/88 sm:text-xs sm:tracking-[0.22em] animate-fade-in-down" style={{ animationDelay: "200ms" }}>
+                <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/88 sm:text-xs sm:tracking-[0.22em] xl:justify-start xl:text-left">
                   {t.hero.badge}
                 </p>
 
-                <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.32em] text-[#EDB80B]">
+                <div className="space-y-4">
+                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.3em] text-[#EDB80B]">
                     {t.hero.eyebrow}
                   </p>
-
                   <h1
-                    className={`display-title text-[2.7rem] font-black leading-[0.98] tracking-[-0.04em] sm:text-6xl sm:tracking-[-0.05em] lg:text-7xl ${
+                    className={`display-title text-[2.35rem] font-black leading-[0.98] tracking-[-0.04em] sm:text-[3.35rem] lg:text-6xl xl:text-7xl ${
                       isArabic ? "max-w-4xl" : "mx-auto max-w-4xl xl:mx-0"
                     }`}
-                    style={
-                      isArabic
-                        ? undefined
-                        : { fontFamily: '"Georgia","Times New Roman",serif' }
-                    }
                   >
                     {t.hero.title}
                   </h1>
@@ -457,12 +505,14 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 >
                   {t.hero.description}
                 </p>
-                <ArabicText
-                  className={`max-w-2xl text-sm font-medium leading-7 text-white/64 ${
+
+                <p
+                  className={`max-w-2xl text-sm font-medium leading-7 text-white/62 ${
                     isArabic ? "" : "mx-auto xl:mx-0"
                   }`}
-                  text={t.hero.note}
-                />
+                >
+                  {t.hero.note}
+                </p>
 
                 <div
                   className={`flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap ${
@@ -473,6 +523,8 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 >
                   <Link
                     href={contactHref}
+                    data-track="home_hero_primary_cta"
+                    data-track-value={lang}
                     className="w-full rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(177,127,2,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_24px_45px_rgba(177,127,2,0.45)] sm:w-auto"
                   >
                     {t.hero.primary}
@@ -480,6 +532,8 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
 
                   <Link
                     href={servicesHref}
+                    data-track="home_hero_secondary_cta"
+                    data-track-value={lang}
                     className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
                   >
                     {t.hero.secondary}
@@ -487,21 +541,20 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 </div>
 
                 <div
-                  className={`grid gap-3 sm:grid-cols-3 ${
+                  className={`grid gap-3 sm:grid-cols-2 xl:grid-cols-3 ${
                     isArabic ? "" : "mx-auto max-w-xl xl:mx-0 xl:max-w-none"
                   }`}
                 >
-                  {t.hero.stats.map((item, index) => (
-                    <div
+                  {t.hero.cards.map((item) => (
+                    <article
                       key={item.label}
-                      className={`rounded-[1.7rem] border border-white/10 bg-black/25 p-4 backdrop-blur-md animate-fade-in-up ${
+                      className={`rounded-[1.8rem] border border-white/10 bg-black/25 p-4 backdrop-blur-md ${
                         isArabic ? "text-right" : ""
                       }`}
-                      style={{ animationDelay: `${400 + index * 100}ms` }}
                     >
                       <p className="text-sm font-semibold text-white">{item.label}</p>
-                      <p className="mt-1 text-sm text-white/65">{item.value}</p>
-                    </div>
+                      <p className="mt-2 text-sm leading-7 text-white/66">{item.value}</p>
+                    </article>
                   ))}
                 </div>
               </div>
@@ -509,12 +562,15 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
               <div className="relative">
                 <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top,rgba(237,184,11,0.14),transparent_35%),radial-gradient(circle_at_bottom,rgba(255,255,255,0.04),transparent_40%)]" />
 
-                <div className="relative overflow-hidden rounded-[2.2rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)] sm:rounded-[2.4rem]">
+                <div className="relative overflow-hidden rounded-[2.3rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)]">
                   <div className="relative h-[20rem] overflow-hidden sm:h-[27rem]">
-                    <img
+                    <Image
                       src="/fr-services-hero.jpg"
-                      alt="YALLA CHINA hero"
-                      className="h-full w-full object-cover"
+                      alt={heroImageAlt}
+                      fill
+                      priority
+                      sizes="(max-width: 1023px) 100vw, 44vw"
+                      className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                     <div
@@ -523,7 +579,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                       }`}
                     >
                       <span className="section-eyebrow rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
-                        {t.hero.panelEyebrow}
+                        {t.hero.sideEyebrow}
                       </span>
                     </div>
                   </div>
@@ -534,14 +590,12 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                     }`}
                   >
                     <h2 className="display-title text-2xl font-black leading-tight text-white">
-                      {t.hero.panelTitle}
+                      {t.hero.sideTitle}
                     </h2>
-                    <p className="text-sm leading-7 text-white/72">
-                      {t.hero.panelText}
-                    </p>
+                    <p className="text-sm leading-7 text-white/72">{t.hero.sideText}</p>
 
                     <div className="grid gap-3 sm:grid-cols-2">
-                      {t.hero.panelItems.map((item) => (
+                      {t.hero.sideItems.map((item) => (
                         <div
                           key={item}
                           className="rounded-2xl border border-white/8 bg-black/18 px-4 py-3 text-sm font-medium text-white/88"
@@ -557,8 +611,6 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
           </div>
         </Container>
       </section>
-
-      <TrustIndicators lang={lang} />
 
       <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
         <Container>
@@ -593,9 +645,7 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                     }`}
                   />
                   <h3 className="text-lg font-bold text-zinc-900">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600">
-                    {item.desc}
-                  </p>
+                  <p className="mt-3 text-sm leading-7 text-zinc-600">{item.desc}</p>
                 </article>
               ))}
             </div>
@@ -603,11 +653,9 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
         </Container>
       </section>
 
+      <TrustIndicators lang={lang} />
+
       <HomeProofSection lang={lang} />
-
-      <TestimonialsSection lang={lang} />
-
-      <FounderStories lang={lang} />
 
       <section className="bg-[#080808] py-14 sm:py-18">
         <Container>
@@ -619,34 +667,30 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
             >
               <div>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
-                  {t.process.eyebrow}
+                  {t.path.eyebrow}
                 </p>
                 <h2 className="display-title mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                  {t.process.title}
+                  {t.path.title}
                 </h2>
                 <p
                   className={`mt-4 max-w-2xl text-base leading-8 text-white/70 ${
                     isArabic ? "" : "mx-auto lg:mx-0"
                   }`}
                 >
-                  {t.process.description}
+                  {t.path.description}
                 </p>
               </div>
 
               <div className="space-y-4">
-                {t.process.steps.map((step) => (
+                {t.path.steps.map((step) => (
                   <article
                     key={step.title}
                     className={`rounded-[1.8rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_18px_35px_rgba(0,0,0,0.16)] ${
                       isArabic ? "text-right" : "text-left"
                     }`}
                   >
-                    <h3 className="text-lg font-bold text-white">
-                      <StepTitle title={step.title} isArabic={isArabic} />
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-white/68">
-                      {step.desc}
-                    </p>
+                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-white/68">{step.desc}</p>
                   </article>
                 ))}
               </div>
@@ -658,36 +702,104 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
                 <div className="absolute inset-0 opacity-20 shoji-grid" />
                 <div className="relative space-y-5">
                   <div className="overflow-hidden rounded-[2rem] border border-white/10">
-                    <img
-                      src="/fr-apply-hero.jpg"
-                      alt="YALLA CHINA process"
-                      className="h-[18rem] w-full object-cover sm:h-[22rem]"
-                    />
+                    <div className="relative h-[18rem] w-full sm:h-[22rem]">
+                      <Image
+                        src="/fr-apply-hero.jpg"
+                        alt={pathImageAlt}
+                        fill
+                        sizes="(max-width: 1023px) 100vw, 42vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
 
                   <div className={`space-y-3 px-2 ${isArabic ? "text-right" : ""}`}>
-                    <h3 className="display-title text-2xl font-black leading-tight">
-                      {t.process.highlightTitle}
-                    </h3>
-                    <p className="text-sm leading-7 text-white/72">
-                      {t.process.highlightText}
+                    <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
+                      {t.path.coverageEyebrow}
                     </p>
+                    <h3 className="display-title text-2xl font-black leading-tight">
+                      {t.path.coverageTitle}
+                    </h3>
+                    <p className="text-sm leading-7 text-white/72">{t.path.coverageText}</p>
                   </div>
 
                   <div className="grid gap-3 sm:grid-cols-2">
-                    {t.process.tags.map((item) => (
+                    {supportedCities[lang].map((city) => (
                       <div
-                        key={item}
+                        key={city}
                         className={`rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/84 ${
                           isArabic ? "text-right" : ""
                         }`}
                       >
-                        {item}
+                        {city}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <TestimonialsSection lang={lang} />
+
+      <FounderStories lang={lang} />
+
+      <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-[0.94fr_1.06fr]">
+            <div
+              className={`rounded-[2.3rem] border border-zinc-200 bg-white p-7 shadow-[0_24px_60px_rgba(15,23,42,0.06)] ${
+                isArabic ? "text-right" : ""
+              }`}
+            >
+              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#770304]">
+                {t.faq.eyebrow}
+              </p>
+              <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
+                {t.faq.title}
+              </h2>
+              <p className="mt-4 text-sm leading-8 text-zinc-600 sm:text-base">
+                {t.faq.description}
+              </p>
+
+              <div
+                className={`mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
+                  isArabic ? "sm:justify-end" : ""
+                }`}
+              >
+                <Link
+                  href={faqHref}
+                  data-track="home_faq_primary_cta"
+                  data-track-value={lang}
+                  className="rounded-full bg-[#770304] px-6 py-3 text-center font-semibold text-white transition hover:bg-[#5a0203]"
+                >
+                  {t.faq.primary}
+                </Link>
+                <Link
+                  href={contactHref}
+                  data-track="home_faq_secondary_cta"
+                  data-track-value={lang}
+                  className="rounded-full border border-zinc-200 bg-[#faf7f3] px-6 py-3 text-center font-medium text-zinc-800 transition hover:bg-white"
+                >
+                  {t.faq.secondary}
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              {t.faq.items.map((item) => (
+                <article
+                  key={item.question}
+                  className={`rounded-[1.8rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.05)] ${
+                    isArabic ? "text-right" : ""
+                  }`}
+                >
+                  <h3 className="text-lg font-bold text-zinc-900">{item.question}</h3>
+                  <p className="mt-3 text-sm leading-7 text-zinc-600">{item.answer}</p>
+                </article>
+              ))}
             </div>
           </div>
         </Container>
@@ -716,6 +828,8 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
               >
                 <Link
                   href={contactHref}
+                  data-track="home_final_primary_cta"
+                  data-track-value={lang}
                   className="w-full rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(177,127,2,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_24px_45px_rgba(177,127,2,0.45)] sm:w-auto"
                 >
                   {t.cta.primary}
@@ -723,7 +837,9 @@ export default function HomeLanding({ lang }: { lang: Locale }) {
 
                 <Link
                   href={applyHref}
-                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition-all duration-200 hover:bg-white/15 hover:border-white/30 sm:w-auto"
+                  data-track="home_final_secondary_cta"
+                  data-track-value={lang}
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition-all duration-200 hover:border-white/30 hover:bg-white/15 sm:w-auto"
                 >
                   {t.cta.secondary}
                 </Link>

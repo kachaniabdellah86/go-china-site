@@ -1,16 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import Container from "@/components/Container";
+import { GuideSlug } from "@/lib/guides";
 
 type Locale = "fr" | "en" | "ar";
-
-export const guideSlugs = [
-  "personal-experience",
-  "study-steps",
-  "why-china",
-  "how-to-study",
-] as const;
-
-export type GuideSlug = (typeof guideSlugs)[number];
 
 type GuidePageCopy = {
   dir: "ltr" | "rtl";
@@ -822,10 +815,6 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
   },
 };
 
-export function isGuideSlug(value: string): value is GuideSlug {
-  return guideSlugs.includes(value as GuideSlug);
-}
-
 export default function GuidePage({
   lang,
   slug,
@@ -839,7 +828,7 @@ export default function GuidePage({
   const applyHref = `/${lang}/apply`;
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir}>
+    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#120405]">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#170405_0%,#28080a_42%,#070707_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_22%)]" />
@@ -852,13 +841,13 @@ export default function GuidePage({
                 isArabic ? "text-right" : "text-center lg:text-left"
               }`}
             >
-              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em]">
+              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em] lg:justify-start lg:text-left">
                 {t.badge}
               </p>
 
               <div className="space-y-4">
                 <h1
-                  className={`display-title text-[2.7rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${
+                  className={`display-title text-[2.25rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-[3.25rem] lg:text-6xl ${
                     isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
                   }`}
                 >
@@ -874,7 +863,7 @@ export default function GuidePage({
               </div>
 
               <div
-                className={`grid gap-3 sm:grid-cols-3 ${
+                className={`grid gap-3 sm:grid-cols-2 xl:grid-cols-3 ${
                   isArabic ? "" : "mx-auto max-w-xl lg:mx-0 lg:max-w-none"
                 }`}
               >
@@ -896,11 +885,16 @@ export default function GuidePage({
 
             <div className="relative">
               <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/20 shadow-[0_28px_70px_rgba(0,0,0,0.35)]">
-                <img
-                  src={t.imageSrc}
-                  alt={t.title}
-                  className="h-[20rem] w-full object-cover sm:h-[28rem]"
-                />
+                <div className="relative h-[20rem] w-full sm:h-[28rem]">
+                  <Image
+                    src={t.imageSrc}
+                    alt={t.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 44vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
               </div>
             </div>

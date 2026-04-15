@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { buildWhatsappUrl, Locale } from "@/lib/yalla";
 
 type ContactFormCopy = {
   title: string;
@@ -29,9 +30,11 @@ type ContactFormCopy = {
 export default function ContactFormCard({
   copy,
   dir = "ltr",
+  lang,
 }: {
   copy: ContactFormCopy;
   dir?: "ltr" | "rtl";
+  lang: Locale;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +72,7 @@ export default function ContactFormCard({
       .filter(Boolean)
       .join("\n");
 
-    const waUrl = `https://wa.me/212638335452?text=${encodeURIComponent(text)}`;
+    const waUrl = buildWhatsappUrl(text);
     const popup = window.open(waUrl, "_blank", "noopener,noreferrer");
 
     if (!popup) {
@@ -95,22 +98,25 @@ export default function ContactFormCard({
       <h2 className="text-2xl font-bold">{copy.title}</h2>
       <p className="mt-3 text-sm leading-7 text-zinc-600">{copy.description}</p>
 
-      {done && (
+      {done ? (
         <div className="mt-4 rounded-2xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           {copy.success}
         </div>
-      )}
+      ) : null}
 
-      {error && (
+      {error ? (
         <div className="mt-4 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
-      )}
+      ) : null}
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="text-sm font-medium">{copy.labels.name}</label>
+          <label htmlFor="contact-fullName" className="text-sm font-medium">
+            {copy.labels.name}
+          </label>
           <input
+            id="contact-fullName"
             name="fullName"
             className={fieldClass}
             placeholder={copy.placeholders.name}
@@ -119,8 +125,11 @@ export default function ContactFormCard({
         </div>
 
         <div>
-          <label className="text-sm font-medium">{copy.labels.phone}</label>
+          <label htmlFor="contact-phone" className="text-sm font-medium">
+            {copy.labels.phone}
+          </label>
           <input
+            id="contact-phone"
             name="phone"
             className={`${fieldClass} ${isRtl ? "force-ltr" : ""}`}
             placeholder={copy.placeholders.phone}
@@ -132,8 +141,11 @@ export default function ContactFormCard({
       </div>
 
       <div className="mt-4">
-        <label className="text-sm font-medium">{copy.labels.email}</label>
+        <label htmlFor="contact-email" className="text-sm font-medium">
+          {copy.labels.email}
+        </label>
         <input
+          id="contact-email"
           name="email"
           type="email"
           className={`${fieldClass} ${isRtl ? "force-ltr" : ""}`}
@@ -144,8 +156,11 @@ export default function ContactFormCard({
       </div>
 
       <div className="mt-4">
-        <label className="text-sm font-medium">{copy.labels.message}</label>
+        <label htmlFor="contact-message" className="text-sm font-medium">
+          {copy.labels.message}
+        </label>
         <textarea
+          id="contact-message"
           name="message"
           rows={6}
           className={`${fieldClass} min-h-[170px]`}
@@ -161,15 +176,19 @@ export default function ContactFormCard({
       >
         <button
           disabled={loading}
+          data-track="contact_form_whatsapp_message"
+          data-track-value={lang}
           className="w-full rounded-full bg-[#770304] px-5 py-3 font-semibold text-white shadow-[0_16px_30px_rgba(119,3,4,0.14)] transition hover:bg-[#5a0203] disabled:opacity-60 sm:w-auto"
         >
           {loading ? copy.labels.secondary : copy.labels.submit}
         </button>
 
         <a
-          href="https://wa.me/212638335452"
+          href={buildWhatsappUrl()}
           target="_blank"
           rel="noreferrer"
+          data-track="contact_form_direct_whatsapp"
+          data-track-value={lang}
           className="w-full rounded-full border border-zinc-200 bg-white/80 px-5 py-3 text-center font-medium transition hover:bg-white sm:w-auto"
         >
           {isRtl ? "واتساب" : "WhatsApp"}

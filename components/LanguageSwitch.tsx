@@ -35,9 +35,17 @@ export default function LanguageSwitch({
     variant === "dark"
       ? "border-white/15 bg-white/[0.06] text-white/80 hover:border-white/30 hover:bg-white/[0.12] hover:text-white"
       : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50";
+  const switchLabel =
+    current === "ar"
+      ? "تبديل اللغة"
+      : current === "en"
+        ? "Switch language"
+        : "Changer de langue";
 
   return (
     <div
+      role="navigation"
+      aria-label={switchLabel}
       className={`inline-flex items-center gap-1.5 rounded-full ${
         variant === "dark" ? "bg-black/20 p-1 backdrop-blur-sm" : "bg-transparent"
       }`}
@@ -45,6 +53,8 @@ export default function LanguageSwitch({
       <Link
         href={to("fr")}
         aria-current={current === "fr" ? "page" : undefined}
+        data-track="locale_switch"
+        data-track-value={`fr:${to("fr")}`}
         className={`${base} ${current === "fr" ? active : idle}`}
       >
         FR
@@ -52,6 +62,8 @@ export default function LanguageSwitch({
       <Link
         href={to("en")}
         aria-current={current === "en" ? "page" : undefined}
+        data-track="locale_switch"
+        data-track-value={`en:${to("en")}`}
         className={`${base} ${current === "en" ? active : idle}`}
       >
         EN
@@ -59,6 +71,8 @@ export default function LanguageSwitch({
       <Link
         href={to("ar")}
         aria-current={current === "ar" ? "page" : undefined}
+        data-track="locale_switch"
+        data-track-value={`ar:${to("ar")}`}
         className={`${base} ${current === "ar" ? active : idle}`}
       >
         AR

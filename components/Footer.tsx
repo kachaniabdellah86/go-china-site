@@ -1,124 +1,107 @@
 import Link from "next/link";
 import BrandLogo from "./BrandLogo";
 import Container from "./Container";
+import {
+  buildWhatsappUrl,
+  contactEmail,
+  founderName,
+  instagramHandle,
+  instagramUrl,
+  Locale,
+  primaryWhatsappNumberDisplay,
+  secondaryWhatsappNumberDisplay,
+  secondaryWhatsappNumberRaw,
+  supportedCities,
+} from "@/lib/yalla";
 
 type Props = {
-  lang?: "fr" | "en" | "ar";
+  lang?: Locale;
 };
 
 const content = {
   fr: {
-    leadEyebrow: "Contact direct",
-    leadTitle: "Un accompagnement clair pour les étudiants et leurs familles.",
+    leadEyebrow: "Consultation gratuite",
+    leadTitle:
+      "Une orientation claire pour les familles qui cherchent une bourse, une bonne université et un accompagnement fiable.",
     leadText:
-      "Nous vous aidons à comprendre les options, préparer le dossier, avancer avec méthode et garder un contact simple jusqu'aux prochaines étapes.",
-    primaryCta: "Recevoir une première orientation",
-    whatsappLabel: "WhatsApp",
-    stats: [
-      { title: "Réponse rapide", text: "Sous 24 à 48 heures" },
-      { title: "Accompagnement humain", text: "Étudiants et parents" },
-      { title: "Projet structuré", text: "Du choix au visa" },
-    ],
-    brandTitle: "YALLA CHINA",
-    brandText:
-      "Une présence claire pour les étudiants qui veulent étudier en Chine avec plus de méthode, plus de confiance et moins d'incertitude.",
+      "Yalla China guide l'étudiant depuis l'orientation jusqu'à l'arrivée, avec une lecture sérieuse du dossier, du visa, du voyage et des premières démarches sur place.",
+    primaryCta: "Parler à un conseiller",
+    whatsappLabel: "WhatsApp principal",
+    brandText: `${founderName} a étudié en Chine et transforme cette expérience en accompagnement concret pour les étudiants marocains et leurs familles.`,
     navigationTitle: "Navigation",
-    supportTitle: "Ce que nous faisons",
-    contactTitle: "Nous écrire",
-    services: [
-      "Choix d'université",
-      "Préparation du dossier",
-      "Admission et suivi",
-      "Visa étudiant",
-    ],
+    coverageTitle: "Villes suivies",
+    contactTitle: "Contact direct",
+    privacy: "Confidentialité",
+    terms: "Conditions",
+    rights: "Tous droits réservés.",
+    closing:
+      "Admission, visa, voyage et arrivée traités comme un seul parcours.",
     links: [
       { href: "/fr", label: "Accueil" },
+      { href: "/fr/about", label: "À propos" },
       { href: "/fr/services", label: "Services" },
-      { href: "/fr/apply", label: "Postuler" },
+      { href: "/fr/faq", label: "FAQ" },
+      { href: "/fr/apply", label: "Candidature" },
       { href: "/fr/contact", label: "Contact" },
+      { href: "/fr/privacy", label: "Confidentialité" },
+      { href: "/fr/terms", label: "Conditions" },
     ],
-    contactNote: "Le moyen le plus rapide pour démarrer la discussion",
-    emailLabel: "Email",
-    instagramLabel: "Instagram",
-    instagramNote: "Suivre les contenus et mises à jour du projet",
-    closing:
-      "Pensé pour les étudiants et les familles qui veulent avancer avec clarté.",
-    rights: "Tous droits réservés.",
   },
   en: {
-    leadEyebrow: "Direct contact",
-    leadTitle: "Clear guidance for students and their families.",
+    leadEyebrow: "Free consultation",
+    leadTitle:
+      "Clear guidance for families looking for scholarship options, a strong university, and support they can trust.",
     leadText:
-      "We help you understand your options, prepare your file, move with a real plan, and stay in simple contact until the next steps are clear.",
-    primaryCta: "Get a first orientation",
-    whatsappLabel: "WhatsApp",
-    stats: [
-      { title: "Fast reply", text: "Within 24 to 48 hours" },
-      { title: "Human support", text: "For students and parents" },
-      { title: "Structured process", text: "From choice to visa" },
-    ],
-    brandTitle: "YALLA CHINA",
-    brandText:
-      "A clearer way for students who want to study in China with better structure, more confidence, and less uncertainty.",
+      "Yalla China guides the student from orientation to arrival, with serious support around the file, visa, travel, and the first steps on the ground.",
+    primaryCta: "Speak with an advisor",
+    whatsappLabel: "Main WhatsApp",
+    brandText: `${founderName} studied in China and turns that lived experience into practical guidance for Moroccan students and their families.`,
     navigationTitle: "Navigation",
-    supportTitle: "What we do",
-    contactTitle: "Write to us",
-    services: [
-      "University selection",
-      "Application preparation",
-      "Admission follow-up",
-      "Student visa support",
-    ],
+    coverageTitle: "Cities covered",
+    contactTitle: "Direct contact",
+    privacy: "Privacy",
+    terms: "Terms",
+    rights: "All rights reserved.",
+    closing:
+      "Admission, visa, travel, and arrival handled as one coherent journey.",
     links: [
       { href: "/en", label: "Home" },
+      { href: "/en/about", label: "About" },
       { href: "/en/services", label: "Services" },
+      { href: "/en/faq", label: "FAQ" },
       { href: "/en/apply", label: "Apply" },
       { href: "/en/contact", label: "Contact" },
+      { href: "/en/privacy", label: "Privacy" },
+      { href: "/en/terms", label: "Terms" },
     ],
-    contactNote: "The fastest way to start the conversation",
-    emailLabel: "Email",
-    instagramLabel: "Instagram",
-    instagramNote: "Follow project content and updates",
-    closing:
-      "Built for students and families who want to move forward with clarity.",
-    rights: "All rights reserved.",
   },
   ar: {
-    leadEyebrow: "تواصل مباشر",
-    leadTitle: "مرافقة واضحة للطلبة وعائلاتهم في مشروع الدراسة بالصين.",
+    leadEyebrow: "استشارة مجانية",
+    leadTitle:
+      "توجيه واضح للعائلات التي تبحث عن منحة أو جامعة جيدة أو مرافقة موثوقة من البداية إلى الوصول.",
     leadText:
-      "نساعدك على فهم الخيارات المناسبة، تجهيز الملف بشكل منظم، والتقدم بخطوات واضحة مع تواصل مباشر إلى غاية المراحل القادمة.",
-    primaryCta: "احصل على توجيه أولي",
-    whatsappLabel: "واتساب",
-    stats: [
-      { title: "رد سريع", text: "خلال 24 إلى 48 ساعة" },
-      { title: "مرافقة إنسانية", text: "للطلبة والآباء" },
-      { title: "مسار منظم", text: "من الاختيار إلى التأشيرة" },
-    ],
-    brandTitle: "YALLA CHINA",
-    brandText:
-      "طريقة أوضح للطلبة الذين يريدون الدراسة في الصين بثقة أكبر وتنظيم أفضل وغموض أقل.",
+      "يلا تشاينا ترافق الطالب من التوجيه إلى الوصول، مع متابعة جدية للملف والتأشيرة والسفر وأول الخطوات داخل الصين.",
+    primaryCta: "تحدث مع مستشار",
+    whatsappLabel: "واتساب الرئيسي",
+    brandText: `${founderName} درس في الصين وحوّل هذه التجربة الشخصية إلى مرافقة عملية للطلبة المغاربة وعائلاتهم.`,
     navigationTitle: "التنقل",
-    supportTitle: "ما الذي نساعد فيه",
-    contactTitle: "راسلنا",
-    services: [
-      "اختيار الجامعة",
-      "تجهيز ملف التقديم",
-      "متابعة القبول",
-      "مرافقة تأشيرة الدراسة",
-    ],
+    coverageTitle: "المدن التي نتابعها",
+    contactTitle: "تواصل مباشر",
+    privacy: "الخصوصية",
+    terms: "الشروط",
+    rights: "جميع الحقوق محفوظة.",
+    closing:
+      "القبول والتأشيرة والسفر والوصول يتم التعامل معها كمسار واحد متكامل.",
     links: [
       { href: "/ar", label: "الرئيسية" },
+      { href: "/ar/about", label: "من نحن" },
       { href: "/ar/services", label: "الخدمات" },
+      { href: "/ar/faq", label: "الأسئلة الشائعة" },
       { href: "/ar/apply", label: "التقديم" },
       { href: "/ar/contact", label: "تواصل معنا" },
+      { href: "/ar/privacy", label: "الخصوصية" },
+      { href: "/ar/terms", label: "الشروط" },
     ],
-    contactNote: "أسرع وسيلة لبدء الحديث معنا",
-    emailLabel: "البريد الإلكتروني",
-    instagramLabel: "Instagram",
-    instagramNote: "تابع المحتوى وتحديثات المشروع",
-    closing: "مصمم للطلبة والعائلات الذين يريدون التقدم بثقة ووضوح.",
-    rights: "جميع الحقوق محفوظة.",
   },
 } as const;
 
@@ -126,19 +109,20 @@ export default function Footer({ lang = "fr" }: Props) {
   const t = content[lang];
   const isArabic = lang === "ar";
   const homeHref = `/${lang}`;
-  const instagramHref = "https://www.instagram.com/yallachina.ma/";
+  const primaryWhatsappHref = buildWhatsappUrl();
+  const secondaryWhatsappHref = buildWhatsappUrl(undefined, secondaryWhatsappNumberRaw);
 
   return (
     <footer className="border-t border-white/10 bg-[#030303] text-white">
       <Container>
         <div className="py-10 sm:py-14">
-          <div className="relative overflow-hidden rounded-[2.6rem] border border-white/10 bg-[linear-gradient(135deg,#140405_0%,#1d0608_48%,#090909_100%)] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.24)] sm:p-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.52),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(237,184,11,0.12),transparent_24%)]" />
+          <div className="relative overflow-hidden rounded-[2.8rem] border border-white/10 bg-[linear-gradient(135deg,#150405_0%,#1b0507_45%,#090909_100%)] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.24)] sm:p-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.5),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(237,184,11,0.14),transparent_24%)]" />
             <div className="absolute inset-0 opacity-20 shoji-grid" />
 
-            <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
               <div className={isArabic ? "text-right" : ""}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.26em] text-[#B17F02]">
+                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
                   {t.leadEyebrow}
                 </p>
                 <h2 className="display-title mt-4 max-w-3xl text-3xl font-black tracking-tight sm:text-4xl">
@@ -153,60 +137,77 @@ export default function Footer({ lang = "fr" }: Props) {
                     isArabic ? "sm:justify-end" : ""
                   }`}
                 >
-                  <Link
-                    href={`/${lang}/contact`}
+                  <a
+                    href={primaryWhatsappHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-track="footer_whatsapp_cta"
+                    data-track-value={lang}
                     className="rounded-full bg-[#B17F02] px-6 py-3 text-center font-semibold text-black shadow-[0_14px_30px_rgba(237,184,11,0.18)] transition hover:-translate-y-0.5 hover:opacity-95"
                   >
                     {t.primaryCta}
-                  </Link>
-
-                  <a
-                    href="https://wa.me/212638335452"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-6 py-3 text-center font-medium text-white transition hover:bg-white/[0.12]"
-                  >
-                    {isArabic ? (
-                      <>
-                        <span>{t.whatsappLabel}</span>
-                        <span className="contact-inline">+212 638-335452</span>
-                      </>
-                    ) : (
-                      <span className="contact-inline">
-                        {t.whatsappLabel} +212 638-335452
-                      </span>
-                    )}
                   </a>
+                  <Link
+                    href={`/${lang}/apply`}
+                    data-track="footer_apply_cta"
+                    data-track-value={lang}
+                    className="rounded-full border border-white/15 bg-white/[0.06] px-6 py-3 text-center font-medium text-white transition hover:bg-white/[0.12]"
+                  >
+                    {lang === "fr"
+                      ? "Commencer la candidature"
+                      : lang === "en"
+                        ? "Start the application"
+                        : "ابدأ التقديم"}
+                  </Link>
                 </div>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                {t.stats.map((item) => (
-                  <article
-                    key={item.title}
-                    className={`rounded-[1.6rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <h3 className="text-sm font-semibold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-white/65">{item.text}</p>
-                  </article>
-                ))}
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <StatCard
+                  title={lang === "fr" ? "Fondateur" : lang === "en" ? "Founder" : "المؤسس"}
+                  text={founderName}
+                  isArabic={isArabic}
+                />
+                <StatCard
+                  title={lang === "fr" ? "Approche" : lang === "en" ? "Approach" : "المنهج"}
+                  text={
+                    lang === "fr"
+                      ? "Orientation, admission, visa, arrivée"
+                      : lang === "en"
+                        ? "Orientation, admission, visa, arrival"
+                        : "توجيه، قبول، تأشيرة، وصول"
+                  }
+                  isArabic={isArabic}
+                />
+                <StatCard
+                  title={lang === "fr" ? "Couverture" : lang === "en" ? "Coverage" : "التغطية"}
+                  text={
+                    lang === "fr"
+                      ? "7 villes suivies"
+                      : lang === "en"
+                        ? "7 cities covered"
+                        : "7 مدن متابعة"
+                  }
+                  isArabic={isArabic}
+                />
               </div>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.8fr_0.85fr_0.95fr]">
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-[1.05fr_0.8fr_0.95fr_1fr]">
             <section
               className={`rounded-[2rem] border border-white/8 bg-white/[0.04] p-6 shadow-[0_18px_45px_rgba(0,0,0,0.18)] ${
                 isArabic ? "text-right" : ""
               }`}
             >
               <div className={isArabic ? "flex justify-end" : ""}>
-                <Link href={homeHref} className="inline-flex">
-                  <BrandLogo size="lg" variant="dark" />
+                <Link
+                  href={homeHref}
+                  className="inline-flex"
+                  data-track="footer_logo"
+                  data-track-value={lang}
+                >
+                  <BrandLogo size="md" variant="dark" />
                 </Link>
               </div>
               <p className="mt-4 max-w-xl text-sm leading-7 text-white/72">
@@ -222,11 +223,13 @@ export default function Footer({ lang = "fr" }: Props) {
               <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                 {t.navigationTitle}
               </p>
-              <ul className="mt-4 space-y-3 text-sm text-white/78">
+              <ul className="mt-4 grid gap-3 text-sm text-white/78 sm:grid-cols-2">
                 {t.links.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      data-track="footer_link"
+                      data-track-value={item.href}
                       className="transition hover:text-white"
                     >
                       {item.label}
@@ -242,11 +245,11 @@ export default function Footer({ lang = "fr" }: Props) {
               }`}
             >
               <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
-                {t.supportTitle}
+                {t.coverageTitle}
               </p>
-              <ul className="mt-4 space-y-3 text-sm text-white/78">
-                {t.services.map((item) => (
-                  <li key={item}>{item}</li>
+              <ul className="mt-4 grid gap-3 text-sm text-white/78 sm:grid-cols-2">
+                {supportedCities[lang].map((city) => (
+                  <li key={city}>{city}</li>
                 ))}
               </ul>
             </section>
@@ -262,44 +265,67 @@ export default function Footer({ lang = "fr" }: Props) {
 
               <div className="mt-4 space-y-4 text-sm text-white/78">
                 <div>
+                  <p className="mb-2 text-xs font-medium text-white/55">
+                    {t.whatsappLabel}
+                  </p>
                   <a
-                    href="https://wa.me/212638335452"
+                    href={primaryWhatsappHref}
                     target="_blank"
                     rel="noreferrer"
+                    data-track="footer_contact_whatsapp"
+                    data-track-value={primaryWhatsappNumberDisplay}
                     className="contact-inline text-base font-semibold text-white transition hover:text-white/85"
                   >
-                    +212 638-335452
-                  </a>
-                  <p className="mt-2 text-xs text-white/55">{t.contactNote}</p>
-                </div>
-
-                <div>
-                  <p className="mb-2 text-xs font-medium text-white/55">
-                    {t.emailLabel}
-                  </p>
-                  <a
-                    href="mailto:contact@yallachina.com"
-                    className="contact-inline transition hover:text-white"
-                  >
-                    contact@yallachina.com
+                    {primaryWhatsappNumberDisplay}
                   </a>
                 </div>
 
                 <div>
                   <p className="mb-2 text-xs font-medium text-white/55">
-                    {t.instagramLabel}
+                    {lang === "fr"
+                      ? "WhatsApp secondaire"
+                      : lang === "en"
+                        ? "Secondary WhatsApp"
+                        : "واتساب الثانوي"}
                   </p>
                   <a
-                    href={instagramHref}
+                    href={secondaryWhatsappHref}
                     target="_blank"
                     rel="noreferrer"
+                    data-track="footer_contact_whatsapp_secondary"
+                    data-track-value={secondaryWhatsappNumberDisplay}
                     className="contact-inline transition hover:text-white"
                   >
-                    @yallachina.ma
+                    {secondaryWhatsappNumberDisplay}
                   </a>
-                  <p className="mt-2 text-xs text-white/55">
-                    {t.instagramNote}
+                </div>
+
+                <div>
+                  <p className="mb-2 text-xs font-medium text-white/55">
+                    {lang === "fr" ? "Email" : lang === "en" ? "Email" : "البريد الإلكتروني"}
                   </p>
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    data-track="footer_contact_email"
+                    data-track-value={contactEmail}
+                    className="contact-inline transition hover:text-white"
+                  >
+                    {contactEmail}
+                  </a>
+                </div>
+
+                <div>
+                  <p className="mb-2 text-xs font-medium text-white/55">Instagram</p>
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-track="footer_contact_instagram"
+                    data-track-value={instagramHandle}
+                    className="contact-inline transition hover:text-white"
+                  >
+                    {instagramHandle}
+                  </a>
                 </div>
               </div>
             </section>
@@ -313,10 +339,43 @@ export default function Footer({ lang = "fr" }: Props) {
             <p>
               © {new Date().getFullYear()} YALLA CHINA. {t.rights}
             </p>
-            <p>{t.closing}</p>
+            <div
+              className={`flex flex-col gap-2 sm:items-end ${isArabic ? "sm:items-start" : ""}`}
+            >
+              <p>{t.closing}</p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link href={`/${lang}/privacy`} className="transition hover:text-white">
+                  {t.privacy}
+                </Link>
+                <Link href={`/${lang}/terms`} className="transition hover:text-white">
+                  {t.terms}
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </Container>
     </footer>
+  );
+}
+
+function StatCard({
+  title,
+  text,
+  isArabic,
+}: {
+  title: string;
+  text: string;
+  isArabic: boolean;
+}) {
+  return (
+    <article
+      className={`rounded-[1.6rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md ${
+        isArabic ? "text-right" : ""
+      }`}
+    >
+      <h3 className="text-sm font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-sm text-white/65">{text}</p>
+    </article>
   );
 }

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Poppins:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap");
 @import "../node_modules/tailwindcss/index.css";
 
 :root {
@@ -36,6 +37,9 @@
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slower: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --font-body: "Poppins", "Segoe UI", Arial, sans-serif;
+  --font-arabic: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
 }
 
 * {
@@ -60,6 +64,7 @@ body {
     radial-gradient(700px circle at 100% 0%, rgba(177, 127, 2, 0.08), transparent 38%),
     linear-gradient(180deg, #FAF8F5 0%, #f6f1ea 100%);
   color: var(--brand-ink);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -558,12 +563,7 @@ select {
 
 [lang="ar"],
 [dir="rtl"] {
-  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
-}
-
-[lang="ar"],
-[dir="rtl"] {
-  font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
+  font-family: var(--font-arabic);
 }
 
 /* CRITICAL FIX: Force all numbers to display as Western Arabic numerals LTR */
@@ -598,6 +598,7 @@ span[class*="text-"] .step-number {
 
 .display-title {
   text-wrap: balance;
+  font-family: var(--font-display);
 }
 
 .contact-inline {
@@ -628,6 +629,7 @@ span[class*="text-"] .step-number {
 }
 
 [dir="rtl"] .display-title {
+  font-family: var(--font-arabic);
   letter-spacing: 0 !important;
   line-height: 1.4 !important;
 }
@@ -639,10 +641,6 @@ span[class*="text-"] .step-number {
 
 [dir="rtl"] .text-left {
   text-align: right !important;
-}
-
-[dir="rtl"] .text-right {
-  text-align: left !important;
 }
 
 /* Improved Arabic typography */

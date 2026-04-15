@@ -3,14 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Container from "@/components/Container";
-import { ArabicText } from "@/lib/ArabicText";
+import { Locale, packageFacts } from "@/lib/yalla";
 
-
-type Locale = "fr" | "en" | "ar";
 type Mode = "home" | "page";
 
 type PackageCard = {
-  id: string;
+  id: "pack1" | "pack2";
   name: string;
   price: string;
   audience: string;
@@ -22,8 +20,10 @@ type PackageCard = {
 
 type ComparisonRow = {
   label: string;
-  essential: string;
-  premium: string;
+  pack1: string;
+  pack2: string;
+  pack1Included: boolean;
+  pack2Included: boolean;
 };
 
 type Copy = {
@@ -34,6 +34,7 @@ type Copy = {
   packages: PackageCard[];
   comparisonTitle: string;
   comparisonRows: ComparisonRow[];
+  recommendation: string;
   consultationEyebrow: string;
   consultationTitle: string;
   consultationText: string;
@@ -45,237 +46,282 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
-    eyebrow: "Packs clairs, garanties visibles",
+    eyebrow: "Packs et engagements",
     title:
-      "Choisissez une formule simple a comprendre, puis avancez avec un cadre qui rassure les parents et motive l'etudiant.",
+      "Deux formules simples pour que la famille sache exactement ce qu'elle paie et jusqu'où va l'accompagnement.",
     description:
-      "Les packs sont presentes comme deux niveaux d'accompagnement tres lisibles: une base solide pour securiser le dossier, puis une formule premium pour aller jusqu'au depart et a l'arrivee.",
+      "Pack 1 couvre le cœur administratif: dossier, traduction, visa et inscription universitaire. Pack 2 ajoute la dimension voyage et accompagnement jusqu'à l'université.",
     packages: [
       {
-        id: "essential",
-        name: "Pack Essentiel",
-        price: "15 000 MAD",
-        audience: "Pour demarrer avec une methode claire",
+        id: "pack1",
+        name: "Pack 1",
+        price: packageFacts.pack1Price,
+        audience: "Dossier, admission, traduction et visa",
         summary:
-          "Une formule structuree pour l'universite, le dossier, la traduction, la candidature et le visa etudiant.",
+          "Une base sérieuse pour les familles qui veulent sécuriser le projet administratif et universitaire avec méthode.",
         includes: [
-          "Choix d'universites adaptees au profil",
-          "Preparation et verification du dossier",
-          "Traduction et organisation des documents",
-          "Suivi de la candidature universitaire",
-          "Accompagnement visa jusqu'au depot",
+          "Frais de dossier",
+          "Traduction et préparation des documents",
+          "Service visa",
+          "Service d'inscription universitaire",
         ],
         promise:
-          "Vous avancez avec un dossier mieux maitrise et une direction claire a chaque etape importante.",
+          "Le projet avance avec un dossier structuré, une logique claire et un suivi sérieux jusqu'à l'admission.",
         idealFor:
-          "Ideal pour les familles qui veulent un accompagnement serieux sur les etapes decisives.",
+          "Idéal pour les familles qui veulent cadrer l'essentiel avec un interlocuteur fiable.",
       },
       {
-        id: "premium",
-        name: "Pack Premium",
-        price: "23 000 MAD",
-        audience: "Pour une prise en charge plus complete jusqu'a l'arrivee",
+        id: "pack2",
+        name: "Pack 2",
+        price: packageFacts.pack2Price,
+        audience: "Pack 1 plus voyage, transfert et arrivée",
         summary:
-          "Tout le Pack Essentiel, avec un niveau de confort supplementaire pour le billet, le suivi et les premiers jours en Chine.",
+          "La formule la plus rassurante pour les parents qui veulent prolonger l'accompagnement jusqu'au départ et à l'entrée à l'université.",
         includes: [
-          "Tous les elements du Pack Essentiel",
-          "Aide a la reservation du billet",
-          "Suivi du Maroc jusqu'a l'universite",
-          "Organisation du transfert a l'arrivee",
-          "Presence plus rassurante pour la famille",
+          "Tous les éléments du Pack 1",
+          "Aide à la réservation du billet",
+          "Suivi du Maroc jusqu'à l'université",
+          "Transport de l'aéroport jusqu'à l'université",
         ],
         promise:
-          "Le projet parait plus premium parce que l'accompagnement ne s'arrete pas a l'admission.",
+          "L'accompagnement ne s'arrête pas à l'obtention du visa. Il reste visible jusqu'à l'arrivée.",
         idealFor:
-          "Ideal pour les parents qui veulent un suivi visible jusqu'aux premiers jours en Chine.",
+          "Idéal pour les familles qui veulent une transition plus sereine entre le Maroc et la vie universitaire en Chine.",
       },
     ],
-    comparisonTitle: "Comparez les deux formules en quelques secondes",
+    comparisonTitle: "Comparer Pack 1 et Pack 2 en quelques secondes",
     comparisonRows: [
       {
-        label: "Choix de l'universite et admission",
-        essential: "Inclus",
-        premium: "Inclus avec suivi renforce",
+        label: "Dossier et traduction",
+        pack1: "Inclus",
+        pack2: "Inclus",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "Visa etudiant",
-        essential: "Inclus",
-        premium: "Inclus",
+        label: "Visa étudiant",
+        pack1: "Inclus",
+        pack2: "Inclus",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "Billet d'avion",
-        essential: "Non inclus",
-        premium: "Aide a la reservation",
+        label: "Inscription universitaire",
+        pack1: "Inclus",
+        pack2: "Inclus",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "Suivi jusqu'a l'arrivee",
-        essential: "Cadre standard",
-        premium: "Accompagnement premium",
+        label: "Aide billet et voyage",
+        pack1: "Non inclus",
+        pack2: "Inclus",
+        pack1Included: false,
+        pack2Included: true,
+      },
+      {
+        label: "Transport aéroport-université",
+        pack1: "Non inclus",
+        pack2: "Inclus",
+        pack1Included: false,
+        pack2Included: true,
       },
     ],
-    consultationEyebrow: "Consultation gratuite",
+    recommendation:
+      "Le Pack 2 convient mieux aux familles qui veulent réduire l'incertitude jusqu'aux premiers jours sur place.",
+    consultationEyebrow: "Avant de choisir",
     consultationTitle:
-      "Commencez par un echange simple, puis choisissez le pack adapte quand le projet devient parfaitement clair.",
+      "La consultation gratuite sert à recommander le bon pack, pas à vous pousser vers la formule la plus chère.",
     consultationText:
-      "La consultation gratuite est la vraie premiere etape: comprendre la situation, rassurer la famille et orienter vers la meilleure formule avant toute decision.",
+      "Nous partons du profil de l'étudiant, du budget, des attentes des parents et du niveau d'accompagnement recherché, puis nous orientons vers la formule adaptée.",
     consultationPrimary: "Demander une consultation gratuite",
     consultationSecondary: "Voir la page services",
     consultationPageSecondary: "Commencer ma candidature",
   },
   en: {
     dir: "ltr",
-    eyebrow: "Clear packages, visible guarantees",
+    eyebrow: "Packages and commitments",
     title:
-      "Choose a formula that is easy to understand, then move forward with a structure that reassures parents and motivates the student.",
+      "Two simple formulas so the family knows exactly what it is paying for and how far the support goes.",
     description:
-      "The packages are presented as two clear levels of support: a strong base for the application journey, then a premium formula that continues through departure and arrival.",
+      "Package 1 covers the administrative core: file, translation, visa, and university registration. Package 2 adds travel help and accompaniment up to the university.",
     packages: [
       {
-        id: "essential",
-        name: "Essential Package",
-        price: "15,000 MAD",
-        audience: "For a clear and well-framed start",
+        id: "pack1",
+        name: "Package 1",
+        price: packageFacts.pack1Price,
+        audience: "File, admission, translation, and visa",
         summary:
-          "A structured formula for university choice, file preparation, translation, application, and the student visa.",
+          "A serious base for families who want to secure the administrative and university side of the project with structure.",
         includes: [
-          "University selection adapted to the profile",
-          "Preparation and review of the file",
-          "Translation and document organization",
-          "Follow-up on the university application",
-          "Visa support until submission",
+          "Application file fees",
+          "Translation and document preparation",
+          "Visa service",
+          "University registration service",
         ],
         promise:
-          "You move forward with a stronger file and clearer guidance at every important step.",
+          "The project moves forward with a structured file, a clear logic, and serious support up to admission.",
         idealFor:
-          "Ideal for families who want serious support on the decisive stages.",
+          "Ideal for families who want the essentials framed by one reliable advisor.",
       },
       {
-        id: "premium",
-        name: "Premium Package",
-        price: "23,000 MAD",
-        audience: "For fuller support up to departure and arrival",
+        id: "pack2",
+        name: "Package 2",
+        price: packageFacts.pack2Price,
+        audience: "Package 1 plus travel, transfer, and arrival",
         summary:
-          "Everything in the Essential Package, with additional comfort around travel, follow-up, and the first days in China.",
+          "The most reassuring formula for parents who want the support to continue through departure and into the university arrival stage.",
         includes: [
-          "Everything from the Essential Package",
-          "Ticket booking support",
-          "Follow-up from Morocco to the university",
-          "Arrival transfer organization",
-          "A more reassuring level of support for the family",
+          "Everything from Package 1",
+          "Ticket reservation help",
+          "Support from Morocco to the university",
+          "Airport-to-university transport",
         ],
         promise:
-          "The project feels more premium because support does not stop at admission.",
+          "Support does not stop at visa approval. It stays visible all the way to arrival.",
         idealFor:
-          "Ideal for parents who want visible follow-up through the first days in China.",
+          "Ideal for families who want a smoother transition between Morocco and university life in China.",
       },
     ],
-    comparisonTitle: "Compare both formulas in a few seconds",
+    comparisonTitle: "Compare Package 1 and Package 2 in seconds",
     comparisonRows: [
       {
-        label: "University choice and admission",
-        essential: "Included",
-        premium: "Included with stronger follow-up",
+        label: "File and translation",
+        pack1: "Included",
+        pack2: "Included",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
         label: "Student visa",
-        essential: "Included",
-        premium: "Included",
+        pack1: "Included",
+        pack2: "Included",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "Flight ticket",
-        essential: "Not included",
-        premium: "Help with booking",
+        label: "University registration",
+        pack1: "Included",
+        pack2: "Included",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "Follow-up until arrival",
-        essential: "Standard structure",
-        premium: "Premium support",
+        label: "Ticket and travel help",
+        pack1: "Not included",
+        pack2: "Included",
+        pack1Included: false,
+        pack2Included: true,
+      },
+      {
+        label: "Airport-to-university transfer",
+        pack1: "Not included",
+        pack2: "Included",
+        pack1Included: false,
+        pack2Included: true,
       },
     ],
-    consultationEyebrow: "Free consultation",
+    recommendation:
+      "Package 2 fits families who want less uncertainty through the first days on the ground.",
+    consultationEyebrow: "Before choosing",
     consultationTitle:
-      "Start with a simple conversation, then choose the right package once the project is fully clear.",
+      "The free consultation exists to recommend the right package, not to push you toward the most expensive one.",
     consultationText:
-      "The free consultation should feel like the real first step: understand the situation, reassure the family, and guide the best next move before any commitment.",
+      "We start from the student's profile, the budget, the parents' expectations, and the desired support level, then recommend the right formula.",
     consultationPrimary: "Request a free consultation",
     consultationSecondary: "View services page",
     consultationPageSecondary: "Start my application",
   },
   ar: {
     dir: "rtl",
-    eyebrow: "باقات واضحة وضمانات ظاهرة",
+    eyebrow: "الباقات والالتزامات",
     title:
-      "اختاروا الصيغة المناسبة ثم تقدموا داخل مسار واضح يطمئن الوالدين ويعطي الطالب رؤية عملية.",
+      "صيغتان واضحتان حتى تعرف العائلة بالضبط ماذا تدفع وما هو مستوى المرافقة حتى الوصول.",
     description:
-      "الباقات هنا معروضة كمستويين واضحين جدا: باقة اساسية لتامين الملف والمراحل الحاسمة، ثم باقة مميزة لمرافقة اشمل حتى السفر والوصول.",
+      "الباقة 1 تغطي القلب الإداري: الملف والترجمة والتأشيرة والتسجيل الجامعي. الباقة 2 تضيف جانب السفر والمرافقة حتى الجامعة.",
     packages: [
       {
-        id: "essential",
-        name: "الباقة الاساسية",
-        price: "15 000 درهم",
-        audience: "لبداية قوية ومنظمة",
+        id: "pack1",
+        name: "الباقة 1",
+        price: packageFacts.pack1Price,
+        audience: "الملف والقبول والترجمة والتأشيرة",
         summary:
-          "صيغة واضحة لاختيار الجامعة وتجهيز الملف والترجمة والتقديم ومرافقة التاشيرة.",
+          "قاعدة جدية للعائلات التي تريد تأمين الجانب الإداري والجامعي بمنهج واضح.",
         includes: [
-          "اختيار جامعات مناسبة للملف",
-          "تجهيز ومراجعة الملف",
-          "ترجمة وتنظيم الوثائق",
-          "متابعة التقديم الجامعي",
-          "مرافقة التاشيرة حتى الايداع",
+          "رسوم الملف",
+          "الترجمة وتجهيز الوثائق",
+          "خدمة التأشيرة",
+          "خدمة التسجيل الجامعي",
         ],
         promise:
-          "تتقدم العائلة داخل مسار اوضح وملف اكثر تماسكا في المراحل المهمة.",
+          "المشروع يتقدم بملف منظم ومنطق واضح ومتابعة جدية حتى القبول.",
         idealFor:
-          "مناسبة للعائلات التي تريد مرافقة جدية في الخطوات الحاسمة.",
+          "مناسبة للعائلات التي تريد ضبط الأساسيات مع جهة موثوقة واحدة.",
       },
       {
-        id: "premium",
-        name: "الباقة المميزة",
-        price: "23 000 درهم",
-        audience: "لمرافقة اكمل حتى السفر والوصول",
+        id: "pack2",
+        name: "الباقة 2",
+        price: packageFacts.pack2Price,
+        audience: "الباقة 1 مع السفر والنقل والوصول",
         summary:
-          "كل ما في الباقة الاساسية مع راحة اكبر في التذكرة والمتابعة والوصول واول الايام في الصين.",
+          "الصيغة الأكثر طمأنة للوالدين عندما يريدان استمرار المرافقة حتى السفر والدخول إلى الجامعة.",
         includes: [
-          "جميع عناصر الباقة الاساسية",
+          "كل عناصر الباقة 1",
           "مساعدة في حجز التذكرة",
-          "متابعة من المغرب حتى الجامعة",
-          "تنظيم النقل عند الوصول",
-          "مرافقة اكثر طمانينة للعائلة",
+          "متابعة من المغرب إلى الجامعة",
+          "النقل من المطار إلى الجامعة",
         ],
         promise:
-          "يبدو المشروع اكثر فخامة لان المرافقة لا تتوقف عند القبول.",
+          "المرافقة لا تتوقف عند التأشيرة، بل تبقى واضحة حتى الوصول.",
         idealFor:
-          "مناسبة للوالدين الذين يريدون متابعة واضحة حتى الايام الاولى في الصين.",
+          "مناسبة للعائلات التي تريد انتقالاً أكثر سلاسة بين المغرب والحياة الجامعية في الصين.",
       },
     ],
-    comparisonTitle: "قارنوا بين الصيغتين بسرعة",
+    comparisonTitle: "قارن بين الباقة 1 والباقة 2 بسرعة",
     comparisonRows: [
       {
-        label: "اختيار الجامعة والقبول",
-        essential: "مشمول",
-        premium: "مشمول مع متابعة اقوى",
+        label: "الملف والترجمة",
+        pack1: "مشمول",
+        pack2: "مشمول",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "تاشيرة الطالب",
-        essential: "مشمول",
-        premium: "مشمول",
+        label: "تأشيرة الطالب",
+        pack1: "مشمول",
+        pack2: "مشمول",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "تذكرة الطيران",
-        essential: "غير مشمول",
-        premium: "مساعدة في الحجز",
+        label: "التسجيل الجامعي",
+        pack1: "مشمول",
+        pack2: "مشمول",
+        pack1Included: true,
+        pack2Included: true,
       },
       {
-        label: "المتابعة حتى الوصول",
-        essential: "هيكل اساسي",
-        premium: "مرافقة مميزة",
+        label: "مساعدة التذكرة والسفر",
+        pack1: "غير مشمول",
+        pack2: "مشمول",
+        pack1Included: false,
+        pack2Included: true,
+      },
+      {
+        label: "النقل من المطار إلى الجامعة",
+        pack1: "غير مشمول",
+        pack2: "مشمول",
+        pack1Included: false,
+        pack2Included: true,
       },
     ],
-    consultationEyebrow: "استشارة مجانية",
+    recommendation:
+      "الباقة 2 تناسب أكثر العائلات التي تريد تقليل الغموض حتى الأيام الأولى في الصين.",
+    consultationEyebrow: "قبل الاختيار",
     consultationTitle:
-      "ابدؤوا اولا بمكالمة واضحة، ثم اختاروا الباقة المناسبة عندما تصبح الصورة مفهومة تماما.",
+      "الاستشارة المجانية موجودة لاقتراح الباقة المناسبة، لا لدفعكم نحو الصيغة الأغلى.",
     consultationText:
-      "الاستشارة المجانية هي الخطوة الطبيعية الاولى: فهم الوضع، طمانة العائلة، ثم تحديد الصيغة المناسبة قبل اي التزام.",
+      "ننطلق من ملف الطالب والميزانية وتوقعات الوالدين ومستوى المرافقة المطلوب، ثم نوجّهكم نحو الصيغة الأنسب.",
     consultationPrimary: "اطلب استشارة مجانية",
     consultationSecondary: "شاهد صفحة الخدمات",
     consultationPageSecondary: "ابدأ التقديم",
@@ -290,9 +336,8 @@ export default function HomeProofSection({
   mode?: Mode;
 }) {
   const t = copy[lang];
-  const [activeId, setActiveId] = useState(t.packages[0].id);
-  const activePackage =
-    t.packages.find((item) => item.id === activeId) ?? t.packages[0];
+  const [activeId, setActiveId] = useState<"pack1" | "pack2">("pack1");
+  const activePackage = t.packages.find((item) => item.id === activeId) ?? t.packages[0];
   const isArabic = t.dir === "rtl";
   const contactHref = `/${lang}/contact`;
   const servicesHref = `/${lang}/services`;
@@ -301,9 +346,7 @@ export default function HomeProofSection({
 
   return (
     <section
-      className={`${
-        isPage ? "bg-[#f4ede4]" : "bg-[#f2e7da]"
-      } py-14 text-zinc-900 sm:py-18`}
+      className={`${isPage ? "bg-[#f4ede4]" : "bg-[#f2e7da]"} py-14 text-zinc-900 sm:py-18`}
       dir={t.dir}
     >
       <Container>
@@ -325,49 +368,51 @@ export default function HomeProofSection({
 
             <div className="mt-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="grid gap-3">
-                {t.packages.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveId(item.id)}
-                    className={`rounded-[2rem] border px-5 py-5 transition-all duration-200 ${
-                      item.id === activeId
-                        ? "border-[#770304] bg-gradient-to-br from-[#770304] to-[#5a0203] text-white shadow-[0_24px_60px_rgba(119,3,4,0.25)] scale-[1.02]"
-                        : "border-zinc-200 bg-[#faf7f3] text-zinc-900 hover:border-[#B17F02] hover:shadow-md"
-                    } ${isArabic ? "text-right" : "text-left"}`}
-                  >
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                      <div>
-                        <p className="text-lg font-bold">{item.name}</p>
-                        <p
-                          className={`mt-1 text-xs uppercase tracking-[0.22em] ${
-                            item.id === activeId
-                              ? "text-white/55"
-                              : "text-zinc-500"
+                {t.packages.map((item) => {
+                  const isActive = item.id === activeId;
+
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveId(item.id)}
+                      className={`rounded-[2rem] border px-5 py-5 text-left transition-all duration-200 ${
+                        isActive
+                          ? "scale-[1.02] border-[#770304] bg-gradient-to-br from-[#770304] to-[#5a0203] text-white shadow-[0_24px_60px_rgba(119,3,4,0.25)]"
+                          : "border-zinc-200 bg-[#faf7f3] text-zinc-900 hover:border-[#B17F02] hover:shadow-md"
+                      } ${isArabic ? "text-right" : ""}`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="text-lg font-bold">{item.name}</p>
+                          <p
+                            className={`mt-1 text-xs uppercase tracking-[0.22em] ${
+                              isActive ? "text-white/60" : "text-zinc-500"
+                            }`}
+                          >
+                            {item.audience}
+                          </p>
+                        </div>
+                        <span
+                          className={`rounded-full px-3 py-1 text-sm font-semibold ${
+                            isActive
+                              ? "bg-gradient-to-r from-[#B17F02] to-[#C59F41] text-black shadow-lg"
+                              : "bg-white text-zinc-900"
                           }`}
                         >
-                          {item.audience}
-                        </p>
+                          {item.price}
+                        </span>
                       </div>
-                      <span
-                        className={`rounded-full px-3 py-1 text-sm font-semibold ${
-                          item.id === activeId
-                            ? "bg-gradient-to-r from-[#B17F02] to-[#C59F41] text-black shadow-lg"
-                            : "bg-white text-zinc-900"
+                      <p
+                        className={`mt-4 text-sm leading-7 ${
+                          isActive ? "text-white/78" : "text-zinc-600"
                         }`}
                       >
-                        {item.price}
-                      </span>
-                    </div>
-                    <p
-                      className={`mt-4 text-sm leading-7 ${
-                        item.id === activeId ? "text-white/78" : "text-zinc-600"
-                      }`}
-                    >
-                      {item.summary}
-                    </p>
-                  </button>
-                ))}
+                        {item.summary}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
 
               <div className="relative overflow-hidden rounded-[2.2rem] bg-[#120405] p-6 text-white shadow-[0_28px_70px_rgba(0,0,0,0.2)] sm:p-7">
@@ -387,9 +432,7 @@ export default function HomeProofSection({
                   <h3 className="display-title text-2xl font-black leading-tight sm:text-3xl">
                     {activePackage.idealFor}
                   </h3>
-                  <p className="text-sm leading-8 text-white/74">
-                    {activePackage.promise}
-                  </p>
+                  <p className="text-sm leading-8 text-white/74">{activePackage.promise}</p>
 
                   <div className="grid gap-3">
                     {activePackage.includes.map((item) => (
@@ -413,33 +456,37 @@ export default function HomeProofSection({
               </p>
             </div>
 
-            <div className="mt-6 overflow-hidden rounded-[2rem] border border-zinc-200 shadow-xl">
-              {/* Table Header */}
+            <div className="mt-6 space-y-3 md:hidden">
+              {t.comparisonRows.map((row) => (
+                <article
+                  key={row.label}
+                  className="rounded-[1.8rem] border border-zinc-200 bg-[#faf9f7] p-4 shadow-sm"
+                >
+                  <h4 className="text-sm font-semibold text-zinc-900">{row.label}</h4>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <MobileComparisonCell
+                      name={t.packages[0].name}
+                      included={row.pack1Included}
+                      text={row.pack1}
+                    />
+                    <MobileComparisonCell
+                      name={t.packages[1].name}
+                      included={row.pack2Included}
+                      text={row.pack2}
+                      premium
+                    />
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-6 hidden overflow-hidden rounded-[2rem] border border-zinc-200 shadow-xl md:block">
               <div className="grid grid-cols-[1.1fr_0.95fr_0.95fr] bg-gradient-to-r from-[#770304] to-[#5a0203] text-white">
-                <div className="px-5 py-5 text-sm font-semibold text-white/70">
-                  {/* Empty corner */}
-                </div>
-                <div className="px-5 py-5 text-center">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-white/60">Pack Essentiel</span>
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-bold">15,000 MAD</span>
-                  </div>
-                </div>
-                <div className="px-5 py-5 text-center">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="relative text-xs font-semibold uppercase tracking-wider text-white/90">
-                      Pack Premium
-                      <span className="absolute -right-1 -top-3 flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#B17F02] opacity-75"></span>
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#B17F02]"></span>
-                      </span>
-                    </span>
-                    <span className="rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-3 py-1 text-sm font-bold text-black shadow-lg">23,000 MAD</span>
-                  </div>
-                </div>
+                <div className="px-5 py-5 text-sm font-semibold text-white/70" />
+                <ColumnHeading name={t.packages[0].name} price={t.packages[0].price} />
+                <ColumnHeading name={t.packages[1].name} price={t.packages[1].price} premium />
               </div>
 
-              {/* Table Rows */}
               {t.comparisonRows.map((row, index) => (
                 <div
                   key={row.label}
@@ -448,48 +495,31 @@ export default function HomeProofSection({
                   }`}
                 >
                   <div className="flex items-center px-5 py-5">
-                    <span className="text-sm font-semibold text-zinc-900">
-                      {row.label}
-                    </span>
+                    <span className="text-sm font-semibold text-zinc-900">{row.label}</span>
                   </div>
-                  <div className="flex items-center justify-center px-5 py-5">
-                    <div className="flex items-center gap-2 text-sm text-zinc-700">
-                      {row.essential.includes("Non") || row.essential.includes("standard") ? (
-                        <>
-                          <svg className="h-5 w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                          <span className="text-zinc-500">{row.essential}</span>
-                        </>
-                      ) : (
-                        <>
-                          <svg className="h-5 w-5 text-[#B17F02]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="font-medium">{row.essential}</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-center px-5 py-5">
-                    <div className="flex items-center gap-2 text-sm">
-                      <svg className="h-5 w-5 text-[#B17F02]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="font-semibold text-[#770304]">{row.premium}</span>
-                    </div>
-                  </div>
+                  <ComparisonCell included={row.pack1Included} text={row.pack1} />
+                  <ComparisonCell included={row.pack2Included} text={row.pack2} premium />
                 </div>
               ))}
             </div>
 
-            {/* Premium badge at bottom */}
-            <div className={`mt-5 flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#B17F02]/10 to-[#B17F02]/5 px-5 py-4 ${isArabic ? "flex-row-reverse" : ""}`}>
+            <div
+              className={`mt-5 flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#B17F02]/10 to-[#B17F02]/5 px-5 py-4 ${
+                isArabic ? "flex-row-reverse" : ""
+              }`}
+            >
               <svg className="h-6 w-6 text-[#B17F02]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
               <p className="text-sm font-medium text-zinc-700">
-                <span className="font-semibold text-[#770304]">Recommendation:</span> Le Pack Premium offre un accompagnement complet jusqu'à votre arrivée en Chine
+                <span className="font-semibold text-[#770304]">
+                  {lang === "fr"
+                    ? "Recommandation:"
+                    : lang === "en"
+                      ? "Recommendation:"
+                      : "التوصية:"}
+                </span>{" "}
+                {t.recommendation}
               </p>
             </div>
           </div>
@@ -523,9 +553,7 @@ export default function HomeProofSection({
                   href={isPage ? applyHref : servicesHref}
                   className="w-full rounded-full border border-white/18 bg-white/10 px-6 py-3 text-center font-medium text-white transition hover:bg-white/15 sm:w-auto"
                 >
-                  {isPage
-                    ? t.consultationPageSecondary
-                    : t.consultationSecondary}
+                  {isPage ? t.consultationPageSecondary : t.consultationSecondary}
                 </Link>
               </div>
             </div>
@@ -533,5 +561,119 @@ export default function HomeProofSection({
         </div>
       </Container>
     </section>
+  );
+}
+
+function ColumnHeading({
+  name,
+  price,
+  premium = false,
+}: {
+  name: string;
+  price: string;
+  premium?: boolean;
+}) {
+  return (
+    <div className="px-5 py-5 text-center">
+      <div className="flex flex-col items-center gap-2">
+        <span className={`text-xs font-semibold uppercase tracking-wider ${premium ? "text-white/90" : "text-white/60"}`}>
+          {name}
+        </span>
+        <span
+          className={`rounded-full px-3 py-1 text-sm font-bold ${
+            premium
+              ? "bg-gradient-to-r from-[#B17F02] to-[#C59F41] text-black shadow-lg"
+              : "bg-white/20"
+          }`}
+        >
+          {price}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function MobileComparisonCell({
+  name,
+  included,
+  text,
+  premium = false,
+}: {
+  name: string;
+  included: boolean;
+  text: string;
+  premium?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-[1.4rem] border px-4 py-3 ${
+        premium
+          ? "border-[#B17F02]/30 bg-[#fff7e7]"
+          : "border-zinc-200 bg-white"
+      }`}
+    >
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+        {name}
+      </p>
+      <div className="mt-3 flex items-center gap-2 text-sm">
+        <svg
+          className={`h-5 w-5 ${included ? "text-[#B17F02]" : "text-zinc-400"}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2.5}
+        >
+          {included ? (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          )}
+        </svg>
+        <span className={premium ? "font-semibold text-[#770304]" : "text-zinc-700"}>
+          {text}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ComparisonCell({
+  included,
+  text,
+  premium = false,
+}: {
+  included: boolean;
+  text: string;
+  premium?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-center px-5 py-5">
+      <div className="flex items-center gap-2 text-sm">
+        <svg
+          className={`h-5 w-5 ${included ? "text-[#B17F02]" : "text-zinc-400"}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2.5}
+        >
+          {included ? (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          )}
+        </svg>
+        <span
+          className={
+            premium
+              ? "font-semibold text-[#770304]"
+              : included
+                ? "font-medium text-zinc-700"
+                : "text-zinc-500"
+          }
+        >
+          {text}
+        </span>
+      </div>
+    </div>
   );
 }

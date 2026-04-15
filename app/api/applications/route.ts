@@ -5,11 +5,25 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
+    if (body?.website && String(body.website).trim() !== "") {
+      return Response.json({ ok: true }, { status: 202 });
+    }
+
     const required = ["fullName", "phone", "city", "studyLevel", "objective"];
-    for (const k of required) {
-      if (!body?.[k] || String(body[k]).trim() === "") {
-        return Response.json({ error: `Missing field: ${k}` }, { status: 400 });
+    for (const key of required) {
+      if (!body?.[key] || String(body[key]).trim() === "") {
+        return Response.json(
+          { errorCode: "missing_field", field: key },
+          { status: 400 }
+        );
       }
+    }
+
+    if (body?.consent !== "accepted") {
+      return Response.json(
+        { errorCode: "missing_field", field: "consent" },
+        { status: 400 }
+      );
     }
 
     const created = await prisma.application.create({
@@ -30,18 +44,9 @@ export async function POST(req: Request) {
     return Response.json({ ok: true, id: created.id }, { status: 201 });
   } catch (error) {
     if (isDatabaseUnavailable(error)) {
-      return Response.json(
-        {
-          error:
-            "Le formulaire est temporairement indisponible. Merci de nous écrire directement sur WhatsApp au +212 638-335452 pendant que nous rétablissons la connexion.",
-        },
-        { status: 503 }
-      );
+      return Response.json({ errorCode: "db_unavailable" }, { status: 503 });
     }
 
-    return Response.json(
-      { error: "Une erreur est survenue. Merci de réessayer." },
-      { status: 500 }
-    );
+    return Response.json({ errorCode: "unknown_error" }, { status: 500 });
   }
 }

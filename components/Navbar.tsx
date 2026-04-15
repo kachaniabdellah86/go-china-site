@@ -1,61 +1,76 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import BrandLogo from "./BrandLogo";
-import Container from "./Container";
 import LanguageSwitch from "./LanguageSwitch";
+import {
+  buildWhatsappUrl,
+  founderName,
+  Locale,
+} from "@/lib/yalla";
 
 type Props = {
-  lang: "fr" | "en" | "ar";
+  lang: Locale;
 };
 
-const nav = {
+const navigation = {
   fr: [
     { href: "/fr", label: "Accueil" },
+    { href: "/fr/about", label: "À propos" },
     { href: "/fr/services", label: "Services" },
-    { href: "/fr/apply", label: "Postuler" },
+    { href: "/fr/faq", label: "FAQ" },
+    { href: "/fr/apply", label: "Candidature" },
     { href: "/fr/contact", label: "Contact" },
   ],
   en: [
     { href: "/en", label: "Home" },
+    { href: "/en/about", label: "About" },
     { href: "/en/services", label: "Services" },
+    { href: "/en/faq", label: "FAQ" },
     { href: "/en/apply", label: "Apply" },
     { href: "/en/contact", label: "Contact" },
   ],
   ar: [
     { href: "/ar", label: "الرئيسية" },
+    { href: "/ar/about", label: "من نحن" },
     { href: "/ar/services", label: "الخدمات" },
-    { href: "/ar/apply", label: "قدّم الطلب" },
+    { href: "/ar/faq", label: "الأسئلة الشائعة" },
+    { href: "/ar/apply", label: "التقديم" },
     { href: "/ar/contact", label: "تواصل معنا" },
   ],
 } as const;
 
-const waPrimary = "https://wa.me/212638335452";
 const meta = {
   fr: {
-    strapline: "Etudes en Chine",
+    strapline: "Bourses, admission, visa, arrivée",
+    founder: `Guidance fondée par ${founderName}`,
     whatsapp: "Consultation gratuite",
+    whatsappShort: "Consultation",
     navigation: "Navigation",
     menuHint: "Choisissez une page ou changez de langue.",
   },
   en: {
-    strapline: "Study in China",
+    strapline: "Scholarship, admission, visa, arrival",
+    founder: `Guidance founded by ${founderName}`,
     whatsapp: "Free consultation",
+    whatsappShort: "Consultation",
     navigation: "Navigation",
     menuHint: "Choose a page or switch language.",
   },
   ar: {
-    strapline: "الدراسة في الصين",
+    strapline: "منحة، قبول، تأشيرة، وصول",
+    founder: `إشراف مؤسس من ${founderName}`,
     whatsapp: "استشارة مجانية",
+    whatsappShort: "استشارة",
     navigation: "التنقل",
-    menuHint: "اختر صفحة أو غيّر اللغة.",
+    menuHint: "اختر الصفحة أو غيّر اللغة.",
   },
 } as const;
 
 export default function Navbar({ lang }: Props) {
-  const items = nav[lang];
+  const items = navigation[lang];
   const t = meta[lang];
   const pathname = usePathname() || `/${lang}`;
   const [open, setOpen] = useState(false);
@@ -63,70 +78,93 @@ export default function Navbar({ lang }: Props) {
   const isArabic = lang === "ar";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  const whatsappHref = buildWhatsappUrl();
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#070707]/95 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl border-b border-white/10"
-          : "bg-[#070707]/80 shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-lg border-b border-black/10"
+          ? "border-b border-white/10 bg-[#050505]/92 shadow-[0_12px_42px_rgba(0,0,0,0.28)] backdrop-blur-xl"
+          : "border-b border-white/6 bg-[#050505]/78 backdrop-blur-lg"
       }`}
     >
-      <Container>
-        <div className="flex min-h-[76px] items-center justify-between gap-4 py-3">
-          <div className="flex min-w-0 items-center gap-4">
-            <Link href={`/${lang}`} className="shrink-0 group">
-              <BrandLogo size="md" variant="dark" />
+      <div className="mx-auto w-full max-w-[1360px] px-4 sm:px-6 xl:px-8">
+        <div className="grid min-h-[84px] grid-cols-[auto_1fr_auto] items-center gap-3 py-3 xl:gap-5">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link
+              href={`/${lang}`}
+              className="shrink-0"
+              data-track="nav_logo"
+              data-track-value={lang}
+            >
+              <BrandLogo size="sm" variant="dark" />
             </Link>
-
-            <div className="hidden min-[1180px]:block">
-              <p className="section-eyebrow text-[11px] font-semibold uppercase tracking-[0.3em] text-white/40 group-hover:text-white/60 transition-colors duration-200">
-                {t.strapline}
-              </p>
-            </div>
           </div>
 
-          <nav className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-sm md:flex">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded-full px-4 py-2 font-medium transition-all duration-200 ${
-                  pathname === item.href
-                    ? "bg-white text-black shadow-lg shadow-white/10 scale-[1.02]"
-                    : "text-white/75 hover:bg-white/[0.08] hover:text-white hover:scale-[1.02]"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden min-w-0 flex-1 justify-center xl:flex">
+            <nav className="flex min-w-0 items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-[15px] shadow-[0_18px_40px_rgba(0,0,0,0.14)]">
+              {items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  data-track="nav_link"
+                  data-track-value={item.href}
+                  className={`rounded-full px-3.5 py-2 font-medium transition-all duration-200 2xl:px-4 ${
+                    pathname === item.href
+                      ? "bg-white text-black shadow-lg shadow-white/10"
+                      : "text-white/74 hover:bg-white/[0.08] hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden shrink-0 items-center gap-2 xl:flex 2xl:gap-3">
             <LanguageSwitch variant="dark" />
             <a
-              href={waPrimary}
-              className="relative rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-5 py-2.5 text-sm font-semibold text-black shadow-[0_8px_24px_rgba(177,127,2,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(177,127,2,0.45)] animate-pulse-gold"
+              href={whatsappHref}
+              data-track="nav_whatsapp_cta"
+              data-track-value={lang}
+              className="rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-5 py-2.5 text-sm font-semibold text-black shadow-[0_10px_28px_rgba(177,127,2,0.32)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(177,127,2,0.42)]"
               target="_blank"
               rel="noreferrer"
             >
-              <span className="relative z-10">{t.whatsapp}</span>
+              <span className="2xl:hidden">{t.whatsappShort}</span>
+              <span className="hidden 2xl:inline">{t.whatsapp}</span>
             </a>
           </div>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex shrink-0 items-center gap-2 xl:hidden">
             <LanguageSwitch variant="dark" compact />
             <button
               type="button"
               onClick={() => setOpen((value) => !value)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-200 hover:bg-white/10 hover:scale-105 active:scale-95"
-              aria-label={open ? "Close menu" : "Open menu"}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:bg-white/10"
+              aria-label={
+                open
+                  ? lang === "fr"
+                    ? "Fermer le menu"
+                    : lang === "en"
+                      ? "Close menu"
+                      : "أغلق القائمة"
+                  : lang === "fr"
+                    ? "Ouvrir le menu"
+                    : lang === "en"
+                      ? "Open menu"
+                      : "افتح القائمة"
+              }
               aria-expanded={open}
             >
               <span className="relative block h-4 w-5">
@@ -137,7 +175,7 @@ export default function Navbar({ lang }: Props) {
                 />
                 <span
                   className={`absolute left-0 top-[7px] h-0.5 w-full rounded-full bg-current transition-all duration-200 ${
-                    open ? "opacity-0 scale-0" : ""
+                    open ? "scale-0 opacity-0" : ""
                   }`}
                 />
                 <span
@@ -150,18 +188,28 @@ export default function Navbar({ lang }: Props) {
           </div>
         </div>
 
-        {open && (
-          <div className="pb-4 md:hidden animate-fade-in-down">
+        {open ? (
+          <div className="pb-4 animate-fade-in-down xl:hidden">
             <div
-              className={`rounded-[1.75rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.03] p-4 shadow-2xl backdrop-blur-xl ${
+              className={`rounded-[1.9rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-4 shadow-2xl backdrop-blur-xl ${
                 isArabic ? "text-right" : "text-left"
               }`}
             >
+              <div className="mb-4 border-b border-white/10 pb-4">
+                <div className={`mb-3 ${isArabic ? "flex justify-end" : ""}`}>
+                  <BrandLogo size="sm" variant="dark" />
+                </div>
+                <p className="section-eyebrow text-[11px] font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
+                  {t.strapline}
+                </p>
+                <p className="mt-2 text-sm text-white/68">{t.founder}</p>
+              </div>
+
               <div className="mb-3 border-b border-white/10 pb-3">
-                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
+                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
                   {t.navigation}
                 </p>
-                <p className="mt-1 text-sm text-white/75">{t.menuHint}</p>
+                <p className="mt-1 text-sm text-white/74">{t.menuHint}</p>
               </div>
 
               <div className="flex flex-col gap-2">
@@ -170,10 +218,12 @@ export default function Navbar({ lang }: Props) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    data-track="mobile_nav_link"
+                    data-track-value={item.href}
                     className={`rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
                       pathname === item.href
                         ? "bg-white text-black shadow-lg"
-                        : "text-white/90 hover:bg-white/10 hover:text-[#B17F02]"
+                        : "text-white/88 hover:bg-white/10 hover:text-[#EDB80B]"
                     }`}
                   >
                     {item.label}
@@ -182,8 +232,10 @@ export default function Navbar({ lang }: Props) {
               </div>
 
               <a
-                href={waPrimary}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-4 py-3 text-sm font-semibold text-black shadow-[0_12px_30px_rgba(177,127,2,0.3)] transition-all duration-200 hover:shadow-[0_16px_40px_rgba(177,127,2,0.45)] hover:scale-[1.02] active:scale-[0.98]"
+                href={whatsappHref}
+                data-track="mobile_nav_whatsapp_cta"
+                data-track-value={lang}
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-4 py-3 text-sm font-semibold text-black shadow-[0_12px_30px_rgba(177,127,2,0.3)] transition hover:opacity-95"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -191,8 +243,8 @@ export default function Navbar({ lang }: Props) {
               </a>
             </div>
           </div>
-        )}
-      </Container>
+        ) : null}
+      </div>
     </header>
   );
 }

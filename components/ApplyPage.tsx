@@ -1,31 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import Container from "@/components/Container";
-import { ArabicText, ArabicStepNumber } from "@/lib/ArabicText";
-
-// Helper to extract and render step titles with proper number handling for Arabic
-function StepTitle({ title, isArabic }: { title: string; isArabic: boolean }) {
-  if (!isArabic) {
-    return <span>{title}</span>;
-  }
-  
-  const match = title.match(/^(\d+)\.\s*(.+)$/);
-  if (match) {
-    const [, number, text] = match;
-    return (
-      <>
-        <ArabicStepNumber number={`${number}.`} />
-        {text}
-      </>
-    );
-  }
-  
-  return <span>{title}</span>;
-}
-
-
-type Locale = "fr" | "en" | "ar";
+import {
+  buildWhatsappUrl,
+  Locale,
+  primaryWhatsappNumberDisplay,
+  supportedCities,
+} from "@/lib/yalla";
 
 type Copy = {
   dir: "ltr" | "rtl";
@@ -49,6 +33,7 @@ type Copy = {
     supportTitle: string;
     supportText: string;
     supportButton: string;
+    supportCitiesTitle: string;
   };
   form: {
     eyebrow: string;
@@ -57,12 +42,17 @@ type Copy = {
     chips: string[];
     success: string;
     fallbackError: string;
+    unavailableError: string;
     objectiveLabel: string;
     objectivePlaceholder: string;
     objectives: { value: string; label: string }[];
     messageLabel: string;
     messagePlaceholder: string;
     consent: string;
+    privacyPrefix: string;
+    privacyLink: string;
+    reassurance: string;
+    whatsappAlternative: string;
     submit: string;
     submitting: string;
     fields: {
@@ -86,92 +76,100 @@ const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
     hero: {
-      badge: "Candidature • Etudes en Chine",
+      badge: "Candidature • Études en Chine",
       title:
-        "Envoyez votre demande et recevez une orientation claire avant le dossier complet.",
+        "Envoyez une demande structurée pour que nous puissions vous orienter sérieusement avant le dossier complet.",
       description:
-        "Cette candidature nous aide a comprendre votre niveau, votre projet et le type d'accompagnement le plus adapte pour avancer serieusement.",
+        "La candidature ne sert pas à vous compliquer la vie. Elle sert à comprendre votre niveau, votre projet, vos priorités et le niveau d'accompagnement attendu par votre famille.",
       stats: [
-        { label: "Formulaire rapide", value: "Seulement les infos utiles" },
-        { label: "Reponse claire", value: "Sous 24 a 48h" },
-        { label: "Alternative directe", value: "WhatsApp reste visible" },
+        { label: "Objectif", value: "Comprendre le profil avant le pack" },
+        { label: "Lecture", value: "Bourse, université, visa, arrivée" },
+        { label: "Alternative", value: "WhatsApp direct si besoin" },
       ],
       panelEyebrow: "Ce que vous lancez ici",
-      panelTitle: "Une premiere demande simple avant le dossier complet.",
+      panelTitle: "Une demande claire avant toute décision engageante.",
       panelItems: [
-        "Votre niveau et votre objectif",
-        "Votre ville et votre domaine vise",
-        "Un premier message pour cadrer la suite",
+        "Votre niveau d'étude et votre projet",
+        "Votre ville, domaine et attentes principales",
+        "Vos questions sur bourse, université, visa ou arrivée",
       ],
     },
     side: {
       beforeEyebrow: "Avant d'envoyer",
-      beforeTitle: "Ce qu'il faut nous dire pour bien vous orienter.",
+      beforeTitle: "Nous avons besoin de peu d'informations, mais de bonnes informations.",
       beforeText:
-        "Pas besoin de remplir un long dossier maintenant. Nous avons seulement besoin des informations qui nous permettent de vous repondre utilement.",
+        "Pas besoin de préparer tout votre dossier maintenant. Nous avons surtout besoin de ce qui permet d'orienter correctement la suite.",
       beforeItems: [
-        "Nom complet et telephone",
-        "Ville et niveau d'etude",
-        "Domaine ou specialite visee",
-        "Objectif en Chine et premieres questions",
+        "Nom complet et téléphone principal",
+        "Ville actuelle et niveau d'étude",
+        "Domaine visé ou spécialité recherchée",
+        "Objectif: bourse, université, conseil, ou autre besoin",
       ],
-      nextEyebrow: "Apres l'envoi",
+      nextEyebrow: "Après l'envoi",
       nextTitle: "Ce qui se passe ensuite",
       steps: [
         {
-          title: "01. Nous lisons votre demande",
-          desc: "Nous regardons les points essentiels pour comprendre rapidement votre profil.",
+          title: "01. Lecture du profil",
+          desc: "Nous lisons la demande pour comprendre le projet et les zones à clarifier.",
         },
         {
-          title: "02. Nous revenons vers vous",
-          desc: "Un echange sur WhatsApp ou par telephone permet de clarifier la bonne suite.",
+          title: "02. Retour personnalisé",
+          desc: "Un échange sur WhatsApp ou par téléphone permet de poser les bonnes bases avant d'aller plus loin.",
         },
         {
-          title: "03. Nous vous orientons",
-          desc: "Vous savez plus clairement quelle formule choisir et comment avancer proprement.",
+          title: "03. Recommandation",
+          desc: "Nous orientons vers le bon pack, la bonne logique d'université et la prochaine étape utile.",
         },
       ],
-      supportTitle: "Vous preferez commencer directement ?",
+      supportTitle: "Vous préférez commencer directement ?",
       supportText:
-        "Si vous avez deja une question precise, ouvrez WhatsApp et expliquez-nous votre projet sans attendre.",
-      supportButton: "WhatsApp : +212 638-335452",
+        "Si vous avez déjà une question précise sur la bourse, le visa ou le voyage, ouvrez WhatsApp et expliquez votre situation sans attendre.",
+      supportButton: `WhatsApp : ${primaryWhatsappNumberDisplay}`,
+      supportCitiesTitle: "Villes déjà présentes dans notre parcours de service",
     },
     form: {
       eyebrow: "Votre demande",
       title: "Envoyer ma candidature",
       description:
-        "Remplissez l'essentiel. Nous utilisons ces informations pour vous repondre de facon plus claire, plus utile et plus strategique.",
-      chips: ["Rapide a remplir", "Mobile friendly", "Parents & etudiants"],
-      success: "Merci, votre demande a bien ete envoyee.",
-      fallbackError: "Erreur",
+        "Remplissez l'essentiel. Nous utilisons ces informations pour vous répondre plus vite et de manière plus utile.",
+      chips: ["Rapide à remplir", "Pensé mobile", "Parents & étudiants"],
+      success: "Merci, votre demande a bien été envoyée.",
+      fallbackError: "Une erreur est survenue. Merci de réessayer ou de nous écrire sur WhatsApp.",
+      unavailableError:
+        "Le formulaire est momentanément indisponible. Merci de nous écrire directement sur WhatsApp.",
       objectiveLabel: "Objectif *",
       objectivePlaceholder: "Choisir...",
       objectives: [
-        { value: "Etudes universitaires", label: "Etudes universitaires" },
-        { value: "Cours de langue", label: "Cours de langue" },
-        { value: "Je veux d'abord des conseils", label: "Je veux d'abord des conseils" },
-        { value: "Autre", label: "Autre" },
+        { value: "Scholarship", label: "Chercher une bourse" },
+        { value: "University", label: "Trouver une bonne université" },
+        { value: "Visa", label: "Comprendre le visa" },
+        { value: "Advice", label: "Recevoir un conseil d'abord" },
       ],
       messageLabel: "Message",
       messagePlaceholder:
-        "Decrivez brievement votre projet, vos questions sur le visa, la bourse, le cout ou le type d'universite recherche",
+        "Expliquez brièvement votre projet, vos questions sur la bourse, l'université, le visa, le coût ou l'arrivée",
       consent:
-        "En envoyant ce formulaire, vous acceptez d'etre contacte par WhatsApp ou telephone pour la suite du projet.",
+        "En envoyant ce formulaire, vous acceptez d'être recontacté par WhatsApp ou téléphone pour la suite du projet.",
+      privacyPrefix: "J'ai lu la",
+      privacyLink: "politique de confidentialité",
+      reassurance:
+        "Aucun paiement n'est demandé à cette étape. Le but est d'évaluer le profil et de recommander la bonne suite.",
+      whatsappAlternative: "Vous préférez parler directement sur WhatsApp ?",
       submit: "Envoyer ma demande",
       submitting: "Envoi...",
       fields: {
         fullName: "Nom complet *",
         fullNamePlaceholder: "Votre nom complet",
-        phone: "Telephone / WhatsApp *",
+        phone: "Téléphone / WhatsApp *",
         phonePlaceholder: "+212...",
         email: "Email",
         emailPlaceholder: "contact@exemple.com",
         city: "Ville *",
         cityPlaceholder: "Agadir, Casablanca...",
-        studyLevel: "Niveau d'etude *",
+        studyLevel: "Niveau d'étude *",
         studyLevelPlaceholder: "Bac, Licence, Master...",
-        fieldOfStudy: "Domaine vise",
-        fieldOfStudyPlaceholder: "Medecine, ingenierie, commerce...",
+        fieldOfStudy: "Domaine visé",
+        fieldOfStudyPlaceholder: "Médecine, ingénierie, commerce...",
       },
     },
   },
@@ -180,75 +178,83 @@ const copy: Record<Locale, Copy> = {
     hero: {
       badge: "Application • Study in China",
       title:
-        "Send your request and get a clear direction before the full application file.",
+        "Send a structured request so we can guide you seriously before the full file begins.",
       description:
-        "This application helps us understand your level, your project, and the type of support that fits best so you can move forward seriously.",
+        "The application is not here to complicate things. It exists to understand your level, your project, your priorities, and the support level expected by your family.",
       stats: [
-        { label: "Fast form", value: "Only useful information" },
-        { label: "Clear reply", value: "Within 24 to 48h" },
-        { label: "Direct alternative", value: "WhatsApp stays visible" },
+        { label: "Goal", value: "Understand the profile before the package" },
+        { label: "Reading", value: "Scholarship, university, visa, arrival" },
+        { label: "Alternative", value: "Direct WhatsApp when needed" },
       ],
-      panelEyebrow: "What you begin here",
-      panelTitle: "A simple first request before the full file.",
+      panelEyebrow: "What starts here",
+      panelTitle: "A clear request before any heavy commitment.",
       panelItems: [
-        "Your level and your objective",
-        "Your city and target field",
-        "A first message to frame the next step",
+        "Your study level and project",
+        "Your city, field, and main expectations",
+        "Your questions about scholarship, university, visa, or arrival",
       ],
     },
     side: {
       beforeEyebrow: "Before you submit",
-      beforeTitle: "What we need to know to guide you well.",
+      beforeTitle: "We need only a few details, but they need to be the right ones.",
       beforeText:
-        "There is no need to fill a heavy file now. We only need the information that helps us answer you in a useful way.",
+        "There is no need to prepare the whole file now. We mainly need the information that helps us orient the next step correctly.",
       beforeItems: [
-        "Full name and phone number",
-        "City and study level",
+        "Full name and main phone number",
+        "Current city and study level",
         "Target field or specialization",
-        "Objective in China and first questions",
+        "Objective: scholarship, university, advice, or another need",
       ],
-      nextEyebrow: "After you submit",
+      nextEyebrow: "After submission",
       nextTitle: "What happens next",
       steps: [
         {
-          title: "01. We read your request",
-          desc: "We review the essential points to understand your profile quickly.",
+          title: "01. Profile review",
+          desc: "We read the request to understand the project and the areas that need clarification.",
         },
         {
-          title: "02. We contact you back",
-          desc: "A WhatsApp or phone exchange helps clarify the right next step.",
+          title: "02. Personal follow-up",
+          desc: "A WhatsApp or phone exchange helps build the right foundation before going further.",
         },
         {
-          title: "03. We guide you",
-          desc: "You understand more clearly which formula fits and how to move forward properly.",
+          title: "03. Recommendation",
+          desc: "We point you toward the right package, the right university logic, and the next useful step.",
         },
       ],
-      supportTitle: "Would you rather start directly?",
+      supportTitle: "Would you rather begin directly?",
       supportText:
-        "If you already have a precise question, open WhatsApp and tell us about your project right away.",
-      supportButton: "WhatsApp: +212 638-335452",
+        "If you already have a precise question about scholarship, visa, or travel, open WhatsApp and tell us about your situation immediately.",
+      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
+      supportCitiesTitle: "Cities already present in our service route",
     },
     form: {
       eyebrow: "Your request",
       title: "Send my application",
       description:
-        "Fill in the essentials. We use this information to answer in a clearer, more useful, and more strategic way.",
-      chips: ["Quick to complete", "Mobile friendly", "Parents & students"],
+        "Fill in the essentials. We use this information to answer faster and in a more useful way.",
+      chips: ["Quick to complete", "Mobile first", "Parents & students"],
       success: "Thank you, your request has been sent.",
-      fallbackError: "Error",
+      fallbackError: "Something went wrong. Please try again or contact us on WhatsApp.",
+      unavailableError:
+        "The form is temporarily unavailable. Please contact us directly on WhatsApp.",
       objectiveLabel: "Objective *",
       objectivePlaceholder: "Select...",
       objectives: [
-        { value: "University studies", label: "University studies" },
-        { value: "Language courses", label: "Language courses" },
-        { value: "I need advice first", label: "I need advice first" },
-        { value: "Other", label: "Other" },
+        { value: "Scholarship", label: "Look for a scholarship" },
+        { value: "University", label: "Find a strong university" },
+        { value: "Visa", label: "Understand the visa process" },
+        { value: "Advice", label: "Get advice first" },
       ],
       messageLabel: "Message",
       messagePlaceholder:
-        "Briefly describe your project or your questions about visa, scholarship, cost, or universities",
+        "Briefly explain your project or your questions about scholarship, university, visa, cost, or arrival",
       consent:
         "By sending this form, you agree to be contacted by WhatsApp or phone for the next step of the project.",
+      privacyPrefix: "I have read the",
+      privacyLink: "privacy policy",
+      reassurance:
+        "No payment is requested at this stage. The goal is to assess the profile and recommend the right next step.",
+      whatsappAlternative: "Would you rather speak directly on WhatsApp?",
       submit: "Send my request",
       submitting: "Sending...",
       fields: {
@@ -272,88 +278,95 @@ const copy: Record<Locale, Copy> = {
     hero: {
       badge: "التقديم • الدراسة في الصين",
       title:
-        "ارسل طلبك واحصل على توجيه واضح قبل الملف الكامل.",
+        "أرسل طلباً منظماً حتى نستطيع توجيهك بجدية قبل الدخول في الملف الكامل.",
       description:
-        "هذا الطلب يساعدنا على فهم مستواك ومشروعك ونوع المرافقة المناسب حتى تتقدم بشكل جدي وواضح.",
+        "التقديم هنا ليس لتعقيد حياتك، بل لفهم مستواك ومشروعك وأولوياتك ومستوى المرافقة الذي تتوقعه عائلتك.",
       stats: [
-        { label: "استمارة سريعة", value: "فقط المعلومات المفيدة" },
-        { label: "رد اوضح", value: "خلال 24 الى 48 ساعة" },
-        { label: "بديل مباشر", value: "WhatsApp يبقى ظاهرا" },
+        { label: "الهدف", value: "فهم الملف قبل اختيار الباقة" },
+        { label: "القراءة", value: "منحة، جامعة، تأشيرة، وصول" },
+        { label: "البديل", value: "واتساب مباشر عند الحاجة" },
       ],
-      panelEyebrow: "ما الذي تبدأه هنا",
-      panelTitle: "طلب اول بسيط قبل الملف الكامل.",
+      panelEyebrow: "ما الذي يبدأ هنا",
+      panelTitle: "طلب واضح قبل أي التزام ثقيل.",
       panelItems: [
-        "مستواك وهدفك",
-        "مدينتك والمجال الذي تستهدفه",
-        "رسالة اولى لتوضيح الخطوة التالية",
+        "مستواك الدراسي ومشروعك",
+        "مدينتك ومجالك وتوقعاتك الأساسية",
+        "أسئلتك حول المنحة أو الجامعة أو التأشيرة أو الوصول",
       ],
     },
     side: {
-      beforeEyebrow: "قبل الارسال",
-      beforeTitle: "ما الذي نحتاج اليه لنوجهك بشكل صحيح.",
+      beforeEyebrow: "قبل الإرسال",
+      beforeTitle: "نحتاج معلومات قليلة، لكن يجب أن تكون المعلومات الصحيحة.",
       beforeText:
-        "لا حاجة لملف طويل الان. نحتاج فقط الى المعلومات التي تساعدنا على الرد عليك بشكل مفيد.",
+        "لا حاجة إلى تجهيز الملف كله الآن. نحن نحتاج فقط إلى ما يساعد على توجيه الخطوة التالية بشكل صحيح.",
       beforeItems: [
-        "الاسم الكامل ورقم الهاتف",
-        "المدينة والمستوى الدراسي",
-        "التخصص او المجال المطلوب",
-        "الهدف في الصين والاسئلة الاولى",
+        "الاسم الكامل ورقم الهاتف الرئيسي",
+        "المدينة الحالية والمستوى الدراسي",
+        "المجال أو التخصص المطلوب",
+        "الهدف: منحة أو جامعة أو استشارة أو حاجة أخرى",
       ],
-      nextEyebrow: "بعد الارسال",
+      nextEyebrow: "بعد الإرسال",
       nextTitle: "ما الذي يحدث بعد ذلك",
       steps: [
         {
-          title: "01. نقرأ الطلب",
-          desc: "نراجع النقاط الاساسية لفهم الملف بسرعة.",
+          title: "01. قراءة الملف",
+          desc: "نراجع الطلب لفهم المشروع والنقاط التي تحتاج إلى توضيح.",
         },
         {
-          title: "02. نعود للتواصل معك",
-          desc: "يساعد التواصل عبر WhatsApp او الهاتف على توضيح الخطوة المناسبة.",
+          title: "02. متابعة شخصية",
+          desc: "تواصل على واتساب أو الهاتف يساعد على وضع الأساس الصحيح قبل التقدم أكثر.",
         },
         {
-          title: "03. نوجهك",
-          desc: "تصبح الصورة اوضح حول الصيغة المناسبة وكيفية التقدم بشكل صحيح.",
+          title: "03. التوصية",
+          desc: "نوجّهك إلى الباقة المناسبة ومنطق الجامعة والخطوة التالية المفيدة.",
         },
       ],
-      supportTitle: "هل تفضل ان تبدأ مباشرة؟",
+      supportTitle: "هل تفضل أن تبدأ مباشرة؟",
       supportText:
-        "اذا كان لديك سؤال محدد الان، افتح WhatsApp واشرح لنا مشروعك مباشرة.",
-      supportButton: "WhatsApp: +212 638-335452",
+        "إذا كان لديك سؤال محدد عن المنحة أو التأشيرة أو السفر، افتح واتساب واشرح وضعك مباشرة.",
+      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
+      supportCitiesTitle: "مدن موجودة فعلاً في مسار خدمتنا",
     },
     form: {
       eyebrow: "طلبك",
-      title: "ارسال الطلب",
+      title: "إرسال الطلب",
       description:
-        "املأ الاساسيات فقط. نستخدم هذه المعلومات لنجيبك بشكل اوضح واكثر فائدة واستراتيجية.",
+        "املأ الأساسيات فقط. نستخدم هذه المعلومات حتى نجيبك بسرعة وبشكل أكثر فائدة.",
       chips: ["سريع في الملء", "مناسب للهاتف", "للوالدين والطلبة"],
-      success: "شكرا، تم ارسال طلبك بنجاح.",
-      fallbackError: "خطأ",
+      success: "شكراً، تم إرسال طلبك بنجاح.",
+      fallbackError: "حدث خطأ ما. حاول مرة أخرى أو راسلنا على واتساب.",
+      unavailableError: "الاستمارة غير متاحة مؤقتاً. راسلنا مباشرة على واتساب.",
       objectiveLabel: "الهدف *",
       objectivePlaceholder: "اختر...",
       objectives: [
-        { value: "دراسة جامعية", label: "دراسة جامعية" },
-        { value: "دورات لغة", label: "دورات لغة" },
-        { value: "احتاج نصيحة اولا", label: "احتاج نصيحة اولا" },
-        { value: "اخرى", label: "اخرى" },
+        { value: "Scholarship", label: "البحث عن منحة" },
+        { value: "University", label: "إيجاد جامعة جيدة" },
+        { value: "Visa", label: "فهم التأشيرة" },
+        { value: "Advice", label: "أحتاج نصيحة أولاً" },
       ],
       messageLabel: "الرسالة",
       messagePlaceholder:
-        "اشرح باختصار مشروعك او اسئلتك حول التاشيرة او المنحة او التكلفة او نوع الجامعة",
+        "اشرح بإيجاز مشروعك أو أسئلتك حول المنحة أو الجامعة أو التأشيرة أو التكلفة أو الوصول",
       consent:
-        "بارسال هذه الاستمارة فانك توافق على التواصل معك عبر WhatsApp او الهاتف من اجل الخطوة التالية.",
-      submit: "ارسال الطلب",
-      submitting: "جار الارسال...",
+        "بإرسال هذا النموذج فإنك توافق على التواصل معك عبر واتساب أو الهاتف بخصوص الخطوة التالية من المشروع.",
+      privacyPrefix: "لقد قرأت",
+      privacyLink: "سياسة الخصوصية",
+      reassurance:
+        "لا يُطلب أي دفع في هذه المرحلة. الهدف هو تقييم الملف واقتراح الخطوة المناسبة.",
+      whatsappAlternative: "هل تفضّل التحدث مباشرة عبر واتساب؟",
+      submit: "إرسال الطلب",
+      submitting: "جار الإرسال...",
       fields: {
         fullName: "الاسم الكامل *",
         fullNamePlaceholder: "اسمك الكامل",
         phone: "الهاتف / WhatsApp *",
         phonePlaceholder: "+212...",
-        email: "البريد الالكتروني",
+        email: "البريد الإلكتروني",
         emailPlaceholder: "contact@example.com",
         city: "المدينة *",
-        cityPlaceholder: "اكادير، الدار البيضاء...",
+        cityPlaceholder: "أكادير، الدار البيضاء...",
         studyLevel: "المستوى الدراسي *",
-        studyLevelPlaceholder: "ثانوي، اجازة، ماستر...",
+        studyLevelPlaceholder: "ثانوي، إجازة، ماستر...",
         fieldOfStudy: "المجال المطلوب",
         fieldOfStudyPlaceholder: "طب، هندسة، تجارة...",
       },
@@ -364,6 +377,14 @@ const copy: Record<Locale, Copy> = {
 export default function ApplyPage({ lang }: { lang: Locale }) {
   const t = copy[lang];
   const isArabic = t.dir === "rtl";
+  const privacyHref = `/${lang}/privacy`;
+  const whatsappHref = buildWhatsappUrl();
+  const heroImageAlt =
+    lang === "fr"
+      ? "Candidature Yalla China pour les études en Chine"
+      : lang === "en"
+        ? "Yalla China application guidance for studying in China"
+        : "التقديم مع يلا تشاينا للدراسة في الصين";
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -383,37 +404,40 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || t.form.fallbackError);
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        if (data?.errorCode === "db_unavailable") {
+          throw new Error(t.form.unavailableError);
+        }
+
+        throw new Error(t.form.fallbackError);
+      }
 
       setDone(true);
       e.currentTarget.reset();
-    } catch (err: any) {
-      setError(err.message || t.form.fallbackError);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t.form.fallbackError);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir}>
+    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#130405]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.14),transparent_20%),linear-gradient(135deg,#190506_0%,#28080a_38%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className="relative grid gap-8 py-12 lg:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:py-20">
-            <div
-              className={`space-y-7 ${
-                isArabic ? "text-right" : "text-center lg:text-left"
-              }`}
-            >
-              <p className="section-eyebrow inline-flex rounded-full border border-white/15 bg-white/8 px-4 py-2 text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em]">
+          <div className="relative grid gap-8 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-20">
+            <div className={`space-y-7 ${isArabic ? "text-right" : "text-center lg:text-left"}`}>
+              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em] lg:justify-start lg:text-left">
                 {t.hero.badge}
               </p>
 
               <div className="space-y-4">
                 <h1
-                  className={`display-title text-[2.7rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-5xl lg:text-6xl ${
+                  className={`display-title text-[2.25rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-[3.25rem] lg:text-6xl ${
                     isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
                   }`}
                 >
@@ -430,7 +454,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
               </div>
 
               <div
-                className={`grid gap-3 sm:grid-cols-3 ${
+                className={`grid gap-3 sm:grid-cols-2 xl:grid-cols-3 ${
                   isArabic ? "" : "mx-auto max-w-xl lg:mx-0 lg:max-w-none"
                 }`}
               >
@@ -441,9 +465,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       isArabic ? "text-right" : ""
                     }`}
                   >
-                    <p className="text-sm font-semibold text-white">
-                      {item.label}
-                    </p>
+                    <p className="text-sm font-semibold text-white">{item.label}</p>
                     <p className="mt-1 text-sm text-white/65">{item.value}</p>
                   </div>
                 ))}
@@ -452,17 +474,22 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
 
             <div className="relative">
               <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/20 shadow-[0_28px_70px_rgba(0,0,0,0.35)]">
-                <img
-                  src="/fr-apply-hero.jpg"
-                  alt="Apply with YALLA CHINA"
-                  className="h-[20rem] w-full object-cover sm:h-[28rem]"
-                />
+                <div className="relative h-[20rem] w-full sm:h-[28rem]">
+                  <Image
+                    src="/fr-apply-hero.jpg"
+                    alt={heroImageAlt}
+                    fill
+                    priority
+                    sizes="(max-width: 1023px) 100vw, 44vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
               </div>
 
               <div
-                className={`relative mt-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md sm:absolute sm:bottom-4 sm:left-4 sm:right-4 sm:mt-0 ${
-                  isArabic ? "text-right" : "text-center sm:text-left"
+                className={`relative mt-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md md:absolute md:bottom-4 md:left-4 md:right-4 md:mt-0 ${
+                  isArabic ? "text-right" : "text-center md:text-left"
                 }`}
               >
                 <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
@@ -471,7 +498,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 <h2 className="display-title mt-3 text-2xl font-black leading-tight text-white">
                   {t.hero.panelTitle}
                 </h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {t.hero.panelItems.map((item) => (
                     <div
                       key={item}
@@ -502,9 +529,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 <h2 className="display-title mt-3 text-2xl font-black tracking-tight">
                   {t.side.beforeTitle}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">
-                  {t.side.beforeText}
-                </p>
+                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">{t.side.beforeText}</p>
 
                 <ul className="mt-5 space-y-3 text-sm text-zinc-700">
                   {t.side.beforeItems.map((item) => (
@@ -533,12 +558,8 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       key={step.title}
                       className="rounded-[1.6rem] border border-zinc-200 bg-white p-4"
                     >
-                      <h4 className="text-sm font-bold text-zinc-900 sm:text-base">
-                        <StepTitle title={step.title} isArabic={isArabic} />
-                      </h4>
-                      <p className="mt-2 text-sm leading-7 text-zinc-600">
-                        {step.desc}
-                      </p>
+                      <h4 className="text-sm font-bold text-zinc-900 sm:text-base">{step.title}</h4>
+                      <p className="mt-2 text-sm leading-7 text-zinc-600">{step.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -552,17 +573,31 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
                   {t.side.supportTitle}
                 </p>
-                <p className="mt-3 text-sm leading-7 text-white/72 sm:text-base">
-                  {t.side.supportText}
-                </p>
+                <p className="mt-3 text-sm leading-7 text-white/72 sm:text-base">{t.side.supportText}</p>
                 <a
-                  href="https://wa.me/212638335452"
+                  href={buildWhatsappUrl()}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#B17F02] px-5 py-3 font-semibold text-black transition hover:opacity-90 sm:w-auto"
                 >
                   {t.side.supportButton}
                 </a>
+
+                <div className="mt-6">
+                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
+                    {t.side.supportCitiesTitle}
+                  </p>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {supportedCities[lang].map((city) => (
+                      <div
+                        key={city}
+                        className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/82"
+                      >
+                        {city}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -578,11 +613,9 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 <h2 className="display-title mt-3 text-3xl font-black tracking-tight">
                   {t.form.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">
-                  {t.form.description}
-                </p>
+                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">{t.form.description}</p>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {t.form.chips.map((chip) => (
                     <div
                       key={chip}
@@ -593,19 +626,28 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   ))}
                 </div>
 
-                {done && (
+                {done ? (
                   <div className="mt-5 rounded-2xl bg-emerald-50 p-4 text-sm text-emerald-700">
                     {t.form.success}
                   </div>
-                )}
+                ) : null}
 
-                {error && (
+                {error ? (
                   <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm text-red-700">
                     {error}
                   </div>
-                )}
+                ) : null}
 
                 <form onSubmit={onSubmit} className="mt-6 space-y-5">
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                    aria-hidden="true"
+                  />
+
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Field
                       label={t.form.fields.fullName}
@@ -659,10 +701,11 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium">
+                    <label htmlFor="objective" className="text-sm font-medium">
                       {t.form.objectiveLabel}
                     </label>
                     <select
+                      id="objective"
                       name="objective"
                       required
                       defaultValue=""
@@ -682,10 +725,11 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium">
+                    <label htmlFor="message" className="text-sm font-medium">
                       {t.form.messageLabel}
                     </label>
                     <textarea
+                      id="message"
                       name="message"
                       rows={5}
                       placeholder={t.form.messagePlaceholder}
@@ -695,16 +739,56 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                     />
                   </div>
 
+                  <label
+                    className={`flex items-start gap-3 rounded-[1.4rem] border border-zinc-200 bg-[#faf7f3] px-4 py-4 text-sm leading-6 text-zinc-700 ${
+                      isArabic ? "flex-row-reverse text-right" : ""
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      value="accepted"
+                      required
+                      className="mt-1 h-4 w-4 rounded border-zinc-300 text-[#770304] focus:ring-[#770304]"
+                    />
+                    <span>
+                      {t.form.consent} {t.form.privacyPrefix}{" "}
+                      <Link
+                        href={privacyHref}
+                        className="font-semibold text-[#770304] underline underline-offset-4"
+                      >
+                        {t.form.privacyLink}
+                      </Link>
+                      .
+                    </span>
+                  </label>
+
                   <button
                     disabled={loading}
+                    data-track="apply_submit"
+                    data-track-value={lang}
                     className="w-full rounded-full bg-[#770304] px-5 py-3 font-semibold text-white transition hover:bg-[#740000] disabled:opacity-60"
                   >
                     {loading ? t.form.submitting : t.form.submit}
                   </button>
 
-                  <p className="text-xs leading-5 text-zinc-500">
-                    {t.form.consent}
-                  </p>
+                  <div
+                    className={`flex flex-col gap-3 rounded-[1.5rem] border border-zinc-200 bg-zinc-50 px-4 py-4 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between ${
+                      isArabic ? "sm:flex-row-reverse text-right" : ""
+                    }`}
+                  >
+                    <p className="leading-6">{t.form.reassurance}</p>
+                    <a
+                      href={whatsappHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-track="apply_whatsapp_alternative"
+                      data-track-value={lang}
+                      className="inline-flex shrink-0 items-center justify-center rounded-full border border-[#770304]/15 bg-white px-4 py-2.5 font-medium text-[#770304] transition hover:bg-[#fff7f2]"
+                    >
+                      {t.form.whatsappAlternative}
+                    </a>
+                  </div>
                 </form>
               </div>
             </div>
@@ -734,8 +818,11 @@ function Field({
 }) {
   return (
     <div>
-      <label className="text-sm font-medium">{label}</label>
+      <label htmlFor={name} className="text-sm font-medium">
+        {label}
+      </label>
       <input
+        id={name}
         type={type}
         name={name}
         required={required}
