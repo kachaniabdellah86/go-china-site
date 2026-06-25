@@ -1,53 +1,81 @@
+"use client";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import Container from "@/components/Container";
-import FounderStories from "@/components/FounderStories";
-import HomeProofSection from "@/components/HomeProofSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import TrustIndicators from "@/components/TrustIndicators";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { founderName, Locale, supportedCities } from "@/lib/yalla";
 
-type Copy = {
+type Pack = {
+  name: string;
+  price: string;
+  tag: string;
+  desc: string;
+  items: string[];
+  cta: string;
+};
+
+type Checkpoint = {
+  kind: "admission" | "visa" | "preparation" | "arrival";
+  chapter: string;
+  title: string;
+  description: string;
+  label: string;
+  artifactTitle: string;
+  artifactText: string;
+  image: string;
+  items: string[];
+};
+
+type SceneCopy = {
   dir: "ltr" | "rtl";
   hero: {
     badge: string;
-    eyebrow: string;
+    title: string;
+    description: string;
+    primary: string;
+    secondary: string;
+    start: string;
+    end: string;
+    cardTitle: string;
+    cardText: string;
+    stats: { label: string; value: string }[];
+  };
+  vision: {
+    chapter: string;
     title: string;
     description: string;
     note: string;
-    primary: string;
-    secondary: string;
-    cards: { label: string; value: string }[];
-    sideEyebrow: string;
-    sideTitle: string;
-    sideText: string;
-    sideItems: string[];
+    artifactTitle: string;
+    artifactText: string;
   };
-  reasons: {
-    eyebrow: string;
+  doubts: {
+    chapter: string;
     title: string;
     description: string;
-    items: { title: string; desc: string }[];
+    questions: string[];
   };
-  path: {
-    eyebrow: string;
+  method: {
+    chapter: string;
     title: string;
     description: string;
-    steps: { title: string; desc: string }[];
-    coverageEyebrow: string;
-    coverageTitle: string;
-    coverageText: string;
+    points: { title: string; desc: string }[];
   };
-  faq: {
-    eyebrow: string;
+  checkpoints: {
+    admission: Checkpoint;
+    visa: Checkpoint;
+    preparation: Checkpoint;
+    arrival: Checkpoint;
+  };
+  packs: {
+    chapter: string;
     title: string;
     description: string;
-    items: { question: string; answer: string }[];
-    primary: string;
-    secondary: string;
+    standard: Pack;
+    premium: Pack;
   };
-  cta: {
-    eyebrow: string;
+  final: {
+    chapter: string;
     title: string;
     description: string;
     primary: string;
@@ -55,799 +83,1667 @@ type Copy = {
   };
 };
 
-const copy: Record<Locale, Copy> = {
+const images = {
+  hero: "/yalla-hero-student-china.jpg",
+  vision: "/yalla-campus-vision.jpg",
+  family: "/yalla-family-trust.jpg",
+  method: "/aymen-badri.png",
+  admission: "/yalla-admission-documents.jpg",
+  visa: "/yalla-student-visa.jpg",
+  preparation: "/yalla-preparation-desk.jpg",
+  arrival: "/yalla-campus-arrival.jpg",
+  academic: "/yalla-academic-ambition.jpg",
+};
+
+const copy: Record<Locale, SceneCopy> = {
   fr: {
     dir: "ltr",
     hero: {
-      badge: "YALLA CHINA • Orientation • Admission • Visa • Arrivée",
-      eyebrow: "Agence sérieuse pour études en Chine",
+      badge: "YALLA CHINA • ÉTUDES EN CHINE",
       title:
-        "Un accompagnement premium pour choisir la bonne université, sécuriser le visa et arriver en Chine avec une vraie présence humaine.",
+        "Étudier en Chine avec un accompagnement qui rassure toute la famille.",
       description:
-        "Yalla China aide les étudiants marocains à étudier en Chine avec une méthode claire: orientation, admission, visa, billet, départ et accompagnement jusqu'à l'université selon la formule choisie.",
-      note: `${founderName} a étudié en Chine. Cette expérience vécue devient aujourd'hui un cadre rassurant pour les familles qui veulent une bourse, une bonne université et un accompagnement fiable.`,
-      primary: "Réserver une consultation gratuite",
+        "D’un premier échange jusqu’à l’arrivée sur le campus, Yalla China transforme un projet complexe en parcours clair et accompagné.",
+      primary: "Commencer par une consultation",
       secondary: "Comparer les packs",
-      cards: [
-        {
-          label: "Priorité des familles",
-          value: "Bourse, université sérieuse, accompagnement fiable",
-        },
-        {
-          label: "Différenciateur",
-          value: "Expérience personnelle réelle en Chine",
-        },
-        {
-          label: "Promesse",
-          value: "Du premier échange jusqu'à l'arrivée",
-        },
-      ],
-      sideEyebrow: "Pourquoi la marque inspire confiance",
-      sideTitle: "Un seul projet, trois points décisifs pour la famille.",
-      sideText:
-        "Le site doit répondre immédiatement à ce que les parents et l'étudiant veulent savoir avant d'avancer: qui vous guide, ce qui est inclus, et ce qui se passe après l'admission.",
-      sideItems: [
-        "Consultation gratuite avant tout engagement",
-        "Admission, visa et service portés comme trois engagements visibles",
-        "Pack 1 pour le dossier et le visa, Pack 2 jusqu'au départ et au transfert",
-        "Communication directe sur WhatsApp et accompagnement jusqu'à l'université",
+      start: "Maroc",
+      end: "Campus en Chine",
+      cardTitle: "Projet étudiant",
+      cardText: "Orientation • Admission • Visa • Arrivée",
+      stats: [
+        { label: "Objectif", value: "Université fiable" },
+        { label: "Priorité", value: "Famille rassurée" },
+        { label: "Suivi", value: "Jusqu’au campus" },
       ],
     },
-    reasons: {
-      eyebrow: "Pourquoi les familles nous choisissent",
+    vision: {
+      chapter: "Chapitre 01 — L’ambition",
       title:
-        "La confiance vient quand l'offre répond aux vraies objections, pas quand elle enrobe le projet.",
+        "Étudier en Chine, ce n’est pas seulement partir. C’est construire un avenir.",
       description:
-        "Les questions reviennent toujours: qualité du service, qualité de l'université, communication, visa, voyage, hôtel, transport, arrivée. La réponse doit être claire avant la vente.",
-      items: [
-        {
-          title: "Une personne qui connaît la Chine de l'intérieur",
-          desc: "Le projet n'est pas porté par un simple intermédiaire. Il est guidé par une expérience vécue sur place.",
-        },
-        {
-          title: "Des offres faciles à lire",
-          desc: "Les familles voient vite la différence entre le cadre dossier/visa et la formule qui accompagne aussi le départ et l'arrivée.",
-        },
-        {
-          title: "Un vrai travail sur la qualité des choix",
-          desc: "L'étudiant ne cherche pas seulement à partir. Il cherche la bonne université, la bonne ville et un accompagnement sérieux.",
-        },
-        {
-          title: "Une arrivée préparée, pas laissée au hasard",
-          desc: "Transport aéroport-université, aide voyage et repères d'arrivée sont traités comme des éléments de confiance, pas comme des détails.",
-        },
-      ],
+        "Une université, une ville, une bourse possible, un environnement international et une famille qui veut être sûre que chaque étape est bien encadrée.",
+      note: "Yalla China transforme cette ambition en parcours académique sérieux, lisible et accompagné.",
+      artifactTitle: "Objectif académique",
+      artifactText:
+        "Université fiable • Dossier solide • Visa préparé • Arrivée encadrée",
     },
-    path: {
-      eyebrow: "Le parcours Yalla China",
-      title: "Un parcours lisible avant paiement, avant dossier, avant départ.",
-      description:
-        "Le rôle du site est de rendre visible la séquence complète pour l'étudiant et pour ses parents. Quand le chemin est clair, la décision devient plus simple.",
-      steps: [
-        {
-          title: "01. Consultation et diagnostic",
-          desc: "Nous clarifions le profil, les attentes de la famille, la logique bourse/université et le niveau d'accompagnement utile.",
-        },
-        {
-          title: "02. Orientation et universités",
-          desc: "Nous ciblons les villes et les universités adaptées au projet avant de lancer le dossier.",
-        },
-        {
-          title: "03. Dossier, traduction et admission",
-          desc: "Le Pack 1 structure le dossier, les traductions, l'inscription universitaire et le suivi d'admission.",
-        },
-        {
-          title: "04. Visa et départ",
-          desc: "Le visa, la préparation du voyage et les étapes sensibles sont accompagnés avec méthode.",
-        },
-        {
-          title: "05. Arrivée et accompagnement",
-          desc: "Le Pack 2 prolonge la prise en charge jusqu'au transfert aéroport-université et aux premiers repères sur place.",
-        },
-      ],
-      coverageEyebrow: "Villes suivies",
-      coverageTitle: "Une présence pensée autour des destinations demandées par les familles.",
-      coverageText:
-        "Chongqing, Nanchang, Ningbo, Harbin, Xi'an, Chengdu et Zhejiang font partie des principaux points d'accompagnement présentés sur le site.",
-    },
-    faq: {
-      eyebrow: "Questions fréquentes",
-      title: "Les réponses qu'une famille veut lire avant de décider.",
-      description:
-        "Le premier niveau de confiance se construit quand le site répond clairement aux questions sur la bourse, le coût, le visa et l'arrivée.",
-      items: [
-        {
-          question: "Comment savoir si une bourse est réaliste pour mon profil ?",
-          answer:
-            "La consultation gratuite sert précisément à évaluer le profil, la logique de bourse et le niveau d'opportunité avant d'engager le dossier.",
-        },
-        {
-          question: "Que comprend réellement chaque pack ?",
-          answer:
-            "Le Pack 1 couvre le dossier, la traduction, l'inscription et le visa. Le Pack 2 prolonge l'accompagnement jusqu'au voyage et à l'arrivée.",
-        },
-        {
-          question: "Que se passe-t-il après l'arrivée en Chine ?",
-          answer:
-            "La logique du site est de montrer que l'arrivée n'est pas laissée au hasard, surtout avec l'accompagnement transport et repères du Pack 2.",
-        },
-      ],
-      primary: "Voir la FAQ complète",
-      secondary: "Parler à l'équipe",
-    },
-    cta: {
-      eyebrow: "Commencer sérieusement",
+    doubts: {
+      chapter: "Chapitre 02 — Les vraies inquiétudes",
       title:
-        "Commencez par la consultation gratuite, puis avancez avec le pack qui correspond réellement à votre situation.",
+        "Avant de décider, une famille veut comprendre, comparer et se sentir en confiance.",
       description:
-        "L'objectif du premier échange est simple: comprendre le dossier, rassurer la famille, vérifier le niveau d'opportunité, puis recommander la bonne formule.",
+        "Le frein n’est pas seulement le prix. C’est l’incertitude : université, documents, visa, communication et arrivée.",
+      questions: [
+        "Quelle université correspond vraiment au profil ?",
+        "Le dossier est-il assez solide ?",
+        "Comment préparer le visa étudiant ?",
+        "Qui suit l’étudiant après l’admission ?",
+        "Comment rassurer la famille à chaque étape ?",
+      ],
+    },
+    method: {
+      chapter: "Chapitre 03 — La méthode Yalla China",
+      title: "Une méthode claire, portée par une vraie expérience de la Chine.",
+      description: `${founderName} a étudié en Chine. Cette expérience réelle devient aujourd’hui une méthode structurée pour accompagner les étudiants marocains avec sérieux, proximité et transparence.`,
+      points: [
+        {
+          title: "Diagnostic du profil",
+          desc: "On analyse le niveau, les objectifs, le budget, la ville souhaitée et les attentes de la famille.",
+        },
+        {
+          title: "Choix académique intelligent",
+          desc: "On vise les universités et les villes qui correspondent au projet, pas des choix au hasard.",
+        },
+        {
+          title: "Suivi jusqu’à l’arrivée",
+          desc: "Le parcours continue après l’admission : visa, préparation, arrivée et premiers repères.",
+        },
+      ],
+    },
+    checkpoints: {
+      admission: {
+        kind: "admission",
+        chapter: "Étape 04 — Admission",
+        title: "Le projet devient une vraie candidature universitaire.",
+        description:
+          "Le dossier est structuré, les documents sont vérifiés, les traductions sont préparées et l’inscription est suivie avec méthode.",
+        label: "Admission",
+        artifactTitle: "Dossier académique prêt",
+        artifactText:
+          "Université sélectionnée • Documents vérifiés • Candidature suivie",
+        image: images.admission,
+        items: [
+          "Choix universités",
+          "Préparation dossier",
+          "Traductions",
+          "Inscription",
+          "Suivi admission",
+        ],
+      },
+      visa: {
+        kind: "visa",
+        chapter: "Étape 05 — Visa étudiant",
+        title: "Le visa étudiant devient une étape claire et organisée.",
+        description:
+          "Le visa ne doit pas être une zone de stress. Les documents, les délais et les démarches sont préparés clairement.",
+        label: "Visa étudiant",
+        artifactTitle: "Visa en préparation",
+        artifactText: "Documents • Vérification • Rendez-vous • Suivi",
+        image: images.visa,
+        items: [
+          "Documents visa",
+          "Vérification",
+          "Rendez-vous",
+          "Suivi",
+          "Brief avant départ",
+        ],
+      },
+      preparation: {
+        kind: "preparation",
+        chapter: "Étape 06 — Préparation",
+        title: "Avant l’arrivée en Chine, chaque détail doit être anticipé.",
+        description:
+          "Billet, communication, documents, timing, installation et premiers repères : une bonne préparation réduit le stress de toute la famille.",
+        label: "Préparation",
+        artifactTitle: "Préparation organisée",
+        artifactText: "Billet • Briefing • Documents • Support WhatsApp",
+        image: images.preparation,
+        items: [
+          "Aide billet",
+          "Préparation documents",
+          "Briefing famille",
+          "Support WhatsApp",
+          "Coordination arrivée",
+        ],
+      },
+      arrival: {
+        kind: "arrival",
+        chapter: "Étape 07 — Arrivée en Chine",
+        title:
+          "L’étudiant arrive en Chine avec des repères, pas avec l’inconnu.",
+        description:
+          "Avec le Pack Premium, l’étudiant n’arrive pas seul face à l’inconnu. L’accompagnement continue jusqu’aux premiers repères sur le campus.",
+        label: "Arrivée",
+        artifactTitle: "Installation facilitée",
+        artifactText: "Accueil • Transfert • Campus • Premiers repères",
+        image: images.arrival,
+        items: [
+          "Accueil",
+          "Transfert",
+          "Repères campus",
+          "Installation",
+          "Premiers pas",
+        ],
+      },
+    },
+    packs: {
+      chapter: "Choisir le bon niveau d’accompagnement",
+      title: "Deux packs. Un objectif : étudier en Chine avec confiance.",
+      description:
+        "Après avoir compris le parcours, la famille choisit le niveau d’accompagnement qui correspond vraiment à sa situation.",
+      standard: {
+        name: "Pack Standard",
+        price: "15.000 DH",
+        tag: "Jusqu’au visa",
+        desc: "Pour les étudiants qui veulent un accompagnement sérieux pour l’orientation, le dossier, l’admission et le visa.",
+        items: [
+          "Consultation",
+          "Orientation",
+          "Dossier",
+          "Traduction",
+          "Admission",
+          "Visa",
+        ],
+        cta: "Choisir Standard",
+      },
+      premium: {
+        name: "Pack Premium",
+        price: "23.000 DH",
+        tag: "Recommandé",
+        desc: "Pour les familles qui veulent une présence plus rassurante jusqu’à l’arrivée et aux premiers repères en Chine.",
+        items: [
+          "Tout le Standard",
+          "Aide billet",
+          "Préparation départ",
+          "Coordination arrivée",
+          "Transfert",
+          "Premiers repères",
+        ],
+        cta: "Choisir Premium",
+      },
+    },
+    final: {
+      chapter: "Votre parcours peut commencer",
+      title: "La première étape, c’est une consultation claire.",
+      description:
+        "On analyse le profil, on répond aux inquiétudes et on recommande la formule la plus adaptée.",
       primary: "Demander ma consultation gratuite",
       secondary: "Lancer ma candidature",
     },
   },
+
   en: {
     dir: "ltr",
     hero: {
-      badge: "YALLA CHINA • Orientation • Admission • Visa • Arrival",
-      eyebrow: "Serious study guidance for China",
+      badge: "YALLA CHINA • STUDY IN CHINA",
+      title: "Study in China with support that reassures the whole family.",
+      description:
+        "From first consultation to campus arrival, Yalla China turns a complex project into a clear, premium path.",
+      primary: "Start with a consultation",
+      secondary: "Compare packages",
+      start: "Morocco",
+      end: "Campus in China",
+      cardTitle: "Student project",
+      cardText: "Orientation • Admission • Visa • Arrival",
+      stats: [
+        { label: "Goal", value: "Reliable university" },
+        { label: "Priority", value: "Family reassured" },
+        { label: "Support", value: "Until campus" },
+      ],
+    },
+    vision: {
+      chapter: "Chapter 01 — The ambition",
+      title: "Studying in China is not only leaving. It is building a future.",
+      description:
+        "A university, a city, a possible scholarship, an international environment, and a family that needs confidence at every step.",
+      note: "Yalla China turns that ambition into a serious, readable, guided academic path.",
+      artifactTitle: "Academic objective",
+      artifactText:
+        "Reliable university • Strong file • Prepared visa • Guided arrival",
+    },
+    doubts: {
+      chapter: "Chapter 02 — The real concerns",
       title:
-        "A premium support journey to choose the right university, secure the visa, and arrive in China with real human guidance.",
+        "Before deciding, a family needs to understand, compare, and feel confident.",
       description:
-        "Yalla China helps Moroccan students study in China through a clear method: orientation, admission, visa, ticket support, departure, and university arrival support depending on the chosen package.",
-      note: `${founderName} studied in China. That lived experience now becomes a reassuring framework for families looking for scholarship options, a strong university, and support they can trust.`,
-      primary: "Book a free consultation",
-      secondary: "Compare the packages",
-      cards: [
-        {
-          label: "What families want",
-          value: "Scholarship options, a strong university, and trusted support",
-        },
-        {
-          label: "What makes us different",
-          value: "Real personal experience of studying in China",
-        },
-        {
-          label: "What we promise",
-          value: "Guidance from first contact to arrival",
-        },
-      ],
-      sideEyebrow: "Why the brand feels trustworthy",
-      sideTitle: "One project, three decisive questions for the family.",
-      sideText:
-        "The website should answer what parents and students need immediately before they move: who guides you, what is included, and what happens after admission.",
-      sideItems: [
-        "Free consultation before any commitment",
-        "Admission, visa, and service carried as three visible commitments",
-        "Package 1 for the file and visa, Package 2 through departure and transfer",
-        "Direct WhatsApp communication and support until the university",
+        "The obstacle is not only price. It is uncertainty: university, documents, visa, communication, arrival, and student safety.",
+      questions: [
+        "Which university truly fits the profile?",
+        "Is the file strong enough?",
+        "How do we prepare the student visa?",
+        "Who follows the student after admission?",
+        "How do we reassure the family at every step?",
       ],
     },
-    reasons: {
-      eyebrow: "Why families choose us",
-      title:
-        "Trust grows when the offer answers real objections instead of decorating the project.",
-      description:
-        "The same concerns come back every time: service quality, university quality, communication, visa, travel, hotel, transport, arrival. The answer should be visible before the sale.",
-      items: [
+    method: {
+      chapter: "Chapter 03 — The Yalla China method",
+      title: "A clear method, shaped by real experience in China.",
+      description: `${founderName} studied in China. That real experience is now turned into a structured method to guide Moroccan students with seriousness, care, and transparency.`,
+      points: [
         {
-          title: "A founder who knows China from the inside",
-          desc: "The project is not led by a generic middleman. It is guided by lived experience on the ground.",
+          title: "Profile diagnosis",
+          desc: "We analyze level, goals, budget, preferred city, and family expectations.",
         },
         {
-          title: "Packages that are easy to read",
-          desc: "Families quickly see the difference between the file/visa framework and the formula that also covers departure and arrival.",
+          title: "Smart academic choice",
+          desc: "We target universities and cities that fit the project, not random options.",
         },
         {
-          title: "A serious focus on quality choices",
-          desc: "The student is not only trying to leave. They are trying to reach the right university, the right city, and a trustworthy support system.",
-        },
-        {
-          title: "Arrival support that is not left to chance",
-          desc: "Airport-to-university transport, travel help, and arrival landmarks are treated as trust elements, not as extras.",
+          title: "Support until arrival",
+          desc: "The path continues after admission: visa, preparation, arrival, and first steps.",
         },
       ],
     },
-    path: {
-      eyebrow: "The Yalla China path",
-      title: "A readable route before payment, before the file, and before departure.",
-      description:
-        "The role of the site is to make the full sequence visible for the student and for the parents. When the route is clear, the decision becomes easier.",
-      steps: [
-        {
-          title: "01. Consultation and diagnosis",
-          desc: "We clarify the profile, the family concerns, the scholarship/university logic, and the useful support level.",
-        },
-        {
-          title: "02. Orientation and university targeting",
-          desc: "We target the right cities and universities before the file begins.",
-        },
-        {
-          title: "03. File, translation, and admission",
-          desc: "Package 1 structures the file, translations, university registration, and admission follow-up.",
-        },
-        {
-          title: "04. Visa and departure",
-          desc: "The visa, travel preparation, and the sensitive stages are handled with method.",
-        },
-        {
-          title: "05. Arrival and accompaniment",
-          desc: "Package 2 extends support through airport-to-university transfer and the first landmarks on the ground.",
-        },
-      ],
-      coverageEyebrow: "Cities covered",
-      coverageTitle: "A presence built around the destinations families ask for most.",
-      coverageText:
-        "Chongqing, Nanchang, Ningbo, Harbin, Xi'an, Chengdu, and Zhejiang are among the main destinations highlighted across the site.",
+    checkpoints: {
+      admission: {
+        kind: "admission",
+        chapter: "Step 04 — Admission",
+        title: "The project becomes a real university application.",
+        description:
+          "The file is structured, documents are checked, translations are prepared, and registration is followed with method.",
+        label: "Admission",
+        artifactTitle: "Academic file ready",
+        artifactText:
+          "University selected • Documents checked • Application followed",
+        image: images.admission,
+        items: [
+          "University selection",
+          "File preparation",
+          "Translations",
+          "Registration",
+          "Admission follow-up",
+        ],
+      },
+      visa: {
+        kind: "visa",
+        chapter: "Step 05 — Student visa",
+        title: "The student visa becomes a clear and organized step.",
+        description:
+          "The visa should not be a stressful blur. Documents, timing, and steps are prepared clearly.",
+        label: "Student visa",
+        artifactTitle: "Visa in preparation",
+        artifactText: "Documents • Verification • Appointment • Follow-up",
+        image: images.visa,
+        items: [
+          "Visa documents",
+          "Verification",
+          "Appointment",
+          "Follow-up",
+          "Pre-departure brief",
+        ],
+      },
+      preparation: {
+        kind: "preparation",
+        chapter: "Step 06 — Preparation",
+        title: "Before arrival in China, every detail should be anticipated.",
+        description:
+          "Ticket, communication, documents, timing, installation, and first steps: good preparation reduces family stress.",
+        label: "Preparation",
+        artifactTitle: "Organized preparation",
+        artifactText: "Ticket • Briefing • Documents • WhatsApp support",
+        image: images.preparation,
+        items: [
+          "Ticket support",
+          "Document preparation",
+          "Family briefing",
+          "WhatsApp support",
+          "Arrival coordination",
+        ],
+      },
+      arrival: {
+        kind: "arrival",
+        chapter: "Step 07 — Arrival in China",
+        title: "The student arrives in China with landmarks, not uncertainty.",
+        description:
+          "With Premium, the student does not arrive alone into the unknown. Support continues through the first campus steps.",
+        label: "Arrival",
+        artifactTitle: "Settling in made easier",
+        artifactText: "Welcome • Transfer • Campus • First landmarks",
+        image: images.arrival,
+        items: [
+          "Welcome",
+          "Transfer",
+          "Campus landmarks",
+          "Installation",
+          "First steps",
+        ],
+      },
     },
-    faq: {
-      eyebrow: "Frequently asked questions",
-      title: "The answers a family wants to read before making a decision.",
+    packs: {
+      chapter: "Choose the right support level",
+      title: "Two packages. One goal: study in China with confidence.",
       description:
-        "The first layer of trust is built when the site answers scholarship, cost, visa, and arrival questions clearly.",
-      items: [
-        {
-          question: "How do I know whether a scholarship is realistic for my profile?",
-          answer:
-            "The free consultation exists precisely to assess the profile, the scholarship logic, and the real level of opportunity before the file starts.",
-        },
-        {
-          question: "What is actually included in each package?",
-          answer:
-            "Package 1 covers the file, translation, registration, and visa. Package 2 extends the support through travel and arrival.",
-        },
-        {
-          question: "What happens after arrival in China?",
-          answer:
-            "The site is structured to show that arrival is not left to chance, especially with the transfer and on-ground support logic of Package 2.",
-        },
-      ],
-      primary: "View the full FAQ",
-      secondary: "Talk with the team",
+        "After understanding the path, the family chooses the support level that truly fits their situation.",
+      standard: {
+        name: "Standard Pack",
+        price: "15,000 DH",
+        tag: "Until visa",
+        desc: "For students who need serious support for orientation, file, admission, and visa.",
+        items: [
+          "Consultation",
+          "Orientation",
+          "File",
+          "Translation",
+          "Admission",
+          "Visa",
+        ],
+        cta: "Choose Standard",
+      },
+      premium: {
+        name: "Premium Pack",
+        price: "23,000 DH",
+        tag: "Recommended",
+        desc: "For families who want more reassuring presence until arrival and first steps in China.",
+        items: [
+          "Everything Standard",
+          "Ticket support",
+          "Preparation",
+          "Arrival coordination",
+          "Transfer",
+          "First landmarks",
+        ],
+        cta: "Choose Premium",
+      },
     },
-    cta: {
-      eyebrow: "Start seriously",
-      title:
-        "Begin with the free consultation, then move forward with the package that truly fits your situation.",
+    final: {
+      chapter: "Your path can begin",
+      title: "The first step is a clear consultation.",
       description:
-        "The first exchange has one goal: understand the file, reassure the family, evaluate the opportunity, and recommend the right formula.",
+        "We analyze the profile, answer concerns, explain possibilities, and recommend the most suitable package.",
       primary: "Request my free consultation",
       secondary: "Start my application",
     },
   },
+
   ar: {
     dir: "rtl",
     hero: {
-      badge: "YALLA CHINA • توجيه • قبول • تأشيرة • وصول",
-      eyebrow: "وكالة جادة للدراسة في الصين",
-      title:
-        "مرافقة مميزة لاختيار الجامعة المناسبة وتأمين التأشيرة والوصول إلى الصين مع حضور إنساني حقيقي في كل مرحلة.",
+      badge: "YALLA CHINA • الدراسة في الصين",
+      title: "ادرس في الصين مع مرافقة تطمئن الطالب والعائلة.",
       description:
-        "يلا تشاينا تساعد الطلبة المغاربة على الدراسة في الصين عبر مسار واضح: توجيه، قبول، تأشيرة، مساعدة في التذكرة، سفر، ومرافقة حتى الجامعة حسب الباقة المختارة.",
-      note: `${founderName} درس في الصين، وهذه التجربة الحقيقية أصبحت اليوم إطاراً مطمئناً للعائلات التي تبحث عن منحة وجامعة جيدة ومرافقة يمكن الوثوق بها.`,
-      primary: "احجز استشارة مجانية",
-      secondary: "قارن بين الباقات",
-      cards: [
-        {
-          label: "ما الذي تبحث عنه العائلة",
-          value: "منحة أو جامعة قوية أو مرافقة موثوقة",
-        },
-        {
-          label: "ما الذي يميزنا",
-          value: "تجربة شخصية حقيقية في الدراسة داخل الصين",
-        },
-        {
-          label: "وعدنا",
-          value: "مرافقة من أول تواصل إلى الوصول",
-        },
-      ],
-      sideEyebrow: "لماذا تبدو العلامة موثوقة",
-      sideTitle: "مشروع واحد وثلاثة أسئلة حاسمة عند العائلة.",
-      sideText:
-        "الموقع يجب أن يجيب بسرعة عما يريد الوالدان والطالب معرفته قبل أي خطوة: من يرافقكم، ماذا يشمل العرض، وما الذي يحدث بعد القبول.",
-      sideItems: [
-        "استشارة مجانية قبل أي التزام",
-        "القبول والتأشيرة والخدمة تظهر كثلاثة التزامات واضحة",
-        "الباقة 1 للملف والتأشيرة، والباقـة 2 حتى السفر والنقل إلى الجامعة",
-        "تواصل مباشر على واتساب ومرافقة حتى الجامعة",
+        "من أول استشارة إلى الوصول إلى الجامعة، تحول يلا تشاينا المشروع المعقد إلى مسار واضح ومرافق.",
+      primary: "ابدأ باستشارة",
+      secondary: "قارن الباقات",
+      start: "المغرب",
+      end: "جامعة في الصين",
+      cardTitle: "مشروع الطالب",
+      cardText: "توجيه • قبول • تأشيرة • وصول",
+      stats: [
+        { label: "الهدف", value: "جامعة موثوقة" },
+        { label: "الأولوية", value: "عائلة مطمئنة" },
+        { label: "المرافقة", value: "حتى الجامعة" },
       ],
     },
-    reasons: {
-      eyebrow: "لماذا تختارنا العائلات",
-      title:
-        "الثقة تظهر عندما يجيب العرض عن الاعتراضات الحقيقية بدل الاكتفاء بالكلام العام.",
+    vision: {
+      chapter: "الفصل 01 — الطموح",
+      title: "الدراسة في الصين ليست مجرد سفر. إنها بناء مستقبل.",
       description:
-        "نفس الأسئلة تتكرر دائماً: جودة الخدمة، جودة الجامعة، التواصل، التأشيرة، السفر، الفندق، النقل، والوصول. لذلك يجب أن تكون الإجابة واضحة قبل البيع.",
-      items: [
+        "جامعة، مدينة، منحة ممكنة، بيئة دولية، وعائلة تريد الاطمئنان في كل خطوة.",
+      note: "يلا تشاينا تحول هذا الطموح إلى مسار أكاديمي واضح وجاد ومرافق.",
+      artifactTitle: "الهدف الأكاديمي",
+      artifactText: "جامعة موثوقة • ملف قوي • تأشيرة محضرة • وصول مرافق",
+    },
+    doubts: {
+      chapter: "الفصل 02 — المخاوف الحقيقية",
+      title: "قبل القرار، العائلة تحتاج إلى الفهم والمقارنة والثقة.",
+      description:
+        "العائق ليس السعر فقط. بل الغموض: الجامعة، الوثائق، التأشيرة، التواصل، الوصول، وأمان الطالب.",
+      questions: [
+        "أي جامعة تناسب الملف فعلاً؟",
+        "هل الملف قوي بما يكفي؟",
+        "كيف نحضر تأشيرة الطالب؟",
+        "من يتابع الطالب بعد القبول؟",
+        "كيف نطمئن العائلة في كل مرحلة؟",
+      ],
+    },
+    method: {
+      chapter: "الفصل 03 — طريقة يلا تشاينا",
+      title: "طريقة واضحة مبنية على تجربة حقيقية في الصين.",
+      description: `${founderName} درس في الصين، وهذه التجربة أصبحت اليوم طريقة منظمة لمرافقة الطلبة المغاربة بجدية وقرب وشفافية.`,
+      points: [
         {
-          title: "مؤسس يعرف الصين من الداخل",
-          desc: "المشروع لا يقوده وسيط عام، بل خبرة شخصية حقيقية على الأرض.",
+          title: "تشخيص الملف",
+          desc: "نحلل المستوى، الأهداف، الميزانية، المدينة المناسبة وتوقعات العائلة.",
         },
         {
-          title: "باقات سهلة الفهم",
-          desc: "العائلة تفهم بسرعة الفرق بين إطار الملف والتأشيرة وبين الصيغة التي تواكب أيضاً السفر والوصول.",
+          title: "اختيار أكاديمي ذكي",
+          desc: "نختار الجامعات والمدن المناسبة للمشروع، وليس اختيارات عشوائية.",
         },
         {
-          title: "تركيز جدي على جودة الاختيار",
-          desc: "الطالب لا يريد فقط أن يسافر، بل يريد الجامعة الصحيحة والمدينة المناسبة ومرافقة موثوقة.",
-        },
-        {
-          title: "الوصول ليس تفصيلاً ثانوياً",
-          desc: "النقل من المطار إلى الجامعة ومساعدة السفر وأول الخطوات في الصين تُعامل كجزء من الثقة، لا كإضافة هامشية.",
+          title: "مرافقة حتى الوصول",
+          desc: "المسار لا ينتهي عند القبول: التأشيرة، التحضير، الوصول وأول الخطوات.",
         },
       ],
     },
-    path: {
-      eyebrow: "مسار يلا تشاينا",
-      title: "طريق واضح قبل الدفع وقبل الملف وقبل السفر.",
-      description:
-        "دور الموقع هو أن يجعل المسار الكامل مفهوماً للطالب ولأسرته. عندما يصبح الطريق واضحاً، يصبح القرار أسهل.",
-      steps: [
-        {
-          title: "01. الاستشارة والتشخيص",
-          desc: "نوضح الملف وتوقعات العائلة ومنطق المنحة أو الجامعة ومستوى المرافقة المناسب.",
-        },
-        {
-          title: "02. التوجيه واختيار الجامعات",
-          desc: "نحدد المدن والجامعات المناسبة قبل إطلاق الملف.",
-        },
-        {
-          title: "03. الملف والترجمة والقبول",
-          desc: "الباقة 1 تنظّم الملف والترجمة والتسجيل الجامعي ومتابعة القبول.",
-        },
-        {
-          title: "04. التأشيرة والسفر",
-          desc: "التأشيرة والتحضير للسفر والمراحل الحساسة تتم متابعتها بمنهج واضح.",
-        },
-        {
-          title: "05. الوصول والمرافقة",
-          desc: "الباقة 2 تواصل المتابعة حتى النقل من المطار إلى الجامعة وأول الخطوات على الأرض.",
-        },
-      ],
-      coverageEyebrow: "المدن التي نتابعها",
-      coverageTitle: "حضور مبني حول الوجهات التي تطلبها العائلات أكثر.",
-      coverageText:
-        "تشونغتشينغ ونانتشانغ ونينغبو وهاربين وشيآن وتشنغدو وتشجيانغ من أبرز المدن التي تظهر داخل الموقع كوجهات خدمة أساسية.",
+    checkpoints: {
+      admission: {
+        kind: "admission",
+        chapter: "المرحلة 04 — القبول",
+        title: "المشروع يتحول إلى ترشيح جامعي حقيقي.",
+        description:
+          "يتم تنظيم الملف، مراجعة الوثائق، تحضير الترجمة، ومتابعة التسجيل بطريقة واضحة.",
+        label: "القبول",
+        artifactTitle: "الملف الأكاديمي جاهز",
+        artifactText: "جامعة مختارة • وثائق مراجعة • ترشيح متابع",
+        image: images.admission,
+        items: [
+          "اختيار الجامعة",
+          "تحضير الملف",
+          "الترجمة",
+          "التسجيل",
+          "متابعة القبول",
+        ],
+      },
+      visa: {
+        kind: "visa",
+        chapter: "المرحلة 05 — تأشيرة الطالب",
+        title: "تأشيرة الطالب تصبح مرحلة واضحة ومنظمة.",
+        description:
+          "تأشيرة الطالب لا يجب أن تكون مصدر توتر. الوثائق والآجال والخطوات يتم تحضيرها بوضوح.",
+        label: "تأشيرة الطالب",
+        artifactTitle: "التأشيرة قيد التحضير",
+        artifactText: "وثائق • مراجعة • موعد • متابعة",
+        image: images.visa,
+        items: [
+          "وثائق التأشيرة",
+          "المراجعة",
+          "الموعد",
+          "المتابعة",
+          "إرشاد قبل الانطلاق",
+        ],
+      },
+      preparation: {
+        kind: "preparation",
+        chapter: "المرحلة 06 — التحضير",
+        title: "قبل الوصول إلى الصين، يجب توقع كل التفاصيل.",
+        description:
+          "التذكرة، التواصل، الوثائق، التوقيت، الاستقرار وأول الخطوات: التحضير الجيد يخفف توتر العائلة.",
+        label: "التحضير",
+        artifactTitle: "تحضير منظم",
+        artifactText: "تذكرة • إرشاد • وثائق • دعم واتساب",
+        image: images.preparation,
+        items: [
+          "مساعدة التذكرة",
+          "تحضير الوثائق",
+          "إرشاد العائلة",
+          "دعم واتساب",
+          "تنسيق الوصول",
+        ],
+      },
+      arrival: {
+        kind: "arrival",
+        chapter: "المرحلة 07 — الوصول إلى الصين",
+        title: "الطالب يصل إلى الصين ومعه معالم واضحة، لا غموض.",
+        description:
+          "مع الباقة المميزة، الطالب لا يصل وحده إلى المجهول. المرافقة تستمر في أول خطواته داخل الجامعة.",
+        label: "الوصول",
+        artifactTitle: "استقرار أسهل",
+        artifactText: "استقبال • نقل • جامعة • أول المعالم",
+        image: images.arrival,
+        items: ["استقبال", "نقل", "معالم الجامعة", "استقرار", "الخطوات الأولى"],
+      },
     },
-    faq: {
-      eyebrow: "الأسئلة الشائعة",
-      title: "الأجوبة التي تريد العائلة قراءتها قبل اتخاذ القرار.",
+    packs: {
+      chapter: "اختر مستوى المرافقة المناسب",
+      title: "باقتان. هدف واحد: الدراسة في الصين بثقة.",
       description:
-        "الطبقة الأولى من الثقة تبدأ عندما يجيب الموقع بوضوح عن أسئلة المنحة والتكلفة والتأشيرة والوصول.",
-      items: [
-        {
-          question: "كيف أعرف إن كانت المنحة واقعية بالنسبة إلى ملفي؟",
-          answer:
-            "الاستشارة المجانية موجودة أساسا لتقييم الملف ومنطق المنحة ومستوى الفرصة قبل بدء الملف الكامل.",
-        },
-        {
-          question: "ماذا تتضمن كل باقة فعلا؟",
-          answer:
-            "الباقة 1 تشمل الملف والترجمة والتسجيل والتأشيرة، أما الباقة 2 فتمدّد المرافقة حتى السفر والوصول.",
-        },
-        {
-          question: "ماذا يحدث بعد الوصول إلى الصين؟",
-          answer:
-            "هيكلة الموقع تبيّن أن الوصول ليس مرحلة مجهولة، خصوصا مع منطق النقل والمرافقة على الأرض داخل الباقة 2.",
-        },
-      ],
-      primary: "شاهد الأسئلة كاملة",
-      secondary: "تحدث مع الفريق",
+        "بعد فهم المسار، تختار العائلة مستوى المرافقة المناسب لوضعها الحقيقي.",
+      standard: {
+        name: "الباقة العادية",
+        price: "15.000 DH",
+        tag: "حتى التأشيرة",
+        desc: "للطلبة الذين يريدون مرافقة جادة في التوجيه والملف والقبول والتأشيرة.",
+        items: ["استشارة", "توجيه", "ملف", "ترجمة", "قبول", "تأشيرة"],
+        cta: "اختر العادية",
+      },
+      premium: {
+        name: "الباقة المميزة",
+        price: "23.000 DH",
+        tag: "مقترحة",
+        desc: "للعائلات التي تريد حضوراً مطمئناً حتى الوصول وأول الخطوات في الصين.",
+        items: [
+          "كل ما في العادية",
+          "مساعدة التذكرة",
+          "تحضير",
+          "تنسيق الوصول",
+          "النقل",
+          "أول المعالم",
+        ],
+        cta: "اختر المميزة",
+      },
     },
-    cta: {
-      eyebrow: "ابدأ بشكل جدي",
-      title:
-        "ابدأ بالاستشارة المجانية ثم تقدّم مع الباقة التي تناسب وضعك فعلاً.",
+    final: {
+      chapter: "يمكن أن يبدأ مسارك الآن",
+      title: "الخطوة الأولى هي استشارة واضحة.",
       description:
-        "هدف أول تواصل واضح: فهم الملف، طمأنة العائلة، تقييم الفرصة، ثم اقتراح الصيغة المناسبة.",
-      primary: "اطلب استشارتي المجانية",
+        "نحلل الملف، نجيب عن المخاوف، نشرح الإمكانيات، ونقترح الصيغة الأنسب.",
+      primary: "اطلب استشارة مجانية",
       secondary: "ابدأ التقديم",
     },
   },
 };
 
-export default function HomeLanding({ lang }: { lang: Locale }) {
-  const t = copy[lang];
-  const isArabic = t.dir === "rtl";
-  const contactHref = `/${lang}/contact`;
-  const applyHref = `/${lang}/apply`;
-  const servicesHref = `/${lang}/services`;
-  const faqHref = `/${lang}/faq`;
-  const heroImageAlt =
-    lang === "fr"
-      ? "Accompagnement Yalla China pour étudier en Chine"
-      : lang === "en"
-        ? "Yalla China guidance for studying in China"
-        : "مرافقة يلا تشاينا للدراسة في الصين";
-  const pathImageAlt =
-    lang === "fr"
-      ? "Parcours Yalla China jusqu'à l'arrivée"
-      : lang === "en"
-        ? "Yalla China journey through arrival"
-        : "مسار يلا تشاينا حتى الوصول";
+const cinematicEase: [number, number, number, number] = [0.19, 1, 0.22, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 38 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const fadeScale = {
+  hidden: {
+    opacity: 0,
+    y: 28,
+    scale: 0.965,
+    clipPath: "inset(10% 0% 10% 0% round 2rem)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    clipPath: "inset(0% 0% 0% 0% round 2rem)",
+  },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -42 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 42 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const slowFloat = {
+  y: [0, -8, 0],
+  rotate: [0, -0.35, 0],
+};
+
+
+function getSafeLang(lang: string | undefined): Locale {
+  return lang === "fr" || lang === "en" || lang === "ar" ? lang : "fr";
+}
+
+function getUiLabel(
+  lang: Locale,
+  key: "academicGoal" | "academicGuide",
+): string {
+  const labels: Record<Locale, Record<"academicGoal" | "academicGuide", string>> = {
+    fr: {
+      academicGoal: "Objectif académique",
+      academicGuide: "Guide académique",
+    },
+    en: {
+      academicGoal: "Academic Goal",
+      academicGuide: "Academic Guide",
+    },
+    ar: {
+      academicGoal: "الهدف الأكاديمي",
+      academicGuide: "الدليل الأكاديمي",
+    },
+  };
+
+  return labels[lang][key];
+}
+
+function getCitiesForLocale(lang: Locale): string[] {
+  if (Array.isArray(supportedCities)) return supportedCities;
+
+  const cityMap = supportedCities as unknown as Partial<
+    Record<Locale, string[]>
+  >;
+  return cityMap[lang] ?? cityMap.fr ?? [];
+}
+
+function SceneFrame({
+  id,
+  children,
+  className = "",
+}: {
+  id: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section
+      id={id}
+      className={`relative overflow-hidden lg:min-h-[100dvh] lg:snap-start ${className}`}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 bg-gradient-to-b from-[#050202]/22 via-[#050202]/8 to-transparent"
+      />
+
+      {children}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-[-1px] z-20 h-20 bg-gradient-to-t from-[#050202]/26 via-[#050202]/8 to-transparent"
+      />
+    </section>
+  );
+}
+
+function GrainOverlay() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-soft-light [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12)_0_1px,transparent_1px),radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.10)_0_1px,transparent_1px)] [background-size:18px_18px,26px_26px]"
+    />
+  );
+}
+
+function LuxuryBackground({
+  src,
+  strength = "dark",
+}: {
+  src?: string;
+  strength?: "dark" | "cream" | "deep";
+}) {
+  const reduceMotion = useReducedMotion();
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
-      <section className="relative overflow-hidden bg-[#120405]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_16%,rgba(119,3,4,0.8),transparent_28%),radial-gradient(circle_at_88%_12%,rgba(177,127,2,0.18),transparent_24%),linear-gradient(135deg,#100203_0%,#25080b_38%,#070707_100%)]" />
-        <div className="absolute inset-0 opacity-25 shoji-grid" />
-        <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-[#B17F02]/12 blur-3xl drift-slow" />
-        <div className="pointer-events-none absolute right-0 top-0 h-[26rem] w-[26rem] rounded-full bg-[#770304]/35 blur-3xl" />
+    <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+      {src ? (
+        <motion.div
+          className="absolute inset-0"
+          animate={reduceMotion ? undefined : { scale: [1.035, 1.065, 1.035] }}
+          transition={
+            reduceMotion
+              ? undefined
+              : { duration: 22, repeat: Infinity, ease: "easeInOut" }
+          }
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            priority={src === images.hero}
+            sizes="100vw"
+            className="object-cover"
+          />
+        </motion.div>
+      ) : (
+        <div className="absolute inset-0 bg-[#050202]" />
+      )}
 
-        <Container>
-          <div className="relative py-12 sm:py-16 lg:py-24">
-            <div className="grid gap-8 lg:gap-10 xl:grid-cols-[1.06fr_0.94fr] xl:items-center">
+      <div
+        className={
+          strength === "cream"
+            ? "absolute inset-0 bg-[linear-gradient(90deg,rgba(244,237,228,0.96),rgba(244,237,228,0.78)_42%,rgba(74,16,16,0.36)),radial-gradient(circle_at_80%_22%,rgba(237,184,11,0.22),transparent_34%)]"
+            : strength === "deep"
+              ? "absolute inset-0 bg-[linear-gradient(90deg,rgba(5,2,2,0.96),rgba(5,2,2,0.76)_45%,rgba(5,2,2,0.44)),radial-gradient(circle_at_78%_22%,rgba(237,184,11,0.18),transparent_36%),radial-gradient(circle_at_22%_80%,rgba(119,3,4,0.36),transparent_38%)]"
+              : "absolute inset-0 bg-[linear-gradient(90deg,rgba(5,2,2,0.95),rgba(5,2,2,0.72)_45%,rgba(5,2,2,0.34)),radial-gradient(circle_at_80%_20%,rgba(237,184,11,0.16),transparent_36%)]"
+        }
+      />
+
+      <div className="absolute inset-0 opacity-[0.10] shoji-grid" />
+      <GrainOverlay />
+    </div>
+  );
+}
+
+function CameraAtmosphere() {
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const lensY = useTransform(scrollYProgress, [0, 1], ["-14%", "114%"]);
+  const lensX = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    ["-6%", "5%", "-3%"],
+  );
+  const silkY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  const beamRotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
+
+  if (reduceMotion) return null;
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-30 hidden overflow-hidden opacity-55 md:block"
+    >
+      <motion.div
+        style={{ y: lensY, x: lensX, rotate: beamRotate }}
+        className="absolute left-[-12vw] top-[-20vh] h-[52vh] w-[124vw] bg-[radial-gradient(ellipse_at_center,rgba(237,184,11,0.095),rgba(237,184,11,0.028)_38%,transparent_70%)] blur-2xl"
+      />
+
+      <motion.div
+        style={{ y: silkY }}
+        className="absolute bottom-[-18vh] right-[-16vw] h-[46vh] w-[70vw] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(119,3,4,0.22),rgba(119,3,4,0.06)_42%,transparent_72%)] blur-3xl"
+      />
+
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_66%,rgba(0,0,0,0.12)_100%)]" />
+    </div>
+  );
+}
+
+function TallImageCard({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      variants={fadeScale}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 1.05, ease: cinematicEase }}
+      whileHover={{ y: -5, rotate: -0.25, scale: 1.006 }}
+      className={`relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl ${className}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 1024px) 100vw, 32vw"
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,2,2,0.08),rgba(5,2,2,0.76)),radial-gradient(circle_at_top_right,rgba(237,184,11,0.2),transparent_35%)]" />
+      <div className="absolute inset-4 rounded-[1.85rem] border border-white/10" />
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-y-0 left-[-35%] w-[24%] rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent"
+        animate={reduceMotion ? undefined : { x: ["0%", "560%"] }}
+        transition={
+          reduceMotion
+            ? undefined
+            : { duration: 7.5, repeat: Infinity, ease: "easeInOut" }
+        }
+      />
+      <GrainOverlay />
+    </motion.div>
+  );
+}
+
+function GlassPanel({
+  children,
+  className = "",
+  dark = true,
+}: {
+  children: ReactNode;
+  className?: string;
+  dark?: boolean;
+}) {
+  return (
+    <div
+      className={`relative overflow-hidden rounded-[2rem] border shadow-[0_35px_90px_rgba(0,0,0,0.26)] backdrop-blur-2xl ${
+        dark
+          ? "border-white/10 bg-white/[0.07] text-white"
+          : "border-[#770304]/10 bg-white/82 text-zinc-950"
+      } ${className}`}
+    >
+      <div
+        aria-hidden="true"
+        className={`absolute right-[-6rem] top-[-6rem] h-56 w-56 rounded-full blur-3xl ${
+          dark ? "bg-[#EDB80B]/16" : "bg-[#770304]/10"
+        }`}
+      />
+      <div
+        aria-hidden="true"
+        className={`absolute bottom-[-5rem] left-[-5rem] h-52 w-52 rounded-full blur-3xl ${
+          dark ? "bg-[#770304]/38" : "bg-[#EDB80B]/16"
+        }`}
+      />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
+function HeroProjectCard({ t, isArabic }: { t: SceneCopy; isArabic: boolean }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      variants={fadeScale}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 1, ease: cinematicEase, delay: 0.22 }}
+      className="relative hidden lg:block"
+    >
+      <motion.div
+        animate={reduceMotion ? undefined : slowFloat}
+        transition={
+          reduceMotion
+            ? undefined
+            : { duration: 9, repeat: Infinity, ease: "easeInOut" }
+        }
+      >
+        <GlassPanel className={`p-5 ${isArabic ? "text-right" : ""}`}>
+          <p className="text-xs font-black uppercase tracking-[0.25em] text-[#EDB80B]">
+            {t.hero.cardTitle}
+          </p>
+
+          <h2 className="mt-3 text-2xl font-black tracking-[-0.035em] text-white lg:text-3xl">
+            {t.hero.cardText}
+          </h2>
+
+          <div className="mt-5 overflow-hidden rounded-[1.6rem] border border-white/10">
+            <div className="relative h-[12.5rem] lg:h-[13.5rem]">
+              <Image
+                src={images.academic}
+                alt={t.hero.cardTitle}
+                fill
+                priority
+                sizes="42vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/76 via-black/10 to-transparent" />
+              <GrainOverlay />
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-2.5">
+            {t.hero.stats.map((stat) => (
               <div
-                className={`space-y-7 animate-fade-in-up ${
-                  isArabic ? "text-right" : "text-center xl:text-left"
+                key={stat.label}
+                className="rounded-2xl border border-white/10 bg-white/[0.08] px-3 py-3"
+              >
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/42">
+                  {stat.label}
+                </p>
+                <p className="mt-2 text-sm font-black leading-tight text-white/90">
+                  {stat.value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </GlassPanel>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function AcademicCard({
+  title,
+  text,
+  label,
+  dark = false,
+  isArabic = false,
+}: {
+  title: string;
+  text: string;
+  label: string;
+  dark?: boolean;
+  isArabic?: boolean;
+}) {
+  return (
+    <motion.div
+      variants={fadeScale}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.86, ease: cinematicEase }}
+      whileHover={{ y: -5, rotate: -0.25 }}
+    >
+      <GlassPanel dark={dark} className={`p-5 ${isArabic ? "text-right" : ""}`}>
+        <div
+          className={`inline-flex rounded-full px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] ${
+            dark ? "bg-[#EDB80B] text-black" : "bg-[#770304]/10 text-[#770304]"
+          }`}
+        >
+          {label}
+        </div>
+
+        <h3 className="mt-5 text-3xl font-black tracking-[-0.04em]">{title}</h3>
+
+        <p
+          className={`mt-2 text-sm font-semibold leading-7 ${
+            dark ? "text-white/62" : "text-zinc-600"
+          }`}
+        >
+          {text}
+        </p>
+      </GlassPanel>
+    </motion.div>
+  );
+}
+
+function DocumentObject({
+  checkpoint,
+  isArabic = false,
+}: {
+  checkpoint: Checkpoint;
+  isArabic?: boolean;
+}) {
+  return (
+    <motion.div
+      variants={fadeScale}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.9, ease: cinematicEase }}
+      whileHover={{ y: -5, rotate: -0.25 }}
+    >
+      <GlassPanel className={`p-4 sm:p-5 ${isArabic ? "text-right" : ""}`}>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="inline-flex rounded-full bg-[#EDB80B] px-4 py-2 text-[10px] font-black uppercase tracking-[0.22em] text-black">
+              {checkpoint.label}
+            </div>
+
+            <h3 className="mt-4 text-2xl font-black tracking-[-0.035em] text-white lg:text-[1.7rem]">
+              {checkpoint.artifactTitle}
+            </h3>
+
+            <p className="mt-2 max-w-sm text-sm font-semibold leading-6 text-white/60">
+              {checkpoint.artifactText}
+            </p>
+          </div>
+
+          <div className="hidden h-16 w-16 shrink-0 rotate-[-8deg] items-center justify-center rounded-full border-2 border-[#EDB80B]/45 text-center text-[10px] font-black uppercase tracking-[0.16em] text-[#EDB80B] sm:flex">
+            Yalla
+            <br />
+            China
+          </div>
+        </div>
+
+        <div className="mt-4 overflow-hidden rounded-[1.45rem] border border-white/10 bg-black/[0.12]">
+          <div className="relative h-[10rem] sm:h-[11.5rem] lg:h-[11.5rem]">
+            <Image
+              src={checkpoint.image}
+              alt={checkpoint.artifactTitle}
+              fill
+              sizes="(max-width: 1024px) 100vw, 36vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.72)),radial-gradient(circle_at_top_right,rgba(237,184,11,0.24),transparent_36%)]" />
+            <GrainOverlay />
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-3 gap-2.5">
+          {checkpoint.kind === "admission" &&
+            ["UNI", "DOC", "OK"].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3 text-center text-[11px] font-black tracking-[0.16em] text-white/80"
+              >
+                {item}
+              </div>
+            ))}
+
+          {checkpoint.kind === "visa" &&
+            ["VISA", "CHECK", "RDV"].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3 text-center text-[11px] font-black tracking-[0.16em] text-white/80"
+              >
+                {item}
+              </div>
+            ))}
+
+          {checkpoint.kind === "preparation" &&
+            ["DOC", "TIME", "YC"].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3 text-center text-[11px] font-black tracking-[0.16em] text-white/80"
+              >
+                {item}
+              </div>
+            ))}
+
+          {checkpoint.kind === "arrival" &&
+            ["CAMPUS", "HOME", "READY"].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3 text-center text-[11px] font-black tracking-[0.16em] text-white/80"
+              >
+                {item}
+              </div>
+            ))}
+        </div>
+      </GlassPanel>
+    </motion.div>
+  );
+}
+
+function CheckpointScene({
+  id,
+  chapter,
+  reverse = false,
+  isArabic,
+}: {
+  id: string;
+  chapter: Checkpoint;
+  reverse?: boolean;
+  isArabic: boolean;
+}) {
+  return (
+    <SceneFrame id={id} className="bg-[#070303] text-white">
+      <LuxuryBackground src={chapter.image} strength="deep" />
+
+      <div
+        className={`relative mx-auto grid lg:min-h-[100dvh] w-full max-w-[84rem] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 lg:gap-8 lg:py-14 lg:grid-cols-[0.9fr_1.1fr] ${
+          reverse ? "lg:grid-cols-[1.1fr_0.9fr]" : ""
+        }`}
+      >
+        <div className={reverse ? "lg:order-2" : ""}>
+          <DocumentObject checkpoint={chapter} isArabic={isArabic} />
+        </div>
+
+        <motion.div
+          variants={reverse ? fadeLeft : fadeRight}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.868, ease: cinematicEase }}
+          className={`${reverse ? "lg:order-1" : ""} ${isArabic ? "text-right" : ""}`}
+        >
+          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#EDB80B]">
+            {chapter.chapter}
+          </p>
+
+          <h2 className="display-title mt-5 max-w-4xl text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-white sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+            {chapter.title}
+          </h2>
+
+          <p className="mt-5 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
+            {chapter.description}
+          </p>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mt-5 grid gap-2.5 sm:grid-cols-2"
+          >
+            {chapter.items.map((item) => (
+              <motion.div
+                key={item}
+                variants={fadeUp}
+                transition={{ duration: 0.52, ease: cinematicEase }}
+                className={`rounded-[1.2rem] border border-white/10 bg-white/[0.075] px-4 py-3 text-sm font-bold text-white/84 shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-xl ${
+                  isArabic ? "text-right" : ""
                 }`}
               >
-                <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/88 sm:text-xs sm:tracking-[0.22em] xl:justify-start xl:text-left">
-                  {t.hero.badge}
-                </p>
+                {item}
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </SceneFrame>
+  );
+}
 
-                <div className="space-y-4">
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.3em] text-[#EDB80B]">
-                    {t.hero.eyebrow}
-                  </p>
-                  <h1
-                    className={`display-title text-[2.35rem] font-black leading-[0.98] tracking-[-0.04em] sm:text-[3.35rem] lg:text-6xl xl:text-7xl ${
-                      isArabic ? "max-w-4xl" : "mx-auto max-w-4xl xl:mx-0"
-                    }`}
-                  >
-                    {t.hero.title}
-                  </h1>
-                </div>
+export default function HomeLanding({ lang }: { lang: Locale | string }) {
+  const safeLang = getSafeLang(lang);
+  const t = copy[safeLang];
+  const isArabic = t.dir === "rtl";
+  const contactHref = `/${safeLang}/contact`;
+  const applyHref = `/${safeLang}/apply`;
+  const cities = getCitiesForLocale(safeLang).slice(0, 6);
 
-                <p
-                  className={`max-w-2xl text-base leading-8 text-white/78 sm:text-lg ${
-                    isArabic ? "" : "mx-auto xl:mx-0"
+  return (
+    <div
+      dir={t.dir}
+      lang={safeLang}
+      className="min-h-screen overflow-y-auto overflow-x-hidden scroll-smooth bg-[#050202] text-white [scrollbar-width:thin] [scrollbar-color:#EDB80B_#050202] lg:h-[100dvh] lg:snap-y lg:snap-proximity"
+    >
+      <CameraAtmosphere />
+
+      <SceneFrame id="hero" className="bg-[#050202]">
+        <LuxuryBackground src={images.hero} strength="dark" />
+
+        <div className="relative mx-auto grid min-h-[100svh] w-full max-w-[84rem] items-center gap-6 px-5 pb-14 pt-24 sm:px-8 sm:py-20 lg:min-h-[100dvh] lg:gap-8 lg:py-14 lg:grid-cols-[1.08fr_0.72fr]">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+            className={`relative z-10 ${isArabic ? "text-right" : ""}`}
+          >
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.86, ease: cinematicEase }}
+              className="inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-[#EDB80B] shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+            >
+              {t.hero.badge}
+            </motion.div>
+
+            <motion.h1
+              variants={fadeUp}
+              transition={{ duration: 1, ease: cinematicEase }}
+              className="display-title mt-5 max-w-4xl text-[2.15rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3rem] lg:text-[4rem] xl:text-[4.35rem]"
+            >
+              {t.hero.title}
+            </motion.h1>
+
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.9, ease: cinematicEase }}
+              className="mt-5 max-w-2xl text-sm leading-7 text-white/76 sm:text-base lg:text-lg"
+            >
+              {t.hero.description}
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.86, ease: cinematicEase }}
+              className={`mt-7 flex flex-col gap-3 sm:flex-row ${
+                isArabic ? "sm:justify-end" : ""
+              }`}
+            >
+              <Link
+                href={contactHref}
+                className="rounded-full bg-gradient-to-r from-[#EDB80B] to-[#C59F41] px-8 py-4 text-center font-black text-black shadow-[0_22px_70px_rgba(237,184,11,0.32)] transition hover:-translate-y-1"
+              >
+                {t.hero.primary}
+              </Link>
+
+              <a
+                href="#packs"
+                className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/15"
+              >
+                {t.hero.secondary}
+              </a>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.9, ease: cinematicEase }}
+              className="mt-8 hidden max-w-3xl items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-white/65 xl:flex"
+            >
+              <span>{t.hero.start}</span>
+              <span className="h-px flex-1 border-t border-dashed border-[#EDB80B]/65" />
+              <motion.span
+                animate={{ x: [0, 10, 0], y: [0, -3, 0] }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="text-[#EDB80B]"
+              >
+                →
+              </motion.span>
+              <span className="h-px flex-1 border-t border-dashed border-[#EDB80B]/65" />
+              <span>{t.hero.end}</span>
+            </motion.div>
+          </motion.div>
+
+          <HeroProjectCard t={t} isArabic={isArabic} />
+        </div>
+      </SceneFrame>
+
+      <SceneFrame id="vision" className="bg-[#f4ede4] text-zinc-950">
+        <LuxuryBackground src={images.vision} strength="cream" />
+
+        <div className="relative mx-auto grid lg:min-h-[100dvh] w-full max-w-[84rem] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 lg:gap-8 lg:py-14 lg:grid-cols-[0.95fr_1.05fr]">
+          <motion.div
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease: cinematicEase }}
+            className={isArabic ? "text-right" : ""}
+          >
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
+              {t.vision.chapter}
+            </p>
+
+            <h2 className="display-title mt-5 max-w-4xl text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-zinc-950 sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+              {t.vision.title}
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg">
+              {t.vision.description}
+            </p>
+
+            <div className="mt-8 rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 text-lg font-black text-[#770304] shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-xl">
+              {t.vision.note}
+            </div>
+          </motion.div>
+
+          <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <TallImageCard
+              src={images.vision}
+              alt={t.vision.title}
+              className="h-[18rem] sm:h-[22rem] lg:h-[23rem]"
+            />
+
+            <AcademicCard
+              title={t.vision.artifactTitle}
+              text={t.vision.artifactText}
+              label={getUiLabel(safeLang, "academicGoal")}
+              isArabic={isArabic}
+            />
+          </div>
+        </div>
+      </SceneFrame>
+
+      <SceneFrame id="doubts" className="bg-[#080303]">
+        <LuxuryBackground src={images.family} strength="deep" />
+
+        <div className="relative mx-auto grid lg:min-h-[100dvh] w-full max-w-[84rem] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 lg:gap-8 lg:py-14 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-5">
+            <TallImageCard
+              src={images.family}
+              alt={t.doubts.title}
+              className="h-[18rem] sm:h-[22rem] lg:h-[23rem]"
+            />
+          </div>
+
+          <motion.div
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease: cinematicEase }}
+            className={isArabic ? "text-right" : ""}
+          >
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#EDB80B]">
+              {t.doubts.chapter}
+            </p>
+
+            <h2 className="display-title mt-5 max-w-4xl text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-white sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+              {t.doubts.title}
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-white/72 sm:text-lg">
+              {t.doubts.description}
+            </p>
+
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="mt-8 grid gap-3 sm:grid-cols-2"
+            >
+              {t.doubts.questions.map((question, index) => (
+                <motion.article
+                  key={question}
+                  variants={fadeUp}
+                  transition={{ duration: 0.65, ease: cinematicEase }}
+                  whileHover={{ y: -5, scale: 1.01 }}
+                  className={`rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.22)] backdrop-blur-2xl ${
+                    isArabic ? "text-right" : ""
                   }`}
                 >
-                  {t.hero.description}
-                </p>
-
-                <p
-                  className={`max-w-2xl text-sm font-medium leading-7 text-white/62 ${
-                    isArabic ? "" : "mx-auto xl:mx-0"
-                  }`}
-                >
-                  {t.hero.note}
-                </p>
-
-                <div
-                  className={`flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap ${
-                    isArabic
-                      ? "sm:justify-end"
-                      : "mx-auto items-stretch xl:mx-0 sm:items-center"
-                  }`}
-                >
-                  <Link
-                    href={contactHref}
-                    data-track="home_hero_primary_cta"
-                    data-track-value={lang}
-                    className="w-full rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(177,127,2,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_24px_45px_rgba(177,127,2,0.45)] sm:w-auto"
-                  >
-                    {t.hero.primary}
-                  </Link>
-
-                  <Link
-                    href={servicesHref}
-                    data-track="home_hero_secondary_cta"
-                    data-track-value={lang}
-                    className="w-full rounded-full border border-white/18 bg-white/8 px-6 py-3 text-center font-medium text-white transition hover:bg-white/14 sm:w-auto"
-                  >
-                    {t.hero.secondary}
-                  </Link>
-                </div>
-
-                <div
-                  className={`grid gap-3 sm:grid-cols-2 xl:grid-cols-3 ${
-                    isArabic ? "" : "mx-auto max-w-xl xl:mx-0 xl:max-w-none"
-                  }`}
-                >
-                  {t.hero.cards.map((item) => (
-                    <article
-                      key={item.label}
-                      className={`rounded-[1.8rem] border border-white/10 bg-black/25 p-4 backdrop-blur-md ${
-                        isArabic ? "text-right" : ""
-                      }`}
-                    >
-                      <p className="text-sm font-semibold text-white">{item.label}</p>
-                      <p className="mt-2 text-sm leading-7 text-white/66">{item.value}</p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative">
-                <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_top,rgba(237,184,11,0.14),transparent_35%),radial-gradient(circle_at_bottom,rgba(255,255,255,0.04),transparent_40%)]" />
-
-                <div className="relative overflow-hidden rounded-[2.3rem] border border-white/12 bg-black/30 shadow-[0_30px_70px_rgba(0,0,0,0.35)]">
-                  <div className="relative h-[20rem] overflow-hidden sm:h-[27rem]">
-                    <Image
-                      src="/fr-services-hero.jpg"
-                      alt={heroImageAlt}
-                      fill
-                      priority
-                      sizes="(max-width: 1023px) 100vw, 44vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                    <div
-                      className={`absolute left-5 right-5 top-5 flex ${
-                        isArabic ? "justify-end" : "justify-start"
-                      }`}
-                    >
-                      <span className="section-eyebrow rounded-full border border-white/15 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/85">
-                        {t.hero.sideEyebrow}
-                      </span>
-                    </div>
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#EDB80B] text-xs font-black text-black shadow-[0_0_40px_rgba(237,184,11,0.22)]">
+                    {String(index + 1).padStart(2, "0")}
                   </div>
 
-                  <div
-                    className={`space-y-4 p-5 sm:p-6 ${
-                      isArabic ? "text-right" : "text-center sm:text-left"
-                    }`}
-                  >
-                    <h2 className="display-title text-2xl font-black leading-tight text-white">
-                      {t.hero.sideTitle}
-                    </h2>
-                    <p className="text-sm leading-7 text-white/72">{t.hero.sideText}</p>
+                  <h3 className="text-base font-black leading-tight text-white">
+                    {question}
+                  </h3>
+                </motion.article>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </SceneFrame>
 
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {t.hero.sideItems.map((item) => (
+      <SceneFrame id="method" className="bg-[#f4ede4] text-zinc-950">
+        <LuxuryBackground src={images.method} strength="cream" />
+
+        <div className="relative mx-auto grid lg:min-h-[100dvh] w-full max-w-[84rem] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 lg:gap-8 lg:py-14 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <TallImageCard
+              src={images.method}
+              alt={t.method.title}
+              className="h-[18rem] sm:h-[22rem] lg:h-[23rem]"
+            />
+
+            <AcademicCard
+              title="Yalla China"
+              text="Dream. Trust. Achieve."
+              label={getUiLabel(safeLang, "academicGuide")}
+              isArabic={isArabic}
+            />
+          </div>
+
+          <motion.div
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease: cinematicEase }}
+            className={isArabic ? "text-right" : ""}
+          >
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
+              {t.method.chapter}
+            </p>
+
+            <h2 className="display-title mt-5 max-w-4xl text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-zinc-950 sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+              {t.method.title}
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg">
+              {t.method.description}
+            </p>
+
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+              className="mt-5 grid gap-3"
+            >
+              {t.method.points.map((point) => (
+                <motion.div
+                  key={point.title}
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, ease: cinematicEase }}
+                  className={`rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-xl ${
+                    isArabic ? "text-right" : ""
+                  }`}
+                >
+                  <h3 className="text-lg font-black text-[#770304]">
+                    {point.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-zinc-600">
+                    {point.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </SceneFrame>
+
+      <CheckpointScene
+        id="admission"
+        chapter={t.checkpoints.admission}
+        isArabic={isArabic}
+      />
+
+      <CheckpointScene
+        id="visa"
+        chapter={t.checkpoints.visa}
+        reverse
+        isArabic={isArabic}
+      />
+
+      <CheckpointScene
+        id="preparation"
+        chapter={t.checkpoints.preparation}
+        isArabic={isArabic}
+      />
+
+      <SceneFrame id="arrival" className="bg-[#050202]">
+        <LuxuryBackground src={images.arrival} strength="deep" />
+
+        <div className="relative mx-auto grid w-full max-w-[84rem] items-center gap-6 px-5 py-16 sm:px-8 sm:py-20 lg:min-h-[100dvh] lg:grid-cols-[1fr_0.92fr] lg:gap-8 lg:py-14">
+          <motion.div
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.9, ease: cinematicEase }}
+            className={isArabic ? "text-right" : ""}
+          >
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#EDB80B] sm:text-sm">
+              {t.checkpoints.arrival.chapter}
+            </p>
+
+            <h2 className="display-title mt-5 max-w-4xl text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-white sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+              {t.checkpoints.arrival.title}
+            </h2>
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-white/72 sm:text-lg">
+              {t.checkpoints.arrival.description}
+            </p>
+
+            <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+              {t.checkpoints.arrival.items.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/[0.08] px-3 py-3 text-sm font-bold text-white/84 backdrop-blur-xl"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeScale}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: cinematicEase }}
+            className="grid gap-4"
+          >
+            <DocumentObject
+              checkpoint={t.checkpoints.arrival}
+              isArabic={isArabic}
+            />
+
+            <GlassPanel className={`p-4 sm:p-5 ${isArabic ? "text-right" : ""}`}>
+              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#EDB80B] sm:text-xs">
+                {t.hero.start} → {t.hero.end}
+              </p>
+
+              <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-2">
+                {cities.map((city) => (
+                  <div
+                    key={city}
+                    className="rounded-2xl border border-white/10 bg-white/[0.07] px-3 py-3 text-sm font-bold text-white/82"
+                  >
+                    {city}
+                  </div>
+                ))}
+              </div>
+            </GlassPanel>
+          </motion.div>
+        </div>
+      </SceneFrame>
+
+      <SceneFrame id="packs" className="bg-[#f4ede4] text-zinc-950">
+        <LuxuryBackground src={images.academic} strength="cream" />
+
+        <div className="relative mx-auto flex lg:min-h-[100dvh] w-full max-w-[84rem] flex-col justify-center px-5 py-16 sm:px-8 sm:py-20 lg:py-14">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.86, ease: cinematicEase }}
+            className={`mx-auto max-w-3xl text-center ${isArabic ? "lg:text-right" : ""}`}
+          >
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
+              {t.packs.chapter}
+            </p>
+
+            <h2 className="display-title mt-5 text-[1.95rem] font-black leading-[1] tracking-[-0.04em] text-zinc-950 sm:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.6rem]">
+              {t.packs.title}
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg">
+              {t.packs.description}
+            </p>
+          </motion.div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            {[t.packs.standard, t.packs.premium].map((pack, index) => {
+              const featured = index === 1;
+
+              return (
+                <motion.article
+                  key={pack.name}
+                  variants={index === 0 ? fadeLeft : fadeRight}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.86, ease: cinematicEase }}
+                  whileHover={{ y: -7, scale: 1.006 }}
+                  className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-6 shadow-[0_35px_90px_rgba(54,1,2,0.14)] ${
+                    featured
+                      ? "bg-gradient-to-br from-[#770304] via-[#5a0203] to-[#120303] text-white"
+                      : "border border-[#770304]/10 bg-white/90 text-zinc-950"
+                  } ${isArabic ? "text-right" : ""}`}
+                >
+                  <div
+                    className={`absolute right-[-5rem] top-[-5rem] h-56 w-56 rounded-full blur-3xl ${
+                      featured ? "bg-[#EDB80B]/24" : "bg-[#770304]/10"
+                    }`}
+                  />
+
+                  <div className="relative">
+                    <span
+                      className={`inline-flex rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.2em] ${
+                        featured
+                          ? "bg-[#EDB80B] text-black"
+                          : "bg-[#770304]/10 text-[#770304]"
+                      }`}
+                    >
+                      {pack.tag}
+                    </span>
+
+                    <h3 className="mt-4 text-2xl font-black sm:text-3xl">{pack.name}</h3>
+
+                    <p
+                      className={`mt-2 text-4xl font-black tracking-[-0.05em] sm:text-[2.75rem] ${
+                        featured ? "text-[#EDB80B]" : "text-[#770304]"
+                      }`}
+                    >
+                      {pack.price}
+                    </p>
+
+                    <p
+                      className={`mt-3 text-sm leading-7 sm:text-base ${
+                        featured ? "text-white/72" : "text-zinc-600"
+                      }`}
+                    >
+                      {pack.desc}
+                    </p>
+
+                    <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                      {pack.items.map((item) => (
                         <div
                           key={item}
-                          className="rounded-2xl border border-white/8 bg-black/18 px-4 py-3 text-sm font-medium text-white/88"
+                          className={`rounded-2xl px-4 py-2.5 text-sm font-bold ${
+                            featured
+                              ? "bg-white/[0.07] text-white/82"
+                              : "bg-[#770304]/5 text-zinc-700"
+                          }`}
                         >
-                          {item}
+                          ✓ {item}
                         </div>
                       ))}
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
 
-      <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-            <div
-              className={`rounded-[2.3rem] border border-zinc-200 bg-white p-7 shadow-[0_25px_60px_rgba(15,23,42,0.06)] ${
-                isArabic ? "text-right" : ""
-              }`}
+                    <Link
+                      href={contactHref}
+                      className={`mt-5 inline-flex w-full justify-center rounded-full px-6 py-3.5 text-center font-black transition hover:-translate-y-1 ${
+                        featured
+                          ? "bg-[#EDB80B] text-black shadow-[0_22px_55px_rgba(237,184,11,0.25)]"
+                          : "bg-[#770304] text-white shadow-[0_22px_55px_rgba(119,3,4,0.22)]"
+                      }`}
+                    >
+                      {pack.cta}
+                    </Link>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </SceneFrame>
+
+      <SceneFrame id="final" className="bg-[#050202]">
+        <LuxuryBackground src={images.hero} strength="deep" />
+
+        <div className="relative mx-auto flex lg:min-h-[100dvh] w-full max-w-[84rem] flex-col items-center justify-center px-5 py-16 text-center sm:px-8 sm:py-20 lg:py-14">
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.75, ease: cinematicEase }}
+            className="text-sm font-black uppercase tracking-[0.28em] text-[#EDB80B]"
+          >
+            {t.final.chapter}
+          </motion.p>
+
+          <motion.h2
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{
+              duration: 0.9,
+              ease: cinematicEase,
+              delay: 0.08,
+            }}
+            className="display-title mt-5 max-w-4xl text-[2.15rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3rem] lg:text-[3.85rem] xl:text-[4.2rem]"
+          >
+            {t.final.title}
+          </motion.h2>
+
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{
+              duration: 0.9,
+              ease: cinematicEase,
+              delay: 0.16,
+            }}
+            className="mt-5 max-w-2xl text-base leading-7 text-white/74 sm:text-lg"
+          >
+            {t.final.description}
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{
+              duration: 0.9,
+              ease: cinematicEase,
+              delay: 0.24,
+            }}
+            className="mt-7 flex flex-col gap-3 sm:flex-row"
+          >
+            <Link
+              href={contactHref}
+              className="rounded-full bg-gradient-to-r from-[#EDB80B] to-[#C59F41] px-8 py-4 text-center font-black text-black shadow-[0_22px_70px_rgba(237,184,11,0.32)] transition hover:-translate-y-1"
             >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#770304]">
-                {t.reasons.eyebrow}
-              </p>
-              <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
-                {t.reasons.title}
-              </h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-600 sm:text-base">
-                {t.reasons.description}
-              </p>
-            </div>
+              {t.final.primary}
+            </Link>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {t.reasons.items.map((item) => (
-                <article
-                  key={item.title}
-                  className={`rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.05)] ${
-                    isArabic ? "text-right" : ""
-                  }`}
-                >
-                  <div
-                    className={`mb-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] ${
-                      isArabic ? "ml-auto" : ""
-                    }`}
-                  />
-                  <h3 className="text-lg font-bold text-zinc-900">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600">{item.desc}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <TrustIndicators lang={lang} />
-
-      <HomeProofSection lang={lang} />
-
-      <section className="bg-[#080808] py-14 sm:py-18">
-        <Container>
-          <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
-            <div
-              className={`space-y-6 ${
-                isArabic ? "text-right" : "text-center lg:text-left"
-              }`}
+            <Link
+              href={applyHref}
+              className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/15"
             >
-              <div>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#EDB80B]">
-                  {t.path.eyebrow}
-                </p>
-                <h2 className="display-title mt-4 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                  {t.path.title}
-                </h2>
-                <p
-                  className={`mt-4 max-w-2xl text-base leading-8 text-white/70 ${
-                    isArabic ? "" : "mx-auto lg:mx-0"
-                  }`}
-                >
-                  {t.path.description}
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {t.path.steps.map((step) => (
-                  <article
-                    key={step.title}
-                    className={`rounded-[1.8rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_18px_35px_rgba(0,0,0,0.16)] ${
-                      isArabic ? "text-right" : "text-left"
-                    }`}
-                  >
-                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-white/68">{step.desc}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="lg:sticky lg:top-24">
-              <div className="relative overflow-hidden rounded-[2.5rem] bg-[#180607] p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(139,0,0,0.25),transparent_34%)]" />
-                <div className="absolute inset-0 opacity-20 shoji-grid" />
-                <div className="relative space-y-5">
-                  <div className="overflow-hidden rounded-[2rem] border border-white/10">
-                    <div className="relative h-[18rem] w-full sm:h-[22rem]">
-                      <Image
-                        src="/fr-apply-hero.jpg"
-                        alt={pathImageAlt}
-                        fill
-                        sizes="(max-width: 1023px) 100vw, 42vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  <div className={`space-y-3 px-2 ${isArabic ? "text-right" : ""}`}>
-                    <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
-                      {t.path.coverageEyebrow}
-                    </p>
-                    <h3 className="display-title text-2xl font-black leading-tight">
-                      {t.path.coverageTitle}
-                    </h3>
-                    <p className="text-sm leading-7 text-white/72">{t.path.coverageText}</p>
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {supportedCities[lang].map((city) => (
-                      <div
-                        key={city}
-                        className={`rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/84 ${
-                          isArabic ? "text-right" : ""
-                        }`}
-                      >
-                        {city}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <TestimonialsSection lang={lang} />
-
-      <FounderStories lang={lang} />
-
-      <section className="bg-[#f4ede4] py-14 text-zinc-900 sm:py-18">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[0.94fr_1.06fr]">
-            <div
-              className={`rounded-[2.3rem] border border-zinc-200 bg-white p-7 shadow-[0_24px_60px_rgba(15,23,42,0.06)] ${
-                isArabic ? "text-right" : ""
-              }`}
-            >
-              <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#770304]">
-                {t.faq.eyebrow}
-              </p>
-              <h2 className="display-title mt-4 text-3xl font-black leading-tight sm:text-4xl">
-                {t.faq.title}
-              </h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-600 sm:text-base">
-                {t.faq.description}
-              </p>
-
-              <div
-                className={`mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                  isArabic ? "sm:justify-end" : ""
-                }`}
-              >
-                <Link
-                  href={faqHref}
-                  data-track="home_faq_primary_cta"
-                  data-track-value={lang}
-                  className="rounded-full bg-[#770304] px-6 py-3 text-center font-semibold text-white transition hover:bg-[#5a0203]"
-                >
-                  {t.faq.primary}
-                </Link>
-                <Link
-                  href={contactHref}
-                  data-track="home_faq_secondary_cta"
-                  data-track-value={lang}
-                  className="rounded-full border border-zinc-200 bg-[#faf7f3] px-6 py-3 text-center font-medium text-zinc-800 transition hover:bg-white"
-                >
-                  {t.faq.secondary}
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid gap-4">
-              {t.faq.items.map((item) => (
-                <article
-                  key={item.question}
-                  className={`rounded-[1.8rem] border border-zinc-200 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.05)] ${
-                    isArabic ? "text-right" : ""
-                  }`}
-                >
-                  <h3 className="text-lg font-bold text-zinc-900">{item.question}</h3>
-                  <p className="mt-3 text-sm leading-7 text-zinc-600">{item.answer}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-gradient-to-br from-[#770304] via-[#5a0203] to-[#0a0a0a] py-14 sm:py-18">
-        <Container>
-          <div className="rounded-[2.5rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-              <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.24em] text-[#B17F02]">
-                  {t.cta.eyebrow}
-                </p>
-                <h2 className="display-title mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-                  {t.cta.title}
-                </h2>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-white/82">
-                  {t.cta.description}
-                </p>
-              </div>
-
-              <div
-                className={`flex flex-col gap-3 ${
-                  isArabic ? "sm:items-end" : "mx-auto w-full max-w-sm lg:mx-0"
-                }`}
-              >
-                <Link
-                  href={contactHref}
-                  data-track="home_final_primary_cta"
-                  data-track-value={lang}
-                  className="w-full rounded-full bg-gradient-to-r from-[#B17F02] to-[#C59F41] px-6 py-3 text-center font-semibold text-black shadow-[0_18px_35px_rgba(177,127,2,0.3)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_24px_45px_rgba(177,127,2,0.45)] sm:w-auto"
-                >
-                  {t.cta.primary}
-                </Link>
-
-                <Link
-                  href={applyHref}
-                  data-track="home_final_secondary_cta"
-                  data-track-value={lang}
-                  className="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-center font-medium text-white transition-all duration-200 hover:border-white/30 hover:bg-white/15 sm:w-auto"
-                >
-                  {t.cta.secondary}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-    </main>
+              {t.final.secondary}
+            </Link>
+          </motion.div>
+        </div>
+      </SceneFrame>
+    </div>
   );
 }

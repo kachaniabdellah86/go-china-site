@@ -828,14 +828,14 @@ export default function GuidePage({
   const applyHref = `/${lang}/apply`;
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
+    <div className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#120405]">
         <div className="absolute inset-0 bg-[linear-gradient(135deg,#170405_0%,#28080a_42%,#070707_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(165,21,31,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(237,184,11,0.16),transparent_22%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
 
         <Container>
-          <div className="relative grid gap-8 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-20">
+          <div className="relative grid gap-8 pb-12 pt-24 sm:pt-28 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-28">
             <div
               className={`space-y-7 ${
                 isArabic ? "text-right" : "text-center lg:text-left"
@@ -847,7 +847,7 @@ export default function GuidePage({
 
               <div className="space-y-4">
                 <h1
-                  className={`display-title text-[2.25rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-[3.25rem] lg:text-6xl ${
+                  className={`display-title text-[2.05rem] font-black leading-[1.04] tracking-[-0.035em] sm:text-[3.25rem] lg:text-6xl ${
                     isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
                   }`}
                 >
@@ -885,7 +885,7 @@ export default function GuidePage({
 
             <div className="relative">
               <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/20 shadow-[0_28px_70px_rgba(0,0,0,0.35)]">
-                <div className="relative h-[20rem] w-full sm:h-[28rem]">
+                <div className="relative h-[16rem] w-full sm:h-[28rem]">
                   <Image
                     src={t.imageSrc}
                     alt={t.title}
@@ -998,7 +998,7 @@ export default function GuidePage({
 
       <section className="bg-[#7c0913] py-12 sm:py-16">
         <Container>
-          <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
+          <div className="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:rounded-[2.4rem] sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
               <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
@@ -1034,6 +1034,6 @@ export default function GuidePage({
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

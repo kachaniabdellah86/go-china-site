@@ -208,16 +208,16 @@ export default function FaqPage({ lang }: { lang: Locale }) {
   const isArabic = t.dir === "rtl";
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
+    <div className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#130405]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.14),transparent_20%),linear-gradient(135deg,#170405_0%,#28080a_40%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className={`relative py-14 sm:py-20 ${isArabic ? "text-right" : "text-center lg:text-left"}`}>
+          <div className={`relative pb-14 pt-24 sm:pb-20 sm:pt-28 ${isArabic ? "text-right" : "text-center lg:text-left"}`}>
             <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#EDB80B]">
               {t.hero.eyebrow}
             </p>
-            <h1 className="display-title mt-4 max-w-5xl text-[2.25rem] font-black leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="display-title mt-4 max-w-5xl text-[2.05rem] font-black leading-tight sm:text-5xl lg:text-6xl">
               {t.hero.title}
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-white/78 sm:text-lg">
@@ -260,7 +260,7 @@ export default function FaqPage({ lang }: { lang: Locale }) {
 
       <section className="bg-[#7c0913] py-12 sm:py-16">
         <Container>
-          <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
+          <div className="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:rounded-[2.4rem] sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
               <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
                 <h2 className="display-title text-3xl font-black tracking-tight sm:text-4xl">
@@ -293,6 +293,6 @@ export default function FaqPage({ lang }: { lang: Locale }) {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

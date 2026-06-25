@@ -460,12 +460,12 @@ export default function ContactPage({ lang }: { lang: Locale }) {
         : "التواصل مع يلا تشاينا حول الدراسة في الصين";
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
+    <div className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#130405]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.14),transparent_20%),linear-gradient(135deg,#170405_0%,#28080a_40%,#070707_100%)]" />
         <div className="absolute inset-0 opacity-25 shoji-grid" />
         <Container>
-          <div className="relative grid gap-8 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-20">
+          <div className="relative grid gap-8 pb-12 pt-24 sm:pt-28 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:pb-20 lg:pt-28">
             <div className={`space-y-7 ${isArabic ? "text-right" : "text-center lg:text-left"}`}>
               <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em] lg:justify-start lg:text-left">
                 {t.hero.badge}
@@ -473,7 +473,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
 
               <div className="space-y-4">
                 <h1
-                  className={`display-title text-[2.25rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-[3.25rem] lg:text-6xl ${
+                  className={`display-title text-[2.05rem] font-black leading-[1.04] tracking-[-0.035em] sm:text-[3.25rem] lg:text-6xl ${
                     isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
                   }`}
                 >
@@ -509,7 +509,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
 
             <div className="relative">
               <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/20 shadow-[0_28px_70px_rgba(0,0,0,0.35)]">
-                <div className="relative h-[20rem] w-full sm:h-[28rem]">
+                <div className="relative h-[16rem] w-full sm:h-[28rem]">
                   <Image
                     src="/fr-contact-hero.jpg"
                     alt={heroImageAlt}
@@ -710,7 +710,7 @@ export default function ContactPage({ lang }: { lang: Locale }) {
 
       <section className="bg-[#7c0913] py-12 sm:py-16">
         <Container>
-          <div className="rounded-[2.4rem] border border-white/10 bg-black/20 p-8 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:p-10">
+          <div className="rounded-[1.75rem] border border-white/10 bg-black/20 p-5 text-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:rounded-[2.4rem] sm:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
               <div className={isArabic ? "text-right" : "text-center lg:text-left"}>
                 <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
@@ -752,6 +752,6 @@ export default function ContactPage({ lang }: { lang: Locale }) {
           </div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

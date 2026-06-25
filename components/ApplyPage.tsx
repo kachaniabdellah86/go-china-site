@@ -6,9 +6,13 @@ import Image from "next/image";
 import Container from "@/components/Container";
 import {
   buildWhatsappUrl,
+  contactEmail,
+  instagramHandle,
+  instagramUrl,
   Locale,
   primaryWhatsappNumberDisplay,
-  supportedCities,
+  secondaryWhatsappNumberDisplay,
+  secondaryWhatsappNumberRaw,
 } from "@/lib/yalla";
 
 type Copy = {
@@ -17,7 +21,8 @@ type Copy = {
     badge: string;
     title: string;
     description: string;
-    stats: { label: string; value: string }[];
+    primaryCta: string;
+    secondaryCta: string;
     panelEyebrow: string;
     panelTitle: string;
     panelItems: string[];
@@ -27,13 +32,14 @@ type Copy = {
     beforeTitle: string;
     beforeText: string;
     beforeItems: string[];
-    nextEyebrow: string;
-    nextTitle: string;
-    steps: { title: string; desc: string }[];
+    supportEyebrow: string;
     supportTitle: string;
     supportText: string;
     supportButton: string;
-    supportCitiesTitle: string;
+    contactTitle: string;
+    nextEyebrow: string;
+    nextTitle: string;
+    steps: { title: string; desc: string }[];
   };
   form: {
     eyebrow: string;
@@ -41,11 +47,34 @@ type Copy = {
     description: string;
     chips: string[];
     success: string;
+    successTitle: string;
+    successText: string;
+    successWhatsapp: string;
     fallbackError: string;
     unavailableError: string;
     objectiveLabel: string;
     objectivePlaceholder: string;
     objectives: { value: string; label: string }[];
+    packageInterestLabel: string;
+    packageInterestPlaceholder: string;
+    packageInterests: { value: string; label: string }[];
+    requesterRoleLabel: string;
+    requesterRolePlaceholder: string;
+    requesterRoles: { value: string; label: string }[];
+    contactTimeLabel: string;
+    contactTimePlaceholder: string;
+    contactTimes: { value: string; label: string }[];
+    documentReadinessLabel: string;
+    documentReadinessPlaceholder: string;
+    documentReadinessOptions: { value: string; label: string }[];
+    detailsTitle: string;
+    details: {
+      packageInterest: string;
+      requesterRole: string;
+      contactTime: string;
+      documentReadiness: string;
+      message: string;
+    };
     messageLabel: string;
     messagePlaceholder: string;
     consent: string;
@@ -77,64 +106,66 @@ const copy: Record<Locale, Copy> = {
     dir: "ltr",
     hero: {
       badge: "Candidature • Études en Chine",
-      title:
-        "Envoyez une demande structurée pour que nous puissions vous orienter sérieusement avant le dossier complet.",
+      title: "Envoyez votre demande. Nous vous orientons sérieusement.",
       description:
-        "La candidature ne sert pas à vous compliquer la vie. Elle sert à comprendre votre niveau, votre projet, vos priorités et le niveau d'accompagnement attendu par votre famille.",
-      stats: [
-        { label: "Objectif", value: "Comprendre le profil avant le pack" },
-        { label: "Lecture", value: "Bourse, université, visa, arrivée" },
-        { label: "Alternative", value: "WhatsApp direct si besoin" },
-      ],
+        "Quelques informations suffisent pour comprendre votre profil, votre objectif et le niveau d’accompagnement adapté.",
+      primaryCta: "Envoyer ma demande",
+      secondaryCta: "Parler sur WhatsApp",
       panelEyebrow: "Ce que vous lancez ici",
       panelTitle: "Une demande claire avant toute décision engageante.",
       panelItems: [
-        "Votre niveau d'étude et votre projet",
-        "Votre ville, domaine et attentes principales",
-        "Vos questions sur bourse, université, visa ou arrivée",
+        "Niveau d’étude",
+        "Ville et domaine visé",
+        "Objectif principal",
       ],
     },
     side: {
-      beforeEyebrow: "Avant d'envoyer",
-      beforeTitle: "Nous avons besoin de peu d'informations, mais de bonnes informations.",
+      beforeEyebrow: "Avant d’envoyer",
+      beforeTitle: "Nous avons besoin de peu d’informations, mais des bonnes.",
       beforeText:
-        "Pas besoin de préparer tout votre dossier maintenant. Nous avons surtout besoin de ce qui permet d'orienter correctement la suite.",
+        "Pas besoin de préparer tout votre dossier maintenant. L’objectif est de comprendre le projet avant de vous orienter.",
       beforeItems: [
         "Nom complet et téléphone principal",
-        "Ville actuelle et niveau d'étude",
-        "Domaine visé ou spécialité recherchée",
-        "Objectif: bourse, université, conseil, ou autre besoin",
+        "Ville actuelle et niveau d’étude",
+        "Domaine ou spécialité recherchée",
+        "Objectif : bourse, université, visa ou conseil",
       ],
-      nextEyebrow: "Après l'envoi",
+      supportEyebrow: "Contact direct",
+      supportTitle: "Vous préférez commencer directement ?",
+      supportText:
+        "Si votre question est urgente ou précise, ouvrez WhatsApp et expliquez votre situation.",
+      supportButton: `WhatsApp : ${primaryWhatsappNumberDisplay}`,
+      contactTitle: "Coordonnées",
+      nextEyebrow: "Après l’envoi",
       nextTitle: "Ce qui se passe ensuite",
       steps: [
         {
           title: "01. Lecture du profil",
-          desc: "Nous lisons la demande pour comprendre le projet et les zones à clarifier.",
+          desc: "Nous regardons votre niveau, votre ville, votre objectif et vos priorités.",
         },
         {
           title: "02. Retour personnalisé",
-          desc: "Un échange sur WhatsApp ou par téléphone permet de poser les bonnes bases avant d'aller plus loin.",
+          desc: "Nous vous répondons avec les points à clarifier et la meilleure suite.",
         },
         {
-          title: "03. Recommandation",
-          desc: "Nous orientons vers le bon pack, la bonne logique d'université et la prochaine étape utile.",
+          title: "03. Orientation",
+          desc: "Nous vous guidons vers le bon niveau d’accompagnement.",
         },
       ],
-      supportTitle: "Vous préférez commencer directement ?",
-      supportText:
-        "Si vous avez déjà une question précise sur la bourse, le visa ou le voyage, ouvrez WhatsApp et expliquez votre situation sans attendre.",
-      supportButton: `WhatsApp : ${primaryWhatsappNumberDisplay}`,
-      supportCitiesTitle: "Villes déjà présentes dans notre parcours de service",
     },
     form: {
       eyebrow: "Votre demande",
       title: "Envoyer ma candidature",
       description:
-        "Remplissez l'essentiel. Nous utilisons ces informations pour vous répondre plus vite et de manière plus utile.",
-      chips: ["Rapide à remplir", "Pensé mobile", "Parents & étudiants"],
+        "Remplissez l’essentiel. Nous utilisons ces informations pour vous répondre rapidement et utilement.",
+      chips: ["Rapide", "Mobile", "Parents & étudiants"],
       success: "Merci, votre demande a bien été envoyée.",
-      fallbackError: "Une erreur est survenue. Merci de réessayer ou de nous écrire sur WhatsApp.",
+      successTitle: "Demande reçue",
+      successText:
+        "Nous allons lire votre profil et revenir vers vous avec les points à clarifier. Vous pouvez aussi ouvrir WhatsApp si vous voulez ajouter un détail important.",
+      successWhatsapp: "Ajouter un détail sur WhatsApp",
+      fallbackError:
+        "Une erreur est survenue. Merci de réessayer ou de nous écrire sur WhatsApp.",
       unavailableError:
         "Le formulaire est momentanément indisponible. Merci de nous écrire directement sur WhatsApp.",
       objectiveLabel: "Objectif *",
@@ -143,18 +174,55 @@ const copy: Record<Locale, Copy> = {
         { value: "Scholarship", label: "Chercher une bourse" },
         { value: "University", label: "Trouver une bonne université" },
         { value: "Visa", label: "Comprendre le visa" },
-        { value: "Advice", label: "Recevoir un conseil d'abord" },
+        { value: "Advice", label: "Recevoir un conseil d’abord" },
       ],
+      packageInterestLabel: "Formule envisagée *",
+      packageInterestPlaceholder: "Choisir...",
+      packageInterests: [
+        { value: "Standard", label: "Pack Standard" },
+        { value: "Premium", label: "Pack Premium" },
+        { value: "Not sure", label: "Je ne suis pas encore sûr" },
+      ],
+      requesterRoleLabel: "Vous êtes *",
+      requesterRolePlaceholder: "Choisir...",
+      requesterRoles: [
+        { value: "Student", label: "L’étudiant" },
+        { value: "Parent", label: "Un parent" },
+        { value: "Other", label: "Je fais la demande pour quelqu’un" },
+      ],
+      contactTimeLabel: "Moment de contact préféré",
+      contactTimePlaceholder: "Choisir...",
+      contactTimes: [
+        { value: "Morning", label: "Matin" },
+        { value: "Afternoon", label: "Après-midi" },
+        { value: "Evening", label: "Soir" },
+        { value: "Anytime WhatsApp", label: "WhatsApp à tout moment" },
+      ],
+      documentReadinessLabel: "Documents disponibles",
+      documentReadinessPlaceholder: "Choisir...",
+      documentReadinessOptions: [
+        { value: "Passport ready", label: "Passeport disponible" },
+        { value: "Diploma ready", label: "Diplôme / relevés disponibles" },
+        { value: "Not ready", label: "Pas encore prêts" },
+      ],
+      detailsTitle: "Détails de qualification",
+      details: {
+        packageInterest: "Formule envisagée",
+        requesterRole: "Profil du demandeur",
+        contactTime: "Moment de contact préféré",
+        documentReadiness: "Documents disponibles",
+        message: "Message",
+      },
       messageLabel: "Message",
       messagePlaceholder:
-        "Expliquez brièvement votre projet, vos questions sur la bourse, l'université, le visa, le coût ou l'arrivée",
+        "Expliquez brièvement votre projet, vos questions sur la bourse, l’université, le visa, le coût ou l’arrivée.",
       consent:
-        "En envoyant ce formulaire, vous acceptez d'être recontacté par WhatsApp ou téléphone pour la suite du projet.",
-      privacyPrefix: "J'ai lu la",
+        "En envoyant ce formulaire, vous acceptez d’être recontacté par WhatsApp ou téléphone pour la suite du projet.",
+      privacyPrefix: "J’ai lu la",
       privacyLink: "politique de confidentialité",
       reassurance:
-        "Aucun paiement n'est demandé à cette étape. Le but est d'évaluer le profil et de recommander la bonne suite.",
-      whatsappAlternative: "Vous préférez parler directement sur WhatsApp ?",
+        "Aucun paiement n’est demandé à cette étape. Le but est d’évaluer votre profil et de recommander la bonne suite.",
+      whatsappAlternative: "WhatsApp direct",
       submit: "Envoyer ma demande",
       submitting: "Envoi...",
       fields: {
@@ -166,75 +234,74 @@ const copy: Record<Locale, Copy> = {
         emailPlaceholder: "contact@exemple.com",
         city: "Ville *",
         cityPlaceholder: "Agadir, Casablanca...",
-        studyLevel: "Niveau d'étude *",
+        studyLevel: "Niveau d’étude *",
         studyLevelPlaceholder: "Bac, Licence, Master...",
         fieldOfStudy: "Domaine visé",
         fieldOfStudyPlaceholder: "Médecine, ingénierie, commerce...",
       },
     },
   },
+
   en: {
     dir: "ltr",
     hero: {
       badge: "Application • Study in China",
-      title:
-        "Send a structured request so we can guide you seriously before the full file begins.",
+      title: "Send your request. We guide you seriously.",
       description:
-        "The application is not here to complicate things. It exists to understand your level, your project, your priorities, and the support level expected by your family.",
-      stats: [
-        { label: "Goal", value: "Understand the profile before the package" },
-        { label: "Reading", value: "Scholarship, university, visa, arrival" },
-        { label: "Alternative", value: "Direct WhatsApp when needed" },
-      ],
+        "A few clear details are enough to understand your profile, your goal, and the right level of support.",
+      primaryCta: "Send my request",
+      secondaryCta: "Talk on WhatsApp",
       panelEyebrow: "What starts here",
       panelTitle: "A clear request before any heavy commitment.",
-      panelItems: [
-        "Your study level and project",
-        "Your city, field, and main expectations",
-        "Your questions about scholarship, university, visa, or arrival",
-      ],
+      panelItems: ["Study level", "City and target field", "Main objective"],
     },
     side: {
       beforeEyebrow: "Before you submit",
-      beforeTitle: "We need only a few details, but they need to be the right ones.",
+      beforeTitle: "We need only a few details, but the right ones.",
       beforeText:
-        "There is no need to prepare the whole file now. We mainly need the information that helps us orient the next step correctly.",
+        "You do not need to prepare the whole file now. The goal is to understand the project before guiding you.",
       beforeItems: [
         "Full name and main phone number",
         "Current city and study level",
         "Target field or specialization",
-        "Objective: scholarship, university, advice, or another need",
+        "Objective: scholarship, university, visa, or advice",
       ],
+      supportEyebrow: "Direct contact",
+      supportTitle: "Would you rather begin directly?",
+      supportText:
+        "If your question is urgent or precise, open WhatsApp and explain your situation.",
+      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
+      contactTitle: "Contact details",
       nextEyebrow: "After submission",
       nextTitle: "What happens next",
       steps: [
         {
           title: "01. Profile review",
-          desc: "We read the request to understand the project and the areas that need clarification.",
+          desc: "We look at your level, city, objective, and priorities.",
         },
         {
-          title: "02. Personal follow-up",
-          desc: "A WhatsApp or phone exchange helps build the right foundation before going further.",
+          title: "02. Personal reply",
+          desc: "We answer with the points to clarify and the best next step.",
         },
         {
-          title: "03. Recommendation",
-          desc: "We point you toward the right package, the right university logic, and the next useful step.",
+          title: "03. Guidance",
+          desc: "We guide you toward the right level of support.",
         },
       ],
-      supportTitle: "Would you rather begin directly?",
-      supportText:
-        "If you already have a precise question about scholarship, visa, or travel, open WhatsApp and tell us about your situation immediately.",
-      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
-      supportCitiesTitle: "Cities already present in our service route",
     },
     form: {
       eyebrow: "Your request",
       title: "Send my application",
       description:
-        "Fill in the essentials. We use this information to answer faster and in a more useful way.",
-      chips: ["Quick to complete", "Mobile first", "Parents & students"],
+        "Fill in the essentials. We use this information to reply quickly and usefully.",
+      chips: ["Fast", "Mobile", "Parents & students"],
       success: "Thank you, your request has been sent.",
-      fallbackError: "Something went wrong. Please try again or contact us on WhatsApp.",
+      successTitle: "Request received",
+      successText:
+        "We will review your profile and come back with the points to clarify. You can also open WhatsApp if you want to add an important detail.",
+      successWhatsapp: "Add a detail on WhatsApp",
+      fallbackError:
+        "Something went wrong. Please try again or contact us on WhatsApp.",
       unavailableError:
         "The form is temporarily unavailable. Please contact us directly on WhatsApp.",
       objectiveLabel: "Objective *",
@@ -245,16 +312,53 @@ const copy: Record<Locale, Copy> = {
         { value: "Visa", label: "Understand the visa process" },
         { value: "Advice", label: "Get advice first" },
       ],
+      packageInterestLabel: "Package interest *",
+      packageInterestPlaceholder: "Select...",
+      packageInterests: [
+        { value: "Standard", label: "Standard Pack" },
+        { value: "Premium", label: "Premium Pack" },
+        { value: "Not sure", label: "Not sure yet" },
+      ],
+      requesterRoleLabel: "You are *",
+      requesterRolePlaceholder: "Select...",
+      requesterRoles: [
+        { value: "Student", label: "The student" },
+        { value: "Parent", label: "A parent" },
+        { value: "Other", label: "Applying for someone else" },
+      ],
+      contactTimeLabel: "Preferred contact time",
+      contactTimePlaceholder: "Select...",
+      contactTimes: [
+        { value: "Morning", label: "Morning" },
+        { value: "Afternoon", label: "Afternoon" },
+        { value: "Evening", label: "Evening" },
+        { value: "Anytime WhatsApp", label: "WhatsApp anytime" },
+      ],
+      documentReadinessLabel: "Document readiness",
+      documentReadinessPlaceholder: "Select...",
+      documentReadinessOptions: [
+        { value: "Passport ready", label: "Passport ready" },
+        { value: "Diploma ready", label: "Diploma / transcripts ready" },
+        { value: "Not ready", label: "Not ready yet" },
+      ],
+      detailsTitle: "Qualification details",
+      details: {
+        packageInterest: "Package interest",
+        requesterRole: "Requester role",
+        contactTime: "Preferred contact time",
+        documentReadiness: "Document readiness",
+        message: "Message",
+      },
       messageLabel: "Message",
       messagePlaceholder:
-        "Briefly explain your project or your questions about scholarship, university, visa, cost, or arrival",
+        "Briefly explain your project or your questions about scholarship, university, visa, cost, or arrival.",
       consent:
         "By sending this form, you agree to be contacted by WhatsApp or phone for the next step of the project.",
       privacyPrefix: "I have read the",
       privacyLink: "privacy policy",
       reassurance:
-        "No payment is requested at this stage. The goal is to assess the profile and recommend the right next step.",
-      whatsappAlternative: "Would you rather speak directly on WhatsApp?",
+        "No payment is requested at this stage. The goal is to assess your profile and recommend the right next step.",
+      whatsappAlternative: "Direct WhatsApp",
       submit: "Send my request",
       submitting: "Sending...",
       fields: {
@@ -273,67 +377,65 @@ const copy: Record<Locale, Copy> = {
       },
     },
   },
+
   ar: {
     dir: "rtl",
     hero: {
       badge: "التقديم • الدراسة في الصين",
-      title:
-        "أرسل طلباً منظماً حتى نستطيع توجيهك بجدية قبل الدخول في الملف الكامل.",
+      title: "أرسل طلبك. نوجّهك بجدية.",
       description:
-        "التقديم هنا ليس لتعقيد حياتك، بل لفهم مستواك ومشروعك وأولوياتك ومستوى المرافقة الذي تتوقعه عائلتك.",
-      stats: [
-        { label: "الهدف", value: "فهم الملف قبل اختيار الباقة" },
-        { label: "القراءة", value: "منحة، جامعة، تأشيرة، وصول" },
-        { label: "البديل", value: "واتساب مباشر عند الحاجة" },
-      ],
+        "معلومات قليلة وواضحة تكفي لفهم ملفك وهدفك ومستوى المرافقة المناسب.",
+      primaryCta: "إرسال الطلب",
+      secondaryCta: "التواصل على واتساب",
       panelEyebrow: "ما الذي يبدأ هنا",
-      panelTitle: "طلب واضح قبل أي التزام ثقيل.",
-      panelItems: [
-        "مستواك الدراسي ومشروعك",
-        "مدينتك ومجالك وتوقعاتك الأساسية",
-        "أسئلتك حول المنحة أو الجامعة أو التأشيرة أو الوصول",
-      ],
+      panelTitle: "طلب واضح قبل أي التزام كبير.",
+      panelItems: ["المستوى الدراسي", "المدينة والمجال", "الهدف الأساسي"],
     },
     side: {
       beforeEyebrow: "قبل الإرسال",
-      beforeTitle: "نحتاج معلومات قليلة، لكن يجب أن تكون المعلومات الصحيحة.",
+      beforeTitle: "نحتاج معلومات قليلة، لكن يجب أن تكون صحيحة.",
       beforeText:
-        "لا حاجة إلى تجهيز الملف كله الآن. نحن نحتاج فقط إلى ما يساعد على توجيه الخطوة التالية بشكل صحيح.",
+        "لا حاجة إلى تجهيز الملف كله الآن. الهدف هو فهم المشروع قبل توجيهك.",
       beforeItems: [
         "الاسم الكامل ورقم الهاتف الرئيسي",
         "المدينة الحالية والمستوى الدراسي",
         "المجال أو التخصص المطلوب",
-        "الهدف: منحة أو جامعة أو استشارة أو حاجة أخرى",
+        "الهدف: منحة أو جامعة أو تأشيرة أو استشارة",
       ],
+      supportEyebrow: "تواصل مباشر",
+      supportTitle: "هل تفضّل البدء مباشرة؟",
+      supportText:
+        "إذا كان سؤالك عاجلاً أو محدداً، افتح واتساب واشرح وضعك.",
+      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
+      contactTitle: "معلومات التواصل",
       nextEyebrow: "بعد الإرسال",
-      nextTitle: "ما الذي يحدث بعد ذلك",
+      nextTitle: "ماذا يحدث بعد ذلك",
       steps: [
         {
           title: "01. قراءة الملف",
-          desc: "نراجع الطلب لفهم المشروع والنقاط التي تحتاج إلى توضيح.",
+          desc: "نراجع مستواك ومدينتك وهدفك وأولوياتك.",
         },
         {
-          title: "02. متابعة شخصية",
-          desc: "تواصل على واتساب أو الهاتف يساعد على وضع الأساس الصحيح قبل التقدم أكثر.",
+          title: "02. رد شخصي",
+          desc: "نجيبك بالنقاط التي تحتاج إلى توضيح والخطوة المناسبة.",
         },
         {
-          title: "03. التوصية",
-          desc: "نوجّهك إلى الباقة المناسبة ومنطق الجامعة والخطوة التالية المفيدة.",
+          title: "03. توجيه",
+          desc: "نرشدك نحو مستوى المرافقة المناسب.",
         },
       ],
-      supportTitle: "هل تفضل أن تبدأ مباشرة؟",
-      supportText:
-        "إذا كان لديك سؤال محدد عن المنحة أو التأشيرة أو السفر، افتح واتساب واشرح وضعك مباشرة.",
-      supportButton: `WhatsApp: ${primaryWhatsappNumberDisplay}`,
-      supportCitiesTitle: "مدن موجودة فعلاً في مسار خدمتنا",
     },
     form: {
       eyebrow: "طلبك",
       title: "إرسال الطلب",
       description:
-        "املأ الأساسيات فقط. نستخدم هذه المعلومات حتى نجيبك بسرعة وبشكل أكثر فائدة.",
-      chips: ["سريع في الملء", "مناسب للهاتف", "للوالدين والطلبة"],
+        "املأ الأساسيات فقط. نستخدم هذه المعلومات حتى نجيبك بسرعة وبشكل مفيد.",
+      chips: ["سريع", "مناسب للهاتف", "للوالدين والطلبة"],
       success: "شكراً، تم إرسال طلبك بنجاح.",
+      successTitle: "تم استلام الطلب",
+      successText:
+        "سنراجع ملفك ونعود إليك بالنقاط التي تحتاج إلى توضيح. يمكنك أيضاً فتح واتساب إذا أردت إضافة تفصيل مهم.",
+      successWhatsapp: "إضافة تفصيل عبر واتساب",
       fallbackError: "حدث خطأ ما. حاول مرة أخرى أو راسلنا على واتساب.",
       unavailableError: "الاستمارة غير متاحة مؤقتاً. راسلنا مباشرة على واتساب.",
       objectiveLabel: "الهدف *",
@@ -344,16 +446,53 @@ const copy: Record<Locale, Copy> = {
         { value: "Visa", label: "فهم التأشيرة" },
         { value: "Advice", label: "أحتاج نصيحة أولاً" },
       ],
+      packageInterestLabel: "الباقة المناسبة *",
+      packageInterestPlaceholder: "اختر...",
+      packageInterests: [
+        { value: "Standard", label: "الباقة العادية" },
+        { value: "Premium", label: "الباقة المميزة" },
+        { value: "Not sure", label: "لست متأكداً بعد" },
+      ],
+      requesterRoleLabel: "من يرسل الطلب *",
+      requesterRolePlaceholder: "اختر...",
+      requesterRoles: [
+        { value: "Student", label: "الطالب" },
+        { value: "Parent", label: "أحد الوالدين" },
+        { value: "Other", label: "أقدم الطلب لشخص آخر" },
+      ],
+      contactTimeLabel: "وقت التواصل المفضل",
+      contactTimePlaceholder: "اختر...",
+      contactTimes: [
+        { value: "Morning", label: "الصباح" },
+        { value: "Afternoon", label: "بعد الظهر" },
+        { value: "Evening", label: "المساء" },
+        { value: "Anytime WhatsApp", label: "واتساب في أي وقت" },
+      ],
+      documentReadinessLabel: "جاهزية الوثائق",
+      documentReadinessPlaceholder: "اختر...",
+      documentReadinessOptions: [
+        { value: "Passport ready", label: "جواز السفر موجود" },
+        { value: "Diploma ready", label: "الدبلوم / النقط موجودة" },
+        { value: "Not ready", label: "ليست جاهزة بعد" },
+      ],
+      detailsTitle: "تفاصيل التأهيل",
+      details: {
+        packageInterest: "الباقة المناسبة",
+        requesterRole: "صفة مرسل الطلب",
+        contactTime: "وقت التواصل المفضل",
+        documentReadiness: "جاهزية الوثائق",
+        message: "الرسالة",
+      },
       messageLabel: "الرسالة",
       messagePlaceholder:
-        "اشرح بإيجاز مشروعك أو أسئلتك حول المنحة أو الجامعة أو التأشيرة أو التكلفة أو الوصول",
+        "اشرح بإيجاز مشروعك أو أسئلتك حول المنحة أو الجامعة أو التأشيرة أو التكلفة أو الوصول.",
       consent:
         "بإرسال هذا النموذج فإنك توافق على التواصل معك عبر واتساب أو الهاتف بخصوص الخطوة التالية من المشروع.",
       privacyPrefix: "لقد قرأت",
       privacyLink: "سياسة الخصوصية",
       reassurance:
         "لا يُطلب أي دفع في هذه المرحلة. الهدف هو تقييم الملف واقتراح الخطوة المناسبة.",
-      whatsappAlternative: "هل تفضّل التحدث مباشرة عبر واتساب؟",
+      whatsappAlternative: "واتساب مباشر",
       submit: "إرسال الطلب",
       submitting: "جار الإرسال...",
       fields: {
@@ -379,23 +518,118 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
   const isArabic = t.dir === "rtl";
   const privacyHref = `/${lang}/privacy`;
   const whatsappHref = buildWhatsappUrl();
+
+  const contactLabels = {
+    fr: {
+      main: "WhatsApp principal",
+      secondary: "WhatsApp secondaire",
+      email: "Email",
+      instagram: "Instagram",
+    },
+    en: {
+      main: "Main WhatsApp",
+      secondary: "Secondary WhatsApp",
+      email: "Email",
+      instagram: "Instagram",
+    },
+    ar: {
+      main: "واتساب الرئيسي",
+      secondary: "واتساب إضافي",
+      email: "البريد الإلكتروني",
+      instagram: "إنستغرام",
+    },
+  }[lang];
+
+  const directItems = [
+    {
+      label: contactLabels.main,
+      value: primaryWhatsappNumberDisplay,
+      href: whatsappHref,
+    },
+    {
+      label: contactLabels.secondary,
+      value: secondaryWhatsappNumberDisplay,
+      href: buildWhatsappUrl(undefined, secondaryWhatsappNumberRaw),
+    },
+    {
+      label: contactLabels.email,
+      value: contactEmail,
+      href: `mailto:${contactEmail}`,
+    },
+    {
+      label: contactLabels.instagram,
+      value: instagramHandle,
+      href: instagramUrl,
+    },
+  ];
+
   const heroImageAlt =
     lang === "fr"
       ? "Candidature Yalla China pour les études en Chine"
       : lang === "en"
         ? "Yalla China application guidance for studying in China"
         : "التقديم مع يلا تشاينا للدراسة في الصين";
+
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  function optionLabel(
+    options: { value: string; label: string }[],
+    value: unknown,
+  ) {
+    const rawValue = typeof value === "string" ? value : "";
+    return options.find((option) => option.value === rawValue)?.label || rawValue;
+  }
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    setDone(false);
     setLoading(true);
 
     const form = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(form.entries());
+    const payload = Object.fromEntries(
+      Array.from(form.entries()).map(([key, value]) => [
+        key,
+        typeof value === "string" ? value.trim() : value,
+      ]),
+    );
+    const originalMessage =
+      typeof payload.message === "string" ? payload.message : "";
+
+    const details = [
+      `${t.form.details.packageInterest}: ${optionLabel(
+        t.form.packageInterests,
+        payload.packageInterest,
+      )}`,
+      `${t.form.details.requesterRole}: ${optionLabel(
+        t.form.requesterRoles,
+        payload.requesterRole,
+      )}`,
+      payload.contactTime
+        ? `${t.form.details.contactTime}: ${optionLabel(
+            t.form.contactTimes,
+            payload.contactTime,
+          )}`
+        : "",
+      payload.documentReadiness
+        ? `${t.form.details.documentReadiness}: ${optionLabel(
+            t.form.documentReadinessOptions,
+            payload.documentReadiness,
+          )}`
+        : "",
+    ].filter(Boolean);
+
+    payload.message = [
+      `${t.form.detailsTitle}:`,
+      ...details,
+      originalMessage
+        ? `\n${t.form.details.message}:\n${originalMessage}`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     try {
       const res = await fetch("/api/applications", {
@@ -424,20 +658,26 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
   }
 
   return (
-    <main className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
+    <div className="bg-[#050505] text-white" dir={t.dir} lang={lang}>
       <section className="relative overflow-hidden bg-[#130405]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(119,3,4,0.72),transparent_28%),radial-gradient(circle_at_top_right,rgba(177,127,2,0.14),transparent_20%),linear-gradient(135deg,#190506_0%,#28080a_38%,#070707_100%)]" />
-        <div className="absolute inset-0 opacity-25 shoji-grid" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(119,3,4,0.82),transparent_34%),radial-gradient(circle_at_86%_14%,rgba(244,189,0,0.18),transparent_30%),linear-gradient(135deg,#190506_0%,#260708_42%,#050202_100%)]" />
+        <div className="absolute inset-0 opacity-[0.14] shoji-grid" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f4ede4]" />
+
         <Container>
-          <div className="relative grid gap-8 py-12 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:py-20">
-            <div className={`space-y-7 ${isArabic ? "text-right" : "text-center lg:text-left"}`}>
-              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-white/90 sm:text-sm sm:tracking-[0.22em] lg:justify-start lg:text-left">
+          <div className="relative grid gap-8 pb-12 pt-24 sm:pt-28 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-12 lg:pb-16 lg:pt-28">
+            <div
+              className={`space-y-6 ${
+                isArabic ? "text-right" : "text-center lg:text-left"
+              }`}
+            >
+              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-black uppercase leading-relaxed tracking-[0.22em] text-[#f4bd00] shadow-[0_16px_45px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:text-xs lg:justify-start">
                 {t.hero.badge}
               </p>
 
               <div className="space-y-4">
                 <h1
-                  className={`display-title text-[2.25rem] font-black leading-[1.02] tracking-[-0.04em] sm:text-[3.25rem] lg:text-6xl ${
+                  className={`display-title text-[2.1rem] font-black leading-[1] tracking-[-0.04em] sm:text-[3.35rem] lg:text-[4.15rem] lg:leading-[0.96] lg:tracking-[-0.055em] xl:text-[4.85rem] ${
                     isArabic ? "max-w-4xl" : "mx-auto max-w-4xl lg:mx-0"
                   }`}
                 >
@@ -445,7 +685,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 </h1>
 
                 <p
-                  className={`max-w-2xl text-base leading-8 text-white/78 sm:text-lg ${
+                  className={`max-w-2xl text-base font-medium leading-8 text-white/72 sm:text-lg ${
                     isArabic ? "" : "mx-auto lg:mx-0"
                   }`}
                 >
@@ -454,59 +694,68 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
               </div>
 
               <div
-                className={`grid gap-3 sm:grid-cols-2 xl:grid-cols-3 ${
-                  isArabic ? "" : "mx-auto max-w-xl lg:mx-0 lg:max-w-none"
+                className={`flex flex-col gap-3 sm:flex-row ${
+                  isArabic
+                    ? "sm:justify-end"
+                    : "justify-center lg:justify-start"
                 }`}
               >
-                {t.hero.stats.map((item) => (
-                  <div
-                    key={item.label}
-                    className={`rounded-[1.7rem] border border-white/10 bg-black/20 p-4 backdrop-blur-md ${
-                      isArabic ? "text-right" : ""
-                    }`}
-                  >
-                    <p className="text-sm font-semibold text-white">{item.label}</p>
-                    <p className="mt-1 text-sm text-white/65">{item.value}</p>
-                  </div>
-                ))}
+                <a
+                  href="#apply-form"
+                  className="inline-flex items-center justify-center rounded-full bg-[#f4bd00] px-6 py-3 text-sm font-black text-black shadow-[0_18px_45px_rgba(244,189,0,0.22)] transition hover:-translate-y-1 hover:bg-[#ffd12d]"
+                >
+                  {t.hero.primaryCta}
+                </a>
+
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:-translate-y-1 hover:border-[#f4bd00]/40 hover:bg-white/[0.14]"
+                >
+                  {t.hero.secondaryCta}
+                </a>
               </div>
             </div>
 
             <div className="relative">
-              <div className="overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/20 shadow-[0_28px_70px_rgba(0,0,0,0.35)]">
-                <div className="relative h-[20rem] w-full sm:h-[28rem]">
+              <div className="absolute -inset-4 rounded-[2.8rem] bg-[linear-gradient(135deg,rgba(244,189,0,0.18),rgba(255,255,255,0.05),rgba(119,3,4,0.35))] blur-[2px]" />
+              <div className="relative overflow-hidden rounded-[2.1rem] border border-white/12 bg-black/30 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.48)] backdrop-blur-2xl">
+                <div className="relative h-[18rem] overflow-hidden rounded-[1.5rem] sm:h-[23rem] lg:h-[26rem]">
                   <Image
                     src="/fr-apply-hero.jpg"
                     alt={heroImageAlt}
                     fill
                     priority
-                    sizes="(max-width: 1023px) 100vw, 44vw"
+                    sizes="(max-width: 1023px) 100vw, 48vw"
                     className="object-cover"
                   />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.72)),radial-gradient(circle_at_top_right,rgba(244,189,0,0.18),transparent_34%)]" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-              </div>
 
-              <div
-                className={`relative mt-4 rounded-[1.8rem] border border-white/10 bg-black/70 p-5 shadow-xl backdrop-blur-md md:absolute md:bottom-4 md:left-4 md:right-4 md:mt-0 ${
-                  isArabic ? "text-right" : "text-center md:text-left"
-                }`}
-              >
-                <p className="section-eyebrow text-xs font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
-                  {t.hero.panelEyebrow}
-                </p>
-                <h2 className="display-title mt-3 text-2xl font-black leading-tight text-white">
-                  {t.hero.panelTitle}
-                </h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {t.hero.panelItems.map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/82"
-                    >
-                      {item}
-                    </div>
-                  ))}
+                <div
+                  className={`relative mt-3 rounded-[1.5rem] border border-white/10 bg-black/72 p-4 shadow-[0_18px_60px_rgba(0,0,0,0.22)] backdrop-blur-xl sm:p-5 ${
+                    isArabic ? "text-right" : "text-left"
+                  }`}
+                >
+                  <p className="section-eyebrow text-[10px] font-black uppercase tracking-[0.22em] text-[#f4bd00]">
+                    {t.hero.panelEyebrow}
+                  </p>
+
+                  <h2 className="display-title mt-2 text-xl font-black leading-tight text-white sm:text-2xl">
+                    {t.hero.panelTitle}
+                  </h2>
+
+                  <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                    {t.hero.panelItems.map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-2xl border border-white/10 bg-white/[0.06] px-3 py-3 text-sm font-semibold text-white/78"
+                      >
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -514,131 +763,181 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
         </Container>
       </section>
 
-      <section className="bg-[#f4ede4] py-12 text-zinc-900 sm:py-16">
+      <section
+        id="apply-form"
+        className="relative overflow-hidden bg-[#f4ede4] py-10 text-zinc-950 sm:py-14"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(119,3,4,0.10),transparent_32%),radial-gradient(circle_at_88%_18%,rgba(244,189,0,0.18),transparent_30%)]" />
         <Container>
-          <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
-            <div className="order-2 space-y-5 lg:order-1">
-              <div
-                className={`rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-[0_20px_45px_rgba(15,23,42,0.06)] sm:p-8 ${
-                  isArabic ? "text-right" : ""
-                }`}
-              >
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
+          <div className="relative grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+            <aside className="order-2 space-y-5 lg:order-1">
+              <InfoCard isArabic={isArabic}>
+                <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#770304]">
                   {t.side.beforeEyebrow}
                 </p>
-                <h2 className="display-title mt-3 text-2xl font-black tracking-tight">
+
+                <h2 className="display-title mt-3 text-2xl font-black leading-tight tracking-[-0.03em] sm:text-3xl">
                   {t.side.beforeTitle}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">{t.side.beforeText}</p>
 
-                <ul className="mt-5 space-y-3 text-sm text-zinc-700">
+                <p className="mt-3 text-sm font-medium leading-7 text-zinc-600 sm:text-base">
+                  {t.side.beforeText}
+                </p>
+
+                <ul className="mt-5 space-y-2 text-sm font-medium text-zinc-700">
                   {t.side.beforeItems.map((item) => (
-                    <li key={item} className="rounded-2xl bg-zinc-50 px-4 py-3">
+                    <li
+                      key={item}
+                      className="rounded-2xl bg-zinc-50 px-4 py-3"
+                    >
                       {item}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </InfoCard>
 
               <div
-                className={`rounded-[2rem] border border-zinc-200 bg-zinc-50 p-6 shadow-sm sm:p-8 ${
+                className={`relative overflow-hidden rounded-[2rem] bg-[#090909] p-6 text-white shadow-[0_24px_55px_rgba(0,0,0,0.16)] sm:p-7 ${
                   isArabic ? "text-right" : ""
                 }`}
               >
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_82%_12%,rgba(244,189,0,0.16),transparent_34%),radial-gradient(circle_at_14%_82%,rgba(119,3,4,0.42),transparent_38%)]" />
+                <div className="relative">
+                <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#f4bd00]">
+                  {t.side.supportEyebrow}
+                </p>
+
+                <h3 className="display-title mt-3 text-2xl font-black leading-tight">
+                  {t.side.supportTitle}
+                </h3>
+
+                <p className="mt-3 text-sm font-medium leading-7 text-white/68 sm:text-base">
+                  {t.side.supportText}
+                </p>
+
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#f4bd00] px-5 py-3 text-sm font-black text-black transition hover:bg-[#ffd12d] sm:w-auto"
+                  >
+                    {t.side.supportButton}
+                  </a>
+
+                <div className="mt-6 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-4">
+                  <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#f4bd00]">
+                    {t.side.contactTitle}
+                  </p>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {directItems.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                        className="rounded-[1.25rem] border border-white/10 bg-black/20 px-4 py-3 transition hover:border-[#f4bd00]/35 hover:bg-white/[0.07]"
+                      >
+                        <span className="block text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                          {item.label}
+                        </span>
+                        <span className="mt-1 block break-words text-sm font-black text-white">
+                          {item.value}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <InfoCard isArabic={isArabic}>
+                <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#770304]">
                   {t.side.nextEyebrow}
                 </p>
+
                 <h3 className="display-title mt-3 text-2xl font-black tracking-tight">
                   {t.side.nextTitle}
                 </h3>
 
-                <div className="mt-5 space-y-4">
+                <div className="mt-5 space-y-3">
                   {t.side.steps.map((step) => (
                     <div
                       key={step.title}
-                      className="rounded-[1.6rem] border border-zinc-200 bg-white p-4"
+                      className="rounded-[1.45rem] border border-zinc-200 bg-white p-4"
                     >
-                      <h4 className="text-sm font-bold text-zinc-900 sm:text-base">{step.title}</h4>
-                      <p className="mt-2 text-sm leading-7 text-zinc-600">{step.desc}</p>
+                      <h4 className="text-sm font-black text-zinc-950 sm:text-base">
+                        {step.title}
+                      </h4>
+                      <p className="mt-2 text-sm font-medium leading-7 text-zinc-600">
+                        {step.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div
-                className={`rounded-[2rem] bg-[#090909] p-6 text-white shadow-[0_24px_55px_rgba(0,0,0,0.16)] sm:p-8 ${
-                  isArabic ? "text-right" : ""
-                }`}
-              >
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
-                  {t.side.supportTitle}
-                </p>
-                <p className="mt-3 text-sm leading-7 text-white/72 sm:text-base">{t.side.supportText}</p>
-                <a
-                  href={buildWhatsappUrl()}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#B17F02] px-5 py-3 font-semibold text-black transition hover:opacity-90 sm:w-auto"
-                >
-                  {t.side.supportButton}
-                </a>
-
-                <div className="mt-6">
-                  <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#B17F02]">
-                    {t.side.supportCitiesTitle}
-                  </p>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {supportedCities[lang].map((city) => (
-                      <div
-                        key={city}
-                        className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white/82"
-                      >
-                        {city}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+              </InfoCard>
+            </aside>
 
             <div className="order-1 lg:sticky lg:top-24 lg:order-2">
               <div
-                className={`rounded-[2.2rem] border border-zinc-200 bg-white p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] sm:p-8 ${
+                className={`relative overflow-hidden rounded-[2.2rem] border border-[#770304]/10 bg-white p-6 shadow-[0_28px_80px_rgba(54,1,2,0.10)] sm:p-8 ${
                   isArabic ? "text-right" : ""
                 }`}
               >
-                <p className="section-eyebrow text-sm font-semibold uppercase tracking-[0.22em] text-[#770304]">
-                  {t.form.eyebrow}
-                </p>
-                <h2 className="display-title mt-3 text-3xl font-black tracking-tight">
-                  {t.form.title}
-                </h2>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 sm:text-base">{t.form.description}</p>
+                <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#770304] via-[#f4bd00] to-[#770304]" />
+                <div className="absolute right-[-7rem] top-[-7rem] h-56 w-56 rounded-full bg-[#f4bd00]/18 blur-3xl" />
+                <div className="absolute bottom-[-7rem] left-[-7rem] h-56 w-56 rounded-full bg-[#770304]/10 blur-3xl" />
+                <div className="relative">
+                  <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#770304]">
+                    {t.form.eyebrow}
+                  </p>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {t.form.chips.map((chip) => (
-                    <div
-                      key={chip}
-                      className="rounded-full border border-zinc-200 bg-zinc-50 px-4 py-3 text-center text-sm font-medium"
-                    >
-                      {chip}
-                    </div>
-                  ))}
-                </div>
+                  <h2 className="display-title mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+                    {t.form.title}
+                  </h2>
 
-                {done ? (
-                  <div className="mt-5 rounded-2xl bg-emerald-50 p-4 text-sm text-emerald-700">
-                    {t.form.success}
+                  <p className="mt-3 text-sm font-medium leading-7 text-zinc-600 sm:text-base">
+                    {t.form.description}
+                  </p>
+
+                  <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                    {t.form.chips.map((chip) => (
+                      <div
+                        key={chip}
+                        className="rounded-full border border-[#770304]/10 bg-[#faf7f3] px-4 py-3 text-center text-sm font-bold text-zinc-700"
+                      >
+                        {chip}
+                      </div>
+                    ))}
                   </div>
-                ) : null}
 
-                {error ? (
-                  <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm text-red-700">
-                    {error}
+                  <div aria-live="polite">
+                    {done ? (
+                      <div className="mt-5 rounded-[1.5rem] border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-800">
+                        <p className="font-black">{t.form.successTitle}</p>
+                        <p className="mt-2 font-semibold leading-6">{t.form.success}</p>
+                        <p className="mt-2 leading-6 text-emerald-700">{t.form.successText}</p>
+                        <a
+                          href={whatsappHref}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-4 inline-flex rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-black text-white transition hover:bg-emerald-800"
+                        >
+                          {t.form.successWhatsapp}
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
 
-                <form onSubmit={onSubmit} className="mt-6 space-y-5">
+                  <div aria-live="assertive">
+                    {error ? (
+                      <div role="alert" className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-semibold text-red-700">
+                        {error}
+                      </div>
+                    ) : null}
+                  </div>
+
+                <form onSubmit={onSubmit} aria-busy={loading} className="mt-6 space-y-5">
                   <input
                     type="text"
                     name="website"
@@ -655,7 +954,9 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       placeholder={t.form.fields.fullNamePlaceholder}
                       required
                       rtl={isArabic}
+                      autoComplete="name"
                     />
+
                     <Field
                       label={t.form.fields.phone}
                       name="phone"
@@ -663,6 +964,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       required
                       rtl={isArabic}
                       latin
+                      autoComplete="tel"
                     />
                   </div>
 
@@ -674,13 +976,16 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       rtl={isArabic}
                       latin
                       type="email"
+                      autoComplete="email"
                     />
+
                     <Field
                       label={t.form.fields.city}
                       name="city"
                       placeholder={t.form.fields.cityPlaceholder}
                       required
                       rtl={isArabic}
+                      autoComplete="address-level2"
                     />
                   </div>
 
@@ -692,6 +997,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       required
                       rtl={isArabic}
                     />
+
                     <Field
                       label={t.form.fields.fieldOfStudy}
                       name="fieldOfStudy"
@@ -701,39 +1007,65 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   </div>
 
                   <div>
-                    <label htmlFor="objective" className="text-sm font-medium">
-                      {t.form.objectiveLabel}
-                    </label>
-                    <select
-                      id="objective"
+                    <SelectField
+                      label={t.form.objectiveLabel}
                       name="objective"
+                      placeholder={t.form.objectivePlaceholder}
+                      options={t.form.objectives}
                       required
-                      defaultValue=""
-                      className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#770304] sm:text-base ${
-                        isArabic ? "text-right" : ""
-                      }`}
-                    >
-                      <option value="" disabled>
-                        {t.form.objectivePlaceholder}
-                      </option>
-                      {t.form.objectives.map((item) => (
-                        <option key={item.value} value={item.value}>
-                          {item.label}
-                        </option>
-                      ))}
-                    </select>
+                      rtl={isArabic}
+                    />
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <SelectField
+                      label={t.form.packageInterestLabel}
+                      name="packageInterest"
+                      placeholder={t.form.packageInterestPlaceholder}
+                      options={t.form.packageInterests}
+                      required
+                      rtl={isArabic}
+                    />
+
+                    <SelectField
+                      label={t.form.requesterRoleLabel}
+                      name="requesterRole"
+                      placeholder={t.form.requesterRolePlaceholder}
+                      options={t.form.requesterRoles}
+                      required
+                      rtl={isArabic}
+                    />
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <SelectField
+                      label={t.form.contactTimeLabel}
+                      name="contactTime"
+                      placeholder={t.form.contactTimePlaceholder}
+                      options={t.form.contactTimes}
+                      rtl={isArabic}
+                    />
+
+                    <SelectField
+                      label={t.form.documentReadinessLabel}
+                      name="documentReadiness"
+                      placeholder={t.form.documentReadinessPlaceholder}
+                      options={t.form.documentReadinessOptions}
+                      rtl={isArabic}
+                    />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="text-sm font-medium">
+                    <label htmlFor="message" className="text-sm font-bold">
                       {t.form.messageLabel}
                     </label>
+
                     <textarea
                       id="message"
                       name="message"
-                      rows={5}
+                      rows={4}
                       placeholder={t.form.messagePlaceholder}
-                      className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#770304] sm:text-base ${
+                      className={`mt-2 w-full resize-none rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#770304] sm:text-base ${
                         isArabic ? "text-right" : ""
                       }`}
                     />
@@ -751,11 +1083,12 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                       required
                       className="mt-1 h-4 w-4 rounded border-zinc-300 text-[#770304] focus:ring-[#770304]"
                     />
+
                     <span>
                       {t.form.consent} {t.form.privacyPrefix}{" "}
                       <Link
                         href={privacyHref}
-                        className="font-semibold text-[#770304] underline underline-offset-4"
+                        className="font-black text-[#770304] underline underline-offset-4"
                       >
                         {t.form.privacyLink}
                       </Link>
@@ -764,27 +1097,29 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   </label>
 
                   <button
+                    type="submit"
                     disabled={loading}
                     data-track="apply_submit"
                     data-track-value={lang}
-                    className="w-full rounded-full bg-[#770304] px-5 py-3 font-semibold text-white transition hover:bg-[#740000] disabled:opacity-60"
+                    className="w-full rounded-full bg-[#770304] px-5 py-3.5 text-sm font-black text-white shadow-[0_18px_45px_rgba(119,3,4,0.22)] transition hover:-translate-y-1 hover:bg-[#640203] disabled:translate-y-0 disabled:cursor-wait disabled:opacity-60"
                   >
                     {loading ? t.form.submitting : t.form.submit}
                   </button>
 
                   <div
                     className={`flex flex-col gap-3 rounded-[1.5rem] border border-zinc-200 bg-zinc-50 px-4 py-4 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between ${
-                      isArabic ? "sm:flex-row-reverse text-right" : ""
+                      isArabic ? "text-right sm:flex-row-reverse" : ""
                     }`}
                   >
                     <p className="leading-6">{t.form.reassurance}</p>
+
                     <a
                       href={whatsappHref}
                       target="_blank"
                       rel="noreferrer"
                       data-track="apply_whatsapp_alternative"
                       data-track-value={lang}
-                      className="inline-flex shrink-0 items-center justify-center rounded-full border border-[#770304]/15 bg-white px-4 py-2.5 font-medium text-[#770304] transition hover:bg-[#fff7f2]"
+                      className="inline-flex shrink-0 items-center justify-center rounded-full border border-[#770304]/15 bg-white px-4 py-2.5 font-bold text-[#770304] transition hover:bg-[#fff7f2]"
                     >
                       {t.form.whatsappAlternative}
                     </a>
@@ -793,9 +1128,28 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
               </div>
             </div>
           </div>
+          </div>
         </Container>
       </section>
-    </main>
+    </div>
+  );
+}
+
+function InfoCard({
+  children,
+  isArabic,
+}: {
+  children: React.ReactNode;
+  isArabic: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-[2rem] border border-[#770304]/10 bg-white/92 p-6 shadow-[0_20px_45px_rgba(54,1,2,0.06)] backdrop-blur-xl sm:p-7 ${
+        isArabic ? "text-right" : ""
+      }`}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -807,6 +1161,7 @@ function Field({
   rtl = false,
   latin = false,
   type = "text",
+  autoComplete,
 }: {
   label: string;
   name: string;
@@ -815,24 +1170,71 @@ function Field({
   rtl?: boolean;
   latin?: boolean;
   type?: string;
+  autoComplete?: string;
 }) {
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-medium">
+      <label htmlFor={name} className="text-sm font-bold">
         {label}
       </label>
+
       <input
         id={name}
         type={type}
         name={name}
         required={required}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         dir={latin && rtl ? "ltr" : undefined}
         inputMode={type === "email" ? "email" : latin ? "tel" : undefined}
-        className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#770304] sm:text-base ${
+        className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-zinc-400 focus:border-[#770304] sm:text-base ${
           latin && rtl ? "force-ltr" : rtl ? "text-right" : ""
         }`}
       />
+    </div>
+  );
+}
+
+function SelectField({
+  label,
+  name,
+  placeholder,
+  options,
+  required,
+  rtl = false,
+}: {
+  label: string;
+  name: string;
+  placeholder: string;
+  options: { value: string; label: string }[];
+  required?: boolean;
+  rtl?: boolean;
+}) {
+  return (
+    <div>
+      <label htmlFor={name} className="text-sm font-bold">
+        {label}
+      </label>
+
+      <select
+        id={name}
+        name={name}
+        required={required}
+        defaultValue=""
+        className={`mt-2 w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#770304] sm:text-base ${
+          rtl ? "text-right" : ""
+        }`}
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+
+        {options.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
