@@ -56,7 +56,7 @@ export default function BrandLogo({
       {resolvedMode !== "wordmark" ? (
         <div className={`flex shrink-0 items-center ${resolvedMode === "mark" ? "" : config.wrapper}`}>
           <Image
-            src="/primary Logo 2.png"
+            src="/brand-logo.png"
             alt={resolvedMode === "mark" ? "YALLA CHINA logo" : ""}
             aria-hidden={resolvedMode === "mark" ? undefined : "true"}
             width={config.icon}
