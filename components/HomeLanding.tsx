@@ -1268,6 +1268,28 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.div
               variants={fadeUp}
+              transition={{ duration: 0.82, ease: cinematicEase }}
+              className={`mt-6 grid gap-2 md:hidden ${
+                isArabic ? "text-right" : ""
+              }`}
+            >
+              {t.hero.stats.slice(0, 3).map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-[1.15rem] border border-white/10 bg-black/24 px-4 py-3 backdrop-blur-xl"
+                >
+                  <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-[#EDB80B]">
+                    {stat.label}
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-white/78">
+                    {stat.value}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp}
               transition={{ duration: 0.9, ease: cinematicEase }}
               className="mt-8 hidden max-w-3xl items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-white/65 xl:flex"
             >
@@ -1289,7 +1311,9 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             </motion.div>
           </motion.div>
 
-          <HeroProjectCard t={t} isArabic={isArabic} />
+          <div className="hidden md:block">
+            <HeroProjectCard t={t} isArabic={isArabic} />
+          </div>
         </div>
       </SceneFrame>
 

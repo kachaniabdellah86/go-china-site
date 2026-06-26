@@ -25,6 +25,11 @@
 .DS_Store
 *.pem
 
+# large raw media should be compressed or hosted before deployment
+/public/videos/*.mp4
+/public/videos/*.mov
+/public/videos/*.mkv
+
 # debug
 npm-debug.log*
 yarn-debug.log*

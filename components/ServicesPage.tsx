@@ -72,6 +72,7 @@ type Copy = {
     eyebrow: string;
     title: string;
     text: string;
+    note: string;
     items: Pack[];
   };
   family: {
@@ -153,6 +154,7 @@ const copy: Record<Locale, Copy> = {
       eyebrow: "Deux niveaux de prise en charge",
       title: "Choisir le bon niveau, pas le pack le plus bruyant.",
       text: "La consultation sert à choisir selon l’autonomie de l’étudiant et le besoin de visibilité de la famille.",
+      note: "Nous accompagnons le dossier avec méthode. Les décisions finales d’admission et de visa restent celles des universités et autorités compétentes.",
       items: [
         { label: "Pack Standard", price: "15.000 DH", title: "Dossier & visa", text: "Le cœur administratif pour sécuriser l’admission et la demande de visa.", bestFor: "Étudiant autonome après le visa.", items: ["Orientation", "Dossier", "Admission", "Visa", "Suivi clair"] },
         { label: "Pack Premium", price: "23.000 DH", title: "Jusqu’à l’arrivée", text: "Le Pack Standard, plus la préparation du départ et les premiers repères en Chine.", bestFor: "Famille qui veut plus de présence.", items: ["Tout le Standard", "Préparation", "Billet", "Transfert", "Repères campus"] },
@@ -225,6 +227,7 @@ const copy: Record<Locale, Copy> = {
       eyebrow: "Two levels of support",
       title: "Choose the right level, not the loudest package.",
       text: "The consultation helps choose based on student autonomy and the family’s need for visibility.",
+      note: "We prepare and follow the file with method. Final admission and visa decisions remain with universities and the competent authorities.",
       items: [
         { label: "Standard Pack", price: "15,000 DH", title: "File & visa", text: "The administrative core to secure admission and visa preparation.", bestFor: "Student autonomous after the visa.", items: ["Orientation", "File", "Admission", "Visa", "Clear follow-up"] },
         { label: "Premium Pack", price: "23,000 DH", title: "Until arrival", text: "Standard Pack, plus departure preparation and first landmarks in China.", bestFor: "Family that wants more presence.", items: ["Everything Standard", "Preparation", "Ticket", "Transfer", "Campus landmarks"] },
@@ -297,6 +300,7 @@ const copy: Record<Locale, Copy> = {
       eyebrow: "مستويان من المواكبة",
       title: "اختر المستوى الصحيح، لا العرض الأعلى صوتاً.",
       text: "الاستشارة تساعد على الاختيار حسب استقلالية الطالب وحاجة العائلة للوضوح.",
+      note: "نرافق الملف بمنهج واضح. قرارات القبول والتأشيرة النهائية تبقى لدى الجامعات والجهات المختصة.",
       items: [
         { label: "الباقة العادية", price: "15.000 درهم", title: "الملف والتأشيرة", text: "الأساس الإداري لتأمين القبول وتحضير التأشيرة.", bestFor: "طالب مستقل بعد التأشيرة.", items: ["توجيه", "ملف", "قبول", "تأشيرة", "تتبع واضح"] },
         { label: "الباقة المميزة", price: "23.000 درهم", title: "حتى الوصول", text: "الباقة العادية مع تحضير السفر وأول الخطوات في الصين.", bestFor: "عائلة تريد حضوراً أكبر.", items: ["كل الباقة العادية", "تحضير", "تذكرة", "انتقال", "معالم الحرم"] },
@@ -483,13 +487,24 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
               {t.hero.secondary}
             </a>
           </motion.div>
+
+          <motion.div variants={reveal} className="mt-6 grid gap-2 md:hidden">
+            {t.proof.points.slice(0, 3).map((point) => (
+              <div
+                key={point}
+                className="rounded-[1.15rem] border border-white/10 bg-white/[0.055] px-4 py-3 text-sm font-bold leading-6 text-white/72 backdrop-blur-xl"
+              >
+                {point}
+              </div>
+            ))}
+          </motion.div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 24, scale: 0.975 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.75, ease, delay: 0.08 }}
-          className="relative mx-auto w-full max-w-[53rem]"
+          className="relative mx-auto hidden w-full max-w-[53rem] md:block"
         >
           <div className="absolute -inset-4 rounded-[2.7rem] bg-[linear-gradient(135deg,rgba(237,184,11,0.22),rgba(255,255,255,0.05),rgba(139,0,0,0.38))] blur-[1px]" />
           <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-[#2a2117]/72 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.44)] backdrop-blur-2xl sm:p-4">
@@ -498,7 +513,6 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
                 src={images.hero}
                 alt={t.hero.visualAlt}
                 fill
-                priority
                 sizes="(min-width:1024px) 52vw, 100vw"
                 className="object-cover"
               />
@@ -858,6 +872,13 @@ function Packs({ t, safeLang }: { t: Copy; safeLang: Locale }) {
             </motion.article>
           ))}
         </div>
+
+        <motion.p
+          variants={reveal}
+          className="mt-5 max-w-[58rem] rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-5 py-4 text-sm font-semibold leading-7 text-white/62 backdrop-blur-xl"
+        >
+          {t.packs.note}
+        </motion.p>
       </div>
     </MotionSection>
   );

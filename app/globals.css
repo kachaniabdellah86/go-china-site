@@ -769,6 +769,29 @@ span[class*="text-"] .step-number {
   button {
     -webkit-tap-highlight-color: transparent;
   }
+
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  .blur-3xl {
+    filter: blur(32px);
+  }
+
+  .shoji-grid {
+    background-size: 124px 124px;
+    opacity: 0.055;
+  }
+
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in {
+    animation-duration: 320ms;
+  }
 }
 
 .force-ltr {
