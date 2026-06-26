@@ -951,8 +951,7 @@ function HeroProjectCard({ t, isArabic }: { t: SceneCopy; isArabic: boolean }) {
                 src={images.academic}
                 alt={t.hero.cardTitle}
                 fill
-                priority
-                sizes="42vw"
+                sizes="(max-width: 1024px) 100vw, 32vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/76 via-black/10 to-transparent" />

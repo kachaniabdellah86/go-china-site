@@ -514,7 +514,6 @@ export default function ContactPage({ lang }: { lang: Locale }) {
                     src="/fr-contact-hero.jpg"
                     alt={heroImageAlt}
                     fill
-                    priority
                     sizes="(max-width: 1023px) 100vw, 44vw"
                     className="object-cover"
                   />

@@ -1,5 +1,6 @@
   "use client";
 
+  import { useState } from "react";
   import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
   import Image from "next/image";
   import Link from "next/link";
@@ -1025,6 +1026,7 @@
 
   function FounderVideoCard({ t, isArabic }: { t: Copy; isArabic: boolean }) {
     const reduceMotion = useReducedMotion();
+    const [showVideo, setShowVideo] = useState(false);
 
     return (
       <motion.div
@@ -1033,35 +1035,59 @@
         className="relative overflow-hidden rounded-[2.45rem] border border-white/10 bg-white/[0.065] p-3 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-2xl sm:p-4 xl:p-5"
       >
         <div className="relative h-[21rem] overflow-hidden rounded-[1.95rem] border border-white/10 bg-black sm:h-[23rem] lg:h-[25rem] xl:h-[27rem]">
-          <video
-            src={VIDEO_SRC}
-            poster="/aymen-badri.png"
-            className="h-full w-full bg-black object-cover"
-            autoPlay={!reduceMotion}
-            muted
-            loop
-            playsInline
-            controls
-            preload="metadata"
-          />
+          {showVideo ? (
+            <video
+              src={VIDEO_SRC}
+              poster="/aymen-badri.png"
+              className="h-full w-full bg-black object-cover"
+              autoPlay={!reduceMotion}
+              muted
+              playsInline
+              controls
+              preload="none"
+            />
+          ) : (
+            <>
+              <Image
+                src="/aymen-badri.png"
+                alt=""
+                fill
+                sizes="(max-width: 1024px) 100vw, 36vw"
+                className="object-cover"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowVideo(true)}
+                className="absolute inset-0 z-10 flex items-center justify-center bg-black/10 text-white transition hover:bg-black/0"
+                aria-label={t.hero.videoTitle}
+              >
+                <span className="grid h-16 w-16 place-items-center rounded-full border border-[#EDB80B]/50 bg-black/45 pl-1 text-2xl text-[#EDB80B] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+                  ▶
+                </span>
+              </button>
+            </>
+          )}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,2,2,0.02),rgba(5,2,2,0.10)_48%,rgba(5,2,2,0.78)),radial-gradient(circle_at_top_right,rgba(237,184,11,0.20),transparent_36%)]" />
 
-          <motion.div
-            aria-hidden="true"
-            animate={
-              reduceMotion
-                ? undefined
-                : { opacity: [0.35, 0.75, 0.35], scale: [1, 1.08, 1] }
-            }
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 3.8, repeat: Infinity, ease: "easeInOut" }
-            }
-            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#EDB80B]/40 bg-black/35 text-[#EDB80B] backdrop-blur-xl"
-          >
-            ▶
-          </motion.div>
+          {!showVideo ? (
+            <motion.div
+              aria-hidden="true"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { opacity: [0.35, 0.75, 0.35], scale: [1, 1.08, 1] }
+              }
+              transition={
+                reduceMotion
+                  ? undefined
+                  : { duration: 3.8, repeat: Infinity, ease: "easeInOut" }
+              }
+              className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#EDB80B]/40 bg-black/35 text-[#EDB80B] backdrop-blur-xl"
+            >
+              ▶
+            </motion.div>
+          ) : null}
 
           <div
             className={`absolute inset-x-4 bottom-4 rounded-[1.45rem] border border-white/10 bg-black/38 p-4 backdrop-blur-2xl sm:inset-x-5 sm:bottom-5 sm:p-5 ${

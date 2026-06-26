@@ -8,8 +8,25 @@ const isVercel = process.env.VERCEL === '1' || process.env.NODE_ENV === 'product
 
 const nextConfig: NextConfig = {
   distDir: isVercel ? ".next" : ".next-copy",
+  images: {
+    formats: ["image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
+  },
   experimental: {
     isolatedDevBuild: true,
+  },
+  async headers() {
+    return [
+      {
+        source: "/:all*(svg|jpg|jpeg|png|webp|avif|mp4)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
   turbopack: {
     root: projectRoot,

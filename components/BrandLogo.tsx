@@ -6,6 +6,7 @@ type BrandLogoProps = {
   size?: "xs" | "sm" | "md" | "lg";
   variant?: "light" | "dark";
   className?: string;
+  priority?: boolean;
 };
 
 const sizeClasses = {
@@ -41,6 +42,7 @@ export default function BrandLogo({
   size = "md",
   variant = "dark",
   className = "",
+  priority = false,
 }: BrandLogoProps) {
   const resolvedMode = mode ?? (showWordmark ? "full" : "mark");
   const isDark = variant === "dark";
@@ -62,7 +64,7 @@ export default function BrandLogo({
             width={config.icon}
             height={config.icon}
             sizes={`${config.icon}px`}
-            priority={size === "lg" || size === "md"}
+            priority={priority}
             className="h-auto w-auto object-contain"
           />
         </div>

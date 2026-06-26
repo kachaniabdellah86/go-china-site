@@ -726,7 +726,6 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                     src="/fr-apply-hero.jpg"
                     alt={heroImageAlt}
                     fill
-                    priority
                     sizes="(max-width: 1023px) 100vw, 48vw"
                     className="object-cover"
                   />

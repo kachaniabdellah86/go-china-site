@@ -1,7 +1,29 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Montserrat, Poppins, Tajawal } from "next/font/google";
 import { headers } from "next/headers";
 import { siteBaseUrl } from "@/lib/yalla";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const tajawal = Tajawal({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "700", "800"],
+  variable: "--font-arabic",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteBaseUrl),
@@ -54,7 +76,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body className="min-h-screen bg-[#faf8f5] text-zinc-900 antialiased">
+      <body
+        className={`${montserrat.variable} ${poppins.variable} ${tajawal.variable} min-h-screen bg-[#faf8f5] text-zinc-900 antialiased`}
+      >
         {children}
       </body>
     </html>

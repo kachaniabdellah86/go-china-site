@@ -890,7 +890,6 @@ export default function GuidePage({
                     src={t.imageSrc}
                     alt={t.title}
                     fill
-                    priority
                     sizes="(max-width: 1023px) 100vw, 44vw"
                     className="object-cover"
                   />
