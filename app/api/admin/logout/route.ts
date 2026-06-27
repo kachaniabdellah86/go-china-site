@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
-    secure: process.env.NODE_ENV === "production",
+    secure: new URL(req.url).protocol === "https:" || process.env.VERCEL === "1",
     maxAge: 0,
   });
 

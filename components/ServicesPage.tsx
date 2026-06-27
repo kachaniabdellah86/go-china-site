@@ -92,13 +92,13 @@ type Copy = {
 };
 
 const images = {
-  hero: "/services-hero-student-china.png",
-  mission: "/services-mission-documents-to-arrival.png",
-  documents: "/services-documents-passport.png",
-  departure: "/services-departure-preparation.png",
-  arrival: "/services-arrival-campus.png",
-  family: "/services-family-consultation.png",
-  background: "/services-documents-background.png",
+  hero: "/services-hero-student-china.jpg",
+  mission: "/services-mission-documents-to-arrival.jpg",
+  documents: "/services-documents-passport.jpg",
+  departure: "/services-departure-preparation.jpg",
+  arrival: "/services-arrival-campus.jpg",
+  family: "/services-family-consultation.jpg",
+  background: "/services-documents-background.jpg",
 };
 
 const copy: Record<Locale, Copy> = {

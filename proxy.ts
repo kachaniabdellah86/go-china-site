@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { verifyAdminSessionToken } from "@/lib/admin-auth";
 
 function getLocale(pathname: string) {
   if (pathname === "/en" || pathname.startsWith("/en/")) {
@@ -13,9 +14,11 @@ function getLocale(pathname: string) {
   return "fr";
 }
 
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const adminCookie = process.env.ADMIN_COOKIE || "gochina_admin";
-  const isLoggedIn = req.cookies.get(adminCookie)?.value === "1";
+  const isLoggedIn = await verifyAdminSessionToken(
+    req.cookies.get(adminCookie)?.value
+  );
   const pathname = req.nextUrl.pathname;
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-yalla-locale", getLocale(pathname));

@@ -1033,7 +1033,7 @@
       >
         <div className="relative h-[21rem] overflow-hidden rounded-[1.95rem] border border-white/10 bg-black sm:h-[23rem] lg:h-[25rem] xl:h-[27rem]">
           <Image
-            src="/aymen-badri.png"
+            src="/aymen-badri.jpg"
             alt=""
             fill
             sizes="(max-width: 1024px) 100vw, 36vw"
@@ -1102,7 +1102,7 @@
       >
         <div className="relative h-[27rem] overflow-hidden rounded-[1.9rem]">
           <Image
-            src="/aymen-badri.png"
+            src="/aymen-badri.jpg"
             alt={founderName}
             fill
             sizes="(max-width: 1024px) 100vw, 36vw"

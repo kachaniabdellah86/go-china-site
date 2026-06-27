@@ -21,4 +21,7 @@ model Application {
   message      String?
   status       String   @default("NEW")
   createdAt    DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([status, createdAt])
 }

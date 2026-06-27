@@ -554,7 +554,7 @@ export default function AdminApplicationsDashboard({
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-zinc-600">
                   Essayez une autre recherche ou réinitialisez le statut
-                  sélectionné pour revoir l'ensemble des candidatures.
+                  sélectionné pour revoir l&apos;ensemble des candidatures.
                 </p>
               </div>
             )}

@@ -87,7 +87,7 @@ const images = {
   hero: "/yalla-hero-student-china.jpg",
   vision: "/yalla-campus-vision.jpg",
   family: "/yalla-family-trust.jpg",
-  method: "/aymen-badri.png",
+  method: "/aymen-badri.jpg",
   admission: "/yalla-admission-documents.jpg",
   visa: "/yalla-student-visa.jpg",
   preparation: "/yalla-preparation-desk.jpg",
@@ -1215,7 +1215,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
         <div className="relative mx-auto grid min-h-[100svh] w-full max-w-[84rem] items-center gap-6 px-5 pb-14 pt-24 sm:px-8 sm:py-20 lg:min-h-[100dvh] lg:gap-8 lg:py-14 lg:grid-cols-[1.08fr_0.72fr]">
           <motion.div
-            initial="hidden"
+            initial={false}
             animate="visible"
             variants={stagger}
             className={`relative z-10 ${isArabic ? "text-right" : ""}`}

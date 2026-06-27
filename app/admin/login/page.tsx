@@ -61,7 +61,7 @@ export default function AdminLogin() {
               <p className="mt-5 max-w-xl text-base leading-8 text-white/78">
                 Consultez les candidatures, suivez les statuts et reprenez
                 contact rapidement depuis un espace qui reste aligné avec
-                l'image premium du projet.
+                l&apos;image premium du projet.
               </p>
             </div>
 
@@ -97,7 +97,7 @@ export default function AdminLogin() {
               Accéder au tableau de bord
             </h2>
             <p className="mt-3 text-sm leading-7 text-zinc-600">
-              Entrez le mot de passe administrateur pour ouvrir l'espace privé
+              Entrez le mot de passe administrateur pour ouvrir l&apos;espace privé
               de gestion des candidatures.
             </p>
 
@@ -136,7 +136,7 @@ export default function AdminLogin() {
             </form>
 
             <div className="mt-6 rounded-[1.5rem] border border-zinc-200 bg-[#faf8f5] p-4 text-sm leading-7 text-zinc-600">
-              Cet espace est réservé à l'équipe YALLA CHINA pour le suivi des
+              Cet espace est réservé à l&apos;équipe YALLA CHINA pour le suivi des
               candidatures étudiantes et des échanges avec les familles.
             </div>
           </div>

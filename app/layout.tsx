@@ -1,12 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat, Poppins, Tajawal } from "next/font/google";
-import { headers } from "next/headers";
 import { siteBaseUrl } from "@/lib/yalla";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["700", "800", "900"],
   variable: "--font-display",
   display: "swap",
 });
@@ -63,19 +62,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const localeHeader = (await headers()).get("x-yalla-locale");
-  const locale =
-    localeHeader === "fr" || localeHeader === "en" || localeHeader === "ar"
-      ? localeHeader
-      : "fr";
-
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+    <html lang="fr" dir="ltr">
       <body
         className={`${montserrat.variable} ${poppins.variable} ${tajawal.variable} min-h-screen bg-[#faf8f5] text-zinc-900 antialiased`}
       >

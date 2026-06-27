@@ -41,7 +41,7 @@ export default function LocaleLayout({ children, lang }: Props) {
       className="min-h-screen overflow-x-clip"
       dir={safeLang === "ar" ? "rtl" : "ltr"}
     >
-      <div className="animate-fade-in">
+      <div>
         <Navbar lang={safeLang} />
 
         <main className={isImmersiveHome ? "" : "gradient-bg pb-24 md:pb-0"}>

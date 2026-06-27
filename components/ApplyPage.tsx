@@ -52,6 +52,7 @@ type Copy = {
     successWhatsapp: string;
     fallbackError: string;
     unavailableError: string;
+    rateLimitError: string;
     objectiveLabel: string;
     objectivePlaceholder: string;
     objectives: { value: string; label: string }[];
@@ -168,6 +169,8 @@ const copy: Record<Locale, Copy> = {
         "Une erreur est survenue. Merci de réessayer ou de nous écrire sur WhatsApp.",
       unavailableError:
         "Le formulaire est momentanément indisponible. Merci de nous écrire directement sur WhatsApp.",
+      rateLimitError:
+        "Trop de demandes ont été envoyées depuis votre connexion. Merci de patienter quelques minutes ou de nous écrire sur WhatsApp.",
       objectiveLabel: "Objectif *",
       objectivePlaceholder: "Choisir...",
       objectives: [
@@ -304,6 +307,8 @@ const copy: Record<Locale, Copy> = {
         "Something went wrong. Please try again or contact us on WhatsApp.",
       unavailableError:
         "The form is temporarily unavailable. Please contact us directly on WhatsApp.",
+      rateLimitError:
+        "Too many requests were sent from your connection. Please wait a few minutes or contact us on WhatsApp.",
       objectiveLabel: "Objective *",
       objectivePlaceholder: "Select...",
       objectives: [
@@ -438,6 +443,8 @@ const copy: Record<Locale, Copy> = {
       successWhatsapp: "إضافة تفصيل عبر واتساب",
       fallbackError: "حدث خطأ ما. حاول مرة أخرى أو راسلنا على واتساب.",
       unavailableError: "الاستمارة غير متاحة مؤقتاً. راسلنا مباشرة على واتساب.",
+      rateLimitError:
+        "تم إرسال عدد كبير من الطلبات من اتصالك. انتظر بضع دقائق أو راسلنا على واتساب.",
       objectiveLabel: "الهدف *",
       objectivePlaceholder: "اختر...",
       objectives: [
@@ -647,6 +654,10 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
           throw new Error(t.form.unavailableError);
         }
 
+        if (data?.errorCode === "rate_limited") {
+          throw new Error(t.form.rateLimitError);
+        }
+
         throw new Error(t.form.fallbackError);
       }
 
@@ -655,7 +666,11 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
     } catch (err) {
       console.error("Application form submission failed", err);
 
-      const knownErrors = [t.form.fallbackError, t.form.unavailableError];
+      const knownErrors = [
+        t.form.fallbackError,
+        t.form.unavailableError,
+        t.form.rateLimitError,
+      ];
       const message = err instanceof Error ? err.message : "";
 
       setError(knownErrors.includes(message) ? message : t.form.fallbackError);

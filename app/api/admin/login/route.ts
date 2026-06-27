@@ -1,19 +1,38 @@
 import { cookies } from "next/headers";
+import {
+  createAdminSessionToken,
+  verifyAdminPassword,
+} from "@/lib/admin-auth";
+import { checkRateLimit, clearRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
     const password = body?.password;
+    const clientKey = `admin-login:${getClientIp(req)}`;
+    const rateLimit = checkRateLimit(clientKey, {
+      max: 8,
+      windowMs: 10 * 60 * 1000,
+    });
+
+    if (rateLimit.limited) {
+      return Response.json(
+        { error: "Trop d'essais. Réessayez dans quelques minutes." },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.retryAfterSeconds),
+          },
+        }
+      );
+    }
 
     const hasPassword = !!process.env.ADMIN_PASSWORD;
     const hasCookie = !!process.env.ADMIN_COOKIE;
 
     if (!hasPassword || !hasCookie) {
       return Response.json(
-        {
-          error: "Missing ADMIN env vars",
-          debug: { hasPassword, hasCookie },
-        },
+        { error: "Connexion administrateur indisponible." },
         { status: 500 }
       );
     }
@@ -22,24 +41,35 @@ export async function POST(req: Request) {
       return Response.json({ error: "Password missing" }, { status: 400 });
     }
 
-    if (password !== process.env.ADMIN_PASSWORD) {
+    if (!(await verifyAdminPassword(password))) {
       return Response.json({ error: "Wrong password" }, { status: 401 });
     }
 
-    // ✅ FIX for Next 16
     const cookieStore = await cookies();
-    cookieStore.set(process.env.ADMIN_COOKIE!, "1", {
+    const sessionToken = await createAdminSessionToken();
+
+    if (!sessionToken) {
+      return Response.json(
+        { error: "Connexion administrateur indisponible." },
+        { status: 500 }
+      );
+    }
+
+    cookieStore.set(process.env.ADMIN_COOKIE!, sessionToken, {
       httpOnly: true,
       sameSite: "lax",
       path: "/",
-      secure: process.env.NODE_ENV === "production",
+      secure: new URL(req.url).protocol === "https:" || process.env.VERCEL === "1",
       maxAge: 60 * 60 * 24 * 7,
     });
+    clearRateLimit(clientKey);
 
     return Response.json({ ok: true });
-  } catch (e: any) {
+  } catch (error: unknown) {
+    console.error("Admin login failed", error);
+
     return Response.json(
-      { error: "Login API crashed", details: e?.message ?? String(e) },
+      { error: "Connexion administrateur indisponible." },
       { status: 500 }
     );
   }

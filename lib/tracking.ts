@@ -5,6 +5,7 @@ import { track } from "@vercel/analytics";
 export type TrackingConsent = "accepted" | "essential";
 
 export const trackingConsentKey = "yc-cookie-consent";
+export const trackingConsentChangedEvent = "yc-cookie-consent-changed";
 
 export function readTrackingConsent(): TrackingConsent | null {
   if (typeof window === "undefined") {
@@ -26,6 +27,7 @@ export function writeTrackingConsent(value: TrackingConsent) {
 
   window.localStorage.setItem(trackingConsentKey, value);
   document.cookie = `${trackingConsentKey}=${value}; path=/; max-age=31536000; SameSite=Lax`;
+  window.dispatchEvent(new Event(trackingConsentChangedEvent));
 }
 
 export function hasTrackingConsent() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import { Locale } from "@/lib/yalla";
@@ -8,6 +8,7 @@ import {
   readTrackingConsent,
   trackEvent,
   TrackingConsent,
+  trackingConsentChangedEvent,
   writeTrackingConsent,
 } from "@/lib/tracking";
 
@@ -41,14 +42,24 @@ const copy = {
   },
 } as const;
 
+function subscribeToTrackingConsent(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(trackingConsentChangedEvent, callback);
+
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(trackingConsentChangedEvent, callback);
+  };
+}
+
 export default function ConsentAndTracking({ lang }: { lang: Locale }) {
   const t = copy[lang];
-  const [consent, setConsent] = useState<TrackingConsent | null>(null);
+  const consent = useSyncExternalStore(
+    subscribeToTrackingConsent,
+    readTrackingConsent,
+    () => null
+  );
   const isArabic = lang === "ar";
-
-  useEffect(() => {
-    setConsent(readTrackingConsent());
-  }, []);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -90,7 +101,6 @@ export default function ConsentAndTracking({ lang }: { lang: Locale }) {
 
   function saveConsent(value: TrackingConsent) {
     writeTrackingConsent(value);
-    setConsent(value);
     if (value === "accepted") {
       trackEvent("cookie_consent_accepted", { locale: lang });
     }
