@@ -584,11 +584,13 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const formElement = e.currentTarget;
+
     setError(null);
     setDone(false);
     setLoading(true);
 
-    const form = new FormData(e.currentTarget);
+    const form = new FormData(formElement);
     const payload = Object.fromEntries(
       Array.from(form.entries()).map(([key, value]) => [
         key,
@@ -649,9 +651,14 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
       }
 
       setDone(true);
-      e.currentTarget.reset();
+      formElement.reset();
     } catch (err) {
-      setError(err instanceof Error ? err.message : t.form.fallbackError);
+      console.error("Application form submission failed", err);
+
+      const knownErrors = [t.form.fallbackError, t.form.unavailableError];
+      const message = err instanceof Error ? err.message : "";
+
+      setError(knownErrors.includes(message) ? message : t.form.fallbackError);
     } finally {
       setLoading(false);
     }
@@ -930,7 +937,10 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
 
                   <div aria-live="assertive">
                     {error ? (
-                      <div role="alert" className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-semibold text-red-700">
+                      <div
+                        role="alert"
+                        className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-semibold leading-6 text-amber-900"
+                      >
                         {error}
                       </div>
                     ) : null}
