@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yalla China
 
-## Getting Started
+A multilingual student guidance and application platform for Moroccan students interested in studying in China.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Yalla China combines a public information website with a structured application workflow. The platform presents study options, destinations, service packages, frequently asked questions, and a direct application form in French, English, and Arabic.
+
+The project was designed and developed as a complete full-stack product, including the public interface, application API, database integration, administrative workflow, validation, and deployment.
+
+## Key Features
+
+- Multilingual interface in French, English, and Arabic
+- Right-to-left layout support for Arabic
+- Responsive landing pages and conversion-focused calls to action
+- Student application form with structured fields and consent handling
+- Server-side validation, payload limits, rate limiting, and bot protection
+- Database persistence through Prisma and PostgreSQL
+- Administrative application-management workflow
+- Production deployment on Vercel
+
+## Technology Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Prisma ORM
+- PostgreSQL / Supabase
+- Tailwind CSS
+- Framer Motion
+- Playwright
+- Vercel
+
+## Application Flow
+
+```text
+Visitor
+  -> Chooses a language
+  -> Reviews destinations and service information
+  -> Submits an application
+  -> API validates and stores the request
+  -> Administrator reviews and updates the application status
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application requires the relevant database and authentication environment variables before the complete workflow can run locally.
 
-## Learn More
+Useful checks:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Live Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Production website: https://go-china-site.vercel.app
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed by **Abdellah Kachani**, computer engineering student focused on AI systems and full-stack development.
