@@ -9,7 +9,7 @@ const isVercel = process.env.VERCEL === '1' || process.env.NODE_ENV === 'product
 const nextConfig: NextConfig = {
   distDir: isVercel ? ".next" : ".next-copy",
   images: {
-    formats: ["image/webp"],
+    formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
   async headers() {
@@ -20,10 +20,6 @@ const nextConfig: NextConfig = {
           {
             key: "X-Content-Type-Options",
             value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
           },
           {
             key: "Referrer-Policy",
