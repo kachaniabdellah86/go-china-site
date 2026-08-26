@@ -28,36 +28,9 @@ The project was designed and developed as a complete full-stack product, includi
 - PostgreSQL / Supabase
 - Tailwind CSS
 - Framer Motion
+- Lenis Smooth Scroll
 - Playwright
 - Vercel
-
-## Application Flow
-
-```text
-Visitor
-  -> Chooses a language
-  -> Reviews destinations and service information
-  -> Submits an application
-  -> API validates and stores the request
-  -> Administrator reviews and updates the application status
-```
-
-## Local Development
-
-```bash
-npm install
-npm run dev
-```
-
-The application requires the relevant database and authentication environment variables before the complete workflow can run locally.
-
-Useful checks:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
 
 ## Live Project
 

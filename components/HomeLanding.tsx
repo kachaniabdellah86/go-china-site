@@ -1,9 +1,15 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import { founderName, Locale, supportedCities } from "@/lib/yalla";
 
 type Pack = {
@@ -669,8 +675,8 @@ const stagger = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.09,
-      delayChildren: 0.04,
+      staggerChildren: 0.055,
+      delayChildren: 0.02,
     },
   },
 };
@@ -762,17 +768,29 @@ function LuxuryBackground({
   strength?: "dark" | "cream" | "deep";
 }) {
   const reduceMotion = useReducedMotion();
+  const frameRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(frameRef, { margin: "200px 0px 200px 0px" });
 
   return (
-    <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
+    <div
+      aria-hidden="true"
+      ref={frameRef}
+      className="absolute inset-0 overflow-hidden"
+    >
       {src ? (
         <motion.div
-          className="absolute inset-0"
-          animate={reduceMotion ? undefined : { scale: [1.035, 1.065, 1.035] }}
+          className="absolute inset-0 transform-gpu will-change-transform"
+          animate={
+            reduceMotion || !inView
+              ? { scale: 1.05 }
+              : { scale: [1.035, 1.065, 1.035] }
+          }
           transition={
             reduceMotion
               ? undefined
-              : { duration: 22, repeat: Infinity, ease: "easeInOut" }
+              : !inView
+                ? { duration: 0.01 }
+                : { duration: 22, repeat: Infinity, ease: "easeInOut" }
           }
         >
           <Image
@@ -825,12 +843,12 @@ function CameraAtmosphere() {
     >
       <motion.div
         style={{ y: lensY, x: lensX, rotate: beamRotate }}
-        className="absolute left-[-12vw] top-[-20vh] h-[52vh] w-[124vw] bg-[radial-gradient(ellipse_at_center,rgba(237,184,11,0.095),rgba(237,184,11,0.028)_38%,transparent_70%)] blur-2xl"
+        className="absolute left-[-12vw] top-[-20vh] h-[52vh] w-[124vw] transform-gpu will-change-transform bg-[radial-gradient(ellipse_at_center,rgba(237,184,11,0.095),rgba(237,184,11,0.05)_30%,rgba(237,184,11,0.02)_52%,transparent_72%)]"
       />
 
       <motion.div
         style={{ y: silkY }}
-        className="absolute bottom-[-18vh] right-[-16vw] h-[46vh] w-[70vw] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(119,3,4,0.22),rgba(119,3,4,0.06)_42%,transparent_72%)] blur-3xl"
+        className="absolute bottom-[-18vh] right-[-16vw] h-[46vh] w-[70vw] rounded-full transform-gpu will-change-transform bg-[radial-gradient(ellipse_at_center,rgba(119,3,4,0.22),rgba(119,3,4,0.11)_38%,rgba(119,3,4,0.04)_58%,transparent_74%)]"
       />
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_66%,rgba(0,0,0,0.12)_100%)]" />
@@ -848,14 +866,17 @@ function TallImageCard({
   className?: string;
 }) {
   const reduceMotion = useReducedMotion();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef, { margin: "150px 0px 150px 0px" });
 
   return (
     <motion.div
+      ref={cardRef}
       variants={fadeScale}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 1.05, ease: cinematicEase }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.78, ease: cinematicEase }}
       whileHover={{ y: -5, rotate: -0.25, scale: 1.006 }}
       className={`relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl ${className}`}
     >
@@ -870,10 +891,12 @@ function TallImageCard({
       <div className="absolute inset-4 rounded-[1.85rem] border border-white/10" />
       <motion.div
         aria-hidden="true"
-        className="absolute inset-y-0 left-[-35%] w-[24%] rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent"
-        animate={reduceMotion ? undefined : { x: ["0%", "560%"] }}
+        className="absolute inset-y-0 left-[-35%] w-[24%] rotate-12 bg-gradient-to-r from-transparent via-white/14 to-transparent transform-gpu will-change-transform"
+        animate={
+          reduceMotion || !inView ? undefined : { x: ["0%", "560%"] }
+        }
         transition={
-          reduceMotion
+          reduceMotion || !inView
             ? undefined
             : { duration: 7.5, repeat: Infinity, ease: "easeInOut" }
         }
@@ -919,19 +942,25 @@ function GlassPanel({
 
 function HeroProjectCard({ t, isArabic }: { t: SceneCopy; isArabic: boolean }) {
   const reduceMotion = useReducedMotion();
+  const floatRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(floatRef, { margin: "100px 0px 100px 0px" });
 
   return (
     <motion.div
       variants={fadeScale}
       initial="hidden"
       animate="visible"
-      transition={{ duration: 1, ease: cinematicEase, delay: 0.22 }}
+      transition={{ duration: 0.72, ease: cinematicEase, delay: 0.22 }}
       className="relative hidden lg:block"
     >
-      <motion.div
-        animate={reduceMotion ? undefined : slowFloat}
+      <motion.div ref={floatRef}
+        animate={
+          reduceMotion || !inView
+            ? undefined
+            : slowFloat
+        }
         transition={
-          reduceMotion
+          reduceMotion || !inView
             ? undefined
             : { duration: 9, repeat: Infinity, ease: "easeInOut" }
         }
@@ -998,8 +1027,8 @@ function AcademicCard({
       variants={fadeScale}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.86, ease: cinematicEase }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.62, ease: cinematicEase }}
       whileHover={{ y: -5, rotate: -0.25 }}
     >
       <GlassPanel dark={dark} className={`p-5 ${isArabic ? "text-right" : ""}`}>
@@ -1037,8 +1066,8 @@ function DocumentObject({
       variants={fadeScale}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.9, ease: cinematicEase }}
+      viewport={{ once: true, amount: 0.22 }}
+      transition={{ duration: 0.66, ease: cinematicEase }}
       whileHover={{ y: -5, rotate: -0.25 }}
     >
       <GlassPanel className={`p-4 sm:p-5 ${isArabic ? "text-right" : ""}`}>
@@ -1152,8 +1181,8 @@ function CheckpointScene({
           variants={reverse ? fadeLeft : fadeRight}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.868, ease: cinematicEase }}
+          viewport={{ once: true, amount: 0.22 }}
+          transition={{ duration: 0.62, ease: cinematicEase }}
           className={`${reverse ? "lg:order-1" : ""} ${isArabic ? "text-right" : ""}`}
         >
           <p className="text-xs font-black uppercase tracking-[0.28em] text-[#EDB80B]">
@@ -1179,7 +1208,7 @@ function CheckpointScene({
               <motion.div
                 key={item}
                 variants={fadeUp}
-                transition={{ duration: 0.52, ease: cinematicEase }}
+                transition={{ duration: 0.4, ease: cinematicEase }}
                 className={`rounded-[1.2rem] border border-white/10 bg-white/[0.075] px-4 py-3 text-sm font-bold text-white/84 shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-xl ${
                   isArabic ? "text-right" : ""
                 }`}
@@ -1222,7 +1251,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
           >
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.86, ease: cinematicEase }}
+              transition={{ duration: 0.62, ease: cinematicEase }}
               className="inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-[#EDB80B] shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl"
             >
               {t.hero.badge}
@@ -1230,7 +1259,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.h1
               variants={fadeUp}
-              transition={{ duration: 1, ease: cinematicEase }}
+              transition={{ duration: 0.72, ease: cinematicEase }}
               className="display-title mt-5 max-w-4xl text-[2.15rem] font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-[3rem] lg:text-[4rem] xl:text-[4.35rem]"
             >
               {t.hero.title}
@@ -1238,7 +1267,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.p
               variants={fadeUp}
-              transition={{ duration: 0.9, ease: cinematicEase }}
+              transition={{ duration: 0.66, ease: cinematicEase }}
               className="mt-5 max-w-2xl text-sm leading-7 text-white/76 sm:text-base lg:text-lg"
             >
               {t.hero.description}
@@ -1246,7 +1275,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.86, ease: cinematicEase }}
+              transition={{ duration: 0.62, ease: cinematicEase }}
               className={`mt-7 flex flex-col gap-3 sm:flex-row ${
                 isArabic ? "sm:justify-end" : ""
               }`}
@@ -1268,7 +1297,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.82, ease: cinematicEase }}
+              transition={{ duration: 0.44, ease: cinematicEase }}
               className={`mt-6 grid gap-2 md:hidden ${
                 isArabic ? "text-right" : ""
               }`}
@@ -1290,7 +1319,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <motion.div
               variants={fadeUp}
-              transition={{ duration: 0.9, ease: cinematicEase }}
+              transition={{ duration: 0.66, ease: cinematicEase }}
               className="mt-8 hidden max-w-3xl items-center gap-3 text-[11px] font-black uppercase tracking-[0.22em] text-white/65 xl:flex"
             >
               <span>{t.hero.start}</span>
@@ -1325,8 +1354,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.9, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.66, ease: cinematicEase }}
             className={isArabic ? "text-right" : ""}
           >
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
@@ -1379,8 +1408,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.9, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.66, ease: cinematicEase }}
             className={isArabic ? "text-right" : ""}
           >
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#EDB80B]">
@@ -1406,7 +1435,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                 <motion.article
                   key={question}
                   variants={fadeUp}
-                  transition={{ duration: 0.65, ease: cinematicEase }}
+                  transition={{ duration: 0.48, ease: cinematicEase }}
                   whileHover={{ y: -5, scale: 1.01 }}
                   className={`rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.22)] backdrop-blur-2xl ${
                     isArabic ? "text-right" : ""
@@ -1449,8 +1478,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.9, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.66, ease: cinematicEase }}
             className={isArabic ? "text-right" : ""}
           >
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
@@ -1476,7 +1505,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                 <motion.div
                   key={point.title}
                   variants={fadeUp}
-                  transition={{ duration: 0.6, ease: cinematicEase }}
+                  transition={{ duration: 0.44, ease: cinematicEase }}
                   className={`rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-xl ${
                     isArabic ? "text-right" : ""
                   }`}
@@ -1521,8 +1550,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.9, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.66, ease: cinematicEase }}
             className={isArabic ? "text-right" : ""}
           >
             <p className="text-xs font-black uppercase tracking-[0.28em] text-[#EDB80B] sm:text-sm">
@@ -1553,8 +1582,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeScale}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.22 }}
+            transition={{ duration: 0.66, ease: cinematicEase }}
             className="grid gap-4"
           >
             <DocumentObject
@@ -1591,7 +1620,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.86, ease: cinematicEase }}
+            transition={{ duration: 0.62, ease: cinematicEase }}
             className={`mx-auto max-w-3xl text-center ${isArabic ? "lg:text-right" : ""}`}
           >
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#770304]">
@@ -1618,7 +1647,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.86, ease: cinematicEase }}
+                  transition={{ duration: 0.62, ease: cinematicEase }}
                   whileHover={{ y: -7, scale: 1.006 }}
                   className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-6 shadow-[0_35px_90px_rgba(54,1,2,0.14)] ${
                     featured
@@ -1702,8 +1731,8 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.75, ease: cinematicEase }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: cinematicEase }}
             className="text-sm font-black uppercase tracking-[0.28em] text-[#EDB80B]"
           >
             {t.final.chapter}
@@ -1713,9 +1742,9 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{
-              duration: 0.9,
+              duration: 0.66,
               ease: cinematicEase,
               delay: 0.08,
             }}
@@ -1728,9 +1757,9 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{
-              duration: 0.9,
+              duration: 0.66,
               ease: cinematicEase,
               delay: 0.16,
             }}
@@ -1743,9 +1772,9 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.35 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{
-              duration: 0.9,
+              duration: 0.66,
               ease: cinematicEase,
               delay: 0.24,
             }}

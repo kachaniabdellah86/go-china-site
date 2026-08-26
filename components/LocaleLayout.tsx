@@ -6,6 +6,7 @@ import ConsentAndTracking from "@/components/ConsentAndTracking";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileStickyWhatsapp from "@/components/MobileStickyWhatsapp";
+import SmoothScroll from "@/components/SmoothScroll";
 
 type Locale = "fr" | "en" | "ar";
 
@@ -36,24 +37,26 @@ export default function LocaleLayout({ children, lang }: Props) {
   }, [safeLang]);
 
   return (
-    <div
-      lang={safeLang}
-      className="min-h-screen overflow-x-clip"
-      dir={safeLang === "ar" ? "rtl" : "ltr"}
-    >
-      <div>
-        <Navbar lang={safeLang} />
+    <SmoothScroll>
+      <div
+        lang={safeLang}
+        className="min-h-screen overflow-x-clip"
+        dir={safeLang === "ar" ? "rtl" : "ltr"}
+      >
+        <div>
+          <Navbar lang={safeLang} />
 
-        <main className={isImmersiveHome ? "" : "gradient-bg pb-24 md:pb-0"}>
-          {children}
-        </main>
+          <main className={isImmersiveHome ? "" : "gradient-bg pb-24 md:pb-0"}>
+            {children}
+          </main>
 
-        {!isImmersiveHome ? <Footer lang={safeLang} /> : null}
+          {!isImmersiveHome ? <Footer lang={safeLang} /> : null}
 
-        {!isImmersiveHome ? <MobileStickyWhatsapp lang={safeLang} /> : null}
+          {!isImmersiveHome ? <MobileStickyWhatsapp lang={safeLang} /> : null}
 
-        <ConsentAndTracking lang={safeLang} />
+          <ConsentAndTracking lang={safeLang} />
+        </div>
       </div>
-    </div>
+    </SmoothScroll>
   );
 }

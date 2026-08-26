@@ -52,12 +52,7 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+html.lenis, html.lenis body { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto !important; } html { scroll-behavior: smooth; background: var(--brand-parchment); -webkit-text-size-adjust: 100%; }
 
 html {
   scroll-behavior: smooth;
@@ -905,3 +900,4 @@ span[class*="text-"] .step-number {
     transition-duration: 0.01ms !important;
   }
 }
+
