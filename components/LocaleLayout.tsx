@@ -37,7 +37,7 @@ export default function LocaleLayout({ children, lang }: Props) {
   }, [safeLang]);
 
   return (
-    <SmoothScroll>
+    <SmoothScroll enabled={!isImmersiveHome}>
       <div
         lang={safeLang}
         className="min-h-screen overflow-x-clip"

@@ -4,12 +4,18 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import { scrollBus, setLenis } from "./lenis-bridge";
 
-export default function SmoothScroll({ children }: { children: ReactNode }) {
+export default function SmoothScroll({
+  children,
+  enabled = true,
+}: {
+  children: ReactNode;
+  enabled?: boolean;
+}) {
   useEffect(() => {
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isTouch = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
 
-    if (isReduced || isTouch) {
+    if (!enabled || isReduced || isTouch) {
       const onNativeScroll = () => {
         const total = document.documentElement.scrollHeight - window.innerHeight;
         const current = window.scrollY;
@@ -49,7 +55,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       lenis.destroy();
       setLenis(undefined);
     };
-  }, []);
+  }, [enabled]);
 
   return <>{children}</>;
 }

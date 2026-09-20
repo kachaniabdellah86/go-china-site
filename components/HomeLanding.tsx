@@ -9,9 +9,22 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { founderName, Locale, supportedCities } from "@/lib/yalla";
 import TiltCard from "./TiltCard";
+
+/**
+ * Turns on native scroll-snap so one chapter fills the screen at a time.
+ * The snap lives on the document scroller (see globals.css), which is why this
+ * page opts out of Lenis in LocaleLayout — momentum scrolling and scroll-snap
+ * fight each other for control of the scroll position.
+ */
+function useSceneSnap() {
+  useEffect(() => {
+    document.documentElement.classList.add("snap-scenes");
+    return () => document.documentElement.classList.remove("snap-scenes");
+  }, []);
+}
 
 type Pack = {
   name: string;
@@ -735,6 +748,7 @@ function SceneFrame({
   return (
     <section
       id={id}
+      data-scene-snap=""
       className={`relative overflow-hidden lg:min-h-[100dvh] ${className}`}
     >
       <div
@@ -753,10 +767,12 @@ function SceneFrame({
 }
 
 function GrainOverlay() {
+  // Deliberately no mix-blend-mode: a blended full-screen layer forces the
+  // compositor to re-blend the whole scene on every frame while scrolling.
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-soft-light [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12)_0_1px,transparent_1px),radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.10)_0_1px,transparent_1px)] [background-size:18px_18px,26px_26px]"
+      className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.13)_0_1px,transparent_1px)] [background-size:20px_20px]"
     />
   );
 }
@@ -768,32 +784,12 @@ function LuxuryBackground({
   src?: string;
   strength?: "dark" | "cream" | "deep";
 }) {
-  const reduceMotion = useReducedMotion();
-  const frameRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(frameRef, { margin: "200px 0px 200px 0px" });
-
   return (
-    <div
-      aria-hidden="true"
-      ref={frameRef}
-      className="absolute inset-0 overflow-hidden"
-    >
+    <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
       {src ? (
-        <motion.div
-          className="absolute inset-0 transform-gpu will-change-transform"
-          animate={
-            reduceMotion || !inView
-              ? { scale: 1.05 }
-              : { scale: [1.035, 1.065, 1.035] }
-          }
-          transition={
-            reduceMotion
-              ? undefined
-              : !inView
-                ? { duration: 0.01 }
-                : { duration: 22, repeat: Infinity, ease: "easeInOut" }
-          }
-        >
+        // Held still on purpose. The glass panels above read the backdrop through
+        // backdrop-filter, so an animated background re-blurs the scene every frame.
+        <div className="absolute inset-0 scale-[1.05]">
           <Image
             src={src}
             alt=""
@@ -802,7 +798,7 @@ function LuxuryBackground({
             sizes="100vw"
             className="object-cover"
           />
-        </motion.div>
+        </div>
       ) : (
         <div className="absolute inset-0 bg-[#050202]" />
       )}
@@ -879,7 +875,7 @@ function TallImageCard({
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.78, ease: cinematicEase }}
       whileHover={{ y: -5, rotate: -0.25, scale: 1.006 }}
-      className={`relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl ${className}`}
+      className={`relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.42)] backdrop-blur-md ${className}`}
     >
       <Image
         src={src}
@@ -918,7 +914,7 @@ function GlassPanel({
 }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-[2rem] border shadow-[0_35px_90px_rgba(0,0,0,0.26)] backdrop-blur-2xl ${
+      className={`relative overflow-hidden rounded-[2rem] border shadow-[0_35px_90px_rgba(0,0,0,0.26)] backdrop-blur-md ${
         dark
           ? "border-white/10 bg-white/[0.07] text-white"
           : "border-[#770304]/10 bg-white/82 text-zinc-950"
@@ -1210,7 +1206,7 @@ function CheckpointScene({
                 key={item}
                 variants={fadeUp}
                 transition={{ duration: 0.4, ease: cinematicEase }}
-                className={`rounded-[1.2rem] border border-white/10 bg-white/[0.075] px-4 py-3 text-sm font-bold text-white/84 shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-xl ${
+                className={`rounded-[1.2rem] border border-white/10 bg-white/[0.075] px-4 py-3 text-sm font-bold text-white/84 shadow-[0_16px_44px_rgba(0,0,0,0.18)] backdrop-blur-md ${
                   isArabic ? "text-right" : ""
                 }`}
               >
@@ -1225,6 +1221,7 @@ function CheckpointScene({
 }
 
 export default function HomeLanding({ lang }: { lang: Locale | string }) {
+  useSceneSnap();
   const safeLang = getSafeLang(lang);
   const t = copy[safeLang];
   const isArabic = t.dir === "rtl";
@@ -1253,7 +1250,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.62, ease: cinematicEase }}
-              className="inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-[#EDB80B] shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+              className="inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-[#EDB80B] shadow-[0_18px_50px_rgba(0,0,0,0.18)] backdrop-blur-md"
             >
               {t.hero.badge}
             </motion.div>
@@ -1290,7 +1287,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
               <a
                 href="#packs"
-                className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/15"
+                className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/15"
               >
                 {t.hero.secondary}
               </a>
@@ -1306,7 +1303,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
               {t.hero.stats.slice(0, 3).map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-[1.15rem] border border-white/10 bg-black/24 px-4 py-3 backdrop-blur-xl"
+                  className="rounded-[1.15rem] border border-white/10 bg-black/24 px-4 py-3 backdrop-blur-md"
                 >
                   <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-[#EDB80B]">
                     {stat.label}
@@ -1371,7 +1368,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
               {t.vision.description}
             </p>
 
-            <div className="mt-8 rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 text-lg font-black text-[#770304] shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-xl">
+            <div className="mt-8 rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 text-lg font-black text-[#770304] shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-md">
               {t.vision.note}
             </div>
           </motion.div>
@@ -1438,7 +1435,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                   variants={fadeUp}
                   transition={{ duration: 0.48, ease: cinematicEase }}
                   whileHover={{ y: -5, scale: 1.01 }}
-                  className={`rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.22)] backdrop-blur-2xl ${
+                  className={`rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.22)] backdrop-blur-md ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
@@ -1507,7 +1504,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                   key={point.title}
                   variants={fadeUp}
                   transition={{ duration: 0.44, ease: cinematicEase }}
-                  className={`rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-xl ${
+                  className={`rounded-[1.4rem] border border-[#770304]/10 bg-white/78 p-4 shadow-[0_24px_70px_rgba(54,1,2,0.08)] backdrop-blur-md ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
@@ -1571,7 +1568,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
               {t.checkpoints.arrival.items.map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/10 bg-white/[0.08] px-3 py-3 text-sm font-bold text-white/84 backdrop-blur-xl"
+                  className="rounded-2xl border border-white/10 bg-white/[0.08] px-3 py-3 text-sm font-bold text-white/84 backdrop-blur-md"
                 >
                   {item}
                 </div>
@@ -1796,7 +1793,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
 
             <Link
               href={applyHref}
-              className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/15"
+              className="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-center font-black text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/15"
             >
               {t.final.secondary}
             </Link>

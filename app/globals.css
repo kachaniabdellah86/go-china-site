@@ -59,6 +59,24 @@ html {
   background: var(--brand-parchment);
 }
 
+/*
+ * One chapter per screen on the landing page. Applied to the document scroller
+ * (scroll-snap-type only works on the element that actually scrolls) and only
+ * on desktop, where each scene is exactly one viewport tall — on phones the
+ * scenes are taller than the screen, so snapping there would hide content.
+ * Proximity, not mandatory, so a longer scene can never trap its own copy.
+ */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  html.snap-scenes {
+    scroll-snap-type: y proximity;
+  }
+
+  html.snap-scenes [data-scene-snap] {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
 body {
   background:
     radial-gradient(900px circle at 0% 0%, rgba(119, 3, 4, 0.055), transparent 42%),
