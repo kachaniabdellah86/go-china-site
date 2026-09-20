@@ -46,13 +46,13 @@ export default function LocaleLayout({ children, lang }: Props) {
         <div>
           <Navbar lang={safeLang} />
 
-          <main className={isImmersiveHome ? "" : "gradient-bg pb-24 md:pb-0"}>
+          <main className={isImmersiveHome ? "pb-24 md:pb-0" : "gradient-bg pb-24 md:pb-0"}>
             {children}
           </main>
 
-          {!isImmersiveHome ? <Footer lang={safeLang} /> : null}
+          <Footer lang={safeLang} />
 
-          {!isImmersiveHome ? <MobileStickyWhatsapp lang={safeLang} /> : null}
+          <MobileStickyWhatsapp lang={safeLang} />
 
           <ConsentAndTracking lang={safeLang} />
         </div>

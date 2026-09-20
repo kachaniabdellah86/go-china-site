@@ -45,32 +45,32 @@ const copy: Record<Locale, Copy> = {
     },
     faq: [
       {
-        question: "Est-ce que Yalla China aide pour les bourses ?",
+        question: "Est-ce que Yalla China aide pour les bourses ?",
         answer:
           "Oui. La logique bourse fait partie de la phase d'orientation. Nous aidons à vérifier si elle est réaliste pour le profil avant d'aller plus loin.",
       },
       {
-        question: "Comment choisissez-vous l'université ?",
+        question: "Comment choisissez-vous l'université ?",
         answer:
           "Le choix se fait selon le profil, l'objectif, la ville, la cohérence académique et les attentes de la famille. L'idée n'est pas de proposer n'importe quelle université juste pour partir.",
       },
       {
-        question: "Combien coûte l'accompagnement ?",
+        question: "Combien coûte l'accompagnement ?",
         answer:
           "Le Pack 1 est à 15 000 DH et le Pack 2 à 23 000 DH. La consultation gratuite permet de clarifier quelle formule correspond au besoin réel.",
       },
       {
-        question: "Le visa est-il vraiment inclus ?",
+        question: "Le visa est-il vraiment inclus ?",
         answer:
           "Oui. Le visa étudiant fait partie du cœur de l'accompagnement et non d'un service optionnel secondaire.",
       },
       {
-        question: "Que se passe-t-il après l'arrivée en Chine ?",
+        question: "Que se passe-t-il après l'arrivée en Chine ?",
         answer:
           "Avec le Pack 2, l'accompagnement peut aller jusqu'au transfert de l'aéroport vers l'université et aux premiers repères sur place.",
       },
       {
-        question: "Quelle est la différence principale entre Pack 1 et Pack 2 ?",
+        question: "Quelle est la différence principale entre Pack 1 et Pack 2 ?",
         answer:
           "Le Pack 1 traite le dossier, la traduction, le visa et l'inscription universitaire. Le Pack 2 prolonge la prise en charge jusqu'au voyage et à l'arrivée.",
       },

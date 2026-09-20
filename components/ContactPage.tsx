@@ -175,17 +175,17 @@ const copy: Record<Locale, Copy> = {
       title: "Les réponses utiles avant le premier échange",
       items: [
         {
-          question: "La consultation est-elle gratuite ?",
+          question: "La consultation est-elle gratuite ?",
           answer:
             "Oui. Elle sert à comprendre votre situation, répondre aux premières questions et orienter vers le bon pack.",
         },
         {
-          question: "Combien de temps faut-il pour avoir un retour ?",
+          question: "Combien de temps faut-il pour avoir un retour ?",
           answer:
             "Nous cherchons à revenir rapidement, surtout lorsque le message explique clairement le besoin principal.",
         },
         {
-          question: "Est-ce que les parents peuvent aussi poser leurs questions ?",
+          question: "Est-ce que les parents peuvent aussi poser leurs questions ?",
           answer:
             "Oui. Le site est pensé pour le parent autant que pour l'étudiant, donc la conversation peut être menée avec les deux.",
         },

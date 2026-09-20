@@ -132,7 +132,7 @@ const copy: Record<Locale, Copy> = {
         "Objectif : bourse, université, visa ou conseil",
       ],
       supportEyebrow: "Contact direct",
-      supportTitle: "Vous préférez commencer directement ?",
+      supportTitle: "Vous préférez commencer directement ?",
       supportText:
         "Si votre question est urgente ou précise, ouvrez WhatsApp et expliquez votre situation.",
       supportButton: `WhatsApp : ${primaryWhatsappNumberDisplay}`,

@@ -70,17 +70,17 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
       faqTitle: "Ce que les familles demandent souvent sur la vie en Chine",
       faqItems: [
         {
-          question: "L'adaptation est-elle difficile pour un étudiant marocain ?",
+          question: "L'adaptation est-elle difficile pour un étudiant marocain ?",
           answer:
             "Elle demande une vraie préparation, surtout sur le rythme, l'organisation personnelle et les repères du quotidien. Plus ces points sont expliqués tôt, plus l'étudiant arrive avec confiance.",
         },
         {
-          question: "Pourquoi cette expérience compte-t-elle avant de choisir une agence ?",
+          question: "Pourquoi cette expérience compte-t-elle avant de choisir une agence ?",
           answer:
             "Parce qu'elle permet de répondre de manière plus concrète à ce qui attend vraiment l'étudiant après le départ, pas seulement à la partie administrative.",
         },
         {
-          question: "Est-ce utile aussi pour rassurer les parents ?",
+          question: "Est-ce utile aussi pour rassurer les parents ?",
           answer:
             "Oui. Les familles se sentent plus en confiance quand elles comprennent non seulement le dossier, mais aussi la réalité de la vie étudiante et de l'installation sur place.",
         },
@@ -135,17 +135,17 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
       faqTitle: "Les questions les plus fréquentes sur le déroulement",
       faqItems: [
         {
-          question: "Faut-il tout préparer d'un coup ?",
+          question: "Faut-il tout préparer d'un coup ?",
           answer:
             "Non. Le projet avance mieux quand chaque étape a sa place: orientation, dossier, admission, visa et préparation au départ.",
         },
         {
-          question: "Pourquoi les parents ont-ils besoin de comprendre les étapes ?",
+          question: "Pourquoi les parents ont-ils besoin de comprendre les étapes ?",
           answer:
             "Parce qu'une famille plus rassurée aide aussi l'étudiant à prendre sa décision avec plus de confiance et moins de pression.",
         },
         {
-          question: "Quel est l'intérêt d'un accompagnement ici ?",
+          question: "Quel est l'intérêt d'un accompagnement ici ?",
           answer:
             "Il sert surtout à garder une logique claire entre toutes les étapes pour éviter les blocages, les oublis et les mauvaises priorités.",
         },
@@ -161,7 +161,7 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
     "why-china": {
       dir: "ltr",
       badge: "Guide • Destination",
-      title: "Pourquoi choisir la Chine ?",
+      title: "Pourquoi choisir la Chine ?",
       description:
         "Choisir la Chine a du sens quand l'étudiant comprend ce que cette destination peut lui offrir, à quel profil elle convient et comment elle s'inscrit dans un vrai projet d'avenir.",
       imageSrc: "/founder-story-3.jpg",
@@ -200,17 +200,17 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
       faqTitle: "Les questions fréquentes avant de choisir la Chine",
       faqItems: [
         {
-          question: "La Chine convient-elle à tous les profils ?",
+          question: "La Chine convient-elle à tous les profils ?",
           answer:
             "Non. Comme toute destination, elle a plus de sens pour certains profils que pour d'autres. C'est justement pour cela qu'une première orientation est utile.",
         },
         {
-          question: "Pourquoi les étudiants hésitent-ils encore ?",
+          question: "Pourquoi les étudiants hésitent-ils encore ?",
           answer:
             "Souvent parce qu'ils manquent d'informations concrètes sur la vie sur place, les étapes du projet et la manière dont la famille peut être rassurée.",
         },
         {
-          question: "Quel est le bon moment pour décider ?",
+          question: "Quel est le bon moment pour décider ?",
           answer:
             "Le bon moment arrive quand la destination n'est plus seulement attirante, mais clairement reliée au niveau, à l'objectif et à la réalité de l'étudiant.",
         },
@@ -226,7 +226,7 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
     "how-to-study": {
       dir: "ltr",
       badge: "Guide • Démarrage",
-      title: "Comment étudier en Chine ?",
+      title: "Comment étudier en Chine ?",
       description:
         "Le projet devient plus accessible quand on comprend par où commencer, quelles informations préparer et comment transformer une envie générale en démarche réelle.",
       imageSrc: "/founder-story-4.jpg",
@@ -265,17 +265,17 @@ const copy: Record<Locale, Record<GuideSlug, GuidePageCopy>> = {
       faqTitle: "Ce que les étudiants demandent souvent pour commencer",
       faqItems: [
         {
-          question: "Dois-je d'abord poser mes questions ou candidater ?",
+          question: "Dois-je d'abord poser mes questions ou candidater ?",
           answer:
             "Si le projet n'est pas encore clair, il vaut mieux commencer par une première orientation. La candidature devient plus utile quand la direction est déjà comprise.",
         },
         {
-          question: "Quelles informations faut-il préparer d'abord ?",
+          question: "Quelles informations faut-il préparer d'abord ?",
           answer:
             "Le plus important au départ est de clarifier le niveau d'étude, l'objectif, la ville de départ et les premières questions qui bloquent le projet.",
         },
         {
-          question: "Pourquoi commencer simplement est-il si important ?",
+          question: "Pourquoi commencer simplement est-il si important ?",
           answer:
             "Parce qu'un début trop lourd décourage. Un début clair aide à avancer plus vite et plus proprement vers les vraies démarches.",
         },

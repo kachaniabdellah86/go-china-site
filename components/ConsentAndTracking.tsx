@@ -111,44 +111,47 @@ export default function ConsentAndTracking({ lang }: { lang: Locale }) {
       {consent === "accepted" ? <Analytics /> : null}
 
       {consent === null ? (
-        <div className="fixed inset-x-4 bottom-24 z-[90] sm:bottom-6">
+        <div
+          role="dialog"
+          aria-label={t.title}
+          className="fixed inset-x-3 bottom-[5.5rem] z-[90] sm:inset-x-6 sm:bottom-5"
+        >
           <div
-            className={`mx-auto max-w-3xl rounded-[1.8rem] border border-white/10 bg-[#0d0d0d]/94 p-5 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl ${
+            className={`mx-auto flex max-w-4xl flex-col gap-3 rounded-[1.4rem] border border-white/10 bg-[#0d0d0d]/94 p-4 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:flex-row sm:items-center sm:gap-5 sm:px-5 ${
               isArabic ? "text-right" : ""
             }`}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#EDB80B]">
-              {t.title}
-            </p>
-            <p className="mt-3 text-sm leading-7 text-white/78">{t.text}</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#EDB80B]">
+                {t.title}
+              </p>
+              <p className="mt-1 text-xs leading-5 text-white/72 sm:text-[13px]">
+                {t.text}{" "}
+                <Link href={links.privacy} className="underline decoration-white/30 underline-offset-2 hover:text-white">
+                  {t.privacy}
+                </Link>
+                {" · "}
+                <Link href={links.terms} className="underline decoration-white/30 underline-offset-2 hover:text-white">
+                  {t.terms}
+                </Link>
+              </p>
+            </div>
 
-            <div
-              className={`mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap ${
-                isArabic ? "sm:justify-end" : ""
-              }`}
-            >
-              <button
-                type="button"
-                onClick={() => saveConsent("accepted")}
-                className="rounded-full bg-[#EDB80B] px-5 py-3 text-sm font-semibold text-black transition hover:opacity-95"
-              >
-                {t.accept}
-              </button>
+            <div className="flex shrink-0 gap-2">
               <button
                 type="button"
                 onClick={() => saveConsent("essential")}
-                className="rounded-full border border-white/18 bg-white/8 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/14"
+                className="flex-1 rounded-full border border-white/18 bg-white/8 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-white/14 sm:flex-none"
               >
                 {t.essential}
               </button>
-              <div className={`flex items-center gap-3 text-sm text-white/70 ${isArabic ? "sm:mr-auto" : "sm:ml-auto"}`}>
-                <Link href={links.privacy} className="hover:text-white">
-                  {t.privacy}
-                </Link>
-                <Link href={links.terms} className="hover:text-white">
-                  {t.terms}
-                </Link>
-              </div>
+              <button
+                type="button"
+                onClick={() => saveConsent("accepted")}
+                className="flex-1 rounded-full bg-[#EDB80B] px-4 py-2.5 text-xs font-black text-black transition hover:opacity-95 sm:flex-none"
+              >
+                {t.accept}
+              </button>
             </div>
           </div>
         </div>

@@ -65,7 +65,7 @@ const copy: Record<Locale, Copy> = {
   fr: {
     dir: "ltr",
     eyebrow: "Prochaine étape",
-    title: "Prêt à clarifier votre projet d’études en Chine ?",
+    title: "Prêt à clarifier votre projet d’études en Chine ?",
     text:
       "Commencez par une consultation ou envoyez votre candidature. L’objectif est simple : comprendre votre profil, vos priorités et le niveau d’accompagnement adapté avant toute décision.",
     primary: "Demander une consultation",

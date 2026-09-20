@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, type ReactNode } from "react";
 import { founderName, Locale, supportedCities } from "@/lib/yalla";
+import TiltCard from "./TiltCard";
 
 type Pack = {
   name: string;
@@ -140,11 +141,11 @@ const copy: Record<Locale, SceneCopy> = {
       description:
         "Le frein n’est pas seulement le prix. C’est l’incertitude : université, documents, visa, communication et arrivée.",
       questions: [
-        "Quelle université correspond vraiment au profil ?",
-        "Le dossier est-il assez solide ?",
-        "Comment préparer le visa étudiant ?",
-        "Qui suit l’étudiant après l’admission ?",
-        "Comment rassurer la famille à chaque étape ?",
+        "Quelle université correspond vraiment au profil ?",
+        "Le dossier est-il assez solide ?",
+        "Comment préparer le visa étudiant ?",
+        "Qui suit l’étudiant après l’admission ?",
+        "Comment rassurer la famille à chaque étape ?",
       ],
     },
     method: {
@@ -734,7 +735,7 @@ function SceneFrame({
   return (
     <section
       id={id}
-      className={`relative overflow-hidden lg:min-h-[100dvh] lg:snap-start ${className}`}
+      className={`relative overflow-hidden lg:min-h-[100dvh] ${className}`}
     >
       <div
         aria-hidden="true"
@@ -1235,7 +1236,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
     <div
       dir={t.dir}
       lang={safeLang}
-      className="min-h-screen overflow-y-auto overflow-x-hidden scroll-smooth bg-[#050202] text-white [scrollbar-width:thin] [scrollbar-color:#EDB80B_#050202] lg:h-[100dvh] lg:snap-y lg:snap-proximity"
+      className="min-h-screen overflow-x-clip bg-[#050202] text-white"
     >
       <CameraAtmosphere />
 
@@ -1641,15 +1642,20 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
               const featured = index === 1;
 
               return (
-                <motion.article
+                <TiltCard
                   key={pack.name}
+                  maxTilt={5}
+                  glare={featured}
+                  className="rounded-[2rem]"
+                >
+                <motion.article
                   variants={index === 0 ? fadeLeft : fadeRight}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.62, ease: cinematicEase }}
-                  whileHover={{ y: -7, scale: 1.006 }}
-                  className={`relative overflow-hidden rounded-[2rem] p-5 sm:p-6 shadow-[0_35px_90px_rgba(54,1,2,0.14)] ${
+                  whileHover={{ y: -7 }}
+                  className={`relative h-full overflow-hidden rounded-[2rem] p-5 sm:p-6 shadow-[0_35px_90px_rgba(54,1,2,0.14)] ${
                     featured
                       ? "bg-gradient-to-br from-[#770304] via-[#5a0203] to-[#120303] text-white"
                       : "border border-[#770304]/10 bg-white/90 text-zinc-950"
@@ -1717,6 +1723,7 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                     </Link>
                   </div>
                 </motion.article>
+                </TiltCard>
               );
             })}
           </div>

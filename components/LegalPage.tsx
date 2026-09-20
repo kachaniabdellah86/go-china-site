@@ -65,7 +65,7 @@ const privacyCopy: Record<Locale, Copy> = {
       },
     ],
     cta: {
-      title: "Besoin d'une précision ou d'un retrait de données ?",
+      title: "Besoin d'une précision ou d'un retrait de données ?",
       description: "Le plus simple est de nous écrire directement.",
       primary: "Nous contacter",
       secondary: "Voir les conditions",

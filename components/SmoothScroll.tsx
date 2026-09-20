@@ -21,7 +21,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       return () => window.removeEventListener("scroll", onNativeScroll);
     }
 
-    const lenis = new Lenis({ lerp: 0.1 });
+    const lenis = new Lenis({ lerp: 0.1, anchors: true });
     setLenis(lenis);
 
     const writeBus = (e: {

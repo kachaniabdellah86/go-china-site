@@ -68,7 +68,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" dir="ltr">
+    <html lang="fr" dir="ltr" suppressHydrationWarning>
+      <head>
+        {/* Runs during HTML parsing so Arabic never paints left-to-right first. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var l=location.pathname.split('/')[1];var d=document.documentElement;if(l==='ar'){d.lang='ar';d.dir='rtl';}else if(l==='en'){d.lang='en';}}catch(e){}})();",
+          }}
+        />
+      </head>
       <body
         className={`${montserrat.variable} ${poppins.variable} ${tajawal.variable} min-h-screen bg-[#faf8f5] text-zinc-900 antialiased`}
       >

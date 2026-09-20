@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import LocaleLayout from "@/components/LocaleLayout";
 import { Locale, siteBaseUrl } from "@/lib/yalla";
@@ -92,6 +93,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function LangLayout({ children, params }: Props) {
   const { lang } = await params;
+  if (lang !== "fr" && lang !== "en" && lang !== "ar") notFound();
   const safeLang = getSafeLang(lang);
 
   return <LocaleLayout lang={safeLang}>{children}</LocaleLayout>;

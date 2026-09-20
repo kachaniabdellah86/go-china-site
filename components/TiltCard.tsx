@@ -1,14 +1,21 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, type ReactNode } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
-interface TiltCardProps {
-  children: React.ReactNode;
+type TiltCardProps = {
+  children: ReactNode;
   className?: string;
   maxTilt?: number;
   glare?: boolean;
-}
+};
 
 export default function TiltCard({
   children,
@@ -16,66 +23,53 @@ export default function TiltCard({
   maxTilt = 8,
   glare = true,
 }: TiltCardProps) {
+  const reduceMotion = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
+  const hover = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [maxTilt, -maxTilt]), {
-    stiffness: 300,
-    damping: 25,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-maxTilt, maxTilt]), {
-    stiffness: 300,
-    damping: 25,
-  });
+  const spring = { stiffness: 260, damping: 24 };
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [maxTilt, -maxTilt]), spring);
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-maxTilt, maxTilt]), spring);
+  const glareX = useSpring(useTransform(mouseX, [0, 1], [0, 100]), spring);
+  const glareY = useSpring(useTransform(mouseY, [0, 1], [0, 100]), spring);
+  const glareOpacity = useSpring(hover, { stiffness: 200, damping: 30 });
+  const glareBackground = useMotionTemplate`radial-gradient(circle 320px at ${glareX}% ${glareY}%, rgba(255,255,255,0.14), transparent 78%)`;
 
-  const glareX = useSpring(useTransform(mouseX, [0, 1], [0, 100]), {
-    stiffness: 300,
-    damping: 25,
-  });
-  const glareY = useSpring(useTransform(mouseY, [0, 1], [0, 100]), {
-    stiffness: 300,
-    damping: 25,
-  });
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (reduceMotion || event.pointerType === "touch" || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    mouseX.set(x);
-    mouseY.set(y);
+    mouseX.set((event.clientX - rect.left) / rect.width);
+    mouseY.set((event.clientY - rect.top) / rect.height);
+    hover.set(1);
   };
 
   const handlePointerLeave = () => {
-    setHovered(false);
     mouseX.set(0.5);
     mouseY.set(0.5);
+    hover.set(0);
   };
 
   return (
     <motion.div
       ref={cardRef}
-      onPointerEnter={() => setHovered(true)}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
+      style={
+        reduceMotion
+          ? undefined
+          : { rotateX, rotateY, transformStyle: "preserve-3d", transformPerspective: 1100 }
+      }
       className={`relative will-change-transform ${className}`}
     >
       {children}
-
-      {glare && hovered && (
+      {glare && !reduceMotion && (
         <motion.div
-          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background: `radial-gradient(circle 280px at ${glareX.get()}% ${glareY.get()}%, rgba(255,255,255,0.12), transparent 80%)`,
-          }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-[inherit]"
+          style={{ background: glareBackground, opacity: glareOpacity }}
         />
       )}
     </motion.div>

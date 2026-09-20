@@ -1,6 +1,8 @@
 export type Locale = "fr" | "en" | "ar";
 
-export const siteBaseUrl = "https://yallachina.com";
+export const siteBaseUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://go-china-site.vercel.app"
+).replace(/\/$/, "");
 
 export const founderName = "Aymane Badri";
 
