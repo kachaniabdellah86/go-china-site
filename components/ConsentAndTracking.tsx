@@ -117,7 +117,7 @@ export default function ConsentAndTracking({ lang }: { lang: Locale }) {
           className="fixed inset-x-3 bottom-[5.5rem] z-[90] sm:inset-x-6 sm:bottom-5"
         >
           <div
-            className={`mx-auto flex max-w-4xl flex-col gap-3 rounded-[1.4rem] border border-white/10 bg-[#0d0d0d]/94 p-4 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:flex-row sm:items-center sm:gap-5 sm:px-5 ${
+            className={`mx-auto flex max-w-4xl flex-col gap-3 rounded-[1.4rem] border border-white/10 bg-[#0d0d0d]/94 p-4 text-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-md sm:flex-row sm:items-center sm:gap-5 sm:px-5 ${
               isArabic ? "text-right" : ""
             }`}
           >

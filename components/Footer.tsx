@@ -399,7 +399,7 @@ function FooterAtmosphere() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.13] mix-blend-soft-light [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12)_0_1px,transparent_1px),radial-gradient(circle_at_70%_70%,rgba(255,255,255,0.08)_0_1px,transparent_1px)] [background-size:22px_22px,34px_34px]"
+        className="pointer-events-none absolute inset-0 opacity-[0.09] [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.13)_0_1px,transparent_1px)] [background-size:22px_22px]"
       />
     </>
   );
@@ -416,7 +416,7 @@ function FooterPanel({
 }) {
   return (
     <section
-      className={`rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-4 backdrop-blur-2xl sm:p-5 ${
+      className={`rounded-[1.25rem] border border-white/10 bg-white/[0.035] p-4 backdrop-blur-md sm:p-5 ${
         isArabic ? "text-right" : ""
       }`}
     >

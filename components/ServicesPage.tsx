@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { Locale } from "@/lib/yalla";
 
 type Stage = {
@@ -456,9 +456,12 @@ export default function ServicesPage({ lang }: { lang: Locale | string }) {
 
 function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
   const reduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+  // Stop the looping shimmers once the hero is scrolled past.
+  const inView = useInView(heroRef, { margin: "120px 0px 120px 0px" });
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden px-4 pb-8 pt-24 sm:px-7 lg:px-10 lg:pt-28">
+    <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden px-4 pb-8 pt-24 sm:px-7 lg:px-10 lg:pt-28">
       <Background image={images.background} />
 
       <div className="relative mx-auto grid min-h-[calc(100svh-7.5rem)] max-w-[96rem] items-center gap-8 lg:grid-cols-[0.86fr_1.14fr]">
@@ -482,7 +485,7 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
             </Link>
             <a
               href="#system"
-              className="rounded-full border border-white/16 bg-white/10 px-6 py-3.5 text-sm font-black text-white backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:bg-white/15 sm:px-7"
+              className="rounded-full border border-white/16 bg-white/10 px-6 py-3.5 text-sm font-black text-white backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:bg-white/15 sm:px-7"
             >
               {t.hero.secondary}
             </a>
@@ -492,7 +495,7 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
             {t.proof.points.slice(0, 3).map((point) => (
               <div
                 key={point}
-                className="rounded-[1.15rem] border border-white/10 bg-white/[0.055] px-4 py-3 text-sm font-bold leading-6 text-white/72 backdrop-blur-xl"
+                className="rounded-[1.15rem] border border-white/10 bg-white/[0.055] px-4 py-3 text-sm font-bold leading-6 text-white/72 backdrop-blur-md"
               >
                 {point}
               </div>
@@ -507,7 +510,7 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
           className="relative mx-auto hidden w-full max-w-[53rem] md:block"
         >
           <div className="absolute -inset-4 rounded-[2.7rem] bg-[linear-gradient(135deg,rgba(237,184,11,0.22),rgba(255,255,255,0.05),rgba(139,0,0,0.38))] blur-[1px]" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-[#2a2117]/72 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.44)] backdrop-blur-2xl sm:p-4">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-[#2a2117]/72 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.44)] backdrop-blur-md sm:p-4">
             <div className="relative h-[21rem] overflow-hidden rounded-[1.45rem] border border-black/35 sm:h-[28rem] lg:h-[31rem] xl:h-[33rem]">
               <Image
                 src={images.hero}
@@ -517,7 +520,7 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.72))]" />
-              {!reduceMotion ? (
+              {!reduceMotion && inView ? (
                 <motion.div
                   aria-hidden
                   className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-transparent via-white/18 to-transparent"
@@ -525,17 +528,21 @@ function Hero({ t, safeLang }: { t: Copy; safeLang: Locale }) {
                   transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
                 />
               ) : null}
-              <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/44 px-4 py-2.5 text-[0.58rem] font-black uppercase tracking-[0.3em] text-white/86 backdrop-blur-2xl sm:left-5 sm:top-5 sm:px-5 sm:py-3">
+              <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/44 px-4 py-2.5 text-[0.58rem] font-black uppercase tracking-[0.3em] text-white/86 backdrop-blur-md sm:left-5 sm:top-5 sm:px-5 sm:py-3">
                 {t.hero.visualKicker}
               </div>
               <motion.div
-                className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-[#EDB80B]/55 bg-[#EDB80B]/20 text-[#EDB80B] backdrop-blur-2xl sm:right-5 sm:top-5 sm:h-12 sm:w-12"
-                animate={reduceMotion ? undefined : { scale: [1, 1.08, 1] }}
-                transition={reduceMotion ? undefined : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-[#EDB80B]/55 bg-[#EDB80B]/20 text-[#EDB80B] backdrop-blur-md sm:right-5 sm:top-5 sm:h-12 sm:w-12"
+                animate={reduceMotion || !inView ? undefined : { scale: [1, 1.08, 1] }}
+                transition={
+                  reduceMotion || !inView
+                    ? undefined
+                    : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
+                }
               >
                 ▶
               </motion.div>
-              <div className="absolute bottom-3 left-3 right-3 rounded-[1.25rem] border border-white/10 bg-black/72 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.42)] backdrop-blur-2xl sm:bottom-4 sm:left-4 sm:right-4 sm:p-6">
+              <div className="absolute bottom-3 left-3 right-3 rounded-[1.25rem] border border-white/10 bg-black/72 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.42)] backdrop-blur-md sm:bottom-4 sm:left-4 sm:right-4 sm:p-6">
                 <p className="text-[0.58rem] font-black uppercase tracking-[0.34em] text-[#EDB80B]">
                   Yalla China
                 </p>
@@ -566,7 +573,7 @@ function ProofScene({ t }: { t: Copy }) {
               <motion.span
                 variants={reveal}
                 key={point}
-                className="rounded-full border border-white/12 bg-white/[0.065] px-5 py-3 text-[0.66rem] font-black uppercase tracking-[0.17em] text-white/65 backdrop-blur-2xl"
+                className="rounded-full border border-white/12 bg-white/[0.065] px-5 py-3 text-[0.66rem] font-black uppercase tracking-[0.17em] text-white/65 backdrop-blur-md"
               >
                 {point}
               </motion.span>
@@ -577,7 +584,7 @@ function ProofScene({ t }: { t: Copy }) {
           variants={reveal}
           whileHover={{ y: -5 }}
           transition={{ duration: 0.32, ease }}
-          className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.06] p-3 shadow-[0_28px_90px_rgba(0,0,0,0.36)] backdrop-blur-2xl"
+          className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/[0.06] p-3 shadow-[0_28px_90px_rgba(0,0,0,0.36)] backdrop-blur-md"
         >
           <div className="relative h-[22rem] overflow-hidden rounded-[1.5rem] sm:h-[28rem] lg:h-[30rem]">
             <Image
@@ -598,6 +605,8 @@ function ProofScene({ t }: { t: Copy }) {
 function MissionControl({ t }: { t: Copy }) {
   const [active, setActive] = useState(0);
   const reduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { margin: "160px 0px 160px 0px" });
   const stage = t.system.stages[active] || t.system.stages[0];
   const progress = ((active + 1) / t.system.stages.length) * 100;
   const stageMotion = reduceMotion
@@ -614,16 +623,18 @@ function MissionControl({ t }: { t: Copy }) {
         transition: { duration: 0.38, ease },
       };
 
+  // Only cycle while the section is actually on screen — otherwise this
+  // re-renders the whole panel every 2.8s for the entire visit.
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !inView) return;
     const timer = window.setInterval(() => {
       setActive((current) => (current + 1) % t.system.stages.length);
     }, 2800);
     return () => window.clearInterval(timer);
-  }, [reduceMotion, t.system.stages.length]);
+  }, [inView, reduceMotion, t.system.stages.length]);
 
   return (
-    <section id="system" className="relative overflow-hidden px-4 py-14 sm:px-7 lg:px-10 lg:py-20">
+    <section ref={sectionRef} id="system" className="relative overflow-hidden px-4 py-14 sm:px-7 lg:px-10 lg:py-20">
       <div className="absolute inset-0 bg-[#050000]" />
       <div className="absolute inset-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,0.36)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.36)_1px,transparent_1px)] [background-size:74px_74px]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(139,0,0,0.35),transparent_35%),radial-gradient(circle_at_80%_22%,rgba(237,184,11,0.12),transparent_32%)]" />
@@ -643,7 +654,7 @@ function MissionControl({ t }: { t: Copy }) {
           <motion.article
             layout={!reduceMotion}
             variants={reveal}
-            className="mt-7 overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.055] p-5 backdrop-blur-2xl sm:p-6"
+            className="mt-7 overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.055] p-5 backdrop-blur-md sm:p-6"
           >
             <div className="relative h-1 overflow-hidden rounded-full bg-white/8">
               <motion.div
@@ -694,9 +705,9 @@ function MissionControl({ t }: { t: Copy }) {
           whileInView="visible"
           viewport={{ once: true, amount: 0.18 }}
           variants={group}
-          className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/34 p-4 backdrop-blur-2xl sm:p-5"
+          className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/34 p-4 backdrop-blur-md sm:p-5"
         >
-          {!reduceMotion ? (
+          {!reduceMotion && inView ? (
             <motion.div
               aria-hidden
               className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-[#EDB80B]/8 to-transparent"
@@ -777,7 +788,7 @@ function VisualServiceCard({ item }: { item: VisualCard }) {
       variants={reveal}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35, ease }}
-      className="group relative min-h-[22rem] overflow-hidden rounded-[1.7rem] border border-white/12 bg-white/[0.06] shadow-[0_26px_80px_rgba(0,0,0,0.32)] backdrop-blur-2xl sm:min-h-[24rem] lg:min-h-[25rem]"
+      className="group relative min-h-[22rem] overflow-hidden rounded-[1.7rem] border border-white/12 bg-white/[0.06] shadow-[0_26px_80px_rgba(0,0,0,0.32)] backdrop-blur-md sm:min-h-[24rem] lg:min-h-[25rem]"
     >
       <Image
         src={item.image}
@@ -822,7 +833,7 @@ function Packs({ t, safeLang }: { t: Copy; safeLang: Locale }) {
                 "relative overflow-hidden rounded-[1.9rem] border p-6 sm:p-7",
                 index === 1
                   ? "border-[#EDB80B]/24 bg-[#9B0000] shadow-[0_26px_90px_rgba(155,0,0,0.28)]"
-                  : "border-white/10 bg-white/[0.055] backdrop-blur-2xl",
+                  : "border-white/10 bg-white/[0.055] backdrop-blur-md",
               )}
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_10%,rgba(237,184,11,0.16),transparent_34%)] opacity-70" />
@@ -875,7 +886,7 @@ function Packs({ t, safeLang }: { t: Copy; safeLang: Locale }) {
 
         <motion.p
           variants={reveal}
-          className="mt-5 max-w-[58rem] rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-5 py-4 text-sm font-semibold leading-7 text-white/62 backdrop-blur-xl"
+          className="mt-5 max-w-[58rem] rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-5 py-4 text-sm font-semibold leading-7 text-white/62 backdrop-blur-md"
         >
           {t.packs.note}
         </motion.p>
@@ -939,7 +950,7 @@ function FinalCta({ t, safeLang }: { t: Copy; safeLang: Locale }) {
       <Background image={images.arrival} />
       <motion.div
         variants={reveal}
-        className="relative mx-auto max-w-[76rem] rounded-[2.1rem] border border-white/10 bg-black/56 p-7 text-center shadow-[0_28px_90px_rgba(0,0,0,0.38)] backdrop-blur-2xl sm:p-10 lg:p-11"
+        className="relative mx-auto max-w-[76rem] rounded-[2.1rem] border border-white/10 bg-black/56 p-7 text-center shadow-[0_28px_90px_rgba(0,0,0,0.38)] backdrop-blur-md sm:p-10 lg:p-11"
       >
         <Eyebrow>{t.final.eyebrow}</Eyebrow>
         <Headline compact className="mx-auto">{t.final.title}</Headline>

@@ -693,7 +693,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 isArabic ? "text-right" : "text-center lg:text-left"
               }`}
             >
-              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-black uppercase leading-relaxed tracking-[0.22em] text-[#f4bd00] shadow-[0_16px_45px_rgba(0,0,0,0.18)] backdrop-blur-xl sm:text-xs lg:justify-start">
+              <p className="section-eyebrow inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/15 bg-white/8 px-4 py-2 text-center text-[10px] font-black uppercase leading-relaxed tracking-[0.22em] text-[#f4bd00] shadow-[0_16px_45px_rgba(0,0,0,0.18)] backdrop-blur-md sm:text-xs lg:justify-start">
                 {t.hero.badge}
               </p>
 
@@ -733,7 +733,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                   href={whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-xl transition hover:-translate-y-1 hover:border-[#f4bd00]/40 hover:bg-white/[0.14]"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-md transition hover:-translate-y-1 hover:border-[#f4bd00]/40 hover:bg-white/[0.14]"
                 >
                   {t.hero.secondaryCta}
                 </a>
@@ -742,7 +742,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
 
             <div className="relative">
               <div className="absolute -inset-4 rounded-[2.8rem] bg-[linear-gradient(135deg,rgba(244,189,0,0.18),rgba(255,255,255,0.05),rgba(119,3,4,0.35))] blur-[2px]" />
-              <div className="relative overflow-hidden rounded-[2.1rem] border border-white/12 bg-black/30 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.48)] backdrop-blur-2xl">
+              <div className="relative overflow-hidden rounded-[2.1rem] border border-white/12 bg-black/30 p-3 shadow-[0_32px_95px_rgba(0,0,0,0.48)] backdrop-blur-md">
                 <div className="relative h-[18rem] overflow-hidden rounded-[1.5rem] sm:h-[23rem] lg:h-[26rem]">
                   <Image
                     src="/fr-apply-hero.jpg"
@@ -755,7 +755,7 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 </div>
 
                 <div
-                  className={`relative mt-3 rounded-[1.5rem] border border-white/10 bg-black/72 p-4 shadow-[0_18px_60px_rgba(0,0,0,0.22)] backdrop-blur-xl sm:p-5 ${
+                  className={`relative mt-3 rounded-[1.5rem] border border-white/10 bg-black/72 p-4 shadow-[0_18px_60px_rgba(0,0,0,0.22)] backdrop-blur-md sm:p-5 ${
                     isArabic ? "text-right" : "text-left"
                   }`}
                 >
@@ -906,8 +906,8 @@ export default function ApplyPage({ lang }: { lang: Locale }) {
                 }`}
               >
                 <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#770304] via-[#f4bd00] to-[#770304]" />
-                <div className="absolute right-[-7rem] top-[-7rem] h-56 w-56 rounded-full bg-[#f4bd00]/18 blur-3xl" />
-                <div className="absolute bottom-[-7rem] left-[-7rem] h-56 w-56 rounded-full bg-[#770304]/10 blur-3xl" />
+                <div className="absolute right-[-7rem] top-[-7rem] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(244,189,0,0.19),rgba(244,189,0,0.08)_45%,transparent_72%)]" />
+                <div className="absolute bottom-[-7rem] left-[-7rem] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(119,3,4,0.11),rgba(119,3,4,0.05)_45%,transparent_72%)]" />
                 <div className="relative">
                   <p className="section-eyebrow text-xs font-black uppercase tracking-[0.22em] text-[#770304]">
                     {t.form.eyebrow}
@@ -1168,7 +1168,7 @@ function InfoCard({
 }) {
   return (
     <div
-      className={`rounded-[2rem] border border-[#770304]/10 bg-white/92 p-6 shadow-[0_20px_45px_rgba(54,1,2,0.06)] backdrop-blur-xl sm:p-7 ${
+      className={`rounded-[2rem] border border-[#770304]/10 bg-white/92 p-6 shadow-[0_20px_45px_rgba(54,1,2,0.06)] backdrop-blur-md sm:p-7 ${
         isArabic ? "text-right" : ""
       }`}
     >

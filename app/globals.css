@@ -89,7 +89,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
+  /* No text-rendering: optimizeLegibility — it makes the engine re-shape text
+     on layout and is a measurable cost on long pages. The explicit kerning and
+     ligature settings below give the same typography without that penalty. */
   font-feature-settings: "kern" 1, "liga" 1;
 }
 

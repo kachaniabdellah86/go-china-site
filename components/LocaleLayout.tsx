@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import ConsentAndTracking from "@/components/ConsentAndTracking";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import MobileStickyWhatsapp from "@/components/MobileStickyWhatsapp";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -13,13 +12,19 @@ type Locale = "fr" | "en" | "ar";
 type Props = {
   children: React.ReactNode;
   lang: Locale;
+  /**
+   * Footer is a server component, but importing it here would pull it — and its
+   * full trilingual copy — across the client boundary. Passing it in as a slot
+   * keeps it rendering on the server.
+   */
+  footer: React.ReactNode;
 };
 
 function getSafeLang(lang: string): Locale {
   return lang === "fr" || lang === "en" || lang === "ar" ? lang : "fr";
 }
 
-export default function LocaleLayout({ children, lang }: Props) {
+export default function LocaleLayout({ children, lang, footer }: Props) {
   const pathname = usePathname() || "/";
   const safeLang = getSafeLang(lang);
 
@@ -50,7 +55,7 @@ export default function LocaleLayout({ children, lang }: Props) {
             {children}
           </main>
 
-          <Footer lang={safeLang} />
+          {footer}
 
           <MobileStickyWhatsapp lang={safeLang} />
 

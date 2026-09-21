@@ -141,7 +141,7 @@ export default function Navbar({ lang }: Props) {
       }`}
     >
       <div
-        className={`mx-auto w-full max-w-[1340px] overflow-hidden rounded-[1.15rem] border backdrop-blur-2xl transition-all duration-500 sm:rounded-[1.45rem] ${
+        className={`mx-auto w-full max-w-[1340px] overflow-hidden rounded-[1.15rem] border backdrop-blur-md transition-all duration-500 sm:rounded-[1.45rem] ${
           scrolled
             ? "border-white/12 bg-[#070202]/88 shadow-[0_24px_80px_rgba(0,0,0,0.40)]"
             : isHomePage
@@ -271,7 +271,7 @@ export default function Navbar({ lang }: Props) {
               className="relative px-2.5 pb-2.5 animate-fade-in-down sm:px-3 sm:pb-3 lg:hidden"
             >
               <div
-                className={`max-h-[calc(100svh-5.5rem)] overflow-y-auto overscroll-contain rounded-[1.05rem] border border-white/10 bg-black/42 p-3 shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-2xl sm:rounded-[1.25rem] sm:p-4 ${
+                className={`max-h-[calc(100svh-5.5rem)] overflow-y-auto overscroll-contain rounded-[1.05rem] border border-white/10 bg-black/42 p-3 shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-md sm:rounded-[1.25rem] sm:p-4 ${
                   isArabic ? "text-right" : "text-left"
                 }`}
               >

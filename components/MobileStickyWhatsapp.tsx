@@ -33,7 +33,7 @@ export default function MobileStickyWhatsapp({ lang }: { lang: Locale }) {
         rel="noreferrer"
         data-track="mobile_whatsapp_cta"
         data-track-value={lang}
-        className={`mx-auto flex max-w-md items-center justify-between rounded-[1.2rem] border border-[#EDB80B]/40 bg-[#0f0f0f]/94 px-3 py-2.5 text-white shadow-[0_18px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:rounded-[1.5rem] sm:px-4 sm:py-3 ${
+        className={`mx-auto flex max-w-md items-center justify-between rounded-[1.2rem] border border-[#EDB80B]/40 bg-[#0f0f0f]/94 px-3 py-2.5 text-white shadow-[0_18px_40px_rgba(0,0,0,0.28)] backdrop-blur-md sm:rounded-[1.5rem] sm:px-4 sm:py-3 ${
           isArabic ? "flex-row-reverse text-right" : ""
         }`}
       >

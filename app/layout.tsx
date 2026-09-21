@@ -22,6 +22,10 @@ const tajawal = Tajawal({
   weight: ["400", "500", "700", "800"],
   variable: "--font-arabic",
   display: "swap",
+  // Only Arabic pages render this family. Preloading it would force French and
+  // English visitors to download Arabic faces they never see; without the
+  // preload the browser fetches it exactly when the CSS first matches.
+  preload: false,
 });
 
 export const metadata: Metadata = {

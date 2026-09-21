@@ -920,16 +920,21 @@ function GlassPanel({
           : "border-[#770304]/10 bg-white/82 text-zinc-950"
       } ${className}`}
     >
+      {/* Gradients, not blurred circles — same glow, no per-frame filter pass. */}
       <div
         aria-hidden="true"
-        className={`absolute right-[-6rem] top-[-6rem] h-56 w-56 rounded-full blur-3xl ${
-          dark ? "bg-[#EDB80B]/16" : "bg-[#770304]/10"
+        className={`absolute right-[-6rem] top-[-6rem] h-56 w-56 rounded-full ${
+          dark
+            ? "bg-[radial-gradient(circle,rgba(237,184,11,0.17),rgba(237,184,11,0.07)_45%,transparent_72%)]"
+            : "bg-[radial-gradient(circle,rgba(119,3,4,0.11),rgba(119,3,4,0.05)_45%,transparent_72%)]"
         }`}
       />
       <div
         aria-hidden="true"
-        className={`absolute bottom-[-5rem] left-[-5rem] h-52 w-52 rounded-full blur-3xl ${
-          dark ? "bg-[#770304]/38" : "bg-[#EDB80B]/16"
+        className={`absolute bottom-[-5rem] left-[-5rem] h-52 w-52 rounded-full ${
+          dark
+            ? "bg-[radial-gradient(circle,rgba(119,3,4,0.40),rgba(119,3,4,0.16)_45%,transparent_72%)]"
+            : "bg-[radial-gradient(circle,rgba(237,184,11,0.17),rgba(237,184,11,0.07)_45%,transparent_72%)]"
         }`}
       />
       <div className="relative">{children}</div>
@@ -1222,6 +1227,7 @@ function CheckpointScene({
 
 export default function HomeLanding({ lang }: { lang: Locale | string }) {
   useSceneSnap();
+  const reduceMotion = useReducedMotion();
   const safeLang = getSafeLang(lang);
   const t = copy[safeLang];
   const isArabic = t.dir === "rtl";
@@ -1323,12 +1329,12 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
               <span>{t.hero.start}</span>
               <span className="h-px flex-1 border-t border-dashed border-[#EDB80B]/65" />
               <motion.span
-                animate={{ x: [0, 10, 0], y: [0, -3, 0] }}
-                transition={{
-                  duration: 2.8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={reduceMotion ? undefined : { x: [0, 10, 0], y: [0, -3, 0] }}
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : { duration: 2.8, repeat: Infinity, ease: "easeInOut" }
+                }
                 className="text-[#EDB80B]"
               >
                 →
@@ -1659,8 +1665,10 @@ export default function HomeLanding({ lang }: { lang: Locale | string }) {
                   } ${isArabic ? "text-right" : ""}`}
                 >
                   <div
-                    className={`absolute right-[-5rem] top-[-5rem] h-56 w-56 rounded-full blur-3xl ${
-                      featured ? "bg-[#EDB80B]/24" : "bg-[#770304]/10"
+                    className={`absolute right-[-5rem] top-[-5rem] h-56 w-56 rounded-full ${
+                      featured
+                        ? "bg-[radial-gradient(circle,rgba(237,184,11,0.26),rgba(237,184,11,0.10)_45%,transparent_72%)]"
+                        : "bg-[radial-gradient(circle,rgba(119,3,4,0.11),rgba(119,3,4,0.05)_45%,transparent_72%)]"
                     }`}
                   />
 

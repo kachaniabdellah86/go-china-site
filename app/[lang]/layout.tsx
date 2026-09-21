@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import LocaleLayout from "@/components/LocaleLayout";
+import Footer from "@/components/Footer";
 import { Locale, siteBaseUrl } from "@/lib/yalla";
 
 type Props = {
@@ -96,5 +97,9 @@ export default async function LangLayout({ children, params }: Props) {
   if (lang !== "fr" && lang !== "en" && lang !== "ar") notFound();
   const safeLang = getSafeLang(lang);
 
-  return <LocaleLayout lang={safeLang}>{children}</LocaleLayout>;
+  return (
+    <LocaleLayout lang={safeLang} footer={<Footer lang={safeLang} />}>
+      {children}
+    </LocaleLayout>
+  );
 }

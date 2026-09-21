@@ -556,7 +556,7 @@
 
               <Link
                 href={`/${safeLang}/services`}
-                className="rounded-full border border-white/15 bg-white/[0.08] px-7 py-4 text-center font-black text-white backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:bg-white/[0.13]"
+                className="rounded-full border border-white/15 bg-white/[0.08] px-7 py-4 text-center font-black text-white backdrop-blur-md transition duration-500 hover:-translate-y-1 hover:bg-white/[0.13]"
               >
                 {t.hero.secondary}
               </Link>
@@ -570,7 +570,7 @@
               {[t.hero.proofOne, t.hero.proofTwo, t.hero.proofThree].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/10 bg-white/[0.055] p-4 text-xs font-bold leading-5 text-white/72 backdrop-blur-xl"
+                  className="rounded-2xl border border-white/10 bg-white/[0.055] p-4 text-xs font-bold leading-5 text-white/72 backdrop-blur-md"
                 >
                   {item}
                 </div>
@@ -616,7 +616,7 @@
               {t.difference.chips.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/[0.065] px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/72 backdrop-blur-xl"
+                  className="rounded-full border border-white/10 bg-white/[0.065] px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/72 backdrop-blur-md"
                 >
                   {item}
                 </span>
@@ -694,7 +694,7 @@
               whileInView="visible"
               viewport={{ once: true, amount: 0.28 }}
               transition={{ duration: 0.85, ease }}
-              className="mt-8 rounded-[2rem] border border-white/10 bg-white/[0.07] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:p-8"
+              className="mt-8 rounded-[2rem] border border-white/10 bg-white/[0.07] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.28)] backdrop-blur-md sm:p-8"
             >
               <p className="text-2xl font-black leading-10 tracking-[-0.035em] text-white sm:text-3xl">
                 “{t.story.quote}”
@@ -767,7 +767,7 @@
                   viewport={{ once: true, amount: 0.28 }}
                   transition={{ duration: 0.72, ease, delay: index * 0.08 }}
                   whileHover={{ y: -8, scale: 1.012 }}
-                  className={`group relative min-h-[15.75rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)] backdrop-blur-2xl transition-transform ${
+                  className={`group relative min-h-[15.75rem] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)] backdrop-blur-md transition-transform ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
@@ -845,7 +845,7 @@
           whileInView="visible"
           viewport={{ once: true, amount: 0.22 }}
           transition={{ duration: 0.9, ease }}
-          className="relative mx-auto grid max-w-[86rem] gap-8 rounded-[2.4rem] border border-white/12 bg-[#f4ede4]/94 px-5 py-14 shadow-[0_40px_120px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:px-8 lg:grid-cols-[0.98fr_1.02fr] lg:items-center lg:px-12 lg:py-16"
+          className="relative mx-auto grid max-w-[86rem] gap-8 rounded-[2.4rem] border border-white/12 bg-[#f4ede4]/94 px-5 py-14 shadow-[0_40px_120px_rgba(0,0,0,0.28)] backdrop-blur-md sm:px-8 lg:grid-cols-[0.98fr_1.02fr] lg:items-center lg:px-12 lg:py-16"
         >
           <RevealBlock className={isArabic ? "text-right" : ""}>
             <p className="text-xs font-black uppercase tracking-[0.30em] text-[#770304]">
@@ -869,7 +869,7 @@
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.72, ease, delay: index * 0.05 }}
                 whileHover={{ y: -5, scale: 1.01 }}
-                className={`rounded-[1.8rem] border border-[#770304]/10 bg-white/82 p-5 shadow-[0_26px_80px_rgba(54,1,2,0.10)] backdrop-blur-xl ${
+                className={`rounded-[1.8rem] border border-[#770304]/10 bg-white/82 p-5 shadow-[0_26px_80px_rgba(54,1,2,0.10)] backdrop-blur-md ${
                   isArabic ? "text-right" : ""
                 }`}
               >
@@ -914,7 +914,7 @@
                 <motion.div
                   key={detail.title}
                   whileHover={{ y: -4 }}
-                  className={`rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl ${
+                  className={`rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-md ${
                     isArabic ? "text-right" : ""
                   }`}
                 >
@@ -931,7 +931,7 @@
             whileInView="visible"
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.9, ease }}
-            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-[0_32px_90px_rgba(0,0,0,0.28)] backdrop-blur-2xl"
+            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-[0_32px_90px_rgba(0,0,0,0.28)] backdrop-blur-md"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(237,184,11,0.14),transparent_34%)]" />
             <div className="relative grid grid-cols-2 gap-3">
@@ -1010,7 +1010,7 @@
               </a>
               <Link
                 href={`/${safeLang}/services`}
-                className="rounded-full border border-white/15 bg-white/[0.08] px-8 py-4 text-center font-black text-white backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/[0.13]"
+                className="rounded-full border border-white/15 bg-white/[0.08] px-8 py-4 text-center font-black text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/[0.13]"
               >
                 {t.final.secondary}
               </Link>
@@ -1029,7 +1029,7 @@
       <motion.div
         whileHover={{ y: -6, scale: 1.006 }}
         transition={{ duration: 0.6, ease }}
-        className="relative overflow-hidden rounded-[2.45rem] border border-white/10 bg-white/[0.065] p-3 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-2xl sm:p-4 xl:p-5"
+        className="relative overflow-hidden rounded-[2.45rem] border border-white/10 bg-white/[0.065] p-3 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-md sm:p-4 xl:p-5"
       >
         <div className="relative h-[21rem] overflow-hidden rounded-[1.95rem] border border-white/10 bg-black sm:h-[23rem] lg:h-[25rem] xl:h-[27rem]">
           <Image
@@ -1048,7 +1048,7 @@
             className="absolute inset-0 z-10 flex items-center justify-center bg-black/10 text-white transition hover:bg-black/0"
             aria-label={t.hero.primary}
           >
-            <span className="grid h-16 w-16 place-items-center rounded-full border border-[#EDB80B]/50 bg-black/45 text-2xl text-[#EDB80B] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+            <span className="grid h-16 w-16 place-items-center rounded-full border border-[#EDB80B]/50 bg-black/45 text-2xl text-[#EDB80B] shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur-md">
               →
             </span>
           </a>
@@ -1067,13 +1067,13 @@
                 ? undefined
                 : { duration: 3.8, repeat: Infinity, ease: "easeInOut" }
             }
-            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#EDB80B]/40 bg-black/35 text-[#EDB80B] backdrop-blur-xl"
+            className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-[#EDB80B]/40 bg-black/35 text-[#EDB80B] backdrop-blur-md"
           >
             →
           </motion.div>
 
           <div
-            className={`absolute inset-x-4 bottom-4 rounded-[1.45rem] border border-white/10 bg-black/38 p-4 backdrop-blur-2xl sm:inset-x-5 sm:bottom-5 sm:p-5 ${
+            className={`absolute inset-x-4 bottom-4 rounded-[1.45rem] border border-white/10 bg-black/38 p-4 backdrop-blur-md sm:inset-x-5 sm:bottom-5 sm:p-5 ${
               isArabic ? "text-right" : ""
             }`}
           >
@@ -1098,7 +1098,7 @@
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.85, ease }}
-        className="relative overflow-hidden rounded-[2.4rem] border border-white/10 bg-white/[0.065] p-4 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-2xl"
+        className="relative overflow-hidden rounded-[2.4rem] border border-white/10 bg-white/[0.065] p-4 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-md"
       >
         <div className="relative h-[27rem] overflow-hidden rounded-[1.9rem]">
           <Image
@@ -1110,7 +1110,7 @@
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/12 to-transparent" />
           <div
-            className={`absolute inset-x-5 bottom-5 rounded-[1.5rem] border border-white/12 bg-black/42 p-5 backdrop-blur-2xl ${
+            className={`absolute inset-x-5 bottom-5 rounded-[1.5rem] border border-white/12 bg-black/42 p-5 backdrop-blur-md ${
               isArabic ? "text-right" : ""
             }`}
           >
@@ -1143,7 +1143,7 @@
         variants={cardReveal}
         transition={{ duration: 0.78, ease }}
         whileHover={{ y: -6, scale: 1.006 }}
-        className={`relative overflow-hidden rounded-[2rem] border p-6 shadow-[0_34px_95px_rgba(0,0,0,0.25)] backdrop-blur-2xl sm:p-7 ${
+        className={`relative overflow-hidden rounded-[2rem] border p-6 shadow-[0_34px_95px_rgba(0,0,0,0.25)] backdrop-blur-md sm:p-7 ${
           muted
             ? "border-white/10 bg-white/[0.92] text-zinc-950"
             : "border-[#EDB80B]/20 bg-gradient-to-br from-[#8B0000] via-[#6d0203] to-[#210303] text-white"
@@ -1151,8 +1151,10 @@
       >
         <div
           aria-hidden="true"
-          className={`absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full blur-3xl ${
-            muted ? "bg-[#EDB80B]/18" : "bg-[#EDB80B]/24"
+          className={`absolute right-[-4rem] top-[-4rem] h-40 w-40 rounded-full ${
+            muted
+              ? "bg-[radial-gradient(circle,rgba(237,184,11,0.19),rgba(237,184,11,0.08)_45%,transparent_72%)]"
+              : "bg-[radial-gradient(circle,rgba(237,184,11,0.26),rgba(237,184,11,0.10)_45%,transparent_72%)]"
           }`}
         />
 
@@ -1236,9 +1238,12 @@
   function Atmosphere() {
     return (
       <>
-        <div className="absolute left-[-14rem] top-[-12rem] h-[28rem] w-[28rem] rounded-full bg-[#770304]/35 blur-3xl" />
-        <div className="absolute right-[-16rem] top-[12%] h-[30rem] w-[30rem] rounded-full bg-[#EDB80B]/14 blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.16] mix-blend-soft-light [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12)_0_1px,transparent_1px),radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.10)_0_1px,transparent_1px)] [background-size:18px_18px,26px_26px]" />
+        {/* Radial gradients rather than blurred circles: a 64px filter on a
+            450px surface is real GPU work every frame, and the gradient is
+            visually the same soft glow for free. */}
+        <div className="absolute left-[-14rem] top-[-12rem] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(119,3,4,0.35),rgba(119,3,4,0.15)_45%,transparent_72%)]" />
+        <div className="absolute right-[-16rem] top-[12%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(237,184,11,0.14),rgba(237,184,11,0.06)_45%,transparent_72%)]" />
+        <div className="absolute inset-0 opacity-[0.11] [background-image:radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.13)_0_1px,transparent_1px)] [background-size:20px_20px]" />
       </>
     );
   }
